@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-paper: #faf3e6;
+  --color-ink: #22201b;
+  --color-kiremit: #b33a25;
+  --color-safran: #e4a335;
+  --color-deniz: #0f5257;
+  --color-turkuaz: #16909c;
+
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-kiremit: var(--color-kiremit);
+  --color-safran: var(--color-safran);
+  --color-deniz: var(--color-deniz);
+  --color-turkuaz: var(--color-turkuaz);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+.route-dotted-line {
+  background-image: radial-gradient(
+    circle,
+    var(--color-kiremit) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 14px 14px;
+  background-repeat: repeat-x;
+  background-position: center;
 }
