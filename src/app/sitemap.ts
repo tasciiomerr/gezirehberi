@@ -1,9 +1,11 @@
-﻿import { MetadataRoute } from "next";
+import { MetadataRoute } from "next";
+import { regions } from "@/lib/data/regions";
+import { allCities } from "@/lib/data/cities";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = "https://yoldefteri.com";
 
-  return [
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: siteUrl,
       lastModified: new Date(),
@@ -16,23 +18,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    {
-      url: `${siteUrl}/bolgeler/karadeniz`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/bolgeler/karadeniz/amasra`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${siteUrl}/bolgeler/karadeniz/safranbolu`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
   ];
+
+  const regionRoutes: MetadataRoute.Sitemap = regions.map((region) => ({
+    url: `${siteUrl}/bolgeler/${region.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  const cityRoutes: MetadataRoute.Sitemap = allCities.map((city) => ({
+    url: `${siteUrl}/bolgeler/${city.regionSlug}/${city.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...regionRoutes, ...cityRoutes];
 }

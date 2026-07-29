@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { Compass, Utensils, Wallet, Calendar } from "lucide-react";
+import { Compass, Utensils, Wallet, MapPinned } from "lucide-react";
 import { regions } from "@/lib/data/regions";
-import { cities } from "@/lib/data/cities";
+import { allCities } from "@/lib/data/cities";
 import RegionCard from "@/components/RegionCard";
+import PlaceholderImage from "@/components/PlaceholderImage";
 
 export default function Home() {
-  const featuredCities = cities.slice(0, 3);
+  const featuredCities = allCities.slice(0, 6);
 
   return (
     <div>
@@ -62,27 +63,30 @@ export default function Home() {
             <h2 className="mb-8 font-display text-3xl italic text-ink">
               Öne çıkan şehir rehberleri
             </h2>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featuredCities.map((city) => (
                 <Link
                   key={city.slug}
                   href={`/bolgeler/${city.regionSlug}/${city.slug}`}
-                  className="group rounded-2xl border border-ink/10 bg-paper p-6 transition-colors hover:border-kiremit"
+                  className="group overflow-hidden rounded-2xl border border-ink/10 bg-paper transition-all hover:border-kiremit hover:shadow-lg"
                 >
-                  <h3 className="font-display text-xl italic text-ink group-hover:text-kiremit">
-                    {city.name}
-                  </h3>
-                  <p className="mt-2 text-sm text-ink/70">{city.summary}</p>
-                  <div className="mt-4 flex flex-wrap gap-3 text-xs text-ink/50">
-                    <span className="flex items-center gap-1">
-                      <Calendar size={13} /> {city.whenToGo.split(".")[0]}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Wallet size={13} /> {city.budget.split(".")[0]}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Utensils size={13} /> {city.localFood.length} lezzet
-                    </span>
+                  <PlaceholderImage seed={city.slug} label={city.region} aspect="wide" />
+                  <div className="p-6">
+                    <h3 className="font-display text-xl italic text-ink group-hover:text-kiremit">
+                      {city.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-ink/70 line-clamp-2">{city.summary}</p>
+                    <div className="mt-4 flex flex-wrap gap-3 text-xs text-ink/50">
+                      <span className="flex items-center gap-1">
+                        <MapPinned size={13} /> {city.attractions.length} yer
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Wallet size={13} /> {city.budget.split(" ")[0]}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Utensils size={13} /> {city.localFood.length} lezzet
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}

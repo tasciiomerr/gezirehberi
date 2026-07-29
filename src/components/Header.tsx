@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, Heart } from "lucide-react";
 import { regions } from "@/lib/data/regions";
 
 export default function Header() {
@@ -30,7 +30,19 @@ export default function Header() {
                 {r.name}
               </Link>
             ))}
+          <Link
+            href="/kayitlerim"
+            className="flex items-center gap-1.5 hover:text-kiremit"
+          >
+            <Heart size={16} /> Kayıtlarım
+          </Link>
         </nav>
+        <Link
+          href="/kayitlerim"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink sm:hidden"
+        >
+          <Heart size={16} />
+        </Link>
       </div>
     </header>
   );

@@ -117,7 +117,7 @@ export interface RouteStop {
   title: string;
   description?: string;
   duration: string;
-  type: "attraction" | "dining" | "accommodation" | "travel" | "shopping";
+  type: "attraction" | "dining" | "accommodation" | "travel" | "shopping" | "activity";
   itemId?: string;
   location?: GeoPoint;
   tips?: string[];
@@ -131,11 +131,11 @@ export interface DayPlan {
   totalDuration: string;
   distance?: string;
   mealSuggestions?: {
-    breakfast: Restaurant | any;
-    lunch: Restaurant | any;
-    dinner: Restaurant | any;
+    breakfast: Restaurant;
+    lunch: Restaurant;
+    dinner: Restaurant;
   };
-  accommodationSuggestion?: Accommodation | any;
+  accommodationSuggestion?: Accommodation;
   notes?: string;
 }
 

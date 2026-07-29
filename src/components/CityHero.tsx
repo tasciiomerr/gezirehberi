@@ -1,19 +1,22 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { MapPin, Calendar, DollarSign, Navigation, ChevronRight } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { getRegion } from "@/lib/data/regions";
 
 interface CityHeroProps {
   city: {
     name: string;
     heroTagline: string;
     region: string;
-    heroImage: string;
+    regionSlug: string;
   };
 }
 
 export default function CityHero({ city }: CityHeroProps) {
+  const regionData = getRegion(city.regionSlug);
+  const gradientFrom = regionData?.gradientFrom ?? "#0F5257";
+  const gradientTo = regionData?.gradientTo ?? "#16909C";
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -39,13 +42,12 @@ export default function CityHero({ city }: CityHeroProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="relative h-96 overflow-hidden bg-gradient-to-b from-ink/10 to-transparent"
+      className="relative h-96 overflow-hidden"
       style={{
-        backgroundImage: `url(${city.heroImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundImage: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
       }}
     >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(255,255,255,0.12),transparent_55%)]" />
       <div className="absolute inset-0 bg-gradient-to-t from-paper via-transparent to-transparent" />
 
       <motion.div

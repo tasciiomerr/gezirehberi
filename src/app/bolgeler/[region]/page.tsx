@@ -1,25 +1,23 @@
-﻿import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
-import { getRegion } from "@/lib/data/regions";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { ArrowLeft, MapPinned, UtensilsCrossed, Soup } from "lucide-react";
+import { getRegion, regions } from "@/lib/data/regions";
 import { getCitiesByRegion } from "@/lib/data/cities";
 import { RegionSlug } from "@/lib/types";
+import PlaceholderImage from "@/components/PlaceholderImage";
 
-export function generateMetadata(props: { params: Promise<{ region: string }> }) {
+export async function generateMetadata(props: { params: Promise<{ region: string }> }) {
+  const params = await props.params;
+  const region = getRegion(params.region as RegionSlug);
+  if (!region) return { title: "Bölge bulunamadı" };
   return {
-    title: "Bölge yükle ediyor...",
+    title: `${region.name} Gezi Rehberi`,
+    description: region.description,
   };
 }
 
 export async function generateStaticParams() {
-  return [
-    { region: "karadeniz" },
-    { region: "ege" },
-    { region: "akdeniz" },
-    { region: "marmara" },
-    { region: "ic-anadolu" },
-    { region: "dogu-anadolu" },
-    { region: "guneydogu-anadolu" },
-  ];
+  return regions.map((r) => ({ region: r.slug }));
 }
 
 export default async function RegionPage(props: {
@@ -30,11 +28,7 @@ export default async function RegionPage(props: {
   const cities = getCitiesByRegion(params.region as RegionSlug);
 
   if (!region) {
-    return (
-      <div className="mx-auto max-w-6xl px-4 py-16 text-center">
-        <p className="text-ink/70">Bölge bulunamadı.</p>
-      </div>
-    );
+    notFound();
   }
 
   return (
@@ -45,6 +39,7 @@ export default async function RegionPage(props: {
           backgroundImage: `linear-gradient(135deg, ${region.gradientFrom}, ${region.gradientTo})`,
         }}
       >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_25%,rgba(255,255,255,0.12),transparent_55%)]" />
         <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-10">
           <Link
             href="/bolgeler"
@@ -62,7 +57,7 @@ export default async function RegionPage(props: {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <p className="mb-8 text-base text-ink/70">{region.description}</p>
+        <p className="mb-8 max-w-3xl text-base text-ink/70">{region.description}</p>
 
         {cities.length > 0 ? (
           <div>
@@ -74,23 +69,25 @@ export default async function RegionPage(props: {
                 <Link
                   key={city.slug}
                   href={`/bolgeler/${region.slug}/${city.slug}`}
-                  className="group rounded-xl border border-ink/10 bg-paper p-6 transition-all hover:border-kiremit hover:shadow-md"
+                  className="group overflow-hidden rounded-xl border border-ink/10 bg-paper transition-all hover:border-kiremit hover:shadow-lg"
                 >
-                  <h3 className="font-display text-xl italic text-ink group-hover:text-kiremit">
-                    {city.name}
-                  </h3>
-                  <p className="mt-3 text-sm text-ink/70">{city.summary}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {("itineraries" in city && city.itineraries ? city.itineraries : []).map(
-                      (route) => (
-                        <span
-                          key={route.days}
-                          className="rounded-full bg-safran/20 px-3 py-1 text-xs text-kiremit"
-                        >
-                          {route.days} gün
-                        </span>
-                      )
-                    )}
+                  <PlaceholderImage seed={city.slug} label={city.name} aspect="wide" />
+                  <div className="p-5">
+                    <h3 className="font-display text-xl italic text-ink group-hover:text-kiremit">
+                      {city.name}
+                    </h3>
+                    <p className="mt-2 text-sm text-ink/70 line-clamp-2">{city.summary}</p>
+                    <div className="mt-4 flex flex-wrap gap-3 text-xs text-ink/50">
+                      <span className="flex items-center gap-1">
+                        <MapPinned size={12} /> {city.attractions.length} yer
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <UtensilsCrossed size={12} /> {city.restaurants.length} restoran
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Soup size={12} /> {city.localFood.length} lezzet
+                      </span>
+                    </div>
                   </div>
                 </Link>
               ))}
