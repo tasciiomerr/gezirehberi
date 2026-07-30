@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { MapPin, Heart } from "lucide-react";
 import { regions } from "@/lib/data/regions";
+import ThemeToggle from "./ThemeToggle";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   return (
@@ -14,13 +16,16 @@ export default function Header() {
             Yol Defteri
           </span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium text-ink/80 sm:flex">
+        <div className="hidden flex-1 justify-center px-6 md:flex">
+          <SearchBar />
+        </div>
+        <nav className="hidden items-center gap-5 text-sm font-medium text-ink/80 lg:flex">
           <Link href="/bolgeler" className="hover:text-kiremit">
             Bölgeler
           </Link>
           {regions
             .filter((r) => r.cityCount > 0)
-            .slice(0, 4)
+            .slice(0, 3)
             .map((r) => (
               <Link
                 key={r.slug}
@@ -36,13 +41,17 @@ export default function Header() {
           >
             <Heart size={16} /> Kayıtlarım
           </Link>
+          <ThemeToggle />
         </nav>
-        <Link
-          href="/kayitlerim"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink sm:hidden"
-        >
-          <Heart size={16} />
-        </Link>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <Link
+            href="/kayitlerim"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink"
+          >
+            <Heart size={16} />
+          </Link>
+        </div>
       </div>
     </header>
   );

@@ -54,6 +54,23 @@ export default function RestaurantCard({ restaurant }: { restaurant: Restaurant 
           </div>
         )}
 
+        {/* Bölüm 3.8/3.9: fiyat segmenti ($-$$$$) ve imza yemek vurgusu */}
+        {(restaurant.priceSegment || restaurant.signatureDish) && (
+          <div className="mt-3 flex items-start justify-between gap-2 border-t border-ink/5 pt-2.5">
+            {restaurant.priceSegment && (
+              <span className="text-xs font-semibold text-ink/40">
+                {"$".repeat(restaurant.priceSegment)}
+                <span className="text-ink/15">{"$".repeat(4 - restaurant.priceSegment)}</span>
+              </span>
+            )}
+            {restaurant.signatureDish && (
+              <p className="flex-1 text-right text-[11px] italic text-kiremit">
+                ★ {restaurant.signatureDish}
+              </p>
+            )}
+          </div>
+        )}
+
         <div className="mt-3 flex items-center justify-between text-xs text-ink/50">
           <span className="flex items-center gap-1 font-semibold text-kiremit">
             <UtensilsCrossed size={12} /> {restaurant.averageCost}

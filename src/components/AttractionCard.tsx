@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, MapPin, Ticket, Star } from "lucide-react";
+import { Clock, MapPin, Ticket, Star, Camera, Accessibility, ParkingSquare } from "lucide-react";
 import PlaceholderImage from "./PlaceholderImage";
 import { Attraction } from "@/lib/types";
 
@@ -51,10 +51,36 @@ export default function AttractionCard({ attraction }: { attraction: Attraction 
           </div>
         )}
 
+        {/* Bölüm 3.2: en iyi fotoğraf/ışık zamanı */}
+        {attraction.bestPhotoTime && (
+          <div className="mt-2 flex items-start gap-1.5 text-xs text-turkuaz">
+            <Camera size={12} className="mt-0.5 shrink-0" />
+            <span>{attraction.bestPhotoTime}</span>
+          </div>
+        )}
+
         <div className="mt-3 flex items-center gap-1 text-xs text-ink/50">
           <MapPin size={12} />
           <span className="truncate">{attraction.address}</span>
         </div>
+
+        {/* Bölüm 3.6/3.7: erişilebilirlik ve otopark ipuçları */}
+        {(attraction.accessibility || attraction.parkingTip) && (
+          <div className="mt-2 space-y-1 border-t border-ink/5 pt-2">
+            {attraction.accessibility && (
+              <p className="flex items-start gap-1.5 text-[11px] text-ink/50">
+                <Accessibility size={12} className="mt-0.5 shrink-0" />
+                {attraction.accessibility}
+              </p>
+            )}
+            {attraction.parkingTip && (
+              <p className="flex items-start gap-1.5 text-[11px] text-ink/50">
+                <ParkingSquare size={12} className="mt-0.5 shrink-0" />
+                {attraction.parkingTip}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </motion.div>
   );

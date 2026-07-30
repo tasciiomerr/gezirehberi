@@ -42,6 +42,19 @@ export interface PlaceImage {
   caption?: string;
 }
 
+export interface TicketPolicy {
+  fullPrice: string;
+  studentDiscount?: string;
+  museumCardValid?: boolean;
+  seniorOrChildFree?: string;
+}
+
+export interface DynamicHours {
+  summer?: string;
+  winter?: string;
+  closedOn?: string;
+}
+
 export interface Attraction {
   id: string;
   name: string;
@@ -60,6 +73,13 @@ export interface Attraction {
   accessibility: string;
   phone?: string;
   website?: string;
+  // Section 3 zenginleştirilmiş metadata (opsiyonel — flagship yerlerde dolu)
+  nickname?: string;
+  bestPhotoTime?: string;
+  ticketPolicy?: TicketPolicy;
+  dynamicHours?: DynamicHours;
+  parkingTip?: string;
+  nearestTransitStop?: string;
 }
 
 export interface Restaurant {
@@ -78,6 +98,9 @@ export interface Restaurant {
   website?: string;
   reservationNeeded: boolean;
   features: string[];
+  // Section 3: fiyat segmenti (1-4 arası $ işareti) ve imza yemek
+  priceSegment?: 1 | 2 | 3 | 4;
+  signatureDish?: string;
 }
 
 export interface Accommodation {
@@ -112,6 +135,8 @@ export interface FoodItem {
   importance: ImportanceLevel;
 }
 
+export type TimeSlot = "morning" | "afternoon" | "evening";
+
 export interface RouteStop {
   order: number;
   title: string;
@@ -121,6 +146,18 @@ export interface RouteStop {
   itemId?: string;
   location?: GeoPoint;
   tips?: string[];
+  timeSlot?: TimeSlot;
+  startTime?: string;
+  endTime?: string;
+}
+
+export interface TransferBlock {
+  fromOrder: number;
+  toOrder: number;
+  distanceKm: number;
+  mode: "walk" | "drive";
+  estimatedMinutes: number;
+  isLongTransfer?: boolean;
 }
 
 export interface DayPlan {
@@ -128,8 +165,11 @@ export interface DayPlan {
   title: string;
   theme?: string;
   stops: RouteStop[];
+  transfers?: TransferBlock[];
   totalDuration: string;
   distance?: string;
+  totalWalkingKm?: number;
+  estimatedSpend?: string;
   mealSuggestions?: {
     breakfast: Restaurant;
     lunch: Restaurant;

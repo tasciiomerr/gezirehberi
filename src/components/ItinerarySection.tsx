@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import DurationSelector from "./DurationSelector";
-import { DayPlanCard } from "./ItineraryDisplay";
+import ItineraryTimeline from "./ItineraryTimeline";
 import { generateItinerary } from "@/lib/itinerary";
 import { City } from "@/lib/types";
 
@@ -38,21 +38,7 @@ export default function ItinerarySection({ city }: { city: City }) {
           </div>
         </div>
 
-        <div className="space-y-6">
-          {itinerary.dayPlans.map((plan) => (
-            <DayPlanCard
-              key={plan.day}
-              day={plan.day}
-              title={plan.title}
-              stops={plan.stops.map((s) => ({
-                order: s.order,
-                title: s.title,
-                type: s.type as "attraction" | "dining" | "accommodation",
-                duration: s.duration,
-              }))}
-            />
-          ))}
-        </div>
+        <ItineraryTimeline citySlug={city.slug} days={selectedDays} dayPlans={itinerary.dayPlans} />
       </motion.div>
     </div>
   );

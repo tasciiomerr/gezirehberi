@@ -1,0 +1,83 @@
+// Bölüm 2: kullanıcının check-off, not ve gün-kopyalama tercihlerini
+// localStorage'da saklayan hafif bir overlay katmanı (backend yok).
+
+export interface ItineraryLocalState {
+  checked: Record<string, boolean>; // key: `${day}-${order}`
+  notes: Record<number, string>; // key: day
+}
+
+function keyFor(citySlug: string, days: number) {
+  return `yoldefteri_itinerary_${citySlug}_${days}d`;
+}
+
+const EMPTY: ItineraryLocalState = { checked: {}, notes: {} };
+
+export function loadItineraryLocalState(citySlug: string, days: number): ItineraryLocalState {
+  if (typeof window === "undefined") return EMPTY;
+  try {
+    const raw = localStorage.getItem(keyFor(citySlug, days));
+    return raw ? JSON.parse(raw) : EMPTY;
+  } catch {
+    return EMPTY;
+  }
+}
+
+export function saveItineraryLocalState(citySlug: string, days: number, state: ItineraryLocalState) {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(keyFor(citySlug, days), JSON.stringify(state));
+}
+
+/**
+ * Mock hava durumu — gerçek bir Weather API key'i olmadan, il koordinatına ve
+ * gün indexine göre deterministik (her yenilemede aynı) bir tahmin üretir.
+ * Gerçek API entegrasyonu (OpenWeather vb.) key sağlanırsa buraya eklenebilir.
+ */
+export interface MockWeather {
+  tempC: number;
+  condition: "güneşli" | "parçalı bulutlu" | "yağmurlu" | "karlı" | "sisli";
+  icon: string;
+  rainChance: number;
+  windKmh: number;
+}
+
+const CONDITIONS: MockWeather["condition"][] = [
+  "güneşli",
+  "parçalı bulutlu",
+  "yağmurlu",
+  "karlı",
+  "sisli",
+];
+const ICONS: Record<MockWeather["condition"], string> = {
+  "güneşli": "☀️",
+  "parçalı bulutlu": "⛅",
+  "yağmurlu": "🌧️",
+  "karlı": "❄️",
+  "sisli": "🌫️",
+};
+
+function seededRandom(seed: string): number {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) {
+    h = (h << 5) - h + seed.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h % 1000) / 1000;
+}
+
+export function getMockWeather(citySlug: string, day: number, avgTempHint = 18): MockWeather {
+  const r1 = seededRandom(`${citySlug}-${day}-t`);
+  const r2 = seededRandom(`${citySlug}-${day}-c`);
+  const r3 = seededRandom(`${citySlug}-${day}-r`);
+  const r4 = seededRandom(`${citySlug}-${day}-w`);
+
+  const tempC = Math.round(avgTempHint - 6 + r1 * 12);
+  const condition = CONDITIONS[Math.floor(r2 * CONDITIONS.length)];
+
+  return {
+    tempC,
+    condition,
+    icon: ICONS[condition],
+    rainChance: Math.round(r3 * (condition === "yağmurlu" ? 80 : 25)),
+    windKmh: Math.round(8 + r4 * 22),
+  };
+}

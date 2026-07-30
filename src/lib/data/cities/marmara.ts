@@ -49,6 +49,20 @@ export const marmaraCities: City[] = [
         importance: "must-see",
         tips: ["Namaz vakitlerinde ziyarete kapalı olabilir", "Kadınlar için başörtüsü bulundurulur"],
         accessibility: "Ana kat erişilebilir",
+        nickname: "Hagia Sophia (yerel halk arasında sadece 'Ayasofya')",
+        bestPhotoTime: "Sabah 08:00-09:30 arası (doğu cephesinden gelen ışık, kalabalık öncesi)",
+        ticketPolicy: {
+          fullPrice: "Ücretsiz giriş, iç mekan bağış kutusu mevcut",
+          museumCardValid: false,
+          seniorOrChildFree: "7 yaş altı ve engelli ziyaretçiler için tam erişim ücretsiz",
+        },
+        dynamicHours: {
+          summer: "09:00 - 22:30",
+          winter: "09:00 - 19:00",
+          closedOn: "Namaz vakitlerinde (günde 5 kez, ~30 dk) ziyarete kapalı",
+        },
+        parkingTip: "Sultanahmet Meydanı çevresinde ücretli açık otopark, en yakını Nakilbent Sk. otoparkı (300m)",
+        nearestTransitStop: "T1 tramvay hattı Sultanahmet durağı (150m yürüyüş)",
       },
       {
         id: "istanbul-topkapi",
@@ -66,6 +80,21 @@ export const marmaraCities: City[] = [
         importance: "must-see",
         tips: ["Harem bölümü ayrı bilet gerektirir", "Geniş alan, rahat ayakkabı giyin"],
         accessibility: "Bazı bölümler merdivenli",
+        nickname: "Topkapı Sarayı Müzesi",
+        bestPhotoTime: "Açılışta ilk 1 saat (09:00-10:00), avlular henüz boş",
+        ticketPolicy: {
+          fullPrice: "650 TL (Harem hariç), Harem dahil 850 TL",
+          studentDiscount: "Geçerli öğrenci belgesiyle %50 indirim",
+          museumCardValid: true,
+          seniorOrChildFree: "65 yaş üstü Türk vatandaşları ücretsiz, 8 yaş altı ücretsiz",
+        },
+        dynamicHours: {
+          summer: "09:00 - 18:45",
+          winter: "09:00 - 16:45",
+          closedOn: "Salı günleri kapalı",
+        },
+        parkingTip: "Gülhane Parkı yanındaki ücretli otopark en yakın seçenek",
+        nearestTransitStop: "T1 tramvay Gülhane durağı (400m yürüyüş)",
       },
       {
         id: "istanbul-bogaz-turu",
@@ -117,6 +146,8 @@ export const marmaraCities: City[] = [
         openingHours: "12:00 - 17:00",
         reservationNeeded: true,
         features: ["Tarihi mekan", "İznik çinileri", "Boğaz manzarası"],
+        priceSegment: 4,
+        signatureDish: "Patlıcan böreği — 1901'den beri değişmeyen orijinal tarif",
       },
       {
         id: "istanbul-karakoy-lokantasi",
@@ -132,6 +163,8 @@ export const marmaraCities: City[] = [
         openingHours: "12:00 - 00:00",
         reservationNeeded: true,
         features: ["Şık atmosfer", "Geniş meze tabağı"],
+        priceSegment: 3,
+        signatureDish: "Levrek ceviche — günün balığından hazırlanan imza meze",
       },
     ],
     accommodations: [

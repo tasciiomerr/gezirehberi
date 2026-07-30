@@ -7,7 +7,9 @@ import ItinerarySection from "@/components/ItinerarySection";
 import CityContentSections from "@/components/CityContentSections";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
+import AudioGuide from "@/components/AudioGuide";
 import { getCity, getAllCitySlugs } from "@/lib/data/cities";
+import { getRegionThemeStyle } from "@/lib/regionTheme";
 
 export async function generateStaticParams() {
   return getAllCitySlugs();
@@ -38,7 +40,7 @@ export default async function CityDetailPage(props: {
   const galleryImages = city.attractions.flatMap((a) => a.images).slice(0, 4);
 
   return (
-    <div>
+    <div style={getRegionThemeStyle(city.regionSlug)}>
       <div className="relative">
         <CityHero city={city} />
         <div className="absolute right-4 top-20 sm:right-8 sm:top-24">
@@ -64,7 +66,10 @@ export default async function CityDetailPage(props: {
 
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <h2 className="font-display text-3xl italic text-ink mb-4">Hakkında</h2>
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="font-display text-3xl italic text-ink">Hakkında</h2>
+              <AudioGuide title={`${city.name} — Sesli Tanıtım`} text={city.longDescription} />
+            </div>
             <p className="text-base text-ink/70 leading-relaxed mb-6">{city.longDescription}</p>
 
             <Gallery images={galleryImages} fallbackSeed={city.slug} />

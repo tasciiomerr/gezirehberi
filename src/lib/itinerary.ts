@@ -1,4 +1,5 @@
 import { City, DayPlan, ItineraryRoute, RouteStop, Attraction, Restaurant } from "@/lib/types";
+import { estimateTransfer, assignTimeSlot } from "@/lib/geo";
 
 const IMPORTANCE_ORDER: Record<string, number> = {
   "must-see": 0,
@@ -127,10 +128,36 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
       });
     }
 
+    // Section 2.2: her durağı zaman dilimine (sabah/öğle/akşam) yerleştir
+    stops.forEach((s) => {
+      s.timeSlot = assignTimeSlot(s.order, stops.length);
+    });
+
+    // Section 1.3: ardışık duraklar arası mock transfer bloğu (mesafe + süre)
+    const transfers = [];
+    let totalWalkingKm = 0;
+    for (let i = 0; i < stops.length - 1; i++) {
+      const transfer = estimateTransfer(
+        stops[i].order,
+        stops[i + 1].order,
+        stops[i].location,
+        stops[i + 1].location
+      );
+      if (transfer) {
+        transfers.push(transfer);
+        if (transfer.mode === "walk") totalWalkingKm += transfer.distanceKm;
+      }
+    }
+
+    const estimatedSpend = `${150 + dayAttractions.length * 120}-${300 + dayAttractions.length * 200} TL`;
+
     dayPlans.push({
       day,
       title: dayThemes[(day - 1) % dayThemes.length],
       stops,
+      transfers,
+      totalWalkingKm: Math.round(totalWalkingKm * 10) / 10,
+      estimatedSpend,
       totalDuration: `${6 + dayAttractions.length * 2} saat`,
       mealSuggestions:
         breakfastRestaurant && lunchRestaurant && dinnerRestaurant
