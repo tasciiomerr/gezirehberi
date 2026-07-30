@@ -39,6 +39,10 @@ export const guneydoguAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["Gaziantep Kalesi ile aynı günde gezilebilir"],
         accessibility: "Erişilebilir",
+        nickname: "Zeugma Mozaik Müzesi / Zeugma Mosaic Museum",
+        bestPhotoTime: "Öğleden önce, mozaik salonu doğal ışıkta en net",
+        ticketPolicy: { fullPrice: "100 TL" },
+        parkingTip: "Müze önünde ücretli otopark",
       },
       {
         id: "gaziantep-kalesi",
@@ -90,6 +94,8 @@ export const guneydoguAnadoluExtraCities: City[] = [
         openingHours: "09:00 - 23:00",
         reservationNeeded: true,
         features: ["Tarihi işletme", "Orijinal tarifler"],
+        priceSegment: 3,
+        signatureDish: "Baklava — 1887'den beri değişmeyen orijinal tarif",
       },
       {
         id: "gaziantep-baklava-evi",
@@ -208,6 +214,10 @@ export const guneydoguAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["Burçlardan Dicle Vadisi manzarasını izleyin", "Mardin Kapı ve Urfa Kapı'yı görün"],
         accessibility: "Merdivenli burçlar, kısmen erişilebilir",
+        nickname: "Diyarbakır Surları / Diyarbakir City Walls",
+        bestPhotoTime: "Öğleden sonra, bazalt taşlar güneşte koyu tonlarda parlar",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Sur kapıları çevresinde ücretli otopark",
       },
       {
         id: "diyarbakir-hevsel-bahceleri",
@@ -242,6 +252,8 @@ export const guneydoguAnadoluExtraCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Tarihi atmosfer"],
+        priceSegment: 2,
+        signatureDish: "Diyarbakır usulü kaburga — restoranın imza tabağı",
       },
     ],
     accommodations: [

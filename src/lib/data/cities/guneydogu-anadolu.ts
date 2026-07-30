@@ -48,6 +48,9 @@ export const guneydoguAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Dik yokuşlar var, rahat ayakkabı giyin", "Yerel esnaftan kahve içmeyi ihmal etmeyin"],
         accessibility: "Dik ve merdivenli sokaklar, zorlu",
+        nickname: "Eski Mardin / Old Mardin",
+        bestPhotoTime: "Gün batımı, sarı taş evler ova üzerinde altın tonlarda",
+        parkingTip: "Sur içi araç trafiğine kapalı, yakın otoparklardan yürüme",
       },
       {
         id: "mardin-deyrulzafaran",
@@ -99,6 +102,8 @@ export const guneydoguAnadoluCities: City[] = [
         openingHours: "12:00 - 22:00",
         reservationNeeded: true,
         features: ["Ova manzarası", "Tarihi konak", "Otantik dekor"],
+        priceSegment: 3,
+        signatureDish: "Kaburga dolması — restoranın özel günlerde hazırlanan imza yemeği",
       },
     ],
     accommodations: [
@@ -198,6 +203,11 @@ export const guneydoguAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Gölgelik alan azdır, şapka ve su götürün", "Ziyaretçi merkezindeki müzeyi de gezin"],
         accessibility: "Rampalı yürüyüş yolları mevcut",
+        nickname: "Göbeklitepe / Gobekli Tepe (Dünyanın İlk Tapınağı)",
+        bestPhotoTime: "Sabah erken, T biçimli sütunlar yandan ışıkta belirgin",
+        ticketPolicy: { fullPrice: "250 TL" },
+        dynamicHours: { summer: "08:00 - 19:00", winter: "08:00 - 17:00" },
+        parkingTip: "Ziyaretçi merkezinde ücretsiz otopark",
       },
       {
         id: "sanliurfa-balikligol",
@@ -249,6 +259,8 @@ export const guneydoguAnadoluCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Otantik atmosfer", "Odun ateşinde pişirim"],
+        priceSegment: 1,
+        signatureDish: "Urfa kebabı — restoranın odun ateşinde imza tabağı",
       },
     ],
     accommodations: [
