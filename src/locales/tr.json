@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "regions": "Bölgeler",
+    "wishlist": "Kayıtlarım",
+    "search": "İl veya bölge ara...",
+    "logo": "Yol Defteri"
+  },
+  "home": {
+    "badge": "Bölge Bölge Türkiye",
+    "title": "Yola çıkmadan önce oku, yolda not düş.",
+    "subtitle": "Yol Defteri, Türkiye'yi tek seferde değil, bölge bölge anlatan bir gezi rehberi. Nasıl gidilir, nerede kalınır, ne yenir, ne kadar bütçe gerekir — her şey durak durak burada.",
+    "explore": "Bölgeleri keşfet",
+    "startBlacksea": "Karadeniz ile başla",
+    "featured": "Öne çıkan şehir rehberleri"
+  },
+  "city": {
+    "back": "Geri",
+    "about": "Hakkında",
+    "audioGuide": "Sesli Tanıtım",
+    "audioGuideSub": "Sesli Rehber (tarayıcı sesi)",
+    "audioPause": "Sesli Anlatımı Duraklat",
+    "audioPlay": "Sesli Dinle",
+    "bestTime": "En İyi Zaman",
+    "transit": "Ulaşım",
+    "budget": "Bütçe",
+    "idealDuration": "İdeal Süre",
+    "location": "Konum",
+    "quickStats": "Hızlı İstatistikler",
+    "highlights": "Öne Çıkanlar",
+    "accommodationsCount": "Konaklama Seçeneği",
+    "restaurantsCount": "Restoran",
+    "attractionsCount": "Gezilecek Yer",
+    "foodCount": "Yöresel Yemek",
+    "itinerarySection": "Gezi Rotaları",
+    "whereToStay": "Nerede Kalınır",
+    "whereToEat": "Nerede Yenir",
+    "whatToEat": "Ne Yenir — Yöresel Lezzetler",
+    "attractions": "Gezilecek Yerler",
+    "budgetTracker": "Bütçe ve Harcama",
+    "optimizeRoute": "Rotayı Optimize Et",
+    "printItinerary": "Yazdır / PDF",
+    "duplicateDay": "Günü Kopyala",
+    "duplicateTo": "Günü kopyala",
+    "notes": "Gün Notları",
+    "notesPlaceholder": "Örn: Uçak bileti PNR ABC123, otel rezervasyon adı Yılmaz...",
+    "generalProgress": "Genel İlerleme",
+    "freeTime": "Serbest Zaman",
+    "freeTimeDesc": "Bu gün programsız — kendi hızınızda şehri keşfedin, alışveriş yapın veya dinlenin.",
+    "daysCount": "Günlük",
+    "stopsCount": "durak",
+    "walkingDistance": "yürüyüş",
+    "estimatedSpend": "tahmini harcama",
+    "duration": "süre",
+    "save": "Kaydet",
+    "saved": "Kaydedildi"
+  },
+  "wishlist": {
+    "title": "Kayıtlarım",
+    "empty": "Henüz hiçbir şehir kaydetmediniz.",
+    "exploreButton": "Bölgeleri Keşfet",
+    "viewRegion": "Bölgeye göre",
+    "viewList": "Liste",
+    "addedAt": "tarihinde eklendi",
+    "remove": "Kayıttan çıkar",
+    "goToItinerary": "Bu ilin rota bölümüne git"
+  },
+  "search": {
+    "noResults": "için sonuç bulunamadı."
+  }
+}

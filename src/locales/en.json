@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Home",
+    "regions": "Regions",
+    "wishlist": "My Wishlist",
+    "search": "Search city or region...",
+    "logo": "Yol Defteri"
+  },
+  "home": {
+    "badge": "Region by Region Turkey",
+    "title": "Read before you go, note down on the road.",
+    "subtitle": "Yol Defteri is a travel guide that explains Turkey region by region, not all at once. How to go, where to stay, what to eat, what budget is needed — everything is here stop by stop.",
+    "explore": "Explore Regions",
+    "startBlacksea": "Start with Black Sea",
+    "featured": "Featured City Guides"
+  },
+  "city": {
+    "back": "Back",
+    "about": "About",
+    "audioGuide": "Audio Guide",
+    "audioGuideSub": "Audio Guide (browser voice)",
+    "audioPause": "Pause Audio Guide",
+    "audioPlay": "Listen to Audio",
+    "bestTime": "Best Time",
+    "transit": "How to Get There",
+    "budget": "Budget",
+    "idealDuration": "Ideal Duration",
+    "location": "Location",
+    "quickStats": "Quick Stats",
+    "highlights": "Highlights",
+    "accommodationsCount": "Accommodations",
+    "restaurantsCount": "Restaurants",
+    "attractionsCount": "Things to See",
+    "foodCount": "Local Delicacies",
+    "itinerarySection": "Itinerary Routes",
+    "whereToStay": "Where to Stay",
+    "whereToEat": "Where to Eat",
+    "whatToEat": "What to Eat — Local Delicacies",
+    "attractions": "Things to See",
+    "budgetTracker": "Budget & Expenses",
+    "optimizeRoute": "Optimize Route",
+    "printItinerary": "Print / PDF",
+    "duplicateDay": "Duplicate Day",
+    "duplicateTo": "Duplicate to Day",
+    "notes": "Day Notes",
+    "notesPlaceholder": "E.g., Flight PNR ABC123, hotel reservation name Yilmaz...",
+    "generalProgress": "Overall Progress",
+    "freeTime": "Free Time",
+    "freeTimeDesc": "No plans today — explore the city at your own pace, shop, or relax.",
+    "daysCount": "Days",
+    "stopsCount": "stops",
+    "walkingDistance": "walk",
+    "estimatedSpend": "estimated spend",
+    "duration": "duration",
+    "save": "Save",
+    "saved": "Saved"
+  },
+  "wishlist": {
+    "title": "My Wishlist",
+    "empty": "You haven't saved any cities yet.",
+    "exploreButton": "Explore Regions",
+    "viewRegion": "By Region",
+    "viewList": "List View",
+    "addedAt": "Added on",
+    "remove": "Remove",
+    "goToItinerary": "Go to city's itinerary section"
+  },
+  "search": {
+    "noResults": "No results found for"
+  }
+}

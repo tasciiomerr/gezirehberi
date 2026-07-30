@@ -66,3 +66,49 @@ export const TIME_SLOT_LABELS: Record<"morning" | "afternoon" | "evening", { lab
   afternoon: { label: "Öğle", range: "13:30 – 17:00" },
   evening: { label: "Akşam", range: "18:30 – 22:00" },
 };
+
+/**
+  * TSP (Traveling Salesperson) Solver using Nearest Neighbor algorithm.
+  * Starts at the first stop (usually breakfast) and reorders subsequent stops
+  * to minimize total travel distance and prevent backtracking.
+  */
+export function optimizeTSP(stops: any[]): any[] {
+  if (stops.length <= 2) return stops;
+
+  const result = [];
+  const unvisited = [...stops];
+  const start = unvisited.shift(); // Keep the first stop as starting point
+  result.push(start);
+
+  let current = start;
+  while (unvisited.length > 0) {
+    let closestIdx = 0;
+    let minDist = Infinity;
+
+    for (let i = 0; i < unvisited.length; i++) {
+      const candidate = unvisited[i];
+      if (current.location && candidate.location) {
+        const d = haversineDistanceKm(current.location, candidate.location);
+        if (d < minDist) {
+          minDist = d;
+          closestIdx = i;
+        }
+      } else {
+        // If there's no location, consider it close by default so it doesn't break
+        minDist = 0;
+        closestIdx = i;
+        break;
+      }
+    }
+
+    current = unvisited.splice(closestIdx, 1)[0];
+    result.push(current);
+  }
+
+  // Re-assign slot orders
+  return result.map((s, idx) => ({
+    ...s,
+    order: idx + 1,
+  }));
+}
+

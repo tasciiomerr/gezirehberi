@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "regions": "Regionen",
+    "wishlist": "Merkliste",
+    "search": "Stadt oder Region suchen...",
+    "logo": "Yol Defteri"
+  },
+  "home": {
+    "badge": "Türkei Region für Region",
+    "title": "Vor der Abreise lesen, unterwegs Notizen machen.",
+    "subtitle": "Yol Defteri ist ein Reiseführer, der die Türkei Region für Region erklärt, nicht alles auf einmal. Anreise, Unterkunft, Essen, Budget — alles ist Schritt für Schritt hier.",
+    "explore": "Regionen erkunden",
+    "startBlacksea": "Beginnen Sie mit dem Schwarzen Meer",
+    "featured": "Empfohlene Stadtführer"
+  },
+  "city": {
+    "back": "Zurück",
+    "about": "Über",
+    "audioGuide": "Audioguide",
+    "audioGuideSub": "Audioguide (Browserstimme)",
+    "audioPause": "Audioguide pausieren",
+    "audioPlay": "Audio anhören",
+    "bestTime": "Beste Reisezeit",
+    "transit": "Anreise",
+    "budget": "Budget",
+    "idealDuration": "Ideale Dauer",
+    "location": "Lage",
+    "quickStats": "Schnelle Statistiken",
+    "highlights": "Highlights",
+    "accommodationsCount": "Unterkünfte",
+    "restaurantsCount": "Restaurants",
+    "attractionsCount": "Sehenswürdigkeiten",
+    "foodCount": "Lokale Spezialitäten",
+    "itinerarySection": "Reiserouten",
+    "whereToStay": "Unterkunft",
+    "whereToEat": "Essen & Trinken",
+    "whatToEat": "Lokale Spezialitäten",
+    "attractions": "Sehenswürdigkeiten",
+    "budgetTracker": "Budget & Ausgaben",
+    "optimizeRoute": "Route optimieren",
+    "printItinerary": "Drucken / PDF",
+    "duplicateDay": "Tag kopieren",
+    "duplicateTo": "Kopieren nach Tag",
+    "notes": "Tagesnotizen",
+    "notesPlaceholder": "Z.B. Flug-PNR ABC123, Hotelreservierungsname Yilmaz...",
+    "generalProgress": "Gesamtfortschritt",
+    "freeTime": "Freizeit",
+    "freeTimeDesc": "Keine Pläne für heute — erkunden Sie die Stadt in Ihrem eigenen Tempo, gehen Sie einkaufen oder entspannen Sie sich.",
+    "daysCount": "Tage",
+    "stopsCount": "Stopps",
+    "walkingDistance": "Spaziergang",
+    "estimatedSpend": "geschätzte Ausgaben",
+    "duration": "Dauer",
+    "save": "Merken",
+    "saved": "Gemerkt"
+  },
+  "wishlist": {
+    "title": "Merkliste",
+    "empty": "Sie haben noch keine Städte gespeichert.",
+    "exploreButton": "Regionen erkunden",
+    "viewRegion": "Nach Region",
+    "viewList": "Listenansicht",
+    "addedAt": "Hinzugefügt am",
+    "remove": "Entfernen",
+    "goToItinerary": "Gehe zum Routenabschnitt der Stadt"
+  },
+  "search": {
+    "noResults": "Keine Ergebnisse gefunden für"
+  }
+}

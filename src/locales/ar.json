@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "regions": "المناطق",
+    "wishlist": "قائمتي",
+    "search": "ابحث عن مدينة أو منطقة...",
+    "logo": "دفتر الطريق"
+  },
+  "home": {
+    "badge": "تركيا منطقة تلو الأخرى",
+    "title": "اقرأ قبل أن تذهب، ودون ملاحظاتك في الطريق.",
+    "subtitle": "دفتر الطريق هو دليل سفر يشرح تركيا منطقة تلو الأخرى، وليس دفعة واحدة. كيفية الذهاب، أين تقيم، ماذا تأكل، ما هي الميزانية المطلوبة — كل شيء هنا خطوة بخطوة.",
+    "explore": "اكتشف المناطق",
+    "startBlacksea": "ابدأ بالبحر الأسود",
+    "featured": "أدلة المدن المميزة"
+  },
+  "city": {
+    "back": "رجوع",
+    "about": "حول",
+    "audioGuide": "الدليل الصوتي",
+    "audioGuideSub": "الدليل الصوتي (صوت المتصفح)",
+    "audioPause": "إيقاف الدليل الصوتي مؤقتاً",
+    "audioPlay": "الاستماع إلى الصوت",
+    "bestTime": "أفضل وقت",
+    "transit": "كيفية الوصول",
+    "budget": "الميزانية",
+    "idealDuration": "المدة المثالية",
+    "location": "الموقع",
+    "quickStats": "إحصاءات سريعة",
+    "highlights": "أبرز المعالم",
+    "accommodationsCount": "أماكن الإقامة",
+    "restaurantsCount": "المطاعم",
+    "attractionsCount": "أماكن للزيارة",
+    "foodCount": "الأكلات الشعبية",
+    "itinerarySection": "مسارات الرحلة",
+    "whereToStay": "أين تقيم",
+    "whereToEat": "أين تأكل",
+    "whatToEat": "ماذا تأكل — الأكلات الشعبية",
+    "attractions": "أماكن للزيارة",
+    "budgetTracker": "الميزانية والمصاريف",
+    "optimizeRoute": "تحسين المسار",
+    "printItinerary": "طباعة / PDF",
+    "duplicateDay": "نسخ اليوم",
+    "duplicateTo": "نسخ إلى اليوم",
+    "notes": "ملاحظات اليوم",
+    "notesPlaceholder": "مثال: رقم الحجز PNR ABC123، اسم حجز الفندق يلماز...",
+    "generalProgress": "التقدم العام",
+    "freeTime": "وقت حر",
+    "freeTimeDesc": "لا توجد خطط اليوم — استكشف المدينة بالسرعة التي تناسبك، أو تسوق، أو استرخِ.",
+    "daysCount": "أيام",
+    "stopsCount": "توقفات",
+    "walkingDistance": "مشي",
+    "estimatedSpend": "المصاريف المقدرة",
+    "duration": "المدة",
+    "save": "حفظ",
+    "saved": "تم الحفظ"
+  },
+  "wishlist": {
+    "title": "قائمتي",
+    "empty": "لم تقم بحفظ أي مدينة بعد.",
+    "exploreButton": "اكتشف المناطق",
+    "viewRegion": "حسب المنطقة",
+    "viewList": "عرض القائمة",
+    "addedAt": "أضيف في",
+    "remove": "إزالة",
+    "goToItinerary": "انتقل إلى قسم مسار المدينة"
+  },
+  "search": {
+    "noResults": "لم يتم العثور على نتائج لـ"
+  }
+}
