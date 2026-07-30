@@ -39,6 +39,9 @@ export const karadenizExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Gün batımı manzarası için ideal", "Tırmanış zorlu, rahat ayakkabı giyin"],
         accessibility: "Kayalık tırmanış, orta-zor",
+        nickname: "Kastamonu Kalesi / Kastamonu Castle",
+        bestPhotoTime: "Gün batımı, ahşap konakların çatıları altın rengine döner",
+        parkingTip: "Eski Çarşı yakınında ücretsiz sokak parkı",
       },
       {
         id: "kastamonu-kure-daglari",
@@ -90,6 +93,8 @@ export const karadenizExtra4Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Tarihi konak", "Geleneksel dekor"],
+        priceSegment: 2,
+        signatureDish: "Çullama — restoranın en meşhur geleneksel tabağı",
       },
       {
         id: "kastamonu-pinarbasi-restoran",
@@ -208,6 +213,10 @@ export const karadenizExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Gün batımı için akşamüzeri çıkın", "Tepede piknik yapılabilir"],
         accessibility: "Teleferik erişilebilir",
+        nickname: "Boztepe / Boztepe Hill",
+        bestPhotoTime: "Gün batımı, deniz ve şehir panoraması turuncu tonlarda",
+        ticketPolicy: { fullPrice: "80 TL (teleferik gidiş-dönüş)" },
+        nearestTransitStop: "Teleferik alt istasyonu şehir merkezinde",
       },
       {
         id: "ordu-cambasi-yaylasi",
@@ -259,6 +268,8 @@ export const karadenizExtra4Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Deniz manzarası", "Yerel lezzetler"],
+        priceSegment: 2,
+        signatureDish: "Kaygana — restoranın imza kahvaltı tabağı",
       },
       {
         id: "ordu-cambasi-restoran",

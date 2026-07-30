@@ -39,6 +39,10 @@ export const karadenizExtra6Cities: City[] = [
         importance: "must-see",
         tips: ["Hücreleri gezmek etkileyici bir deneyim sunar", "Kale surlarının bir parçası olarak da önemli"],
         accessibility: "Erişilebilir",
+        nickname: "Sinop Cezaevi Müzesi / Sinop Prison Museum",
+        bestPhotoTime: "Öğleden önce, avlu ışığı en iyi",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Liman çevresinde ücretli otopark",
       },
       {
         id: "sinop-inceburun",
@@ -90,6 +94,8 @@ export const karadenizExtra6Cities: City[] = [
         openingHours: "11:00 - 23:00",
         reservationNeeded: false,
         features: ["Liman manzarası", "Taze balık"],
+        priceSegment: 2,
+        signatureDish: "Hamsi tava — mevsiminde taze avlanan restoranın imza tabağı",
       },
       {
         id: "sinop-tarihi-cezaevi-kafe",
@@ -208,6 +214,9 @@ export const karadenizExtra6Cities: City[] = [
         importance: "must-see",
         tips: ["Tırmanış zorlu, rahat ayakkabı giyin"],
         accessibility: "Kayalık tırmanış, zor",
+        nickname: "Tokat Kalesi / Tokat Castle",
+        bestPhotoTime: "Gün batımı, şehir manzarası altın tonlarda",
+        parkingTip: "Kale eteğinde sınırlı sokak parkı",
       },
       {
         id: "tokat-latifoglu-konagi",
@@ -259,6 +268,8 @@ export const karadenizExtra6Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: true,
         features: ["Testi kırma gösterisi", "Odun ateşinde pişirim"],
+        priceSegment: 3,
+        signatureDish: "Tokat testi kebabı — masada kırılarak servis edilen imza yemek",
       },
       {
         id: "tokat-kale-manzara-restoran",
@@ -377,6 +388,10 @@ export const karadenizExtra6Cities: City[] = [
         importance: "must-see",
         tips: ["Manastıra tırmanış var, rahat ayakkabı giyin", "Servis noktasından yürüyüş parkuru mevcut"],
         accessibility: "Dik tırmanış, zor",
+        nickname: "Sümela Manastırı / Sumela Monastery",
+        bestPhotoTime: "Sabah erken, sis vadiden yükselirken kayaya asılı görünüm en dramatik",
+        ticketPolicy: { fullPrice: "150 TL", museumCardValid: true },
+        parkingTip: "Ziyaretçi merkezinde ücretli otopark, oradan servis/yürüyüş",
       },
       {
         id: "trabzon-uzungol",
@@ -445,6 +460,8 @@ export const karadenizExtra6Cities: City[] = [
         openingHours: "10:00 - 23:00",
         reservationNeeded: false,
         features: ["Deniz manzarası", "Yerel lezzetler"],
+        priceSegment: 2,
+        signatureDish: "Akçaabat köftesi — restoranın en çok tercih edilen imza tabağı",
       },
       {
         id: "trabzon-uzungol-alabalik-evi",
@@ -578,6 +595,10 @@ export const karadenizExtra6Cities: City[] = [
         importance: "must-see",
         tips: ["İçerisi serin, hafif mont götürün", "Zemin kaygan olabilir, dikkatli yürüyün"],
         accessibility: "Aydınlatılmış yol, orta erişilebilir",
+        nickname: "Gökgöl Mağarası / Gokgol Cave",
+        bestPhotoTime: "Sabit iç aydınlatma, gün içi her saat aynı görsel",
+        ticketPolicy: { fullPrice: "80 TL" },
+        parkingTip: "Mağara girişinde ücretsiz otopark",
       },
       {
         id: "zonguldak-cakraz-sahili",
@@ -629,6 +650,8 @@ export const karadenizExtra6Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Deniz manzarası", "Taze balık"],
+        priceSegment: 2,
+        signatureDish: "Hamsi tava — restoranın mevsimlik imza tabağı",
       },
       {
         id: "zonguldak-cakraz-restoran",

@@ -49,6 +49,9 @@ export const karadenizExtraCities: City[] = [
         tips: ["Nehir kenarından bakınca en etkileyici manzarası görülür", "Mezarların içine tırmanış merdivenli ve dikkatli olunmalı"],
         accessibility: "Merdivenli tırmanış, orta zorluk",
         phone: "+90 358 218 1002",
+        nickname: "Kral Kaya Mezarları / Pontus Kings' Rock Tombs",
+        bestPhotoTime: "Akşam ışıklandırma sonrası (gün batımından 30 dk sonra)",
+        parkingTip: "Yalıboyu'ndaki genel otoparktan yürüyerek çıkılır",
       },
       {
         id: "amasya-hazeranlar-konagi",
@@ -135,6 +138,8 @@ export const karadenizExtraCities: City[] = [
         phone: "+90 358 218 5566",
         reservationNeeded: true,
         features: ["Panoramik manzara", "Gün batımı"],
+        priceSegment: 3,
+        signatureDish: "Amasya dolması — restoranın en çok sipariş edilen tabağı",
       },
       {
         id: "amasya-yali-han",
@@ -304,6 +309,9 @@ export const karadenizExtraCities: City[] = [
         importance: "must-see",
         tips: ["Yaz aylarında bile serin olabilir, mont götürün", "Göl çevresinde kamp yapılabilir"],
         accessibility: "Düz yürüyüş parkuru",
+        nickname: "Karagöl / Black Lake Nature Park",
+        bestPhotoTime: "Sabah, sis göl üzerinde asılıyken (07:00-08:30)",
+        parkingTip: "Giriş yanında ücretli araç park alanı",
       },
       {
         id: "artvin-savsat-yaylalari",
@@ -389,6 +397,8 @@ export const karadenizExtraCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Dağ manzarası", "Yerel ürünler"],
+        priceSegment: 2,
+        signatureDish: "Kuymak — sıcak servis edilen restoranın en çok tercih edilen tabağı",
       },
       {
         id: "artvin-coruh-vadisi-restoran",

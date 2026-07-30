@@ -39,6 +39,10 @@ export const karadenizExtra5Cities: City[] = [
         importance: "must-see",
         tips: ["Kaplıcaya girmeyi ihmal etmeyin", "Hafta sonları çok kalabalık olur"],
         accessibility: "Dağlık yol, araçla erişim",
+        nickname: "Ayder Yaylası / Ayder Plateau",
+        bestPhotoTime: "Sabah, sis dağların arasından yükselirken",
+        ticketPolicy: { fullPrice: "Yayla girişi ücretsiz, kaplıca 200 TL" },
+        parkingTip: "Yayla merkezinde ücretli otopark alanları",
       },
       {
         id: "rize-cay-bahceleri",
@@ -107,6 +111,8 @@ export const karadenizExtra5Cities: City[] = [
         openingHours: "08:00 - 22:00",
         reservationNeeded: false,
         features: ["Yayla manzarası", "Ahşap dekor"],
+        priceSegment: 2,
+        signatureDish: "Muhlama — restoranın en çok sipariş edilen sıcak tabağı",
       },
       {
         id: "rize-cay-bahcesi-kafe",
@@ -225,6 +231,10 @@ export const karadenizExtra5Cities: City[] = [
         importance: "must-see",
         tips: ["19 Mayıs'a denk gelirse özel törenler olur"],
         accessibility: "Erişilebilir",
+        nickname: "Bandırma Vapuru Müzesi",
+        bestPhotoTime: "Öğleden önce, müze iç aydınlatması sabit",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Müze yanında ücretsiz otopark",
       },
       {
         id: "samsun-atakum-sahili",
@@ -276,6 +286,8 @@ export const karadenizExtra5Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Odun fırını", "Yerel lezzetler"],
+        priceSegment: 2,
+        signatureDish: "Samsun pidesi — restoranın odun fırınından çıkan imza pide",
       },
       {
         id: "samsun-atakum-balik-restorani",

@@ -43,6 +43,9 @@ export const karadenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Gün batımında vadi manzarası muhteşemdir", "Tırmanış var, rahat ayakkabı giyin"],
         accessibility: "Merdivenli tırmanış, orta zorluk",
+        nickname: "Bayburt Kalesi / Bayburt Castle",
+        bestPhotoTime: "Gün batımı, Çoruh Vadisi turuncu tonlarda",
+        parkingTip: "Kale eteğinde ücretsiz açık alan",
       },
       {
         id: "bayburt-kop-sehitligi",
@@ -94,6 +97,8 @@ export const karadenizExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler", "Uygun fiyat"],
+        priceSegment: 1,
+        signatureDish: "Kete — çayla birlikte servis edilen imza atıştırmalık",
       },
       {
         id: "bayburt-kale-cafe",
@@ -215,6 +220,10 @@ export const karadenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Göl çevresini bisikletle de gezebilirsiniz", "Kışın karlı manzarası ayrı bir güzellik"],
         accessibility: "Düz yürüyüş parkuru, tekerlekli sandalye dostu",
+        nickname: "Abant Gölü / Lake Abant",
+        bestPhotoTime: "Sabah sisi dağılırken (08:00-09:30)",
+        parkingTip: "Göl girişinde ücretli otopark (araç başına)",
+        nearestTransitStop: "Bolu merkezden dolmuş seferleri mevcut",
       },
       {
         id: "bolu-kartalkaya",
@@ -266,6 +275,8 @@ export const karadenizExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Göl manzarası", "Taze balık"],
+        priceSegment: 2,
+        signatureDish: "Alabalık ızgara — göl kenarında taze avlanan balıkla",
       },
       {
         id: "bolu-mengen-ascilar",
@@ -399,6 +410,10 @@ export const karadenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Yazılıkaya kutsal alanını da mutlaka görün", "Geniş alan, araçla gezmek gerekebilir"],
         accessibility: "Geniş açık alan, bazı bölümler yürüyüş gerektirir",
+        nickname: "Hattuşa / Hattusa Ancient City",
+        bestPhotoTime: "Sabah erken, Yazılıkaya kabartmalarında yan ışık en iyi",
+        ticketPolicy: { fullPrice: "150 TL", museumCardValid: true },
+        parkingTip: "Boğazkale köyü girişinde ücretsiz otopark",
       },
       {
         id: "corum-alacahoyuk",
@@ -450,6 +465,8 @@ export const karadenizExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Leblebi çeşitleri", "Yerel lezzetler"],
+        priceSegment: 2,
+        signatureDish: "Çorum leblebisi çeşitleri — dükkanın kendi kavurduğu tarif",
       },
       {
         id: "corum-hattusa-restoran",
@@ -568,6 +585,9 @@ export const karadenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Sahil boyunca bisiklet yolu mevcut", "Yaz aylarında hafta sonları kalabalık olur"],
         accessibility: "Düz kumsal, erişilebilir",
+        nickname: "Akçakoca Sahili / Akcakoca Beach",
+        bestPhotoTime: "Gün batımı, Temmuz-Ağustos yaz akşamları",
+        parkingTip: "Sahil bulvarı boyunca ücretsiz açık park alanları",
       },
       {
         id: "duzce-efteni-golu",
@@ -619,6 +639,8 @@ export const karadenizExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Ev yapımı yemekler", "Uygun fiyat"],
+        priceSegment: 1,
+        signatureDish: "Karalahana sarma — yöresel usulde hazırlanan imza yemek",
       },
       {
         id: "duzce-akcakoca-balik-evi",

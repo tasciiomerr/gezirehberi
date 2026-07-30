@@ -39,6 +39,9 @@ export const karadenizExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Tekne turları merkez limandan kalkar", "Deniz durumuna göre tur iptal olabilir"],
         accessibility: "Tekneye biniş merdivenli",
+        nickname: "Giresun Adası / Giresun Island",
+        bestPhotoTime: "Öğleden önce, deniz sakinken tekne turu için ideal",
+        parkingTip: "Liman çevresinde ücretli otopark",
       },
       {
         id: "giresun-kumbet-yaylasi",
@@ -90,6 +93,8 @@ export const karadenizExtra3Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Deniz manzarası", "Fındıklı özel tatlılar"],
+        priceSegment: 2,
+        signatureDish: "Fındıklı baklava — yöresel fındıkla hazırlanan imza tatlı",
       },
       {
         id: "giresun-liman-restorani",
@@ -208,6 +213,10 @@ export const karadenizExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["İçerisi serin, mont götürün", "Zemin kaygan olabilir"],
         accessibility: "Aydınlatılmış yürüyüş yolu, orta erişilebilir",
+        nickname: "Karaca Mağarası / Karaca Cave",
+        bestPhotoTime: "İç aydınlatma sabit, gün içi her saat aynı görsel",
+        ticketPolicy: { fullPrice: "100 TL" },
+        parkingTip: "Mağara girişinde ücretsiz otopark",
       },
       {
         id: "gumushane-zigana-gecidi",
@@ -259,6 +268,8 @@ export const karadenizExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı yemekler", "Uygun fiyat"],
+        priceSegment: 1,
+        signatureDish: "Kuymak — yöresel peynirle hazırlanan restoranın imza tabağı",
       },
       {
         id: "gumushane-zigana-restoran",
