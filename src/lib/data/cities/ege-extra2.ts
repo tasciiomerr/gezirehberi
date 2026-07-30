@@ -39,6 +39,10 @@ export const egeExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Didim plajlarıyla aynı günde kombinlenebilir"],
         accessibility: "Düz yürüyüş yolları",
+        nickname: "Didim Apollon Tapınağı / Temple of Apollo",
+        bestPhotoTime: "Öğleden önce, devasa sütunlar yandan ışıkta belirgin",
+        ticketPolicy: { fullPrice: "150 TL", museumCardValid: true },
+        parkingTip: "Ören yeri girişinde ücretsiz otopark",
       },
       {
         id: "aydin-milet",
@@ -73,6 +77,8 @@ export const egeExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Yerel incir ürünleri"],
+        priceSegment: 2,
+        signatureDish: "İncirli tatlı — restoranın yerel incirle hazırlanan imza tabağı",
       },
       {
         id: "aydin-didim-balik-evi",
@@ -177,6 +183,10 @@ export const egeExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Çıplak ayakla gezilir, terasların üzerinde yürüyün", "Yaz aylarında çok kalabalık olur"],
         accessibility: "Yalın ayak yürüyüş, kaygan olabilir",
+        nickname: "Pamukkale Travertenleri / Pamukkale Travertines",
+        bestPhotoTime: "Gün batımı, beyaz teraslar pembe tonlarda parlar",
+        ticketPolicy: { fullPrice: "200 TL", museumCardValid: true },
+        parkingTip: "Pamukkale köyü girişinde ücretli otopark",
       },
       {
         id: "denizli-hierapolis",
@@ -211,6 +221,8 @@ export const egeExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Traverten manzarası"],
+        priceSegment: 2,
+        signatureDish: "Denizli kebabı — restoranın imza tabağı",
       },
     ],
     accommodations: [

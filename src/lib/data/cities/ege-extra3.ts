@@ -39,6 +39,9 @@ export const egeExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Tırmanış zorlu ama manzara buna değer", "Rahat ayakkabı giyin"],
         accessibility: "Kayalık tırmanış, zor",
+        nickname: "Afyonkarahisar Kalesi / Afyon Castle",
+        bestPhotoTime: "Gün batımı, şehir manzarası altın tonlarda",
+        parkingTip: "Kale eteğinde sınırlı sokak parkı",
       },
       {
         id: "afyon-omer-gecek",
@@ -73,6 +76,8 @@ export const egeExtra3Cities: City[] = [
         openingHours: "08:00 - 22:00",
         reservationNeeded: false,
         features: ["Yerel üretim", "Kahvaltı çeşitliliği"],
+        priceSegment: 2,
+        signatureDish: "Afyon sucuğu — restoranın imza kahvaltı tabağı",
       },
     ],
     accommodations: [
@@ -163,6 +168,9 @@ export const egeExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Çini yapım sürecini canlı izleyebilirsiniz", "El yapımı ürünler seri üretimden pahalıdır ama değerlidir"],
         accessibility: "Erişilebilir",
+        nickname: "Kütahya Çini Atölyeleri / Kutahya Tile Workshops",
+        bestPhotoTime: "Öğleden sonra, atölye vitrinleri doğal ışıkta",
+        parkingTip: "Merkez çarşı çevresinde ücretli otopark",
       },
       {
         id: "kutahya-kalesi",
@@ -197,6 +205,8 @@ export const egeExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Kütahya köfte — restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -273,6 +283,10 @@ export const egeExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Define parçalarının hikayesini araştırarak gidin"],
         accessibility: "Erişilebilir",
+        nickname: "Uşak Arkeoloji Müzesi (Lidya Definesi)",
+        bestPhotoTime: "Öğleden önce, vitrin aydınlatması sabit",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Müze önünde ücretsiz otopark",
       },
     ],
     restaurants: [
@@ -290,6 +304,8 @@ export const egeExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Uşak kebabı — restoranın imza tabağı",
       },
     ],
     accommodations: [

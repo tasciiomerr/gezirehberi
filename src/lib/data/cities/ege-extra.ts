@@ -214,6 +214,10 @@ export const egeExtraCities: City[] = [
         importance: "must-see",
         tips: ["İlkbaharda çiçek açan bitki örtüsü için ideal"],
         accessibility: "Dağlık patika, orta zorluk",
+        nickname: "Spil Dağı Milli Parkı / Mount Spil National Park",
+        bestPhotoTime: "İlkbahar öğleden sonrası, çiçekler tam açmışken",
+        ticketPolicy: { fullPrice: "20 TL" },
+        parkingTip: "Milli park girişinde ücretli otopark",
       },
       {
         id: "manisa-sultan-camii",
@@ -248,6 +252,8 @@ export const egeExtraCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Yerel lezzetler"],
+        priceSegment: 2,
+        signatureDish: "Manisa kebabı — restoranın imza tabağı",
       },
     ],
     accommodations: [

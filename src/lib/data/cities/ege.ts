@@ -50,6 +50,9 @@ export const egeCities: City[] = [
         importance: "must-see",
         tips: ["Hafta sonları çok kalabalık olur, hafta içi tercih edin"],
         accessibility: "Taş kaldırım, düz ama eskimiş zemin",
+        nickname: "Çeşme Kalesi ve Alaçatı Sokakları",
+        bestPhotoTime: "Akşam, taş sokaklar gün batımı ışığında",
+        parkingTip: "Alaçatı merkez girişinde ücretli otopark",
       },
       {
         id: "cesme-alacati-plaji",
@@ -102,6 +105,8 @@ export const egeCities: City[] = [
         openingHours: "12:00 - 00:00",
         reservationNeeded: true,
         features: ["Taş avlu", "Şık atmosfer", "Ege şarapları"],
+        priceSegment: 4,
+        signatureDish: "Ege mezeleri tabağı — restoranın imza meze seçkisi",
       },
       {
         id: "cesme-imren-lokantasi",
@@ -205,6 +210,10 @@ export const egeCities: City[] = [
         importance: "must-see",
         tips: ["Müze koleksiyonu geniş, en az 2 saat ayırın"],
         accessibility: "Kısmen merdivenli, bazı bölümler erişilebilir",
+        nickname: "Bodrum Kalesi / Bodrum Castle (Sualtı Arkeoloji Müzesi)",
+        bestPhotoTime: "Gün batımı, kale limanı turuncu tonlarda",
+        ticketPolicy: { fullPrice: "300 TL", museumCardValid: true },
+        parkingTip: "Marina çevresinde ücretli otopark",
       },
       {
         id: "bodrum-halikarnas-mozole",
@@ -274,6 +283,8 @@ export const egeCities: City[] = [
         openingHours: "12:00 - 00:00",
         reservationNeeded: true,
         features: ["Gün batımı manzarası", "Taze balık seçimi"],
+        priceSegment: 4,
+        signatureDish: "Günün balığı — restoranın taze seçim imza tabağı",
       },
       {
         id: "bodrum-han-restaurant",
