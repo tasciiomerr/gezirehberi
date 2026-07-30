@@ -27,6 +27,7 @@ import { doguAnadoluExtra2Cities } from "./dogu-anadolu-extra2";
 import { doguAnadoluExtra3Cities } from "./dogu-anadolu-extra3";
 import { guneydoguAnadoluCities } from "./guneydogu-anadolu";
 import { guneydoguAnadoluExtraCities } from "./guneydogu-anadolu-extra";
+import { guneydoguAnadoluExtra2Cities } from "./guneydogu-anadolu-extra2";
 
 export const allCities: City[] = [
   ...karadenizCities,
@@ -57,6 +58,7 @@ export const allCities: City[] = [
   ...doguAnadoluExtra3Cities,
   ...guneydoguAnadoluCities,
   ...guneydoguAnadoluExtraCities,
+  ...guneydoguAnadoluExtra2Cities,
 ];
 
 export function getCity(regionSlug: string, citySlug: string): City | undefined {
