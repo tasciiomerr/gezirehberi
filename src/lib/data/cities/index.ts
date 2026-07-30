@@ -10,6 +10,8 @@ import { akdenizCities } from "./akdeniz";
 import { akdenizExtraCities } from "./akdeniz-extra";
 import { egeCities } from "./ege";
 import { egeExtraCities } from "./ege-extra";
+import { egeExtra2Cities } from "./ege-extra2";
+import { egeExtra3Cities } from "./ege-extra3";
 import { marmaraCities } from "./marmara";
 import { marmaraExtra2Cities } from "./marmara-extra2";
 import { marmaraExtra3Cities } from "./marmara-extra3";
@@ -35,6 +37,8 @@ export const allCities: City[] = [
   ...akdenizExtraCities,
   ...egeCities,
   ...egeExtraCities,
+  ...egeExtra2Cities,
+  ...egeExtra3Cities,
   ...marmaraCities,
   ...marmaraExtra2Cities,
   ...marmaraExtra3Cities,
