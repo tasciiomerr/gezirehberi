@@ -306,6 +306,10 @@ export const akdenizCities: City[] = [
         importance: "must-see",
         tips: ["Gün batımında fotoğraf için mükemmel"],
         accessibility: "Basamaklı, kısmen erişilebilir",
+        nickname: "Antiphellos Antik Tiyatrosu / Antiphellos Theatre",
+        bestPhotoTime: "Gün batımı, deniz ve tiyatro aynı karede",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Kaş merkez otoparkından yürüme mesafesinde",
       },
       {
         id: "kas-kayakoy-dalis",
@@ -359,6 +363,8 @@ export const akdenizCities: City[] = [
         openingHours: "08:00 - 23:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler", "Samimi atmosfer"],
+        priceSegment: 2,
+        signatureDish: "Günün balığı — restoranın taze imza tabağı",
       },
       {
         id: "kas-sun-cafe",
@@ -461,6 +467,10 @@ export const akdenizCities: City[] = [
         importance: "must-see",
         tips: ["Milli park girişi ücretlidir", "Yaz aylarında çok kalabalık olur"],
         accessibility: "Düz plaj, tekerlekli sandalye dostu",
+        nickname: "Ölüdeniz Lagünü / Blue Lagoon",
+        bestPhotoTime: "Sabah erken, lagün rüzgarsız ve aynı gibi düzken",
+        ticketPolicy: { fullPrice: "15-30 TL (Milli Park girişi)" },
+        parkingTip: "Milli park girişinde ücretli otopark",
       },
       {
         id: "fethiye-babadag",
@@ -532,6 +542,8 @@ export const akdenizCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Ev yemekleri", "Uygun fiyat"],
+        priceSegment: 1,
+        signatureDish: "Yöresel meze tabağı — restoranın imza seçkisi",
       },
       {
         id: "fethiye-oludeniz-beach-restaurant",

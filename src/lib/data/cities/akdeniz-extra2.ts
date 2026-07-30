@@ -39,6 +39,10 @@ export const akdenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Mozaiklerin detaylarını incelemek için zaman ayırın"],
         accessibility: "Erişilebilir",
+        nickname: "Hatay Mozaik Müzesi / Hatay Mosaic Museum",
+        bestPhotoTime: "Öğleden önce, mozaik salonu doğal ışıkta",
+        ticketPolicy: { fullPrice: "100 TL" },
+        parkingTip: "Müze önünde ücretli otopark",
       },
       {
         id: "hatay-uzun-carsi",
@@ -73,6 +77,8 @@ export const akdenizExtra2Cities: City[] = [
         openingHours: "10:00 - 23:00",
         reservationNeeded: false,
         features: ["Zengin meze çeşitliliği"],
+        priceSegment: 2,
+        signatureDish: "Künefe — restoranın şerbetli imza tatlısı",
       },
       {
         id: "hatay-kunefeci",
@@ -178,6 +184,9 @@ export const akdenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Şehir manzarasını izlemek için gün batımını bekleyin"],
         accessibility: "Tırmanış gerektirir",
+        nickname: "Kahramanmaraş Kalesi / Maraş Castle",
+        bestPhotoTime: "Gün batımı, şehir manzarası turuncu tonlarda",
+        parkingTip: "Kale eteğinde sınırlı sokak parkı",
       },
       {
         id: "maras-kurtulus-muzesi",
@@ -212,6 +221,8 @@ export const akdenizExtra2Cities: City[] = [
         openingHours: "09:00 - 23:00",
         reservationNeeded: false,
         features: ["Otantik dondurma üretimi"],
+        priceSegment: 2,
+        signatureDish: "Maraş dondurması — dövülerek yapılan restoranın imza tatlısı",
       },
     ],
     accommodations: [
@@ -288,6 +299,10 @@ export const akdenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Ceyhan Nehri kıyısındaki piknik alanlarını da değerlendirin"],
         accessibility: "Orman içi yürüyüş yolları",
+        nickname: "Karatepe-Aslantaş Milli Parkı / Karatepe-Aslantas National Park",
+        bestPhotoTime: "Öğleden önce, kabartmalar yandan ışıkta belirgin",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Milli park girişinde ücretsiz otopark",
       },
     ],
     restaurants: [
@@ -305,6 +320,8 @@ export const akdenizExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Osmaniye kebabı — restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -381,6 +398,9 @@ export const akdenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Hasat mevsiminde sabah erken saatte gidin", "Gülyağı fabrikalarını da ziyaret edin"],
         accessibility: "Düz tarla yolları",
+        nickname: "Isparta Gül Bahçeleri / Isparta Rose Gardens",
+        bestPhotoTime: "Mayıs-Haziran sabah erken, çiy taneleri gül yapraklarında",
+        parkingTip: "Tarla girişlerinde geniş açık alan",
       },
       {
         id: "isparta-egirdir-golu",
@@ -415,6 +435,8 @@ export const akdenizExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Göl manzarası", "Taze balık"],
+        priceSegment: 2,
+        signatureDish: "Levrek — göl kenarında taze avlanan restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -491,6 +513,9 @@ export const akdenizExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Beyaz kumu korumak için belirlenen alanlarda yürüyün", "Yaz aylarında erken gidin, kalabalık olabilir"],
         accessibility: "Düz kumsal, erişilebilir",
+        nickname: "Salda Gölü / Lake Salda (Türkiye'nin Maldivleri)",
+        bestPhotoTime: "Öğleden sonra, beyaz kum ve turkuaz su güneşte en parlak",
+        parkingTip: "Göl girişinde ücretsiz açık alan",
       },
     ],
     restaurants: [
@@ -508,6 +533,8 @@ export const akdenizExtra2Cities: City[] = [
         openingHours: "09:00 - 20:00",
         reservationNeeded: false,
         features: ["Göl manzarası"],
+        priceSegment: 1,
+        signatureDish: "Burdur şiş köftesi — restoranın imza tabağı",
       },
     ],
     accommodations: [

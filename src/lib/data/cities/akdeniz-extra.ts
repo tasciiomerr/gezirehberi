@@ -39,6 +39,10 @@ export const akdenizExtraCities: City[] = [
         importance: "must-see",
         tips: ["Akşam ışıklandırması güzel bir manzara sunar"],
         accessibility: "Düz köprü, erişilebilir",
+        nickname: "Taşköprü / Stone Bridge (Roma Köprüsü)",
+        bestPhotoTime: "Akşam ışıklandırma sonrası, nehre yansıma en etkileyici",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Seyhan Nehri kıyısında ücretli otopark",
       },
       {
         id: "adana-sabanci-camii",
@@ -73,6 +77,8 @@ export const akdenizExtraCities: City[] = [
         openingHours: "11:00 - 23:00",
         reservationNeeded: false,
         features: ["Odun ateşinde pişirim", "Otantik atmosfer"],
+        priceSegment: 2,
+        signatureDish: "Adana kebap — restoranın odun ateşinde imza tabağı",
       },
       {
         id: "adana-sirinevler-kebapci",
@@ -178,6 +184,10 @@ export const akdenizExtraCities: City[] = [
         importance: "must-see",
         tips: ["Kıyıdaki restoranlardan da manzarası izlenebilir", "Yüzme için de uygun bir plaj"],
         accessibility: "Tekneye biniş merdivenli",
+        nickname: "Kızkalesi / Maiden's Castle",
+        bestPhotoTime: "Gün batımı, kale denizin ortasında siluet oluşturur",
+        ticketPolicy: { fullPrice: "50 TL (tekne + giriş)" },
+        parkingTip: "Sahil boyunca ücretli otopark alanları",
       },
       {
         id: "mersin-tarsus-kleopatra-kapisi",
@@ -212,6 +222,8 @@ export const akdenizExtraCities: City[] = [
         openingHours: "10:00 - 23:00",
         reservationNeeded: false,
         features: ["Hızlı servis", "Otantik lezzet"],
+        priceSegment: 1,
+        signatureDish: "Mersin tantunisi — restoranın hızlı imza tabağı",
       },
       {
         id: "mersin-kizkalesi-restoran",
