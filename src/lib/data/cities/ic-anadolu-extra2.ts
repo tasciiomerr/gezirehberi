@@ -414,6 +414,23 @@ export const icAnadoluExtra2Cities: City[] = [
         tips: ["Yerel köy pazarını ziyaret edebilirsiniz"],
         accessibility: "Araçla erişilebilir",
       },
+      {
+        id: "kirikkale-silah-sanayi-muzesi",
+        name: "Kırıkkale Silah Sanayi Müzesi",
+        category: "museum",
+        description: "Cumhuriyet döneminin savunma sanayi tarihini anlatan müze",
+        longDescription: "Kırıkkale'nin kuruluşuna zemin hazırlayan silah fabrikalarının tarihini anlatan bu müze, sanayi mirasına ilgi duyanlar için özgün bir durak.",
+        images: [],
+        location: { lat: 39.85, lng: 33.52 },
+        address: "Merkez, Kırıkkale",
+        openingHours: "09:00 - 17:00",
+        entranceFee: "20 TL",
+        duration: "45 dakika",
+        bestTime: "Öğleden önce",
+        importance: "nice-to-have",
+        tips: ["Şehrin sanayi geçmişine dair ilginç detaylar sunar"],
+        accessibility: "Erişilebilir",
+      },
     ],
     restaurants: [
       {
