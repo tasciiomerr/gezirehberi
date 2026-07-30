@@ -440,6 +440,23 @@ export const marmaraExtra2Cities: City[] = [
         tips: ["Şaraphane tadım turlarını değerlendirin"],
         accessibility: "Araçla erişilebilir",
       },
+      {
+        id: "tekirdag-eski-cami",
+        name: "Tekirdağ Rakoczi Müzesi",
+        category: "museum",
+        description: "Macar milliyetçisi II. Rakoczi Ferenc'in sürgün evinde kurulu müze",
+        longDescription: "Osmanlı'ya sığınan Macar prensinin yaşadığı ev, Türk-Macar dostluğunun sembolü olarak müzeye dönüştürülmüş.",
+        images: [],
+        location: { lat: 40.98, lng: 27.51 },
+        address: "Merkez, Tekirdağ",
+        openingHours: "09:00 - 17:00 (Pazartesi kapalı)",
+        entranceFee: "20 TL",
+        duration: "45 dakika",
+        bestTime: "Öğleden önce",
+        importance: "nice-to-have",
+        tips: ["Sahil bulvarına yürüme mesafesinde"],
+        accessibility: "Erişilebilir",
+      },
     ],
     restaurants: [
       {
