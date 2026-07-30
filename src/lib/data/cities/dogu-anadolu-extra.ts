@@ -39,6 +39,9 @@ export const doguAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["İlkbaharda kar erimesiyle debisi en yüksek olur", "Su sıçraması için yağmurluk götürün"],
         accessibility: "Kısa yürüyüş yolu",
+        nickname: "Girlevik Şelalesi / Girlevik Waterfall",
+        bestPhotoTime: "İlkbahar öğleden sonrası, kar erimesiyle debi en yüksek",
+        parkingTip: "Şelale girişinde ücretsiz otopark",
       },
       {
         id: "erzincan-uzumlu-magaralari",
@@ -73,6 +76,8 @@ export const doguAnadoluExtraCities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Erzincan tulum peyniri tabağı — restoranın imza sunumu",
       },
     ],
     accommodations: [
@@ -149,6 +154,10 @@ export const doguAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["Ermenistan sınırına yakın, kimlik kontrolü olabilir", "Rüzgarlı olabilir, mont götürün"],
         accessibility: "Geniş açık alan, yürüyüş gerektirir",
+        nickname: "Ani Harabeleri / Ani Ruins",
+        bestPhotoTime: "Öğleden önce, hayalet şehir kalıntıları yandan ışıkta",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Ören yeri girişinde ücretsiz otopark",
       },
       {
         id: "kars-kalesi",
@@ -183,6 +192,8 @@ export const doguAnadoluExtraCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Tarihi Rus binası atmosferi"],
+        priceSegment: 2,
+        signatureDish: "Kars kaşarı tabağı — restoranın imza sunumu",
       },
     ],
     accommodations: [
@@ -259,6 +270,9 @@ export const doguAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["Sabah saatlerinde bulutsuz manzara ihtimali daha yüksek"],
         accessibility: "Araçla erişilebilir",
+        nickname: "Ağrı Dağı Manzara Noktası / Mount Ararat Viewpoint",
+        bestPhotoTime: "Sabah erken, bulutsuz gökyüzünde zirve net görünür",
+        parkingTip: "Manzara noktasında ücretsiz açık alan",
       },
     ],
     restaurants: [
@@ -276,6 +290,8 @@ export const doguAnadoluExtraCities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Iğdır kayısı tatlıları — restoranın imza mevsimlik tatlısı",
       },
     ],
     accommodations: [

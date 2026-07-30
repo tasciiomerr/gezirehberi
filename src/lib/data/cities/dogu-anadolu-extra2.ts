@@ -39,6 +39,10 @@ export const doguAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Doğubayazıt ilçesinde, Ağrı Dağı manzarasıyla birlikte görülür"],
         accessibility: "Merdivenli, kısmen erişilebilir",
+        nickname: "İshak Paşa Sarayı / Ishak Pasha Palace",
+        bestPhotoTime: "Öğleden önce, saray taşları ve Ağrı Dağı arka planda net",
+        ticketPolicy: { fullPrice: "100 TL" },
+        parkingTip: "Saray girişinde ücretsiz otopark",
       },
       {
         id: "agri-dagi",
@@ -73,6 +77,8 @@ export const doguAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Saray manzarası"],
+        priceSegment: 1,
+        signatureDish: "Ağrı köftesi — restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -149,6 +155,10 @@ export const doguAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["26 Ağustos'taki zafer törenlerine denk gelebilirsiniz"],
         accessibility: "Erişilebilir",
+        nickname: "Malazgirt Zafer Anıtı / Malazgirt Victory Monument",
+        bestPhotoTime: "Öğleden önce, anıt ve ova manzarası net",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Anıt çevresinde ücretsiz otopark",
       },
     ],
     restaurants: [
@@ -166,6 +176,8 @@ export const doguAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Muş köftesi — restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -242,6 +254,9 @@ export const doguAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Adıyaman'daki Nemrut Dağı ile karıştırılmamalı, farklı bir yerdir", "Kraterde kamp yapılabilir"],
         accessibility: "Dağlık yol, araçla erişim",
+        nickname: "Nemrut Krater Gölü (Bitlis) / Bitlis Nemrut Crater Lake",
+        bestPhotoTime: "Yaz öğleden sonrası, krater gölü berrak ve sakin",
+        parkingTip: "Krater kenarında ücretsiz açık alan",
       },
       {
         id: "bitlis-eski-sehir",
@@ -276,6 +291,8 @@ export const doguAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Tarihi taş konak"],
+        priceSegment: 2,
+        signatureDish: "Bitlis perde pilavı — restoranın gösterişli imza yemeği",
       },
     ],
     accommodations: [
@@ -352,6 +369,9 @@ export const doguAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Yaz aylarında yayla şenliklerine denk gelebilirsiniz"],
         accessibility: "Dağlık yol, araçla erişim",
+        nickname: "Bingöl Yaylaları / Bingol Highlands",
+        bestPhotoTime: "Temmuz öğleden sonrası, yüzlerce gölcük güneşte parıldar",
+        parkingTip: "Yayla girişinde ücretsiz açık alan",
       },
     ],
     restaurants: [
@@ -369,6 +389,8 @@ export const doguAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Bingöl köftesi — restoranın imza tabağı",
       },
     ],
     accommodations: [

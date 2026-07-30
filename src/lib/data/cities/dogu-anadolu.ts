@@ -48,6 +48,10 @@ export const doguAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Tekne turu hava durumuna bağlı", "Adada gölge az, şapka götürün"],
         accessibility: "Tekneye biniş merdivenli",
+        nickname: "Akdamar Kilisesi / Akdamar Church",
+        bestPhotoTime: "Öğleden önce, göl sakinken tekne turu için ideal",
+        ticketPolicy: { fullPrice: "Tekne 150-250 TL, kilise girişi 50 TL" },
+        parkingTip: "Gevaş iskelesinde ücretli otopark",
       },
       {
         id: "van-kalesi",
@@ -82,6 +86,8 @@ export const doguAnadoluCities: City[] = [
         openingHours: "06:00 - 14:00",
         reservationNeeded: false,
         features: ["Onlarca çeşit", "Yerel üretim peynirler"],
+        priceSegment: 2,
+        signatureDish: "Van kahvaltısı — restoranın zengin serpme imza sofrası",
       },
     ],
     accommodations: [
@@ -167,6 +173,10 @@ export const doguAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Yakınındaki Ulu Cami ile birlikte gezilebilir"],
         accessibility: "Düz avlu",
+        nickname: "Çifte Minareli Medrese / Erzurum Twin Minaret Madrasa",
+        bestPhotoTime: "Öğleden sonra, taş işçiliği yandan ışıkta belirgin",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Merkez çevresinde ücretli otopark",
       },
       {
         id: "erzurum-palandoken",
@@ -201,6 +211,8 @@ export const doguAnadoluCities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Odun ateşinde pişirim", "Otantik sunum"],
+        priceSegment: 2,
+        signatureDish: "Cağ kebabı — restoranın yatay şişte pişen imza tabağı",
       },
     ],
     accommodations: [

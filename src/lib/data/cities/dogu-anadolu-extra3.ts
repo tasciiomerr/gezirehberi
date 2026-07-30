@@ -39,6 +39,9 @@ export const doguAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Su çok soğuk, dikkatli olun", "Ziyaret sırasında yerel inançlara saygılı davranın"],
         accessibility: "Düz yürüyüş yolu",
+        nickname: "Munzur Gözeleri / Munzur Springs",
+        bestPhotoTime: "Yaz öğleden sonrası, su berraklığı en yüksek",
+        parkingTip: "Gözeler girişinde ücretsiz açık alan",
       },
       {
         id: "tunceli-munzur-vadisi",
@@ -73,6 +76,8 @@ export const doguAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Vadi manzarası", "Taze alabalık"],
+        priceSegment: 2,
+        signatureDish: "Alabalık — vadi kenarında taze avlanan restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -149,6 +154,9 @@ export const doguAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Ulu Cami ve Sara Hatun Camii'ni de gezin", "Şehir manzarası için kaleye çıkın"],
         accessibility: "Yokuşlu sokaklar",
+        nickname: "Harput Kalesi / Harput Castle",
+        bestPhotoTime: "Gün batımı, taş sokaklar ve kale altın tonlarda",
+        parkingTip: "Harput girişinde ücretsiz otopark",
       },
       {
         id: "elazig-hazar-golu",
@@ -183,6 +191,8 @@ export const doguAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Tarihi atmosfer"],
+        priceSegment: 2,
+        signatureDish: "Elazığ kebabı — restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -259,6 +269,10 @@ export const doguAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Dünyanın en eski saraylarından birinin kalıntılarını barındırır"],
         accessibility: "Düz yürüyüş yolları",
+        nickname: "Aslantepe Höyüğü / Arslantepe Mound",
+        bestPhotoTime: "Öğleden önce, kazı alanı yandan ışıkta belirgin",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Ören yeri girişinde ücretsiz otopark",
       },
     ],
     restaurants: [
@@ -276,6 +290,8 @@ export const doguAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Kayısı ürünleri"],
+        priceSegment: 2,
+        signatureDish: "Malatya kayısı tatlıları — restoranın imza tatlı seçkisi",
       },
     ],
     accommodations: [
@@ -352,6 +368,9 @@ export const doguAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Deneyimli rehber ile gitmeniz önerilir", "Bölgesel güvenlik durumunu seyahat öncesi kontrol edin"],
         accessibility: "Dağcılık deneyimi gerektirir",
+        nickname: "Cilo Dağları / Cilo Mountains (Buzul Vadisi)",
+        bestPhotoTime: "Yaz öğleden sonrası, buzullar güneşte parlar",
+        parkingTip: "Yüksekova'dan rehberli tur araçlarıyla erişim",
       },
     ],
     restaurants: [
@@ -369,6 +388,8 @@ export const doguAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Hakkari köftesi — restoranın imza tabağı",
       },
     ],
     accommodations: [
@@ -445,6 +466,9 @@ export const doguAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Az turistik olduğu için sakin bir keşif imkanı sunar"],
         accessibility: "Toprak patika, orta zorluk",
+        nickname: "Cılavuz Peribacaları / Cilavuz Fairy Chimneys",
+        bestPhotoTime: "Öğleden önce, tüf oluşumları yandan ışıkta belirgin",
+        parkingTip: "Göle ilçesi girişinde ücretsiz açık alan",
       },
     ],
     restaurants: [
@@ -462,6 +486,8 @@ export const doguAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 2,
+        signatureDish: "Ardahan kaşarı tabağı — restoranın imza sunumu",
       },
     ],
     accommodations: [
