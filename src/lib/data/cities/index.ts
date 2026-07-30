@@ -23,6 +23,8 @@ import { icAnadoluExtra2Cities } from "./ic-anadolu-extra2";
 import { icAnadoluExtra3Cities } from "./ic-anadolu-extra3";
 import { doguAnadoluCities } from "./dogu-anadolu";
 import { doguAnadoluExtraCities } from "./dogu-anadolu-extra";
+import { doguAnadoluExtra2Cities } from "./dogu-anadolu-extra2";
+import { doguAnadoluExtra3Cities } from "./dogu-anadolu-extra3";
 import { guneydoguAnadoluCities } from "./guneydogu-anadolu";
 import { guneydoguAnadoluExtraCities } from "./guneydogu-anadolu-extra";
 
@@ -51,6 +53,8 @@ export const allCities: City[] = [
   ...icAnadoluExtra3Cities,
   ...doguAnadoluCities,
   ...doguAnadoluExtraCities,
+  ...doguAnadoluExtra2Cities,
+  ...doguAnadoluExtra3Cities,
   ...guneydoguAnadoluCities,
   ...guneydoguAnadoluExtraCities,
 ];
