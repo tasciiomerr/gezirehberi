@@ -39,6 +39,9 @@ export const icAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Odunpazarı Modern Müzesi'ni de ziyaret edin", "Fotoğraf için en iyi ışık öğleden sonra"],
         accessibility: "Yokuşlu sokaklar",
+        nickname: "Odunpazarı / Odunpazari Historic District",
+        bestPhotoTime: "Öğleden sonra, rengarenk cepheler yumuşak ışıkta",
+        parkingTip: "Odunpazarı Modern Müzesi otoparkı en yakın seçenek",
       },
       {
         id: "eskisehir-porsuk-gondol",
@@ -90,6 +93,8 @@ export const icAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Otantik lezzet", "Uygun fiyat"],
+        priceSegment: 1,
+        signatureDish: "Eskişehir çiğ böreği — restoranın çıtır imza tabağı",
       },
       {
         id: "eskisehir-odunpazari-kafe",
@@ -208,6 +213,10 @@ export const icAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Yakınındaki Gök Medrese ile birlikte gezilebilir"],
         accessibility: "Erişilebilir",
+        nickname: "Çifte Minareli Medrese / Twin Minaret Madrasa",
+        bestPhotoTime: "Öğleden önce, portal taş süslemeleri yandan ışıkta belirgin",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Merkez meydan çevresinde ücretli otopark",
       },
       {
         id: "sivas-gok-medrese",
@@ -259,6 +268,8 @@ export const icAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Otantik lezzet"],
+        priceSegment: 1,
+        signatureDish: "Sivas köftesi — restoranın ince uzun imza köftesi",
       },
       {
         id: "sivas-tarihi-lokanta",
@@ -350,6 +361,9 @@ export const icAnadoluExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Bahar aylarında yeşillik doruğa çıkar", "Piknik malzemelerinizi getirin"],
         accessibility: "Düz kıyı yolu",
+        nickname: "Kızılırmak Vadisi / Kizilirmak Valley",
+        bestPhotoTime: "İlkbahar öğleden sonrası, yeşillik en canlı",
+        parkingTip: "Vadi kenarında ücretsiz açık alan",
       },
       {
         id: "kirikkale-hasandede",
@@ -384,6 +398,8 @@ export const icAnadoluExtra2Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler", "Uygun fiyat"],
+        priceSegment: 1,
+        signatureDish: "Keşkek — özel günlerde hazırlanan restoranın imza yemeği",
       },
     ],
     accommodations: [

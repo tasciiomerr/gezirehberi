@@ -242,6 +242,10 @@ export const icAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Ayakkabıları çıkarmak gerekir", "Saygılı kıyafet önerilir"],
         accessibility: "Ana bölüm erişilebilir",
+        nickname: "Mevlana Türbesi / Mevlana Museum",
+        bestPhotoTime: "Öğleden önce, yeşil kubbe gökyüzüne karşı en net",
+        ticketPolicy: { fullPrice: "Ücretsiz", museumCardValid: true },
+        parkingTip: "Mevlana Meydanı çevresinde ücretli katlı otopark",
       },
       {
         id: "konya-ince-minareli",
@@ -276,6 +280,8 @@ export const icAnadoluCities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Odun fırını", "Hızlı servis"],
+        priceSegment: 1,
+        signatureDish: "Etli ekmek — restoranın odun fırınından çıkan imza pide",
       },
     ],
     accommodations: [

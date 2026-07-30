@@ -39,6 +39,10 @@ export const icAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Yürüyüş için su ve rahat ayakkabı götürün", "Belisırma köyünde mola verin"],
         accessibility: "Merdivenli iniş, sonrası düz vadi tabanı",
+        nickname: "Ihlara Vadisi / Ihlara Valley",
+        bestPhotoTime: "Sabah erken, vadi tabanına henüz güneş girmemişken yeşil ton en yoğun",
+        ticketPolicy: { fullPrice: "100 TL" },
+        parkingTip: "Vadi giriş noktasında ücretsiz otopark",
       },
       {
         id: "aksaray-hasan-dagi",
@@ -73,6 +77,8 @@ export const icAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 20:00",
         reservationNeeded: false,
         features: ["Nehir kenarı masalar", "Doğa manzarası"],
+        priceSegment: 2,
+        signatureDish: "Testi kebabı — nehir kenarında servis edilen imza tabak",
       },
       {
         id: "aksaray-merkez-lokanta",
@@ -177,6 +183,9 @@ export const icAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Kale çevresindeki eski çarşıyı da gezin"],
         accessibility: "Tırmanış gerektirir",
+        nickname: "Karaman Kalesi / Karaman Castle",
+        bestPhotoTime: "Öğleden sonra, kale taşları sıcak tonlarda",
+        parkingTip: "Kale eteğinde ücretsiz sokak parkı",
       },
       {
         id: "karaman-binbir-kilise",
@@ -211,6 +220,8 @@ export const icAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Yerel lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Bakla yemeği — restoranın en çok tercih edilen imza tabağı",
       },
     ],
     accommodations: [
@@ -287,6 +298,10 @@ export const icAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Ahi Evran Türbesi'ni de ziyaret edin"],
         accessibility: "Erişilebilir",
+        nickname: "Cacabey Medresesi / Cacabey Madrasa",
+        bestPhotoTime: "Öğleden önce, minare ve kubbe net görünür",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Merkez meydanda ücretsiz sokak parkı",
       },
       {
         id: "kirsehir-ahi-evran-turbesi",
@@ -321,6 +336,8 @@ export const icAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Kırşehir tarhanası — restoranın kış imza çorbası",
       },
     ],
     accommodations: [
@@ -397,6 +414,10 @@ export const icAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Fresklerin detaylarını yakından incelemek için ışık kullanın"],
         accessibility: "Kaya oyma geçitler, orta erişilebilir",
+        nickname: "Eski Gümüşler Manastırı / Gumusler Monastery",
+        bestPhotoTime: "Öğleden önce, fresklere doğal ışık en iyi düşer",
+        ticketPolicy: { fullPrice: "50 TL" },
+        parkingTip: "Manastır girişinde ücretsiz otopark",
       },
       {
         id: "nigde-aladaglar",
@@ -431,6 +452,8 @@ export const icAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Niğde tava kebabı — restoranın imza tabağı",
       },
       {
         id: "nigde-aladaglar-restoran",
@@ -535,6 +558,10 @@ export const icAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Solunum yolu rahatsızlığı olanlar için önerilir", "Rahat kıyafet giyin"],
         accessibility: "Erişilebilir",
+        nickname: "Çankırı Tuz Mağarası / Cankiri Salt Cave",
+        bestPhotoTime: "Sabit iç aydınlatma, gün içi her saat aynı görsel",
+        ticketPolicy: { fullPrice: "100 TL" },
+        parkingTip: "Tesis girişinde ücretsiz otopark",
       },
     ],
     restaurants: [
@@ -552,6 +579,8 @@ export const icAnadoluExtra3Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Çorba çeşitleri — restoranın günlük imza çorbası",
       },
     ],
     accommodations: [
@@ -628,6 +657,10 @@ export const icAnadoluExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Piknik alanları mevcut, yiyecek götürebilirsiniz"],
         accessibility: "Düz park içi yollar",
+        nickname: "Çamlık Milli Parkı / Camlik National Park",
+        bestPhotoTime: "Öğleden sonra, çam ormanı güneş ışığında en canlı",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Park girişinde ücretsiz otopark",
       },
       {
         id: "yozgat-capanoglu-camii",
@@ -662,6 +695,8 @@ export const icAnadoluExtra3Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Testi kırma gösterisi"],
+        priceSegment: 2,
+        signatureDish: "Yozgat testi kebabı — masada kırılarak servis edilen imza yemek",
       },
     ],
     accommodations: [

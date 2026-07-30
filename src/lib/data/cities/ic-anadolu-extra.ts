@@ -237,6 +237,10 @@ export const icAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["Kayak ekipmanı kiralanabilir", "Hafta sonları kalabalık olur"],
         accessibility: "Kayak deneyimi gerektirir",
+        nickname: "Erciyes Dağı / Mount Erciyes",
+        bestPhotoTime: "Öğleden sonra, güneşli günlerde kar parıltısı en etkileyici",
+        ticketPolicy: { fullPrice: "400-700 TL (pist kartı)" },
+        parkingTip: "Tesis girişinde ücretli otopark",
       },
       {
         id: "kayseri-kalesi",
@@ -288,6 +292,8 @@ export const icAnadoluExtraCities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Otantik lezzet", "Aile ortamı"],
+        priceSegment: 2,
+        signatureDish: "Kayseri mantısı — restoranın imza tabağı",
       },
       {
         id: "kayseri-erciyes-restoran",
