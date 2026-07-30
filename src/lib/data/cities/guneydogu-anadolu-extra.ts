@@ -253,6 +253,23 @@ export const guneydoguAnadoluExtraCities: City[] = [
         tips: ["Sur üzerinden bahçelere bakan noktalar fotoğraf için ideal"],
         accessibility: "Düz yürüyüş yolları",
       },
+      {
+        id: "diyarbakir-ulu-cami",
+        name: "Diyarbakır Ulu Camii",
+        category: "historical",
+        description: "Anadolu'nun en eski camilerinden biri, Roma tapınağı üzerine inşa edilmiş",
+        longDescription: "12. yüzyıldan kalma bu cami, farklı medeniyetlerin mimari katmanlarını taşıyan sütunları ve geniş avlusuyla önemli bir dini ve tarihi mekan.",
+        images: [],
+        location: { lat: 37.913, lng: 40.232 },
+        address: "Sur, Diyarbakır",
+        openingHours: "Namaz vakitleri dışında ziyarete açık",
+        entranceFee: "Ücretsiz",
+        duration: "45 dakika",
+        bestTime: "Öğleden önce",
+        importance: "should-see",
+        tips: ["Avludaki farklı dönem sütunlarına dikkat edin"],
+        accessibility: "Erişilebilir",
+      },
     ],
     restaurants: [
       {
