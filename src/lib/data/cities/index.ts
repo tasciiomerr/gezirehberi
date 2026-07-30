@@ -1,6 +1,11 @@
 import { City, RegionSlug } from "@/lib/types";
 import { karadenizCities } from "./karadeniz";
 import { karadenizExtraCities } from "./karadeniz-extra";
+import { karadenizExtra2Cities } from "./karadeniz-extra2";
+import { karadenizExtra3Cities } from "./karadeniz-extra3";
+import { karadenizExtra4Cities } from "./karadeniz-extra4";
+import { karadenizExtra5Cities } from "./karadeniz-extra5";
+import { karadenizExtra6Cities } from "./karadeniz-extra6";
 import { akdenizCities } from "./akdeniz";
 import { akdenizExtraCities } from "./akdeniz-extra";
 import { egeCities } from "./ege";
@@ -17,6 +22,11 @@ import { guneydoguAnadoluExtraCities } from "./guneydogu-anadolu-extra";
 export const allCities: City[] = [
   ...karadenizCities,
   ...karadenizExtraCities,
+  ...karadenizExtra2Cities,
+  ...karadenizExtra3Cities,
+  ...karadenizExtra4Cities,
+  ...karadenizExtra5Cities,
+  ...karadenizExtra6Cities,
   ...akdenizCities,
   ...akdenizExtraCities,
   ...egeCities,
