@@ -48,6 +48,20 @@ export const icAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Rezervasyon önceden yapılmalı", "Rüzgar nedeniyle iptal olabilir, esnek plan yapın", "Sıcak giyinin"],
         accessibility: "Sepete biniş için fiziksel uygunluk gerekli",
+        nickname: "Kapadokya Balon Turu / Hot Air Balloon Ride",
+        bestPhotoTime: "Gün doğumundan 20 dk önce — gökyüzü henüz karanlık, balonlar aydınlatılmış haldeyken",
+        ticketPolicy: {
+          fullPrice: "2.500-4.500 TL (standart sepet, 16-20 kişi)",
+          studentDiscount: "Genellikle indirim uygulanmaz, sabit fiyat",
+          museumCardValid: false,
+        },
+        dynamicHours: {
+          summer: "Gün doğumu ~05:30, Nisan-Ekim arası günlük uçuş",
+          winter: "Gün doğumu ~07:00, hava koşullarına bağlı sık iptal",
+          closedOn: "Şiddetli rüzgarda tüm turlar iptal edilir (güvenlik)",
+        },
+        parkingTip: "Şirketler otelden ücretsiz servis sağlar, kendi aracınızla gitmenize gerek yok",
+        nearestTransitStop: "Otel kapısından 04:30-05:00 arası servis alımı",
       },
       {
         id: "kapadokya-goreme-muzesi",
@@ -65,6 +79,16 @@ export const icAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Karanlık Kilise için ayrı ücret var", "Fotoğraf yasak olan bölümlere dikkat"],
         accessibility: "Kayalık patikalar, orta zorluk",
+        nickname: "Göreme Open Air Museum",
+        bestPhotoTime: "Açılışta 08:00-09:00 arası, tur otobüsleri gelmeden",
+        ticketPolicy: {
+          fullPrice: "300 TL, Karanlık Kilise +200 TL ayrı bilet",
+          museumCardValid: true,
+          seniorOrChildFree: "8 yaş altı ücretsiz",
+        },
+        dynamicHours: { summer: "08:00 - 19:00", winter: "08:00 - 17:00" },
+        parkingTip: "Müze girişinde ücretsiz otopark mevcut",
+        nearestTransitStop: "Göreme merkeze 1.5 km, dolmuş veya yürüyüşle ulaşım",
       },
       {
         id: "kapadokya-derinkuyu",
@@ -116,6 +140,8 @@ export const icAnadoluCities: City[] = [
         openingHours: "12:00 - 22:00",
         reservationNeeded: true,
         features: ["Vadi manzarası", "Testi kebabı gösterisi"],
+        priceSegment: 3,
+        signatureDish: "Testi kebabı — masada kırılarak servis edilen imza yemek",
       },
       {
         id: "kapadokya-dibek",

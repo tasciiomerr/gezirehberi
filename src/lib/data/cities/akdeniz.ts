@@ -53,6 +53,12 @@ export const akdenizCities: City[] = [
         importance: "must-see",
         tips: ["Hadrian Kapısı'ndan girip Yat Limanı'na yürüyün", "Yerel el yapımı sabun ve halı dükkanlarına göz atın"],
         accessibility: "Dar taş sokaklar, kısmen erişilebilir",
+        nickname: "Kaleiçi / Old Town Antalya",
+        bestPhotoTime: "Akşamüzeri altın saat (17:30-19:00), Yat Limanı gün batımı",
+        ticketPolicy: { fullPrice: "Ücretsiz — açık hava tarihi bölge" },
+        dynamicHours: { summer: "Dükkanlar 09:00-23:00", winter: "Dükkanlar 09:00-20:00" },
+        parkingTip: "Cumhuriyet Meydanı yakınında ücretli katlı otopark, Kaleiçi içi araç trafiğine kapalı",
+        nearestTransitStop: "Antray tramvay Kalekapısı durağı (giriş noktası)",
       },
       {
         id: "antalya-duden-selalesi",
@@ -89,6 +95,16 @@ export const akdenizCities: City[] = [
         importance: "should-see",
         tips: ["Şapka, güneş kremi ve su götürün", "Gölge yok, öğlen aşırı sıcak olur"],
         accessibility: "Düzensiz antik taş zemin",
+        nickname: "Perge Ancient City",
+        bestPhotoTime: "Sabah 08:30-09:30, sütunlu cadde uzun gölgelerle en fotojenik hali",
+        ticketPolicy: {
+          fullPrice: "200 TL, Aspendos ile kombine bilet 350 TL",
+          museumCardValid: true,
+          seniorOrChildFree: "8 yaş altı ücretsiz",
+        },
+        dynamicHours: { summer: "08:30 - 19:00", winter: "08:30 - 17:30" },
+        parkingTip: "Ören yeri girişinde ücretsiz otopark",
+        nearestTransitStop: "Aksu'dan dolmuş, merkeze en yakın toplu taşıma 3 km",
       },
       {
         id: "antalya-konyaalti",
@@ -142,6 +158,8 @@ export const akdenizCities: City[] = [
         openingHours: "12:00 - 00:00",
         reservationNeeded: true,
         features: ["Tarihi bina", "Şık dekor", "Kokteyl bar"],
+        priceSegment: 4,
+        signatureDish: "Karides güveç — restoranın en çok tercih edilen imza tabağı",
       },
       {
         id: "antalya-parlak-restaurant",
@@ -157,6 +175,8 @@ export const akdenizCities: City[] = [
         openingHours: "11:00 - 01:00",
         reservationNeeded: false,
         features: ["Tarihi mekan", "Canlı atmosfer", "Geniş meze yelpazesi"],
+        priceSegment: 2,
+        signatureDish: "Karışık ızgara — 1954'ten beri değişmeyen tarif",
       },
       {
         id: "antalya-hasan-aga",

@@ -39,6 +39,12 @@ export const egeExtraCities: City[] = [
         importance: "must-see",
         tips: ["Gün batımında yürüyüş yapın", "Vapur ile Karşıyaka'ya geçip manzarayı izleyin"],
         accessibility: "Düz bulvar, erişilebilir",
+        nickname: "Saat Kulesi / Konak Clock Tower",
+        bestPhotoTime: "Gün batımı (yaz 19:30-20:30, kış 17:00-18:00), körfez turuncu-pembe tonlarda",
+        ticketPolicy: { fullPrice: "Ücretsiz — açık alan" },
+        dynamicHours: { summer: "24 saat", winter: "24 saat" },
+        parkingTip: "Konak AVM katlı otoparkı en yakın seçenek",
+        nearestTransitStop: "İZBAN Konak istasyonu ve vapur iskelesi (yürüme mesafesi)",
       },
       {
         id: "izmir-kemeralti",
