@@ -16,6 +16,8 @@ import { marmaraExtra3Cities } from "./marmara-extra3";
 import { marmaraExtra4Cities } from "./marmara-extra4";
 import { icAnadoluCities } from "./ic-anadolu";
 import { icAnadoluExtraCities } from "./ic-anadolu-extra";
+import { icAnadoluExtra2Cities } from "./ic-anadolu-extra2";
+import { icAnadoluExtra3Cities } from "./ic-anadolu-extra3";
 import { doguAnadoluCities } from "./dogu-anadolu";
 import { doguAnadoluExtraCities } from "./dogu-anadolu-extra";
 import { guneydoguAnadoluCities } from "./guneydogu-anadolu";
@@ -39,6 +41,8 @@ export const allCities: City[] = [
   ...marmaraExtra4Cities,
   ...icAnadoluCities,
   ...icAnadoluExtraCities,
+  ...icAnadoluExtra2Cities,
+  ...icAnadoluExtra3Cities,
   ...doguAnadoluCities,
   ...doguAnadoluExtraCities,
   ...guneydoguAnadoluCities,
