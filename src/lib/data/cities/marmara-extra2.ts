@@ -39,6 +39,10 @@ export const marmaraExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["İç mekandaki akustiği deneyimlemek için sessizce bekleyin", "Yanındaki Türk İslam Eserleri Müzesi'ni de gezin"],
         accessibility: "Erişilebilir",
+        nickname: "Selimiye Camii / Selimiye Mosque",
+        bestPhotoTime: "Öğleden önce, dört minare gölgesiz net görünür",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Cami çevresinde ücretsiz sokak parkı",
       },
       {
         id: "edirne-kirkpinar",
@@ -90,6 +94,8 @@ export const marmaraExtra2Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Kuşaklar süren gelenek", "Uygun fiyat"],
+        priceSegment: 2,
+        signatureDish: "Tava ciğeri — restoranın kuşaklar süren imza tarifi",
       },
       {
         id: "edirne-badem-ezmesi-dukkani",
@@ -208,6 +214,10 @@ export const marmaraExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Kuş gözlemi için dürbün götürün", "Ahşap yürüyüş yolundan ayrılmayın"],
         accessibility: "Ahşap platform, erişilebilir",
+        nickname: "İğneada Longoz Ormanları / Igneada Floodplain Forest",
+        bestPhotoTime: "Sabah erken, sis ağaçlar arasında asılıyken",
+        ticketPolicy: { fullPrice: "20 TL" },
+        parkingTip: "Milli park girişinde ücretsiz otopark",
       },
       {
         id: "kirklareli-dupnisa-magarasi",
@@ -259,6 +269,8 @@ export const marmaraExtra2Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Bağ manzarası", "Şarap eşleştirme"],
+        priceSegment: 2,
+        signatureDish: "Trakya köftesi — yerel şarapla eşleştirilen imza tabak",
       },
       {
         id: "kirklareli-igneada-balik-evi",
@@ -377,6 +389,9 @@ export const marmaraExtra2Cities: City[] = [
         importance: "must-see",
         tips: ["Akşam yürüyüşü için ideal", "Bisiklet kiralama noktaları mevcut"],
         accessibility: "Düz bulvar, erişilebilir",
+        nickname: "Tekirdağ Sahili / Tekirdag Seaside Promenade",
+        bestPhotoTime: "Gün batımı, Marmara Denizi turuncu tonlarda",
+        parkingTip: "Sahil bulvarı boyunca ücretsiz açık park alanları",
       },
       {
         id: "tekirdag-sarkoy-baglari",
@@ -411,6 +426,8 @@ export const marmaraExtra2Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Otantik lezzet", "Hızlı servis"],
+        priceSegment: 2,
+        signatureDish: "Tekirdağ köftesi — sarımsaklı imza tarif",
       },
       {
         id: "tekirdag-sahil-restoran",

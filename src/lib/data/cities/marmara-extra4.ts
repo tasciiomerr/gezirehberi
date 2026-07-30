@@ -39,6 +39,10 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Göl kenarındaki kafelerde mola verin", "Bisiklet kiralama noktaları mevcut"],
         accessibility: "Düz göl kenarı yolu",
+        nickname: "Sapanca Gölü / Lake Sapanca",
+        bestPhotoTime: "Gün batımı, göl yüzeyi ayna gibi düzken",
+        parkingTip: "Göl kenarı boyunca ücretsiz park alanları",
+        nearestTransitStop: "YHT ile Sapanca istasyonu, göle 10 dk yürüyüş",
       },
       {
         id: "sakarya-masukiye",
@@ -73,6 +77,8 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Göl manzarası", "Taze alabalık"],
+        priceSegment: 2,
+        signatureDish: "Alabalık — göl kenarında taze avlanan restoranın imza tabağı",
       },
       {
         id: "sakarya-masukiye-degirmeni",
@@ -191,6 +197,10 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Eylül ayındaki Ertuğrul Gazi anma törenlerine denk gelebilirsiniz", "Yakınındaki Söğüt Müzesi'ni de gezin"],
         accessibility: "Erişilebilir",
+        nickname: "Söğüt Ertuğrul Gazi Türbesi",
+        bestPhotoTime: "Öğleden önce, türbe avlusu sakinken",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Söğüt merkez otoparkından yürüme mesafesinde",
       },
       {
         id: "bilecik-sogut-muzesi",
@@ -225,6 +235,8 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "10:00 - 21:00",
         reservationNeeded: false,
         features: ["Ev yapımı lezzetler"],
+        priceSegment: 1,
+        signatureDish: "Keşkek — özel günlerde hazırlanan restoranın imza yemeği",
       },
       {
         id: "bilecik-sogut-lokantasi",
@@ -316,6 +328,10 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Gün batımında taş sokaklarda yürüyün", "Rum kilisesini de ziyaret edin"],
         accessibility: "Yokuşlu sokaklar",
+        nickname: "Cunda Adası / Alibey Island",
+        bestPhotoTime: "Gün batımı, taş evler altın ışıkta",
+        parkingTip: "Ada girişinde ücretli otopark",
+        nearestTransitStop: "Ayvalık'tan köprüyle araç veya dolmuş erişimi",
       },
       {
         id: "balikesir-kaz-daglari",
@@ -367,6 +383,8 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "12:00 - 23:00",
         reservationNeeded: true,
         features: ["Ada atmosferi", "Zeytinyağlı mezeler"],
+        priceSegment: 3,
+        signatureDish: "Zeytinyağlı enginar — restoranın mevsimlik imza tabağı",
       },
       {
         id: "balikesir-ayvalik-balik-pazari",
@@ -485,6 +503,10 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Truva Müzesi'ni de gezmeyi unutmayın", "Rehberli tur bağlamı anlamayı kolaylaştırır"],
         accessibility: "Düz yürüyüş yolları",
+        nickname: "Truva / Troy Ancient City",
+        bestPhotoTime: "Sabah erken, Truva Atı replikasında kalabalık öncesi",
+        ticketPolicy: { fullPrice: "200 TL", museumCardValid: true },
+        parkingTip: "Ören yeri girişinde ücretsiz otopark",
       },
       {
         id: "canakkale-gelibolu-yarimadasi",
@@ -536,6 +558,8 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "11:00 - 23:00",
         reservationNeeded: true,
         features: ["Boğaz manzarası", "Taze deniz ürünleri"],
+        priceSegment: 3,
+        signatureDish: "Çanakkale peyniri tabağı — restoranın imza mezesi",
       },
       {
         id: "canakkale-bozcaada-sarap-evi",

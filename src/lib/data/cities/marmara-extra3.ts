@@ -39,6 +39,10 @@ export const marmaraExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Atatürk Köşkü'nü de ziyaret edin", "Havlu ve mayo getirin"],
         accessibility: "Erişilebilir",
+        nickname: "Yalova Termal / Yalova Thermal Springs",
+        bestPhotoTime: "Kış sabahları, buhar havuzların üzerinde yükselirken",
+        ticketPolicy: { fullPrice: "150-300 TL (havuz kullanımına göre)" },
+        parkingTip: "Termal tesis girişinde ücretli otopark",
       },
       {
         id: "yalova-ataturk-koskü",
@@ -73,6 +77,8 @@ export const marmaraExtra3Cities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Doğa manzarası", "Sağlıklı menü"],
+        priceSegment: 2,
+        signatureDish: "Alabalık — restoranın sağlıklı menüsündeki imza tabak",
       },
       {
         id: "yalova-merkez-balik-evi",
@@ -191,6 +197,10 @@ export const marmaraExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Hafta içi daha az kalabalık olur", "Ekipman kiralama mevcut"],
         accessibility: "Kayak deneyimi gerektirir",
+        nickname: "Kartepe Kayak Merkezi / Kartepe Ski Resort",
+        bestPhotoTime: "Öğleden sonra, güneşli günlerde kar parıltısı en etkileyici",
+        ticketPolicy: { fullPrice: "300-500 TL (pist kartı)" },
+        parkingTip: "Tesis girişinde ücretli otopark",
       },
       {
         id: "kocaeli-seka-parki",
@@ -225,6 +235,8 @@ export const marmaraExtra3Cities: City[] = [
         openingHours: "09:00 - 22:00",
         reservationNeeded: false,
         features: ["Geleneksel tatlı üretimi"],
+        priceSegment: 2,
+        signatureDish: "İzmit pişmaniyesi — tel tel dokusuyla imza tatlı",
       },
       {
         id: "kocaeli-korfez-restorani",

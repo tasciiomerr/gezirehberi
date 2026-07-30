@@ -264,6 +264,10 @@ export const marmaraCities: City[] = [
         importance: "must-see",
         tips: ["Yanındaki Yeşil Cami ile birlikte gezilebilir"],
         accessibility: "Birkaç basamak",
+        nickname: "Yeşil Türbe / Green Tomb",
+        bestPhotoTime: "Öğleden önce, turkuaz çiniler doğal ışıkta en canlı",
+        ticketPolicy: { fullPrice: "Ücretsiz" },
+        parkingTip: "Yeşil Cami çevresinde ücretli otopark",
       },
       {
         id: "bursa-koza-han",
@@ -315,6 +319,8 @@ export const marmaraCities: City[] = [
         openingHours: "11:00 - 22:00",
         reservationNeeded: false,
         features: ["Tarihi mekan", "Orijinal tarif"],
+        priceSegment: 2,
+        signatureDish: "İskender kebap — 1867'den beri değişmeyen orijinal tarif",
       },
     ],
     accommodations: [
