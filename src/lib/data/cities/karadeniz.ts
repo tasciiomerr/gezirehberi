@@ -511,6 +511,19 @@ export const karadenizCities: City[] = [
         rating: 4.6,
         amenities: ["WiFi", "Hamam erişimi", "Restoran"],
       },
+      {
+        id: "safranbolu-kervansaray-otel",
+        name: "Safranbolu Cinci Han Kervansaray",
+        type: "boutique",
+        description: "17. yüzyıl kervansarayında, tarihi atmosferli konaklama",
+        images: [],
+        location: { lat: 41.2508, lng: 32.6942 },
+        address: "Çarşı, Safranbolu",
+        priceRange: "mid",
+        pricePerNight: "800-1.300 TL",
+        rating: 4.6,
+        amenities: ["Tarihi kervansaray", "Hamam", "Kahvaltı dahil"],
+      },
     ],
     localFood: [
       {
