@@ -840,6 +840,23 @@ export const egeCities: City[] = [
         tips: ["Tekne turlarıyla ulaşılır"],
         accessibility: "Tekne",
       },
+      {
+        id: "bodrum-akyarlar-koyu",
+        name: "Akyarlar Koyu",
+        category: "beach",
+        description: "Rüzgar sörfü yapılan sakin güney koyu",
+        longDescription: "Bodrum yarımadasının güneyindeki bu koy, düzenli rüzgarı ve sakin yapısıyla sörf severlerin tercih ettiği bir nokta.",
+        images: [],
+        location: { lat: 36.97, lng: 27.32 },
+        address: "Akyarlar, Bodrum",
+        openingHours: "08:00 - 19:00",
+        entranceFee: "Ücretsiz",
+        duration: "1-2 saat",
+        bestTime: "İlkbahar-sonbahar",
+        importance: "nice-to-have",
+        tips: ["Rüzgar sörfü dersleri alınabilir"],
+        accessibility: "Erişilebilir",
+      },
     ],
     restaurants: [
       {

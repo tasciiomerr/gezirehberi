@@ -817,6 +817,23 @@ export const akdenizExtraCities: City[] = [
         tips: ["Alahan Manastırı ile aynı rotada"],
         accessibility: "Tırmanış gerektirir",
       },
+      {
+        id: "mersin-erdemli-kalesi",
+        name: "Erdemli Kalesi ve Sahili",
+        category: "historical",
+        description: "Sahil kasabasında tarihi kale kalıntısı ve plaj",
+        longDescription: "Erdemli ilçesindeki bu kale kalıntısı, sahil şeridine yakın konumu ve sakin plajıyla Mersin'in az bilinen bir durağı.",
+        images: [],
+        location: { lat: 36.6, lng: 34.3 },
+        address: "Erdemli, Mersin",
+        openingHours: "08:00 - 19:00",
+        entranceFee: "Ücretsiz",
+        duration: "1-2 saat",
+        bestTime: "İlkbahar-sonbahar",
+        importance: "nice-to-have",
+        tips: ["Sahil gezisiyle birleştirin"],
+        accessibility: "Erişilebilir",
+      },
     ],
     restaurants: [
       {

@@ -2247,6 +2247,21 @@ export const doguAnadoluExtra3Cities: City[] = [
         reservationNeeded: false,
         features: ["Trekking rotası", "Kamp alanı"],
       },
+      {
+        id: "hakkari-semdinli-lokanta",
+        name: "Şemdinli Sınır Lokantası",
+        diningType: "restaurant",
+        description: "Sınır ilçesinde yöresel ev yemekleri",
+        specialties: ["Ev yemekleri", "Kavurma", "Ayran"],
+        images: [],
+        location: { lat: 37.3, lng: 44.57 },
+        address: "Şemdinli, Hakkari",
+        priceRange: "budget",
+        averageCost: "140-230 TL/kişi",
+        openingHours: "10:00 - 22:00",
+        reservationNeeded: false,
+        features: ["Sınır ilçesi", "Günlük menü"],
+      },
     ],
     accommodations: [
       {

@@ -1112,6 +1112,19 @@ export const doguAnadoluExtra2Cities: City[] = [
         rating: 4,
         amenities: ["Ova manzarası", "Kahvaltı dahil"],
       },
+      {
+        id: "mus-merkez-otel3",
+        name: "Muş Merkez Oteli 2",
+        type: "hotel",
+        description: "Şehir merkezinde konforlu pratik otel",
+        images: [],
+        location: { lat: 38.7432, lng: 41.5065 },
+        address: "Merkez, Muş",
+        priceRange: "budget",
+        pricePerNight: "420-720 TL",
+        rating: 4,
+        amenities: ["Merkezi konum", "WiFi", "Kahvaltı dahil"],
+      },
     ],
     localFood: [
       {

@@ -1511,6 +1511,23 @@ export const akdenizCities: City[] = [
         tips: ["Gece ışıklandırması güzeldir"],
         accessibility: "Merdivenli tırmanış",
       },
+      {
+        id: "fethiye-gemiler-koyu",
+        name: "Gemiler Koyu",
+        category: "beach",
+        description: "Batık kilise kalıntılarıyla sakin koy",
+        longDescription: "Fethiye'nin sakin koylarından biri olan bu alan, deniz altındaki erken Hristiyanlık dönemi kilise kalıntılarıyla dalış meraklılarının ilgisini çekiyor.",
+        images: [],
+        location: { lat: 36.58, lng: 29.1 },
+        address: "Fethiye",
+        openingHours: "08:00 - 19:00",
+        entranceFee: "Ücretsiz",
+        duration: "1-2 saat",
+        bestTime: "İlkbahar-sonbahar",
+        importance: "nice-to-have",
+        tips: ["Şnorkelle kalıntıları görebilirsiniz"],
+        accessibility: "Tekne",
+      },
     ],
     restaurants: [
       {

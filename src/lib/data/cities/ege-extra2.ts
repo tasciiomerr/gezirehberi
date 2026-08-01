@@ -180,6 +180,23 @@ export const egeExtra2Cities: City[] = [
         tips: ["Tırmanış dik, dikkatli olun"],
         accessibility: "Zorlu tırmanış",
       },
+      {
+        id: "aydin-milet-limani",
+        name: "Milet Antik Limanı ve Aslanlı Liman",
+        category: "historical",
+        description: "Şimdi karaya uzak kalan antik İyon limanı",
+        longDescription: "Zamanında denize açılan Milet limanı, alüvyonların ovayı doldurmasıyla bugün kilometrelerce içeride kalmış durumda.",
+        images: [],
+        location: { lat: 37.53, lng: 27.28 },
+        address: "Didim, Aydın",
+        openingHours: "08:00 - 19:00",
+        entranceFee: "Ücretsiz",
+        duration: "1-2 saat",
+        bestTime: "İlkbahar-sonbahar",
+        importance: "should-see",
+        tips: ["Aslan heykellerini arayın"],
+        accessibility: "Erişilebilir",
+      },
     ],
     restaurants: [
       {
