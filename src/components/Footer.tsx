@@ -107,7 +107,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-12 text-xs text-paper/40 border-t border-paper/10 pt-6 text-center font-medium">
-          © {new Date().getFullYear()} {dict.nav.logo}. All rights reserved.
+          © {new Date().getFullYear()} {dict.nav.logo}. {locale === "tr" ? "Tüm hakları saklıdır." : locale === "de" ? "Alle Rechte vorbehalten." : locale === "ar" ? "جميع الحقوق محفوظة." : "All rights reserved."}
         </p>
       </div>
     </footer>
