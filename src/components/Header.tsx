@@ -163,7 +163,7 @@ export default function Header() {
                 }
               }}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink bg-paper/60"
-              title="Sign Out"
+              title={locale === "tr" ? "Çıkış Yap" : "Sign Out"}
             >
               <LogOut size={14} className="text-kiremit" />
             </button>
@@ -171,7 +171,7 @@ export default function Header() {
             <button
               onClick={() => setIsAuthOpen(true)}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink bg-paper/60"
-              title="Sign In"
+              title={locale === "tr" ? "Giriş Yap" : "Sign In"}
             >
               <User size={14} />
             </button>
