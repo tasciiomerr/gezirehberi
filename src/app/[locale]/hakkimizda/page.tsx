@@ -1,5 +1,21 @@
-import { getDictionary, Locale } from "@/lib/i18n";
+import { getDictionary, Locale, buildAlternates } from "@/lib/i18n";
 import { Info, ShieldCheck, Compass } from "lucide-react";
+
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+  const locale = (params.locale || "tr") as Locale;
+  const title = locale === "tr" ? "Hakkımızda" : "About Us";
+  const description =
+    locale === "tr"
+      ? "Yol Defteri, Türkiye'nin 81 ili ve en popüler turistik bölgelerine dair veri odaklı, şeffaf seyahat rehberidir."
+      : "Yol Defteri is a data-driven, transparent travel guide covering Turkey's 81 cities and most popular tourist regions.";
+
+  return {
+    title,
+    description,
+    alternates: buildAlternates(locale, "/hakkimizda"),
+  };
+}
 
 export default async function AboutPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;

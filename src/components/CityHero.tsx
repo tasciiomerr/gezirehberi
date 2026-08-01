@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { getRegion } from "@/lib/data/regions";
 import { translateDataText, Locale } from "@/lib/i18n";
@@ -52,10 +53,13 @@ export default function CityHero({ city, locale = "tr" }: CityHeroProps) {
     >
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src={bgImage}
           alt={translateDataText(city.name, locale as Locale)}
-          className="h-full w-full object-cover filter brightness-[0.65] contrast-[1.03]"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover filter brightness-[0.65] contrast-[1.03]"
         />
         {/* Subtle color tint overlay reflecting the region's theme */}
         <div 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Region } from "@/lib/types";
 import { translateDataText, Locale } from "@/lib/i18n";
@@ -32,10 +33,12 @@ export default function RegionCard({ region, locale }: { region: Region; locale:
     >
       {/* Background Image Container with Zoom effect */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
+        <Image
           src={bgImage}
           alt={region.name}
-          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 filter brightness-[0.85] contrast-[1.05]"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-110 filter brightness-[0.85] contrast-[1.05]"
         />
         {/* Dark linear gradient overlay for contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/20 opacity-90 transition-opacity duration-300 group-hover:opacity-95" />

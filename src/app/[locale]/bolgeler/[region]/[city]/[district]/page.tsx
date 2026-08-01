@@ -44,7 +44,7 @@ export async function generateMetadata(props: {
   const bgImage = getCityImage(district.slug, district.regionSlug);
 
   return {
-    title: `${district.title} | Yol Defteri`,
+    title: district.title,
     description: district.summary,
     alternates: buildAlternates(locale, `/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`),
     openGraph: {

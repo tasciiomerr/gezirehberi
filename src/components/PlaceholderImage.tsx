@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import { CITY_IMAGES } from "@/lib/cityImages";
 
@@ -232,11 +233,13 @@ export default function PlaceholderImage({
 
       {/* Main Image */}
       {!imgError && imgUrl && (
-        <img
+        <Image
           src={imgUrl}
           alt={label || "Travel image"}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           onError={() => setImgError(true)}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
       )}
 

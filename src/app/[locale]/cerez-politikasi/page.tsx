@@ -1,4 +1,21 @@
-import { Locale } from "@/lib/i18n";
+import { Locale, buildAlternates } from "@/lib/i18n";
+
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+  const locale = (params.locale || "tr") as Locale;
+  const title = locale === "tr" ? "Çerez Politikası" : "Cookie Policy";
+  const description =
+    locale === "tr"
+      ? "Yol Defteri'nin çerez kullanımına dair bilgilendirme sayfası."
+      : "Yol Defteri's cookie policy and usage information.";
+
+  return {
+    title,
+    description,
+    robots: { index: true, follow: true },
+    alternates: buildAlternates(locale, "/cerez-politikasi"),
+  };
+}
 
 export default async function CookiePolicyPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;

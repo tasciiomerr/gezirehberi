@@ -1,4 +1,21 @@
-import { Locale } from "@/lib/i18n";
+import { Locale, buildAlternates } from "@/lib/i18n";
+
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
+  const locale = (params.locale || "tr") as Locale;
+  const title = locale === "tr" ? "Gizlilik Politikası" : "Privacy Policy";
+  const description =
+    locale === "tr"
+      ? "Yol Defteri'nin kişisel verilerinizi nasıl işlediğine dair gizlilik politikası."
+      : "Yol Defteri's privacy policy on how we handle your personal data.";
+
+  return {
+    title,
+    description,
+    robots: { index: true, follow: true },
+    alternates: buildAlternates(locale, "/gizlilik-politikasi"),
+  };
+}
 
 export default async function PrivacyPolicyPage(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;

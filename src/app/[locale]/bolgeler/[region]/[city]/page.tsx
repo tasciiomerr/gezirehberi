@@ -37,7 +37,7 @@ export async function generateMetadata(props: {
   if (!city) return { title: "Şehir bulunamadı" };
   const bgImage = getCityImage(city.slug, city.regionSlug);
   return {
-    title: `${translateDataText(city.title, locale)} | Yol Defteri`,
+    title: translateDataText(city.title, locale),
     description: translateDataText(city.summary, locale),
     alternates: buildAlternates(locale, `/bolgeler/${city.regionSlug}/${city.slug}`),
     openGraph: {

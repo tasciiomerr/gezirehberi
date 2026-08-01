@@ -24,7 +24,7 @@ export async function generateMetadata(props: { params: Promise<{ region: string
 
   const regionImg = REGION_IMAGES[region.slug] || REGION_IMAGES.marmara;
   return {
-    title: `${translateDataText(region.name, locale)} ${guideSuffix} | Yol Defteri`,
+    title: `${translateDataText(region.name, locale)} ${guideSuffix}`,
     description: translateDataText(region.description, locale),
     alternates: buildAlternates(locale, `/bolgeler/${region.slug}`),
     openGraph: {
