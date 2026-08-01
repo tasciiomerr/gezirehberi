@@ -5,7 +5,7 @@ import { getRegion, regions } from "@/lib/data/regions";
 import { getCitiesByRegion } from "@/lib/data/cities";
 import { RegionSlug } from "@/lib/types";
 import PlaceholderImage from "@/components/PlaceholderImage";
-import { getDictionary, Locale, translateDataText } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
 import { REGION_IMAGES } from "@/lib/cityImages";
 
 export async function generateMetadata(props: { params: Promise<{ region: string; locale: string }> }) {
@@ -22,9 +22,23 @@ export async function generateMetadata(props: { params: Promise<{ region: string
     ? "دليل السفر"
     : "Travel Guide";
 
+  const regionImg = REGION_IMAGES[region.slug] || REGION_IMAGES.marmara;
   return {
-    title: `${translateDataText(region.name, locale)} ${guideSuffix}`,
+    title: `${translateDataText(region.name, locale)} ${guideSuffix} | Yol Defteri`,
     description: translateDataText(region.description, locale),
+    alternates: buildAlternates(locale, `/bolgeler/${region.slug}`),
+    openGraph: {
+      title: `${translateDataText(region.name, locale)} ${guideSuffix}`,
+      description: translateDataText(region.description, locale),
+      images: [
+        {
+          url: regionImg,
+          width: 960,
+          height: 450,
+          alt: translateDataText(region.name, locale),
+        },
+      ],
+    },
   };
 }
 

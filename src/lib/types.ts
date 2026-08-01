@@ -73,6 +73,7 @@ export interface Attraction {
   accessibility: string;
   phone?: string;
   website?: string;
+  regionSlug?: string;
   // Section 3 zenginleştirilmiş metadata (opsiyonel — flagship yerlerde dolu)
   nickname?: string;
   bestPhotoTime?: string;
@@ -98,6 +99,9 @@ export interface Restaurant {
   website?: string;
   reservationNeeded: boolean;
   features: string[];
+  regionSlug?: string;
+  rating?: number;
+  reviewCount?: number;
   // Section 3: fiyat segmenti (1-4 arası $ işareti) ve imza yemek
   priceSegment?: 1 | 2 | 3 | 4;
   signatureDish?: string;
@@ -118,6 +122,7 @@ export interface Accommodation {
   phone?: string;
   website?: string;
   bookingUrl?: string;
+  regionSlug?: string;
 }
 
 export interface FoodItem {
@@ -133,6 +138,7 @@ export interface FoodItem {
   priceRange: string;
   tips: string;
   importance: ImportanceLevel;
+  regionSlug?: string;
 }
 
 export type TimeSlot = "morning" | "afternoon" | "evening";

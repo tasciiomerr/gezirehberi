@@ -5,11 +5,13 @@ import { Star, Wifi } from "lucide-react";
 import PlaceholderImage from "./PlaceholderImage";
 import { Accommodation } from "@/lib/types";
 import { translateDataText, Locale } from "@/lib/i18n";
+import SavePlaceButton from "./SavePlaceButton";
+import { getLastMondayDate } from "@/lib/pricingEngine";
 
-export default function AccommodationCard({ accommodation, locale = "tr" }: { accommodation: Accommodation; locale?: string }) {
+export default function AccommodationCard({ accommodation, locale = "tr", onClick }: { accommodation: Accommodation; locale?: string; onClick?: () => void }) {
   const TYPE_LABELS: Record<string, string> = {
     hotel: locale === "tr" ? "Otel" : locale === "de" ? "Hotel" : locale === "ar" ? "فندق" : "Hotel",
-    guesthouse: locale === "tr" ? "Pansiyon" : locale === "de" ? "Gästehaus" : locale === "ar" ? "بيت ضيافة" : "Guesthouse",
+    guesthouse: locale === "tr" ? "Pansiyon" : locale === "de" ? "Gästehaus" : locale === "ar" ? "بيت ضiafe" : "Guesthouse",
     boutique: locale === "tr" ? "Butik Otel" : locale === "de" ? "Boutique-Hotel" : locale === "ar" ? "فندق بوتيك" : "Boutique Hotel",
     resort: locale === "tr" ? "Resort" : locale === "de" ? "Resort" : locale === "ar" ? "منتجع" : "Resort",
   };
@@ -24,15 +26,19 @@ export default function AccommodationCard({ accommodation, locale = "tr" }: { ac
 
   return (
     <motion.div
+      onClick={onClick}
       whileHover={{ y: -4 }}
-      className="group overflow-hidden rounded-xl border border-ink/10 bg-paper transition-shadow hover:shadow-lg h-full flex flex-col justify-between"
+      className="group overflow-hidden rounded-2xl border border-ink/8 bg-paper shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] h-full flex flex-col justify-between cursor-pointer"
     >
       <div>
         <div className="relative">
-          <PlaceholderImage seed={accommodation.id} aspect="video" />
+          <PlaceholderImage seed={accommodation.id} regionSlug={accommodation.regionSlug} aspect="video" />
           <span className="absolute left-3 top-3 rounded-full bg-deniz/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-paper shadow-sm">
             {TYPE_LABELS[accommodation.type] ?? accommodation.type}
           </span>
+          <div className="absolute right-3 top-3 z-20">
+            <SavePlaceButton place={accommodation} category="accommodations" citySlug={accommodation.id.split('-')[0]} />
+          </div>
         </div>
         <div className="p-4">
           <div className="flex items-start justify-between gap-2">
@@ -47,7 +53,7 @@ export default function AccommodationCard({ accommodation, locale = "tr" }: { ac
             {translateDataText(accommodation.description, locale as Locale)}
           </p>
 
-          {accommodation.amenities.length > 0 && (
+          {accommodation.amenities && accommodation.amenities.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-1.5 border-t border-ink/5 pt-3">
               {accommodation.amenities.slice(0, 3).map((a) => (
                 <span key={a} className="flex items-center gap-1 rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold text-ink/70">
@@ -60,10 +66,14 @@ export default function AccommodationCard({ accommodation, locale = "tr" }: { ac
       </div>
 
       <div className="p-4 pt-0">
-        <p className="mt-3 font-bold text-kiremit border-t border-ink/5 pt-3">
-          {translateDataText(accommodation.pricePerNight, locale as Locale)}{" "}
-          <span className="text-xs font-normal text-ink/50">{perNightText}</span>
-        </p>
+        <div className="flex flex-col gap-1 border-t border-ink/5 pt-3">
+          <p className="font-bold text-kiremit">
+            {translateDataText(accommodation.pricePerNight, locale as Locale)}{" "}
+            <span className="text-xs font-normal text-ink/50">{perNightText}</span>
+          </p>
+          <span className="text-[10px] text-ink/40 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
+          <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
+        </div>
       </div>
     </motion.div>
   );

@@ -11,7 +11,10 @@ import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
 import { getCity, getAllCitySlugs } from "@/lib/data/cities";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
-import { getDictionary, Locale, translateDataText } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
+import { getCityImage } from "@/lib/cityImages";
+import FAQSection from "@/components/FAQSection";
+import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
@@ -32,9 +35,23 @@ export async function generateMetadata(props: {
   const locale = (params.locale || "tr") as Locale;
   const city = getCity(params.region, params.city);
   if (!city) return { title: "Şehir bulunamadı" };
+  const bgImage = getCityImage(city.slug, city.regionSlug);
   return {
-    title: `${translateDataText(city.title, locale)}`,
+    title: `${translateDataText(city.title, locale)} | Yol Defteri`,
     description: translateDataText(city.summary, locale),
+    alternates: buildAlternates(locale, `/bolgeler/${city.regionSlug}/${city.slug}`),
+    openGraph: {
+      title: `${translateDataText(city.title, locale)}`,
+      description: translateDataText(city.summary, locale),
+      images: [
+        {
+          url: bgImage,
+          width: 960,
+          height: 600,
+          alt: translateDataText(city.name, locale),
+        },
+      ],
+    },
   };
 }
 
@@ -52,8 +69,129 @@ export default async function CityDetailPage(props: {
 
   const galleryImages = city.attractions.flatMap((a) => a.images).slice(0, 4);
 
+  const bgImage = getCityImage(city.slug, city.regionSlug);
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": locale === "tr" ? "Ana Sayfa" : "Home",
+        "item": `https://yoldefterim.com.tr/${locale}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": translateDataText(city.region, locale),
+        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": translateDataText(city.name, locale),
+        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}/${city.slug}`
+      }
+    ]
+  };
+
+  const touristDestinationSchema = {
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    "name": translateDataText(city.name, locale),
+    "description": translateDataText(city.summary, locale),
+    "image": bgImage,
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": city.location.lat,
+      "longitude": city.location.lng
+    }
+  };
+
+  const nextMonday = getNextMondayISO();
+
+  // Generate Hotel Schemas with priceValidUntil
+  const hotelSchemas = city.accommodations.slice(0, 3).map((hotel) => ({
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": translateDataText(hotel.name, locale),
+    "description": translateDataText(hotel.description, locale),
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": translateDataText(hotel.address, locale),
+      "addressLocality": translateDataText(city.name, locale),
+      "addressRegion": translateDataText(city.region, locale),
+      "addressCountry": "TR"
+    },
+    "starRating": {
+      "@type": "Rating",
+      "ratingValue": hotel.rating || 4.5
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": parseFloat(getDynamicPrice(hotel.pricePerNight, hotel.id).replace(/[^0-9]/g, "")) || 1200,
+      "priceCurrency": "TRY",
+      "priceValidUntil": nextMonday
+    }
+  }));
+
+  // Generate Restaurant Schemas with priceValidUntil
+  const restaurantSchemas = city.restaurants.slice(0, 3).map((rest) => {
+    const cost = getDynamicPrice(rest.averageCost, rest.id);
+    const priceLimit = cost.includes("-") ? cost.split("-")[1] : cost;
+    const numericPrice = parseFloat(priceLimit.replace(/[^0-9]/g, "")) || 250;
+
+    return {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": translateDataText(rest.name, locale),
+      "description": translateDataText(rest.description || "", locale),
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": translateDataText(rest.address, locale),
+        "addressLocality": translateDataText(city.name, locale),
+        "addressRegion": translateDataText(city.region, locale),
+        "addressCountry": "TR"
+      },
+      "servesCuisine": rest.diningType,
+      "starRating": {
+        "@type": "Rating",
+        "ratingValue": rest.rating || 4.5
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": numericPrice,
+        "priceCurrency": "TRY",
+        "priceValidUntil": nextMonday
+      }
+    };
+  });
+
   return (
     <div data-region={city.regionSlug}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(touristDestinationSchema) }}
+      />
+      {hotelSchemas.map((h, i) => (
+        <script
+          key={`hotel-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(h) }}
+        />
+      ))}
+      {restaurantSchemas.map((r, i) => (
+        <script
+          key={`restaurant-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
+        />
+      ))}
       <div className="relative">
         <CityHero city={city} locale={locale} />
         <div className="absolute right-4 top-20 sm:right-8 sm:top-24">
@@ -159,10 +297,25 @@ export default async function CityDetailPage(props: {
         <div className="my-16 border-t border-ink/10" />
 
         <CityContentSections
+          citySlug={city.slug}
+          cityCenter={[city.location.lat, city.location.lng]}
           attractions={city.attractions}
           restaurants={city.restaurants}
           localFood={city.localFood}
           accommodations={city.accommodations}
+          locale={locale}
+        />
+
+        {/* Dynamic local foods summary for SSS / FAQ page */}
+        <FAQSection
+          name={translateDataText(city.name, locale)}
+          whenToGo={translateDataText(city.whenToGo, locale)}
+          howToGetThere={translateDataText(city.howToGetThere, locale)}
+          budget={translateDataText(city.budget, locale)}
+          whatToEat={city.localFood.length > 0 
+            ? `${city.localFood.slice(0, 3).map(f => translateDataText(f.name, locale)).join(", ")} ${locale === "tr" ? "gibi yöresel lezzetleri mutlaka denemelisiniz." : "are among the famous local foods you must try."}`
+            : (locale === "tr" ? "Bölgeye özgü yöresel lezzetleri ve tescilli tatları yerel lokantalarda denemelisiniz." : "You should try region-specific local dishes at local restaurants.")
+          }
           locale={locale}
         />
       </div>

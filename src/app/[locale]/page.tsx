@@ -4,7 +4,21 @@ import { regions } from "@/lib/data/regions";
 import { allCities } from "@/lib/data/cities";
 import RegionCard from "@/components/RegionCard";
 import PlaceholderImage from "@/components/PlaceholderImage";
-import { getDictionary, Locale, translateDataText } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
+
+export async function generateMetadata(props: {
+  params: Promise<{ locale: string }>;
+}) {
+  const params = await props.params;
+  const locale = (params.locale || "tr") as Locale;
+  const dict = getDictionary(locale);
+
+  return {
+    title: dict.home.title,
+    description: dict.home.subtitle,
+    alternates: buildAlternates(locale, ""),
+  };
+}
 
 export default async function Home(props: {
   params: Promise<{ locale: string }>;

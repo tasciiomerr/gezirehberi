@@ -11,6 +11,24 @@ export function getDictionary(locale: Locale) {
   return dictionaries[locale] || dictionaries.tr;
 }
 
+export const SITE_URL = "https://yoldefterim.com.tr";
+export const LOCALES: Locale[] = ["tr", "en", "de", "ar"];
+
+// Builds canonical + hreflang alternates for a given path (without the locale segment).
+// pathWithoutLocale should start with "/" (e.g. "/bolgeler/karadeniz") or be "" for the homepage.
+export function buildAlternates(locale: Locale, pathWithoutLocale: string) {
+  const languages: Record<string, string> = {};
+  for (const l of LOCALES) {
+    languages[l] = `${SITE_URL}/${l}${pathWithoutLocale}`;
+  }
+  languages["x-default"] = `${SITE_URL}/tr${pathWithoutLocale}`;
+
+  return {
+    canonical: `${SITE_URL}/${locale}${pathWithoutLocale}`,
+    languages,
+  };
+}
+
 // Simple dynamic translator helper for data objects to keep it robust and lightweight
 export function translateDataText(text: string, locale: Locale): string {
   if (locale === "tr" || !text) return text;

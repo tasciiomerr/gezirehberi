@@ -5,8 +5,10 @@ import { Clock, MapPin, Ticket, Star, Camera, Accessibility, ParkingSquare } fro
 import PlaceholderImage from "./PlaceholderImage";
 import { Attraction } from "@/lib/types";
 import { translateDataText, Locale } from "@/lib/i18n";
+import SavePlaceButton from "./SavePlaceButton";
+import { getLastMondayDate } from "@/lib/pricingEngine";
 
-export default function AttractionCard({ attraction, locale = "tr" }: { attraction: Attraction; locale?: string }) {
+export default function AttractionCard({ attraction, locale = "tr", onClick }: { attraction: Attraction; locale?: string; onClick?: () => void }) {
   const IMPORTANCE_LABELS: Record<string, { label: string; color: string }> = {
     "must-see": {
       label: locale === "tr" ? "Mutlaka Görün" : locale === "de" ? "Unbedingt sehen" : locale === "ar" ? "يجب رؤيته" : "Must See",
@@ -26,17 +28,21 @@ export default function AttractionCard({ attraction, locale = "tr" }: { attracti
 
   return (
     <motion.div
+      onClick={onClick}
       whileHover={{ y: -4 }}
-      className="group overflow-hidden rounded-xl border border-ink/10 bg-paper transition-shadow hover:shadow-lg h-full flex flex-col justify-between"
+      className="group overflow-hidden rounded-2xl border border-ink/8 bg-paper shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] h-full flex flex-col justify-between cursor-pointer"
     >
       <div>
         <div className="relative">
-          <PlaceholderImage seed={attraction.id} aspect="video" />
+          <PlaceholderImage seed={attraction.id} regionSlug={attraction.regionSlug} aspect="video" />
           <span
             className={`absolute left-3 top-3 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${importance.color} shadow-sm`}
           >
             {importance.label}
           </span>
+          <div className="absolute right-3 top-3 z-20">
+            <SavePlaceButton place={attraction} category="attractions" citySlug={attraction.id.split('-')[0]} />
+          </div>
         </div>
         <div className="p-4">
           <h3 className="font-display text-lg italic text-ink group-hover:text-kiremit transition-colors">
@@ -74,9 +80,17 @@ export default function AttractionCard({ attraction, locale = "tr" }: { attracti
       </div>
 
       <div className="p-4 pt-0">
-        <div className="flex items-center gap-1.5 text-xs text-ink/45 border-t border-ink/5 pt-3">
-          <MapPin size={12} className="shrink-0" />
-          <span className="truncate">{translateDataText(attraction.address, locale as Locale)}</span>
+        <div className="flex flex-col gap-1 border-t border-ink/5 pt-3">
+          <div className="flex items-center gap-1.5 text-xs text-ink/45">
+            <MapPin size={12} className="shrink-0" />
+            <span className="truncate">{translateDataText(attraction.address, locale as Locale)}</span>
+          </div>
+          {attraction.entranceFee && !String(attraction.entranceFee).toLowerCase().includes("ücretsiz") && !String(attraction.entranceFee).toLowerCase().includes("free") && (
+            <>
+              <span className="text-[10px] text-ink/40 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
+              <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
+            </>
+          )}
         </div>
 
         {(attraction.accessibility || attraction.parkingTip) && (
