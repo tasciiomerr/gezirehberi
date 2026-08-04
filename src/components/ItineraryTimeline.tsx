@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import {
   ChevronDown,
@@ -17,9 +17,11 @@ import {
   ShoppingBag,
   Compass,
   Zap,
+  Navigation,
+  Map as MapIcon,
 } from "lucide-react";
 import { DayPlan, TransferBlock, RegionSlug } from "@/lib/types";
-import { TIME_SLOT_LABELS, optimizeTSP, estimateTransfer } from "@/lib/geo";
+import { TIME_SLOT_LABELS, optimizeTSP, estimateTransfer, buildStopDirectionsUrl, buildDayRouteUrl } from "@/lib/geo";
 import { REGION_THEMES } from "@/lib/regionTheme";
 import { getDictionary, Locale, translateDataText } from "@/lib/i18n";
 import {
@@ -57,8 +59,16 @@ function TransferRow({ transfer, locale }: { transfer: TransferBlock; locale: st
     >
       {transfer.mode === "walk" ? <Footprints size={13} /> : <Car size={13} />}
       <span>
-        {transfer.distanceKm} km · ~{transfer.estimatedMinutes} {locale === "tr" ? "dk" : locale === "de" ? "Min" : locale === "ar" ? "د" : "mins"} {modeText}
+        {transfer.approximate ? "~" : ""}{transfer.distanceKm} km · ~{transfer.estimatedMinutes} {locale === "tr" ? "dk" : locale === "de" ? "Min" : locale === "ar" ? "د" : "mins"} {modeText}
       </span>
+      {transfer.approximate && (
+        <span
+          className="text-[10px] font-semibold text-ink/35"
+          title={locale === "tr" ? "Gerçek yol verisi alınamadı, kuş uçuşu mesafeye dayalı tahmindir." : "Real road data unavailable — this is a straight-line distance estimate."}
+        >
+          ({locale === "tr" ? "yaklaşık" : locale === "de" ? "ungefähr" : locale === "ar" ? "تقريبي" : "approx."})
+        </span>
+      )}
       {transfer.isLongTransfer && (
         <span className="ml-1 inline-flex items-center gap-1 rounded-full bg-safran/20 px-2 py-0.5 font-bold text-[10px] uppercase tracking-wider">
           <AlertTriangle size={11} /> {locale === "tr" ? "UZUN TRANSFER" : locale === "de" ? "LANGER TRANSFER" : locale === "ar" ? "انتقال طويل" : "LONG TRANSFER"}
@@ -169,16 +179,15 @@ function DayCard({
         </motion.span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <div className="border-t border-ink/10 px-5 pb-6 pt-4 sm:px-6">
+      {/* Always rendered in the DOM (not conditionally mounted) so every day's stops are
+          present in the server-rendered HTML for crawlers/screen readers — only the
+          visual expand/collapse is CSS-driven, matching the FAQ answer fix. */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-[8000px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="border-t border-ink/10 px-5 pb-6 pt-4 sm:px-6">
               {/* Premium Control Bar */}
               <div className="mb-5 flex flex-wrap gap-2 border-b border-ink/5 pb-4">
                 <button
@@ -222,6 +231,23 @@ function DayCard({
                     </div>
                   )}
                 </div>
+
+                {(() => {
+                  const dayStopLocations = plan.stops.filter((s) => s.location).map((s) => s.location!);
+                  const dominantMode = plan.transfers && plan.transfers.some((t) => t.mode === "drive") ? "driving" : "walking";
+                  const dayRouteUrl = buildDayRouteUrl(dayStopLocations, dominantMode);
+                  if (!dayRouteUrl) return null;
+                  return (
+                    <a
+                      href={dayRouteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper/60 px-3 py-1.5 text-xs font-bold text-ink/70 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none"
+                    >
+                      <MapIcon size={13} /> {locale === "tr" ? "Tüm Rotayı Google Maps'te Aç" : "Open Full Route in Google Maps"}
+                    </a>
+                  );
+                })()}
               </div>
 
               {/* Stops list grouped by Time Slots */}
@@ -250,6 +276,17 @@ function DayCard({
                       {stopsInSlot.map((stop) => {
                         const isChecked = !!localState.checked[`${plan.day}-${stop.order}`];
                         const transfer = plan.transfers?.find((t) => t.fromOrder === stop.order);
+                        const incomingTransfer = plan.transfers?.find((t) => t.toOrder === stop.order);
+                        const originStop = incomingTransfer
+                          ? plan.stops.find((s) => s.order === incomingTransfer.fromOrder)
+                          : undefined;
+                        const directionsUrl = stop.location
+                          ? buildStopDirectionsUrl(
+                              stop.location,
+                              originStop?.location,
+                              incomingTransfer?.mode === "drive" ? "driving" : "walking"
+                            )
+                          : null;
                         return (
                           <div key={stop.order}>
                             <div className={`flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-ink/[0.02] ${isRtl ? "flex-row-reverse text-right" : ""}`}>
@@ -280,9 +317,22 @@ function DayCard({
                                     {translateDataText(stop.description, locale as Locale)}
                                   </p>
                                 )}
-                                <p className="mt-1.5 text-[10px] font-bold text-ink/35 uppercase tracking-wide">
-                                  ⏱ {translateDataText(stop.duration, locale as Locale)}
-                                </p>
+                                <div className={`mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 ${isRtl ? "flex-row-reverse" : ""}`}>
+                                  <p className="text-[10px] font-bold text-ink/35 uppercase tracking-wide">
+                                    ⏱ {translateDataText(stop.duration, locale as Locale)}
+                                  </p>
+                                  {directionsUrl && (
+                                    <a
+                                      href={directionsUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-deniz hover:text-kiremit transition-colors"
+                                    >
+                                      <Navigation size={11} /> {locale === "tr" ? "Yol Tarifi Al" : "Get Directions"}
+                                    </a>
+                                  )}
+                                </div>
                               </div>
                             </div>
                             {transfer && <TransferRow transfer={transfer} locale={locale} />}
@@ -324,9 +374,7 @@ function DayCard({
                 <p className="mt-3.5 rounded-lg bg-safran/10 p-3 text-xs text-ink/75 leading-relaxed">💡 {translateDataText(plan.notes, locale as Locale)}</p>
               )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </div>
     </div>
   );
 }
@@ -351,6 +399,65 @@ export default function ItineraryTimeline({
 
   useEffect(() => {
     setLocalState(loadItineraryLocalState(citySlug, days));
+  }, [citySlug, days]);
+
+  // Fetch real Mapbox Directions distances/durations once per route generation
+  // (this component remounts — key={selectedDays} in ItinerarySection — whenever
+  // the day count changes, so this only re-runs when the route actually changes,
+  // not on every page load; report items 53-55). Falls back silently to the
+  // haversine estimate already in `dayPlans` (approximate:true) on any failure.
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchRealTransfers() {
+      const updated = await Promise.all(
+        dayPlans.map(async (plan) => {
+          const locatedStops = plan.stops.filter((s) => s.location);
+          if (locatedStops.length < 2) return plan;
+
+          const dominantMode: "driving" | "walking" =
+            plan.transfers?.some((t) => t.mode === "drive") ? "driving" : "walking";
+
+          try {
+            const res = await fetch("/api/directions", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                coordinates: locatedStops.map((s) => s.location),
+                mode: dominantMode,
+              }),
+            });
+            if (!res.ok) return plan;
+            const data = await res.json();
+            if (!Array.isArray(data.legs)) return plan;
+
+            const realTransfers: TransferBlock[] = [];
+            for (let i = 0; i < locatedStops.length - 1 && i < data.legs.length; i++) {
+              const leg = data.legs[i];
+              realTransfers.push({
+                fromOrder: locatedStops[i].order,
+                toOrder: locatedStops[i + 1].order,
+                distanceKm: leg.distanceKm,
+                mode: dominantMode === "driving" ? "drive" : "walk",
+                estimatedMinutes: leg.durationMin,
+                isLongTransfer: leg.distanceKm > 15,
+                approximate: false,
+              });
+            }
+            return { ...plan, transfers: realTransfers };
+          } catch {
+            return plan; // keep the haversine estimate (approximate:true)
+          }
+        })
+      );
+      if (!cancelled) setPlans(updated);
+    }
+
+    fetchRealTransfers();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [citySlug, days]);
 
   const persist = useCallback(

@@ -3,12 +3,11 @@
 import { useState, useEffect } from "react";
 import { Users, Plus, Compass } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getActiveUser, getUserRoutes, SocialRoute, initializeSocialDB } from "@/lib/socialDb";
+import { getUserRoutes, SocialRoute, initializeSocialDB } from "@/lib/socialDb";
 import { getDictionary, Locale } from "@/lib/i18n";
 import { City } from "@/lib/types";
 import UserRouteCard from "./UserRouteCard";
 import RouteBuilder from "./RouteBuilder";
-import AuthModal from "./AuthModal";
 
 interface CommunityRoutesProps {
   city: City;
@@ -18,22 +17,11 @@ interface CommunityRoutesProps {
 export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) {
   const dict = getDictionary(locale as Locale);
   const [routes, setRoutes] = useState<SocialRoute[]>([]);
-  const [currentUser, setCurrentUser] = useState<any>(null);
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   useEffect(() => {
     initializeSocialDB();
     setRoutes(getUserRoutes(city.slug));
-    setCurrentUser(getActiveUser());
-
-    const handleAuthChange = () => {
-      setCurrentUser(getActiveUser());
-      setRoutes(getUserRoutes(city.slug)); // refresh routes
-    };
-    
-    window.addEventListener("yoldefteri_auth_change", handleAuthChange);
-    return () => window.removeEventListener("yoldefteri_auth_change", handleAuthChange);
   }, [city.slug]);
 
   const handlePublish = (newRoute: SocialRoute) => {
@@ -42,11 +30,7 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
   };
 
   const handleCreateClick = () => {
-    if (!currentUser) {
-      setIsAuthOpen(true);
-    } else {
-      setIsBuilderOpen(true);
-    }
+    setIsBuilderOpen(true);
   };
 
   return (
@@ -116,16 +100,6 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
           ))}
         </div>
       )}
-
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        onSuccess={() => {
-          setCurrentUser(getActiveUser());
-          setIsAuthOpen(false);
-          setIsBuilderOpen(true); // Open builder immediately on login success
-        }}
-      />
     </div>
   );
 }

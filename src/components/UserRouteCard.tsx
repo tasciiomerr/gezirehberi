@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, MessageSquare, CalendarDays, Compass, User, Send, StarHalf } from "lucide-react";
-import { SocialRoute, SocialComment, getRouteComments, addComment, getActiveUser } from "@/lib/socialDb";
+import { SocialRoute, SocialComment, getRouteComments, addComment } from "@/lib/socialDb";
 import { getDictionary, Locale } from "@/lib/i18n";
-import AuthModal from "./AuthModal";
 
 interface UserRouteCardProps {
   route: SocialRoute;
@@ -16,32 +15,19 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
   const dict = getDictionary(locale as Locale);
   const [isOpen, setIsOpen] = useState(false);
   const [comments, setComments] = useState<SocialComment[]>([]);
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  
+
   // Comment Form States
   const [commentText, setCommentText] = useState("");
   const [rating, setRating] = useState(5);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setComments(getRouteComments(route.id));
     }
-    setCurrentUser(getActiveUser());
-
-    const handleAuthChange = () => {
-      setCurrentUser(getActiveUser());
-    };
-    window.addEventListener("yoldefteri_auth_change", handleAuthChange);
-    return () => window.removeEventListener("yoldefteri_auth_change", handleAuthChange);
   }, [isOpen, route.id]);
 
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentUser) {
-      setIsAuthOpen(true);
-      return;
-    }
     if (!commentText.trim()) return;
 
     const res = addComment(route.id, commentText, rating);
@@ -159,15 +145,14 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                   <textarea
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
-                    placeholder={currentUser ? (locale === "tr" ? "Yorumunuzu yazın..." : "Write your review...") : (locale === "tr" ? "Yorum yazmak için giriş yapın..." : "Sign in to write a review...")}
-                    disabled={!currentUser}
+                    placeholder={locale === "tr" ? "Yorumunuzu yazın..." : "Write your review..."}
                     rows={2}
                     className="w-full resize-none bg-transparent text-sm text-ink placeholder:text-ink/30 focus:outline-none"
                   />
                   <div className="mt-3 flex items-center justify-between border-t border-ink/5 pt-3">
                     {/* Star Rating Selector */}
                     <div className="flex items-center gap-1">
-                      {currentUser && Array.from({ length: 5 }, (_, i) => i + 1).map((star) => (
+                      {Array.from({ length: 5 }, (_, i) => i + 1).map((star) => (
                         <button
                           key={star}
                           type="button"
@@ -181,23 +166,13 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                         </button>
                       ))}
                     </div>
-                    {currentUser ? (
-                      <button
-                        type="submit"
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-kiremit text-paper hover:bg-ink hover:scale-105 transition-all focus:outline-none"
-                        aria-label="Send review"
-                      >
-                        <Send size={12} />
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => setIsAuthOpen(true)}
-                        className="rounded-full bg-kiremit/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-kiremit hover:bg-kiremit hover:text-paper transition-all focus:outline-none"
-                      >
-                        {locale === "tr" ? "Giriş Yap" : "Sign In"}
-                      </button>
-                    )}
+                    <button
+                      type="submit"
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-kiremit text-paper hover:bg-ink hover:scale-105 transition-all focus:outline-none"
+                      aria-label="Send review"
+                    >
+                      <Send size={12} />
+                    </button>
                   </div>
                 </form>
 
@@ -235,15 +210,6 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <AuthModal
-        isOpen={isAuthOpen}
-        onClose={() => setIsAuthOpen(false)}
-        onSuccess={() => {
-          setCurrentUser(getActiveUser());
-          setIsAuthOpen(false);
-        }}
-      />
     </div>
   );
 }

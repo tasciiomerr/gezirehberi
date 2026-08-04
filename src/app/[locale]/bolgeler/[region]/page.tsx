@@ -5,8 +5,9 @@ import { getRegion, regions } from "@/lib/data/regions";
 import { getCitiesByRegion } from "@/lib/data/cities";
 import { RegionSlug } from "@/lib/types";
 import PlaceholderImage from "@/components/PlaceholderImage";
-import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 import { REGION_IMAGES } from "@/lib/cityImages";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export async function generateMetadata(props: { params: Promise<{ region: string; locale: string }> }) {
   const params = await props.params;
@@ -23,13 +24,17 @@ export async function generateMetadata(props: { params: Promise<{ region: string
     : "Travel Guide";
 
   const regionImg = REGION_IMAGES[region.slug] || REGION_IMAGES.marmara;
+  const title = `${translateDataText(region.name, locale)} ${guideSuffix}`;
+  const description = translateDataText(region.description, locale);
+  const pageUrl = `${SITE_URL}/${locale}/bolgeler/${region.slug}`;
   return {
-    title: `${translateDataText(region.name, locale)} ${guideSuffix}`,
-    description: translateDataText(region.description, locale),
+    title,
+    description,
     alternates: buildAlternates(locale, `/bolgeler/${region.slug}`),
     openGraph: {
-      title: `${translateDataText(region.name, locale)} ${guideSuffix}`,
-      description: translateDataText(region.description, locale),
+      url: pageUrl,
+      title,
+      description,
       images: [
         {
           url: regionImg,
@@ -38,6 +43,11 @@ export async function generateMetadata(props: { params: Promise<{ region: string
           alt: translateDataText(region.name, locale),
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -85,7 +95,7 @@ export default async function RegionPage(props: {
   const bgImage = REGION_IMAGES[region.slug] || REGION_IMAGES.marmara;
 
   return (
-    <div>
+    <div data-region={region.slug}>
       <div className="relative h-64 text-paper sm:h-80 overflow-hidden">
         {/* Background Image with dark overlay */}
         <div className="absolute inset-0 z-0">
@@ -114,6 +124,13 @@ export default async function RegionPage(props: {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <Breadcrumbs
+          items={[
+            { label: locale === "tr" ? "Ana Sayfa" : "Home", href: `/${locale}` },
+            { label: dict.nav.regions, href: `/${locale}/bolgeler` },
+            { label: translateDataText(region.name, locale) },
+          ]}
+        />
         <p className="mb-8 max-w-3xl text-base text-ink/70 leading-relaxed border-l-2 border-kiremit pl-4">
           {translateDataText(region.description, locale)}
         </p>

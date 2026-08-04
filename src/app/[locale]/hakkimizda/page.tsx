@@ -1,4 +1,4 @@
-import { getDictionary, Locale, buildAlternates } from "@/lib/i18n";
+import { getDictionary, Locale, buildAlternates, buildPageSocialMeta } from "@/lib/i18n";
 import { Info, ShieldCheck, Compass } from "lucide-react";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
@@ -14,6 +14,7 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     title,
     description,
     alternates: buildAlternates(locale, "/hakkimizda"),
+    ...buildPageSocialMeta(locale, "/hakkimizda", title, description),
   };
 }
 

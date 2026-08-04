@@ -1,4 +1,4 @@
-import { Locale, buildAlternates } from "@/lib/i18n";
+import { Locale, buildAlternates, buildPageSocialMeta, buildRobots } from "@/lib/i18n";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
@@ -12,8 +12,9 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   return {
     title,
     description,
-    robots: { index: true, follow: true },
+    robots: buildRobots(locale),
     alternates: buildAlternates(locale, "/cerez-politikasi"),
+    ...buildPageSocialMeta(locale, "/cerez-politikasi", title, description),
   };
 }
 
@@ -45,8 +46,8 @@ export default async function CookiePolicyPage(props: { params: Promise<{ locale
           </h2>
           <p>
             {locale === "tr"
-              ? "Sitemizde temel işlevleri sağlayan zorunlu çerezler ile reklam ortaklarımız (AdSense) ve performans ölçüm araçlarımız tarafından kullanılan analitik çerezler kullanılmaktadır. Tarayıcı ayarlarınızdan çerez izinlerini dilediğiniz zaman sınırlandırabilir veya temizleyebilirsiniz."
-              : "Our site uses essential cookies that provide core features, as well as analytical cookies placed by our advertising partners (AdSense) and performance tracking tools. You can restrict or clear cookie permissions via your browser settings at any time."}
+              ? "Sitemizde temel işlevleri sağlayan zorunlu çerezler ile reklam ortaklarımız ve performans ölçüm araçlarımız tarafından kullanılan analitik çerezler kullanılabilir. Sayfanın altında çıkan onay penceresinden reklam/analiz amaçlı çerezleri kabul edebilir veya reddedebilirsiniz; tercihiniz bu tarayıcıda hatırlanır. Ayrıca tarayıcı ayarlarınızdan çerez izinlerini dilediğiniz zaman sınırlandırabilir veya temizleyebilirsiniz."
+              : "Our site uses essential cookies that provide core features, as well as analytical cookies that may be placed by our advertising partners and performance tracking tools. You can accept or decline advertising/analytics cookies via the consent banner shown on the site; your choice is remembered in this browser. You can also restrict or clear cookie permissions via your browser settings at any time."}
           </p>
         </section>
       </div>

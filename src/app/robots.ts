@@ -18,6 +18,6 @@ export default function robots(): MetadataRoute.Robots {
         "/*&search="
       ],
     },
-    sitemap: "https://yoldefterim.com.tr/sitemap.xml",
+    sitemap: "https://www.yoldefterim.com.tr/sitemap.xml",
   };
 }

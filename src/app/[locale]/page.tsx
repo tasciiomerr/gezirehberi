@@ -4,7 +4,7 @@ import { regions } from "@/lib/data/regions";
 import { allCities } from "@/lib/data/cities";
 import RegionCard from "@/components/RegionCard";
 import PlaceholderImage from "@/components/PlaceholderImage";
-import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -29,8 +29,35 @@ export default async function Home(props: {
 
   const featuredCities = allCities.slice(0, 6);
 
+  // Site-wide identity schema (report items 193-194). No SearchAction here — the
+  // header's search bar is an autocomplete dropdown, not a URL-addressable results
+  // page, so a fake SearchAction target would be incorrect structured data.
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": dict.nav.logo,
+    "url": SITE_URL,
+    "logo": `${SITE_URL}/icon`,
+    "sameAs": [],
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": dict.nav.logo,
+    "url": SITE_URL,
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-16 sm:px-6 sm:pt-24">
         <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-safran/20 px-3 py-1 text-xs font-bold uppercase tracking-wide text-kiremit">
           <Compass size={14} /> {dict.home.badge}

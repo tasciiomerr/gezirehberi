@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [kvkkConsent, setKvkkConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.name && formData.email && formData.message) {
+    if (formData.name && formData.email && formData.message && kvkkConsent) {
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
+      setKvkkConsent(false);
     }
   };
 
@@ -40,16 +43,16 @@ export default function ContactForm() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-kiremit" size={18} />
-                <span>+90 (212) 555 0100</span>
+                <span>+90 555 166 33 80</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="text-kiremit animate-bounce" size={18} />
-                <span>Levent, Şişli / İstanbul</span>
+                <span>Çanakkale, Türkiye</span>
               </div>
             </div>
           </div>
           <div className="p-4 rounded-xl bg-safran/10 border border-safran/20 text-xs text-ink/75 font-semibold leading-relaxed">
-            💡 <strong>Düzeltme Bildirimi:</strong> Sitede eksik veya yanlış olduğunu düşündüğünüz bir yer varsa, yan taraftaki formu kullanarak bize bildirebilirsiniz. Editörlerimiz 24 saat içinde verileri doğrulamaktadır.
+            💡 <strong>Düzeltme Bildirimi:</strong> Sitede eksik veya yanlış olduğunu düşündüğünüz bir yer varsa, yan taraftaki formu kullanarak bize bildirebilirsiniz. Bildirdiğiniz bilgiler düzenli olarak gözden geçirilip güncellenir.
           </div>
         </div>
 
@@ -113,9 +116,25 @@ export default function ContactForm() {
                     placeholder="Hangi ilçe veya mekanla ilgili bildirimde bulunmak istersiniz?"
                   />
                 </div>
+                <label className="flex items-start gap-2 text-xs text-ink/65 leading-snug cursor-pointer">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={kvkkConsent}
+                    onChange={(e) => setKvkkConsent(e.target.checked)}
+                    className="mt-0.5 rounded border-ink/20 text-kiremit focus:ring-kiremit cursor-pointer"
+                  />
+                  <span>
+                    <Link href="/gizlilik-politikasi#kvkk" className="underline hover:text-kiremit">
+                      KVKK Aydınlatma Metni
+                    </Link>
+                    'ni okudum, kişisel verilerimin bu talebimi yanıtlamak amacıyla işlenmesini kabul ediyorum.
+                  </span>
+                </label>
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-kiremit text-paper py-3 px-4 text-sm font-bold uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer shadow-md"
+                  disabled={!kvkkConsent}
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-kiremit text-paper py-3 px-4 text-sm font-bold uppercase tracking-wider hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer shadow-md disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
                   <Send size={16} /> Gönder
                 </button>

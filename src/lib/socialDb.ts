@@ -1,10 +1,3 @@
-export interface SocialUser {
-  username: string;
-  email: string;
-  avatar: string;
-  bio: string;
-}
-
 export interface SocialStop {
   order: number;
   title: string;
@@ -36,31 +29,14 @@ export interface SocialComment {
   createdAt: string;
 }
 
-const USERS_KEY = "yoldefteri_social_users";
-const ACTIVE_USER_KEY = "yoldefteri_social_active_user";
+const LOCAL_AUTHOR_KEY = "yoldefteri_local_author_name";
 const ROUTES_KEY = "yoldefteri_social_routes";
 const COMMENTS_KEY = "yoldefteri_social_comments";
 
-const DEFAULT_USERS: Record<string, { user: SocialUser; pass: string }> = {
-  cangezgin: {
-    user: {
-      username: "Can Gezgin",
-      email: "can@gezgin.com",
-      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80",
-      bio: "Türkiye'yi karış karış gezmeye çalışan, Ege ve Akdeniz aşığı bir harita mühendisi.",
-    },
-    pass: "123456",
-  },
-  elifyolcu: {
-    user: {
-      username: "Elif Yolcu",
-      email: "elif@yolcu.com",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80",
-      bio: "Kamp yapmayı, antik kentleri fotoğraflamayı ve yöresel lezzetleri keşfetmeyi seven bir mimar.",
-    },
-    pass: "123456",
-  },
-};
+// No accounts/passwords: publishing a route or leaving a comment just attributes it
+// to a display name kept in this browser's localStorage (defaults to "Misafir Gezgin").
+const DEFAULT_LOCAL_AVATAR =
+  "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=150&h=150&q=80";
 
 const DEFAULT_ROUTES: SocialRoute[] = [
   {
@@ -138,9 +114,6 @@ function write<T>(key: string, val: T) {
 // Public API
 export function initializeSocialDB() {
   if (typeof window === "undefined") return;
-  if (!localStorage.getItem(USERS_KEY)) {
-    write(USERS_KEY, DEFAULT_USERS);
-  }
   if (!localStorage.getItem(ROUTES_KEY)) {
     write(ROUTES_KEY, DEFAULT_ROUTES);
   }
@@ -149,43 +122,17 @@ export function initializeSocialDB() {
   }
 }
 
-export function registerUser(username: string, email: string, pass: string): { success: boolean; error?: string } {
-  const users = read<Record<string, { user: SocialUser; pass: string }>>(USERS_KEY, DEFAULT_USERS);
-  const key = username.toLowerCase().replace(/\s+/g, "");
-
-  if (users[key]) {
-    return { success: false, error: "Bu kullanıcı adı zaten alınmış." };
-  }
-
-  const avatar = `https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80`; // default
-  users[key] = {
-    user: { username, email, avatar, bio: "Yol Defteri üyesi seyyah." },
-    pass,
-  };
-  write(USERS_KEY, users);
-  return { success: true };
+// Display name shown on routes/comments this browser publishes. No account, no password —
+// just a locally-remembered name, consistent with the rest of the site's localStorage-only
+// "save" features (see gizlilik-politikasi: no personal data is stored on our servers).
+export function getLocalAuthorName(): string {
+  return read<string>(LOCAL_AUTHOR_KEY, "Misafir Gezgin");
 }
 
-export function loginUser(username: string, pass: string): { success: boolean; user?: SocialUser; error?: string } {
-  const users = read<Record<string, { user: SocialUser; pass: string }>>(USERS_KEY, DEFAULT_USERS);
-  const key = username.toLowerCase().replace(/\s+/g, "");
-
-  if (!users[key] || users[key].pass !== pass) {
-    return { success: false, error: "Hatalı kullanıcı adı veya şifre." };
-  }
-
-  const user = users[key].user;
-  write(ACTIVE_USER_KEY, user);
-  return { success: true, user };
-}
-
-export function logoutUser() {
+export function setLocalAuthorName(name: string) {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(ACTIVE_USER_KEY);
-}
-
-export function getActiveUser(): SocialUser | null {
-  return read<SocialUser | null>(ACTIVE_USER_KEY, null);
+  const trimmed = name.trim();
+  write(LOCAL_AUTHOR_KEY, trimmed || "Misafir Gezgin");
 }
 
 export function getUserRoutes(citySlug: string): SocialRoute[] {
@@ -194,9 +141,6 @@ export function getUserRoutes(citySlug: string): SocialRoute[] {
 }
 
 export function createUserRoute(route: Omit<SocialRoute, "id" | "createdAt" | "ratingAvg" | "ratingCount" | "authorName" | "authorAvatar">): { success: boolean; route?: SocialRoute } {
-  const activeUser = getActiveUser();
-  if (!activeUser) return { success: false };
-
   const routes = read<SocialRoute[]>(ROUTES_KEY, DEFAULT_ROUTES);
   const newRoute: SocialRoute = {
     ...route,
@@ -204,8 +148,8 @@ export function createUserRoute(route: Omit<SocialRoute, "id" | "createdAt" | "r
     createdAt: new Date().toISOString(),
     ratingAvg: 5,
     ratingCount: 1,
-    authorName: activeUser.username,
-    authorAvatar: activeUser.avatar,
+    authorName: getLocalAuthorName(),
+    authorAvatar: DEFAULT_LOCAL_AVATAR,
   };
 
   routes.unshift(newRoute);
@@ -219,14 +163,11 @@ export function getRouteComments(routeId: string): SocialComment[] {
 }
 
 export function addComment(routeId: string, text: string, rating: number): { success: boolean; comment?: SocialComment } {
-  const activeUser = getActiveUser();
-  if (!activeUser) return { success: false };
-
   const comments = read<SocialComment[]>(COMMENTS_KEY, DEFAULT_COMMENTS);
   const newComment: SocialComment = {
     id: `c-${Date.now()}`,
     routeId,
-    authorName: activeUser.username,
+    authorName: getLocalAuthorName(),
     text,
     rating,
     createdAt: new Date().toISOString(),

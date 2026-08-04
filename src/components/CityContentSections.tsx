@@ -35,7 +35,16 @@ interface CityContentSectionsProps {
   accommodations: Accommodation[];
   locale?: string;
   districtSlug?: string;
+  // Server-rendered first page for the default tab (attractions/popularity/no query),
+  // so the initial HTML (and search-engine crawlers) see real results instead of an
+  // empty "0 kayıttan 0 adeti gösteriliyor" state before the client fetch resolves.
+  initialItems?: any[];
+  initialTotalCount?: number;
+  initialHasMore?: boolean;
 }
+
+const DEFAULT_TAB = "attractions";
+const DEFAULT_SORT = "popularity";
 
 export default function CityContentSections({
   citySlug,
@@ -46,6 +55,9 @@ export default function CityContentSections({
   accommodations: initialAccommodations,
   locale = "tr",
   districtSlug,
+  initialItems,
+  initialTotalCount,
+  initialHasMore,
 }: CityContentSectionsProps) {
   const dict = getDictionary(locale as Locale);
 
@@ -59,11 +71,11 @@ export default function CityContentSections({
   const [sortOption, setSortOption] = useState<string>("popularity"); // popularity, constructionYear, price, alphabetical
   const [subFilter, setSubFilter] = useState<string>("all"); // must-see/should-see OR budget/mid/luxury
 
-  // Infinite Scroll / Paging State
-  const [items, setItems] = useState<any[]>([]);
+  // Infinite Scroll / Paging State — seeded from the server-rendered first page when available
+  const [items, setItems] = useState<any[]>(initialItems || []);
   const [offset, setOffset] = useState<number>(0);
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [totalCount, setTotalCount] = useState<number>(initialTotalCount ?? 0);
+  const [hasMore, setHasMore] = useState<boolean>(initialHasMore ?? true);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [mobileView, setMobileView] = useState<"list" | "map">("list");
@@ -88,10 +100,25 @@ export default function CityContentSections({
   }, [searchQuery]);
 
   // 2. Fetch Places dynamically from server route on activeTab, sortOption, debouncedQuery changes
+  const isFirstRun = useRef<boolean>(true);
   useEffect(() => {
+    // Skip the redundant client fetch on mount when the filters are still at their
+    // defaults and we already have server-rendered data for exactly that combination.
+    if (
+      isFirstRun.current &&
+      initialItems &&
+      activeTab === DEFAULT_TAB &&
+      sortOption === DEFAULT_SORT &&
+      debouncedQuery === ""
+    ) {
+      isFirstRun.current = false;
+      return;
+    }
+    isFirstRun.current = false;
+
     setLoading(true);
     setOffset(0);
-    
+
     const fetchPlaces = async () => {
       try {
         const queryParams = new URLSearchParams({

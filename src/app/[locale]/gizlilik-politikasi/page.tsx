@@ -1,4 +1,4 @@
-import { Locale, buildAlternates } from "@/lib/i18n";
+import { Locale, buildAlternates, buildPageSocialMeta, buildRobots } from "@/lib/i18n";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
@@ -12,8 +12,9 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   return {
     title,
     description,
-    robots: { index: true, follow: true },
+    robots: buildRobots(locale),
     alternates: buildAlternates(locale, "/gizlilik-politikasi"),
+    ...buildPageSocialMeta(locale, "/gizlilik-politikasi", title, description),
   };
 }
 
@@ -50,7 +51,7 @@ export default async function PrivacyPolicyPage(props: { params: Promise<{ local
           </p>
         </section>
 
-        <section className="space-y-3">
+        <section id="kvkk" className="space-y-3 scroll-mt-24">
           <h2 className="font-display text-2xl italic text-ink">
             {locale === "tr" ? "3. KVKK Aydınlatma Metni (Türkiye)" : "3. KVKK Clarification Text (Turkey)"}
           </h2>

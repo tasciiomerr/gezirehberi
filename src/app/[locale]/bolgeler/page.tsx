@@ -1,6 +1,6 @@
 import { regions } from "@/lib/data/regions";
 import RegionCard from "@/components/RegionCard";
-import { getDictionary, Locale } from "@/lib/i18n";
+import { getDictionary, Locale, buildAlternates, buildPageSocialMeta } from "@/lib/i18n";
 import type { Metadata } from "next";
 
 export async function generateMetadata(props: {
@@ -9,10 +9,18 @@ export async function generateMetadata(props: {
   const params = await props.params;
   const locale = (params.locale || "tr") as Locale;
   const dict = getDictionary(locale);
-  
+
+  // Plain title, no manual "| Yol Defteri" suffix here — the root layout's title
+  // template already appends it, so appending it twice produced "Bölgeler | Yol
+  // Defteri | Yol Defteri" (report item 12).
+  const title = dict.nav.regions;
+  const description = dict.home.subtitle;
+
   return {
-    title: `${dict.nav.regions} | ${dict.nav.logo}`,
-    description: dict.home.subtitle,
+    title,
+    description,
+    alternates: buildAlternates(locale, "/bolgeler"),
+    ...buildPageSocialMeta(locale, "/bolgeler", title, description),
   };
 }
 

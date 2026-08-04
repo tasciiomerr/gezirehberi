@@ -131,11 +131,13 @@ export default function FAQSection({
                 <span>{faq.q}</span>
                 {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
               </button>
-              {isOpen && (
-                <p className="mt-3 text-sm text-ink/70 leading-relaxed font-semibold">
-                  {faq.a}
-                </p>
-              )}
+              <p
+                className={`text-sm text-ink/70 leading-relaxed font-semibold overflow-hidden transition-all duration-300 ${
+                  isOpen ? "mt-3 max-h-96 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                {faq.a}
+              </p>
             </div>
           );
         })}

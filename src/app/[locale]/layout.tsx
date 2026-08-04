@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 import "../globals.css";
-import { getDictionary, Locale } from "@/lib/i18n";
+import { getDictionary, Locale, buildRobots } from "@/lib/i18n";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -16,7 +17,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://yoldefterim.com.tr";
+const siteUrl = "https://www.yoldefterim.com.tr";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -32,16 +33,9 @@ export async function generateMetadata(props: {
       template: `%s | ${dict.nav.logo}`,
     },
     description: dict.home.subtitle,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-      },
-    },
+    // Temporary noindex for untranslated locales (report items 22/283) — every
+    // page inherits this unless it explicitly overrides robots itself.
+    robots: buildRobots(locale),
     openGraph: {
       type: "website",
       locale: locale === "tr" ? "tr_TR" : locale === "ar" ? "ar_AR" : "en_US",
@@ -76,6 +70,7 @@ export default async function RootLayout(props: {
         <Header />
         <main className="flex-1">{props.children}</main>
         <Footer />
+        <CookieConsentBanner />
       </body>
     </html>
   );

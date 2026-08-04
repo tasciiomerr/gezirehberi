@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin, BedDouble, UtensilsCrossed, MapPinned, Soup } from "lucide-react";
 import CityHero from "@/components/CityHero";
 import WishlistButton from "@/components/WishlistButton";
 import ItinerarySection from "@/components/ItinerarySection";
@@ -9,12 +9,14 @@ import CommunityRoutes from "@/components/CommunityRoutes";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { getCity, getAllCitySlugs } from "@/lib/data/cities";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
-import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
 import FAQSection from "@/components/FAQSection";
 import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
+import { getPlacesForCity } from "@/lib/places";
 
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
@@ -36,13 +38,19 @@ export async function generateMetadata(props: {
   const city = getCity(params.region, params.city);
   if (!city) return { title: "Şehir bulunamadı" };
   const bgImage = getCityImage(city.slug, city.regionSlug);
+  const title = translateDataText(city.title, locale);
+  const description = translateDataText(city.summary, locale);
+  const pageUrl = `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`;
   return {
-    title: translateDataText(city.title, locale),
-    description: translateDataText(city.summary, locale),
+    title,
+    description,
     alternates: buildAlternates(locale, `/bolgeler/${city.regionSlug}/${city.slug}`),
     openGraph: {
-      title: `${translateDataText(city.title, locale)}`,
-      description: translateDataText(city.summary, locale),
+      // Explicit url — without it this silently inherits the homepage's og:url from
+      // the root layout on every city page (report item 10).
+      url: pageUrl,
+      title,
+      description,
       images: [
         {
           url: bgImage,
@@ -51,6 +59,13 @@ export async function generateMetadata(props: {
           alt: translateDataText(city.name, locale),
         },
       ],
+    },
+    // Without its own twitter block, this page inherited the homepage's generic
+    // twitter:title/description from the root layout (report item 13).
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }
@@ -67,6 +82,10 @@ export default async function CityDetailPage(props: {
     notFound();
   }
 
+  // Server-rendered first page of the default (attractions/popularity) list, so the
+  // initial HTML already contains real results instead of the client-only empty state.
+  const initialPlaces = getPlacesForCity(city.slug, { type: "attractions", limit: 24 });
+
   const galleryImages = city.attractions.flatMap((a) => a.images).slice(0, 4);
 
   const bgImage = getCityImage(city.slug, city.regionSlug);
@@ -79,19 +98,19 @@ export default async function CityDetailPage(props: {
         "@type": "ListItem",
         "position": 1,
         "name": locale === "tr" ? "Ana Sayfa" : "Home",
-        "item": `https://yoldefterim.com.tr/${locale}`
+        "item": `${SITE_URL}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": translateDataText(city.region, locale),
-        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}`
+        "item": `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": translateDataText(city.name, locale),
-        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}/${city.slug}`
+        "item": `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`
       }
     ]
   };
@@ -168,6 +187,27 @@ export default async function CityDetailPage(props: {
     };
   });
 
+  // TouristAttraction schema per attraction (report item 188)
+  const attractionSchemas = city.attractions.slice(0, 10).map((attraction) => ({
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": translateDataText(attraction.name, locale),
+    "description": translateDataText(attraction.description, locale),
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": translateDataText(attraction.address, locale),
+      "addressLocality": translateDataText(city.name, locale),
+      "addressRegion": translateDataText(city.region, locale),
+      "addressCountry": "TR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": attraction.location.lat,
+      "longitude": attraction.location.lng
+    },
+    "publicAccess": true,
+  }));
+
   return (
     <div data-region={city.regionSlug}>
       <script
@@ -178,6 +218,13 @@ export default async function CityDetailPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(touristDestinationSchema) }}
       />
+      {attractionSchemas.map((a, i) => (
+        <script
+          key={`attraction-${i}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(a) }}
+        />
+      ))}
       {hotelSchemas.map((h, i) => (
         <script
           key={`hotel-${i}`}
@@ -200,6 +247,14 @@ export default async function CityDetailPage(props: {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-12 pb-24 sm:px-6 sm:pb-12">
+        <Breadcrumbs
+          items={[
+            { label: locale === "tr" ? "Ana Sayfa" : "Home", href: `/${locale}` },
+            { label: dict.nav.regions, href: `/${locale}/bolgeler` },
+            { label: translateDataText(city.region, locale), href: `/${locale}/bolgeler/${city.regionSlug}` },
+            { label: translateDataText(city.name, locale) },
+          ]}
+        />
         <div className="mb-8 flex items-center justify-between">
           <Link
             href={`/${locale}/bolgeler/${city.regionSlug}`}
@@ -264,10 +319,10 @@ export default async function CityDetailPage(props: {
                   {dict.city.quickStats}
                 </div>
                 <div className="space-y-2 text-sm">
-                  <p className="text-ink/70">🏨 {city.accommodations.length} {dict.city.accommodationsCount}</p>
-                  <p className="text-ink/70">🍽️ {city.restaurants.length} {dict.city.restaurantsCount}</p>
-                  <p className="text-ink/70">📍 {city.attractions.length} {dict.city.attractionsCount}</p>
-                  <p className="text-ink/70">🍴 {city.localFood.length} {dict.city.foodCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><BedDouble size={15} className="text-kiremit shrink-0" /> {city.accommodations.length} {dict.city.accommodationsCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><UtensilsCrossed size={15} className="text-kiremit shrink-0" /> {city.restaurants.length} {dict.city.restaurantsCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><MapPinned size={15} className="text-kiremit shrink-0" /> {city.attractions.length} {dict.city.attractionsCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><Soup size={15} className="text-kiremit shrink-0" /> {city.localFood.length} {dict.city.foodCount}</p>
                 </div>
               </div>
               {city.highlights.length > 0 && (
@@ -304,6 +359,9 @@ export default async function CityDetailPage(props: {
           localFood={city.localFood}
           accommodations={city.accommodations}
           locale={locale}
+          initialItems={initialPlaces?.items}
+          initialTotalCount={initialPlaces?.totalCount}
+          initialHasMore={initialPlaces?.hasMore}
         />
 
         {/* Dynamic local foods summary for SSS / FAQ page */}

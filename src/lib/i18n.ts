@@ -11,14 +11,47 @@ export function getDictionary(locale: Locale) {
   return dictionaries[locale] || dictionaries.tr;
 }
 
-export const SITE_URL = "https://yoldefterim.com.tr";
+export const SITE_URL = "https://www.yoldefterim.com.tr";
 export const LOCALES: Locale[] = ["tr", "en", "de", "ar"];
+
+// Only "tr" has real, human-authored content today. The en/de/ar routes exist and
+// render, but their long-form content (title, meta description, city/place copy)
+// is still raw Turkish text passed through — see report item 283. Until a real
+// translation pipeline (report item 105) lands, these locales are temporarily
+// noindexed and excluded from hreflang so Google isn't told "this is the English
+// version" of a page that isn't actually in English.
+const TRANSLATED_LOCALES: Locale[] = ["tr"];
+
+export function isLocaleTranslated(locale: Locale): boolean {
+  return TRANSLATED_LOCALES.includes(locale);
+}
+
+// robots directive to use in every generateMetadata() — noindex for untranslated
+// locales, normal indexing for "tr". Always index/follow reachable so Google can
+// still crawl and re-check once real translations ship.
+export function buildRobots(locale: Locale) {
+  if (isLocaleTranslated(locale)) {
+    return {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large" as const,
+        "max-snippet": -1,
+      },
+    };
+  }
+  return { index: false, follow: true };
+}
 
 // Builds canonical + hreflang alternates for a given path (without the locale segment).
 // pathWithoutLocale should start with "/" (e.g. "/bolgeler/karadeniz") or be "" for the homepage.
+// Only lists translated locales in hreflang — pointing to a noindexed alternate
+// would be a contradictory signal (see TRANSLATED_LOCALES above).
 export function buildAlternates(locale: Locale, pathWithoutLocale: string) {
   const languages: Record<string, string> = {};
-  for (const l of LOCALES) {
+  for (const l of TRANSLATED_LOCALES) {
     languages[l] = `${SITE_URL}/${l}${pathWithoutLocale}`;
   }
   languages["x-default"] = `${SITE_URL}/tr${pathWithoutLocale}`;
@@ -26,6 +59,39 @@ export function buildAlternates(locale: Locale, pathWithoutLocale: string) {
   return {
     canonical: `${SITE_URL}/${locale}${pathWithoutLocale}`,
     languages,
+  };
+}
+
+const OG_LOCALE: Record<Locale, string> = {
+  tr: "tr_TR",
+  en: "en_US",
+  de: "de_DE",
+  ar: "ar_AR",
+};
+
+// Builds page-specific openGraph.url + twitter tags so inner pages don't silently
+// inherit the homepage's og:url/twitter:title from the root layout (see report items 10, 13).
+export function buildPageSocialMeta(
+  locale: Locale,
+  pathWithoutLocale: string,
+  title: string,
+  description: string
+) {
+  const siteName = getDictionary(locale).nav.logo;
+  return {
+    openGraph: {
+      type: "website" as const,
+      locale: OG_LOCALE[locale],
+      siteName,
+      url: `${SITE_URL}/${locale}${pathWithoutLocale}`,
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title,
+      description,
+    },
   };
 }
 

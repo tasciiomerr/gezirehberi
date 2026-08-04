@@ -31,7 +31,14 @@ export function saveItineraryLocalState(citySlug: string, days: number, state: I
 /**
  * Mock hava durumu — gerçek bir Weather API key'i olmadan, il koordinatına ve
  * gün indexine göre deterministik (her yenilemede aynı) bir tahmin üretir.
- * Gerçek API entegrasyonu (OpenWeather vb.) key sağlanırsa buraya eklenebilir.
+ *
+ * NOT (uzun vadeli plan): Bir rota günlerce/haftalarca önceden planlandığı için
+ * gerçek bir hava durumu API'si de bu ufukta güvenilir bir tahmin veremez —
+ * API'ler genelde ~10 günden öteye gitmez. Asıl doğru çözüm muhtemelen bu mock
+ * günlük tahmini "aylık ortalama iklim bilgisine" (örn. "Haziran'da ortalama
+ * 24°C, yağış az") çevirmek olacak. Şimdilik burada yalnızca sıcaklık ile hava
+ * koşulunun (örn. "19°C ve karlı" gibi) meteorolojik olarak tutarlı çıkmasını
+ * sağlayan bir iç-tutarlılık düzeltmesi yapıldı; veri hâlâ gerçek değil.
  */
 export interface MockWeather {
   tempC: number;
@@ -41,13 +48,6 @@ export interface MockWeather {
   windKmh: number;
 }
 
-const CONDITIONS: MockWeather["condition"][] = [
-  "güneşli",
-  "parçalı bulutlu",
-  "yağmurlu",
-  "karlı",
-  "sisli",
-];
 const ICONS: Record<MockWeather["condition"], string> = {
   "güneşli": "☀️",
   "parçalı bulutlu": "⛅",
@@ -72,7 +72,20 @@ export function getMockWeather(citySlug: string, day: number, avgTempHint = 18):
   const r4 = seededRandom(`${citySlug}-${day}-w`);
 
   const tempC = Math.round(avgTempHint - 6 + r1 * 12);
-  const condition = CONDITIONS[Math.floor(r2 * CONDITIONS.length)];
+
+  // Only offer conditions that are meteorologically possible at this temperature
+  // (e.g. "karlı" can no longer be picked at 19°C) before choosing among them.
+  let eligible: MockWeather["condition"][];
+  if (tempC <= 2) {
+    eligible = ["karlı", "sisli", "parçalı bulutlu"];
+  } else if (tempC <= 10) {
+    eligible = ["yağmurlu", "sisli", "parçalı bulutlu", "güneşli"];
+  } else if (tempC <= 22) {
+    eligible = ["güneşli", "parçalı bulutlu", "yağmurlu", "sisli"];
+  } else {
+    eligible = ["güneşli", "parçalı bulutlu", "yağmurlu"];
+  }
+  const condition = eligible[Math.floor(r2 * eligible.length)];
 
   return {
     tempC,

@@ -3,10 +3,13 @@ import { regions } from "@/lib/data/regions";
 import { allCities } from "@/lib/data/cities";
 import { popularDistricts } from "@/lib/data/districts";
 
-const locales = ["tr", "en", "de", "ar"];
+// Only list locales that are actually indexable. en/de/ar are temporarily
+// noindexed (report items 22/283 — untranslated content) so listing them here
+// would just trigger Search Console's "submitted URL marked 'noindex'" warning.
+const locales = ["tr"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = "https://yoldefterim.com.tr";
+  const siteUrl = "https://www.yoldefterim.com.tr";
   const sitemapRoutes: MetadataRoute.Sitemap = [];
 
   locales.forEach((locale) => {
@@ -69,22 +72,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 3. City Routes & Category Sub-Tabs
     allCities.forEach((city) => {
       // Main City page
+      // Note: the "?tab=" category variants were removed — CityContentSections
+      // never reads a tab value from the URL, so those entries pointed to pages
+      // that render byte-for-byte identical content to the bare city URL (fake
+      // duplicate-content entries wasting crawl budget, report item 16).
       sitemapRoutes.push({
         url: `${siteUrl}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`,
         lastModified: new Date(),
         changeFrequency: "daily",
         priority: 0.8,
-      });
-
-      // Category Tabs (for Long-Tail SEO coverage of specific intent)
-      const tabs = ["attractions", "restaurants", "accommodations", "localFood"];
-      tabs.forEach((tab) => {
-        sitemapRoutes.push({
-          url: `${siteUrl}/${locale}/bolgeler/${city.regionSlug}/${city.slug}?tab=${tab}`,
-          lastModified: new Date(),
-          changeFrequency: "weekly",
-          priority: 0.6,
-        });
       });
     });
 
@@ -95,17 +91,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: "daily",
         priority: 0.7,
-      });
-
-      // District Sub-tabs
-      const tabs = ["attractions", "restaurants", "accommodations", "localFood"];
-      tabs.forEach((tab) => {
-        sitemapRoutes.push({
-          url: `${siteUrl}/${locale}/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}?tab=${tab}`,
-          lastModified: new Date(),
-          changeFrequency: "weekly",
-          priority: 0.6,
-        });
       });
     });
   });

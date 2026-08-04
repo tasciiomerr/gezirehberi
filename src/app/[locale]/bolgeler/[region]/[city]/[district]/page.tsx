@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin, BedDouble, UtensilsCrossed, MapPinned, Soup } from "lucide-react";
 import CityHero from "@/components/CityHero";
 import WishlistButton from "@/components/WishlistButton";
 import CityContentSections from "@/components/CityContentSections";
 import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQSection from "@/components/FAQSection";
 
 import { getCity } from "@/lib/data/cities";
 import { getDistrict, getAllDistrictSlugs } from "@/lib/data/districts";
-import { getDictionary, Locale, translateDataText, buildAlternates } from "@/lib/i18n";
+import { getPlacesForCity } from "@/lib/places";
+import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
 import { getNextMondayISO } from "@/lib/pricingEngine";
 
@@ -43,11 +45,14 @@ export async function generateMetadata(props: {
 
   const bgImage = getCityImage(district.slug, district.regionSlug);
 
+  const pageUrl = `${SITE_URL}/${locale}/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`;
+
   return {
     title: district.title,
     description: district.summary,
     alternates: buildAlternates(locale, `/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`),
     openGraph: {
+      url: pageUrl,
       title: district.title,
       description: district.summary,
       images: [
@@ -58,6 +63,11 @@ export async function generateMetadata(props: {
           alt: district.name,
         },
       ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: district.title,
+      description: district.summary,
     },
   };
 }
@@ -77,6 +87,10 @@ export default async function DistrictDetailPage(props: {
 
   const bgImage = getCityImage(district.slug, district.regionSlug);
 
+  // Server-rendered first page of the default (attractions/popularity) list, scoped to
+  // this district, so the initial HTML already contains real results.
+  const initialPlaces = getPlacesForCity(city.slug, { type: "attractions", limit: 24, districtSlug: district.slug });
+
   // Schema definitions
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -86,25 +100,25 @@ export default async function DistrictDetailPage(props: {
         "@type": "ListItem",
         "position": 1,
         "name": locale === "tr" ? "Ana Sayfa" : "Home",
-        "item": `https://yoldefterim.com.tr/${locale}`
+        "item": `${SITE_URL}/${locale}`
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": translateDataText(city.region, locale),
-        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}`
+        "item": `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": translateDataText(city.name, locale),
-        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}/${city.slug}`
+        "item": `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`
       },
       {
         "@type": "ListItem",
         "position": 4,
         "name": district.name,
-        "item": `https://yoldefterim.com.tr/${locale}/bolgeler/${city.regionSlug}/${city.slug}/${district.slug}`
+        "item": `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}/${city.slug}/${district.slug}`
       }
     ]
   };
@@ -226,6 +240,15 @@ export default async function DistrictDetailPage(props: {
       </div>
 
       <div className="mx-auto max-w-6xl px-4 py-12 pb-24 sm:px-6 sm:pb-12">
+        <Breadcrumbs
+          items={[
+            { label: locale === "tr" ? "Ana Sayfa" : "Home", href: `/${locale}` },
+            { label: dict.nav.regions, href: `/${locale}/bolgeler` },
+            { label: translateDataText(city.region, locale), href: `/${locale}/bolgeler/${city.regionSlug}` },
+            { label: translateDataText(city.name, locale), href: `/${locale}/bolgeler/${city.regionSlug}/${city.slug}` },
+            { label: translateDataText(district.name, locale) },
+          ]}
+        />
         <div className="mb-8 flex items-center justify-between">
           <Link
             href={`/${locale}/bolgeler/${city.regionSlug}/${city.slug}`}
@@ -288,10 +311,10 @@ export default async function DistrictDetailPage(props: {
                   {locale === "tr" ? "İlçe İstatistikleri" : "District Stats"}
                 </div>
                 <div className="space-y-2 text-sm">
-                  <p className="text-ink/70">🏨 500 {dict.city.accommodationsCount}</p>
-                  <p className="text-ink/70">🍽️ 500 {dict.city.restaurantsCount}</p>
-                  <p className="text-ink/70">📍 500 {dict.city.attractionsCount}</p>
-                  <p className="text-ink/70">🍴 500 {dict.city.foodCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><BedDouble size={15} className="text-kiremit shrink-0" /> 500 {dict.city.accommodationsCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><UtensilsCrossed size={15} className="text-kiremit shrink-0" /> 500 {dict.city.restaurantsCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><MapPinned size={15} className="text-kiremit shrink-0" /> 500 {dict.city.attractionsCount}</p>
+                  <p className="flex items-center gap-2 text-ink/70"><Soup size={15} className="text-kiremit shrink-0" /> 500 {dict.city.foodCount}</p>
                 </div>
               </div>
             </div>
@@ -308,6 +331,9 @@ export default async function DistrictDetailPage(props: {
           accommodations={[]}
           locale={locale}
           districtSlug={district.slug}
+          initialItems={initialPlaces?.items}
+          initialTotalCount={initialPlaces?.totalCount}
+          initialHasMore={initialPlaces?.hasMore}
         />
 
         {/* Dynamic FAQ block with JSON-LD schema */}

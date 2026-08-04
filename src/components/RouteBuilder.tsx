@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Trash2, ArrowRight, ArrowLeft, Send, Sparkles, MapPin } from "lucide-react";
 import { City, Attraction } from "@/lib/types";
-import { createUserRoute, SocialRoute, SocialStop } from "@/lib/socialDb";
+import { createUserRoute, getLocalAuthorName, setLocalAuthorName, SocialRoute, SocialStop } from "@/lib/socialDb";
 import { getDictionary, Locale } from "@/lib/i18n";
 
 interface RouteBuilderProps {
@@ -18,6 +18,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
   const dict = getDictionary(locale as Locale);
   const [step, setStep] = useState(1);
   const [title, setTitle] = useState("");
+  const [authorName, setAuthorName] = useState(() => getLocalAuthorName());
   const [days, setDays] = useState(3);
   const [selectedAttractions, setSelectedAttractions] = useState<Attraction[]>([]);
   const [stopsInfo, setStopsInfo] = useState<Record<string, { note: string; duration: string }>>({});
@@ -50,6 +51,8 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
 
   const handlePublish = () => {
     if (!title.trim() || selectedAttractions.length === 0) return;
+
+    setLocalAuthorName(authorName);
 
     const socialStops: SocialStop[] = selectedAttractions.map((attraction, index) => {
       const info = stopsInfo[attraction.id] || { note: "", duration: "1 saat" };
@@ -133,6 +136,20 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={locale === "tr" ? "Örn: Hafta Sonu Gurme Gezisi" : "E.g., Weekend Culinary Tour"}
+                className="w-full rounded-lg border border-ink/10 bg-paper px-3 py-2 text-sm text-ink focus:border-kiremit focus:outline-none font-semibold"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/55">
+                {locale === "tr" ? "Adınız (rotanın altında görünür)" : "Your Name (shown on the route)"}
+              </label>
+              <input
+                type="text"
+                value={authorName}
+                onChange={(e) => setAuthorName(e.target.value)}
+                placeholder={locale === "tr" ? "Misafir Gezgin" : "Guest Traveler"}
+                maxLength={40}
                 className="w-full rounded-lg border border-ink/10 bg-paper px-3 py-2 text-sm text-ink focus:border-kiremit focus:outline-none font-semibold"
               />
             </div>

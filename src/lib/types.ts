@@ -164,6 +164,10 @@ export interface TransferBlock {
   mode: "walk" | "drive";
   estimatedMinutes: number;
   isLongTransfer?: boolean;
+  // true = haversine-distance estimate (×1.3 road factor), false = real Mapbox
+  // Directions API result. See report item 57 — estimates must be labeled
+  // "yaklaşık", never presented as exact.
+  approximate?: boolean;
 }
 
 export interface DayPlan {

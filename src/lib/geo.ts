@@ -51,6 +51,7 @@ export function estimateTransfer(
     mode,
     estimatedMinutes,
     isLongTransfer: roadKm > 15,
+    approximate: true,
   };
 }
 
@@ -110,5 +111,53 @@ export function optimizeTSP(stops: any[]): any[] {
     ...s,
     order: idx + 1,
   }));
+}
+
+// Report items 58/59 — free Google Maps deep links, no API key required. Google
+// handles the actual navigation, so this doesn't touch our API quota/cost at all.
+export type TravelMode = "walking" | "driving" | "bicycling" | "transit";
+
+function coordStr(p: GeoPoint): string {
+  return `${p.lat},${p.lng}`;
+}
+
+/**
+ * "Yol Tarifi Al" per-stop link. If `origin` is omitted, Google Maps falls back
+ * to the user's current location as the starting point.
+ */
+export function buildStopDirectionsUrl(
+  destination: GeoPoint,
+  origin: GeoPoint | undefined,
+  mode: TravelMode
+): string {
+  const params = new URLSearchParams({
+    api: "1",
+    destination: coordStr(destination),
+    travelmode: mode,
+  });
+  if (origin) params.set("origin", coordStr(origin));
+  return `https://www.google.com/maps/dir/?${params.toString()}`;
+}
+
+/**
+ * "Tüm Rotayı Google Maps'te Aç" per-day link — origin is the first stop,
+ * destination the last, everything in between becomes waypoints.
+ */
+export function buildDayRouteUrl(stops: GeoPoint[], mode: TravelMode): string | null {
+  if (stops.length < 2) return null;
+  const origin = stops[0];
+  const destination = stops[stops.length - 1];
+  const waypoints = stops.slice(1, -1);
+
+  const params = new URLSearchParams({
+    api: "1",
+    origin: coordStr(origin),
+    destination: coordStr(destination),
+    travelmode: mode,
+  });
+  if (waypoints.length > 0) {
+    params.set("waypoints", waypoints.map(coordStr).join("|"));
+  }
+  return `https://www.google.com/maps/dir/?${params.toString()}`;
 }
 

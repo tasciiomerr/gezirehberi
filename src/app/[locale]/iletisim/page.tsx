@@ -1,4 +1,4 @@
-import { Locale, buildAlternates } from "@/lib/i18n";
+import { Locale, buildAlternates, buildPageSocialMeta } from "@/lib/i18n";
 import ContactForm from "@/components/ContactForm";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
@@ -14,6 +14,7 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     title,
     description,
     alternates: buildAlternates(locale, "/iletisim"),
+    ...buildPageSocialMeta(locale, "/iletisim", title, description),
   };
 }
 
