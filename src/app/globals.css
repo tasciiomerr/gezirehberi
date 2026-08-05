@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* WCAG 2.4.7 Focus Visible (report items 255-267) — many interactive elements
+   across the site use Tailwind's `focus:outline-none` paired with a custom
+   focus style (ring/border), but a real audit found ~20+ buttons/links/inputs
+   where outline-none was applied with NO replacement at all, leaving keyboard
+   users with no focus indicator whatsoever. Fixing this in one global rule
+   (rather than 20+ individual className edits) guarantees every interactive
+   element gets a visible indicator, including ones added later. Targets
+   :focus-visible specifically (not :focus) so it only shows for keyboard/
+   assistive-tech navigation, not mouse clicks — matches native browser
+   behavior and doesn't visually clash with existing focus: ring/border styles.
+*/
+:focus-visible {
+  outline: 2px solid var(--color-kiremit);
+  outline-offset: 2px;
+}
+
 :root {
   --color-paper: #ffffff;
   --color-ink: #1f2937;

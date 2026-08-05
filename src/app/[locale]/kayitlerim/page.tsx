@@ -92,14 +92,14 @@ export default function WishlistPage() {
           </div>
           <div>
             <p className="font-semibold text-ink">{translateDataText(item.cityName, locale)}</p>
-            <p className="text-xs text-ink/50">
+            <p className="text-xs text-ink/65">
               {new Date(item.addedAt).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US")} {dict.wishlist.addedAt}
             </p>
           </div>
         </Link>
         <Link
           href={`/${locale}/bolgeler/${item.regionSlug}/${item.citySlug}#itinerary-section`}
-          className="mr-1 flex h-9 w-9 items-center justify-center rounded-full text-ink/40 hover:bg-turkuaz/10 hover:text-turkuaz transition-colors"
+          className="mr-1 flex h-9 w-9 items-center justify-center rounded-full text-ink/65 hover:bg-turkuaz/10 hover:text-turkuaz transition-colors"
           aria-label={dict.wishlist.goToItinerary}
           title={dict.wishlist.goToItinerary}
         >
@@ -107,7 +107,7 @@ export default function WishlistPage() {
         </Link>
         <button
           onClick={() => removeFromWishlist(item.citySlug)}
-          className="p-2 text-ink/40 transition-colors hover:text-kiremit cursor-pointer"
+          className="p-2 text-ink/65 transition-colors hover:text-kiremit cursor-pointer"
           aria-label={dict.wishlist.remove}
         >
           <Trash2 size={18} />
@@ -137,7 +137,7 @@ export default function WishlistPage() {
             <button
               onClick={() => setViewMode("region")}
               className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer ${
-                viewMode === "region" ? "bg-kiremit text-paper" : "text-ink/60 hover:text-ink"
+                viewMode === "region" ? "bg-kiremit text-paper" : "text-ink/65 hover:text-ink"
               }`}
             >
               <LayoutGrid size={13} /> {dict.wishlist.viewRegion}
@@ -145,7 +145,7 @@ export default function WishlistPage() {
             <button
               onClick={() => setViewMode("list")}
               className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all cursor-pointer ${
-                viewMode === "list" ? "bg-kiremit text-paper" : "text-ink/60 hover:text-ink"
+                viewMode === "list" ? "bg-kiremit text-paper" : "text-ink/65 hover:text-ink"
               }`}
             >
               <Rows3 size={13} /> {dict.wishlist.viewList}
@@ -161,7 +161,7 @@ export default function WishlistPage() {
           className={`flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
             activeMainTab === "cities"
               ? "border-kiremit text-kiremit"
-              : "border-transparent text-ink/50 hover:text-ink/80"
+              : "border-transparent text-ink/65 hover:text-ink/80"
           }`}
         >
           <MapPinned size={16} />
@@ -172,7 +172,7 @@ export default function WishlistPage() {
           className={`flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap cursor-pointer ${
             activeMainTab === "places"
               ? "border-kiremit text-kiremit"
-              : "border-transparent text-ink/50 hover:text-ink/80"
+              : "border-transparent text-ink/65 hover:text-ink/80"
           }`}
         >
           <Heart size={16} />
@@ -214,7 +214,7 @@ export default function WishlistPage() {
                   <div key={group.regionSlug} className="space-y-3">
                     <h2 className="font-display text-xl italic text-ink border-b border-ink/5 pb-2">
                       {translateDataText(group.regionName, locale)}{" "}
-                      <span className="font-sans text-xs not-italic text-ink/40">({group.cities.length})</span>
+                      <span className="font-sans text-xs not-italic text-ink/65">({group.cities.length})</span>
                     </h2>
                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       {group.cities.map((item) => (

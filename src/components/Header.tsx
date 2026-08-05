@@ -15,7 +15,7 @@ import { initializeSocialDB } from "@/lib/socialDb";
 export default function Header() {
   const pathname = usePathname() || "";
   const segments = pathname.split("/");
-  const locale = ["tr", "en", "de", "ar"].includes(segments[1])
+  const locale = ["tr", "en", "de", "ar", "ru"].includes(segments[1])
     ? (segments[1] as Locale)
     : ("tr" as Locale);
 
@@ -133,6 +133,7 @@ export default function Header() {
 
           <Link
             href={`/${locale}/kayitlerim`}
+            aria-label={dict.nav.wishlist}
             className="flex h-9 w-9 items-center justify-center rounded-full border border-ink/10 text-ink bg-paper/60 hover:text-kiremit transition-colors"
           >
             <Heart size={15} />

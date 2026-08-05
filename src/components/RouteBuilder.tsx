@@ -88,7 +88,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
       {/* Close button */}
       <button
         onClick={onClose}
-        className="absolute right-4 top-4 text-xs font-bold uppercase tracking-wider text-ink/40 hover:text-kiremit focus:outline-none"
+        className="absolute right-4 top-4 text-xs font-bold uppercase tracking-wider text-ink/65 hover:text-kiremit focus:outline-none"
       >
         {locale === "tr" ? "İptal" : "Cancel"}
       </button>
@@ -107,7 +107,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
           <div key={num} className="flex-1 flex items-center gap-2">
             <div
               className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold transition-colors ${
-                step >= num ? "bg-kiremit text-paper" : "bg-ink/10 text-ink/40"
+                step >= num ? "bg-kiremit text-paper" : "bg-ink/10 text-ink/65"
               }`}
             >
               {num}
@@ -128,7 +128,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             className="space-y-4"
           >
             <div className="space-y-1">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/55">
+              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65">
                 {locale === "tr" ? "Rota Başlığı" : "Itinerary Title"}
               </label>
               <input
@@ -141,7 +141,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/55">
+              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65">
                 {locale === "tr" ? "Adınız (rotanın altında görünür)" : "Your Name (shown on the route)"}
               </label>
               <input
@@ -155,7 +155,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/55">
+              <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65">
                 {locale === "tr" ? "Seyahat Süresi (Gün)" : "Trip Duration (Days)"}
               </label>
               <div className="grid grid-cols-5 gap-2">
@@ -197,7 +197,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             exit={{ opacity: 0, x: -20 }}
             className="space-y-4"
           >
-            <label className="text-[10px] font-bold uppercase tracking-wider text-ink/55 block">
+            <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65 block">
               {locale === "tr" ? "Gezilecek Mekanları Ekle" : "Add Places to Visit"}
             </label>
 
@@ -216,10 +216,10 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <MapPin size={14} className={isSelected ? "text-kiremit" : "text-ink/30"} />
+                      <MapPin size={14} className={isSelected ? "text-kiremit" : "text-ink/65"} />
                       <div>
                         <p className="text-xs font-bold text-ink">{attraction.name}</p>
-                        <p className="text-[10px] text-ink/40 font-semibold">{attraction.category}</p>
+                        <p className="text-[10px] text-ink/65 font-semibold">{attraction.category}</p>
                       </div>
                     </div>
                     <span
@@ -262,7 +262,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             exit={{ opacity: 0, x: -20 }}
             className="space-y-4"
           >
-            <label className="text-[10px] font-bold uppercase tracking-wider text-ink/55 block">
+            <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65 block">
               {locale === "tr" ? "Rota Notları ve Süreleri Düzenle" : "Edit Stop Notes & Durations"}
             </label>
 
@@ -281,7 +281,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                       <button
                         type="button"
                         onClick={() => handleToggleSelect(attraction)}
-                        className="text-ink/30 hover:text-kiremit transition-colors"
+                        className="text-ink/65 hover:text-kiremit transition-colors"
                         aria-label="Remove stop"
                       >
                         <Trash2 size={13} />

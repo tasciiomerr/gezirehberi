@@ -18,7 +18,7 @@ import { getNextMondayISO } from "@/lib/pricingEngine";
 
 export async function generateStaticParams() {
   const slugs = getAllDistrictSlugs();
-  const locales = ["tr", "en", "de", "ar"];
+  const locales = ["tr", "en", "de", "ar", "ru"];
   const paramsList = [];
 
   for (const slugInfo of slugs) {

@@ -55,7 +55,7 @@ function TransferRow({ transfer, locale }: { transfer: TransferBlock; locale: st
     <div
       className={`flex items-center gap-2 border-dashed py-2 text-xs ${
         isRtl ? "mr-5 border-r-2 pr-4 pl-0" : "ml-5 border-l-2 pl-4 pr-0"
-      } ${transfer.isLongTransfer ? "border-safran text-kiremit font-semibold" : "border-ink/15 text-ink/50"}`}
+      } ${transfer.isLongTransfer ? "border-safran text-kiremit font-semibold" : "border-ink/15 text-ink/65"}`}
     >
       {transfer.mode === "walk" ? <Footprints size={13} /> : <Car size={13} />}
       <span>
@@ -63,7 +63,7 @@ function TransferRow({ transfer, locale }: { transfer: TransferBlock; locale: st
       </span>
       {transfer.approximate && (
         <span
-          className="text-[10px] font-semibold text-ink/35"
+          className="text-[10px] font-semibold text-ink/65"
           title={locale === "tr" ? "Gerçek yol verisi alınamadı, kuş uçuşu mesafeye dayalı tahmindir." : "Real road data unavailable — this is a straight-line distance estimate."}
         >
           ({locale === "tr" ? "yaklaşık" : locale === "de" ? "ungefähr" : locale === "ar" ? "تقريبي" : "approx."})
@@ -150,11 +150,11 @@ function DayCard({
             <span className="rounded-full bg-kiremit/10 px-2.5 py-1 text-xs font-bold text-kiremit">
               {plan.stops.length} {dict.city.stopsCount}
             </span>
-            <span className="flex items-center gap-1 text-xs text-ink/55 bg-ink/[0.03] px-2 py-0.5 rounded-full">
+            <span className="flex items-center gap-1 text-xs text-ink/65 bg-ink/[0.03] px-2 py-0.5 rounded-full">
               {weather.icon} {weather.tempC}°C · {weatherConditionText}
             </span>
           </div>
-          <div className={`mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink/50 ${isRtl ? "flex-row-reverse" : ""}`}>
+          <div className={`mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink/65 ${isRtl ? "flex-row-reverse" : ""}`}>
             {plan.totalWalkingKm !== undefined && plan.totalWalkingKm > 0 && (
               <span className="flex items-center gap-1 font-semibold">
                 <Footprints size={12} /> {plan.totalWalkingKm} km {dict.city.walkingDistance}
@@ -174,7 +174,7 @@ function DayCard({
             />
           </div>
         </div>
-        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="text-ink/40 flex-shrink-0">
+        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="text-ink/65 flex-shrink-0">
           <ChevronDown size={20} />
         </motion.span>
       </button>
@@ -270,7 +270,7 @@ function DayCard({
                       <span className="text-sm font-bold text-deniz">
                         {slotLabel}
                       </span>
-                      <span className="text-xs text-ink/40">{TIME_SLOT_LABELS[slot].range}</span>
+                      <span className="text-xs text-ink/65">{TIME_SLOT_LABELS[slot].range}</span>
                     </div>
                     <div className="space-y-1">
                       {stopsInSlot.map((stop) => {
@@ -295,30 +295,34 @@ function DayCard({
                                 className={`mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 text-xs font-bold transition-all ${
                                   isChecked
                                     ? "border-turkuaz bg-turkuaz text-paper"
-                                    : "border-ink/20 text-ink/40 hover:border-kiremit hover:scale-105"
+                                    : "border-ink/20 text-ink/65 hover:border-kiremit hover:scale-105"
                                 }`}
-                                aria-label={isChecked ? "Remove completed tick" : "Mark completed"}
+                                // WCAG 2.5.3 Label-in-Name: aria-hidden on the inner number alone
+                                // wasn't enough — axe checks the visually rendered text too, not
+                                // just the accessibility tree, so the accessible name must contain
+                                // the visible digit itself (report items 135-144, found via Lighthouse).
+                                aria-label={isChecked ? `Remove completed tick for stop ${stop.order}` : `Mark stop ${stop.order} completed`}
                               >
-                                {isChecked ? "✓" : stop.order}
+                                <span aria-hidden="true">{isChecked ? "✓" : stop.order}</span>
                               </button>
                               <div className="flex-1 min-w-0">
                                 <div className={`flex items-center gap-2 ${isRtl ? "flex-row-reverse" : ""}`}>
                                   <span className="text-kiremit shrink-0">{TYPE_ICON[stop.type]}</span>
                                   <h4
                                     className={`font-semibold text-sm text-ink truncate ${
-                                      isChecked ? "line-through text-ink/30" : ""
+                                      isChecked ? "line-through text-ink/65" : ""
                                     }`}
                                   >
                                     {translateDataText(stop.title, locale as Locale)}
                                   </h4>
                                 </div>
                                 {stop.description && (
-                                  <p className={`mt-1.5 text-xs text-ink/65 leading-relaxed ${isChecked ? "line-through text-ink/30" : ""}`}>
+                                  <p className={`mt-1.5 text-xs text-ink/65 leading-relaxed ${isChecked ? "line-through text-ink/65" : ""}`}>
                                     {translateDataText(stop.description, locale as Locale)}
                                   </p>
                                 )}
                                 <div className={`mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 ${isRtl ? "flex-row-reverse" : ""}`}>
-                                  <p className="text-[10px] font-bold text-ink/35 uppercase tracking-wide">
+                                  <p className="text-[10px] font-bold text-ink/65 uppercase tracking-wide">
                                     ⏱ {translateDataText(stop.duration, locale as Locale)}
                                   </p>
                                   {directionsUrl && (
@@ -357,7 +361,7 @@ function DayCard({
 
               {/* Day Note Editor */}
               <div className="mt-4 rounded-xl border border-ink/10 bg-ink/[0.01] p-4">
-                <label className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-ink/60">
+                <label className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-ink/65">
                   <StickyNote size={13} /> {dict.city.notes}
                 </label>
                 <textarea
@@ -365,7 +369,7 @@ function DayCard({
                   onChange={(e) => setNoteValue(e.target.value)}
                   onBlur={() => onNoteChange(plan.day, noteValue)}
                   placeholder={dict.city.notesPlaceholder}
-                  className="w-full resize-none rounded-lg border border-ink/10 bg-paper p-2 text-sm text-ink placeholder:text-ink/30 focus:border-kiremit focus:outline-none"
+                  className="w-full resize-none rounded-lg border border-ink/10 bg-paper p-2 text-sm text-ink placeholder:text-ink/65 focus:border-kiremit focus:outline-none"
                   rows={2}
                 />
               </div>

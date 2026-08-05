@@ -110,10 +110,10 @@ export default function AudioGuide({ title, text }: AudioGuideProps) {
                 </button>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold text-ink">{title}</p>
-                  <p className="text-xs text-ink/50">{dict.city.audioGuideSub}</p>
+                  <p className="text-xs text-ink/65">{dict.city.audioGuideSub}</p>
                 </div>
                 <div className="flex items-center gap-1 bg-ink/5 px-2 py-1 rounded-full">
-                  <Volume2 size={13} className="text-ink/40" />
+                  <Volume2 size={13} className="text-ink/65" />
                   {SPEEDS.map((s) => (
                     <button
                       key={s}
@@ -121,7 +121,7 @@ export default function AudioGuide({ title, text }: AudioGuideProps) {
                       className={`rounded-full px-2 py-0.5 text-[10px] font-bold transition-all ${
                         rate === s
                           ? "bg-turkuaz text-paper"
-                          : "text-ink/50 hover:bg-ink/5"
+                          : "text-ink/65 hover:bg-ink/5"
                       }`}
                     >
                       {s}x
@@ -130,7 +130,7 @@ export default function AudioGuide({ title, text }: AudioGuideProps) {
                 </div>
                 <button
                   onClick={handleClose}
-                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-ink/40 hover:bg-ink/5 hover:text-kiremit transition-colors"
+                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-ink/65 hover:bg-ink/5 hover:text-kiremit transition-colors"
                   aria-label="Close audio guide"
                 >
                   <X size={16} />

@@ -84,7 +84,7 @@ export default function DurationSelector({ onSelect, selected }: DurationSelecto
           >
             <div className="font-bold text-base">{duration.label}</div>
             <div className={`text-[10px] uppercase font-bold tracking-wider mt-1.5 ${
-              selected === duration.days ? "text-paper/80" : "text-ink/50"
+              selected === duration.days ? "text-paper/80" : "text-ink/65"
             }`}>
               {duration.description}
             </div>

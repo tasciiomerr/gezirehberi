@@ -57,7 +57,7 @@ export default function AccommodationCard({ accommodation, locale = "tr", onClic
             <div className="mt-3 flex flex-wrap gap-1.5 border-t border-ink/5 pt-3">
               {accommodation.amenities.slice(0, 3).map((a) => (
                 <span key={a} className="flex items-center gap-1 rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-semibold text-ink/70">
-                  <Wifi size={10} className="text-ink/45" /> {translateDataText(a, locale as Locale)}
+                  <Wifi size={10} className="text-ink/65" /> {translateDataText(a, locale as Locale)}
                 </span>
               ))}
             </div>
@@ -69,9 +69,9 @@ export default function AccommodationCard({ accommodation, locale = "tr", onClic
         <div className="flex flex-col gap-1 border-t border-ink/5 pt-3">
           <p className="font-bold text-kiremit">
             {translateDataText(accommodation.pricePerNight, locale as Locale)}{" "}
-            <span className="text-xs font-normal text-ink/50">{perNightText}</span>
+            <span className="text-xs font-normal text-ink/65">{perNightText}</span>
           </p>
-          <span className="text-[10px] text-ink/40 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
+          <span className="text-[10px] text-ink/65 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
           <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
         </div>
       </div>

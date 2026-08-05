@@ -42,7 +42,7 @@ export default function FoodCard({ food, locale = "tr", onClick }: { food: FoodI
       </div>
 
       <div className="p-4 pt-0">
-        <div className="flex items-center justify-between text-xs text-ink/50 border-t border-ink/5 pt-3 font-medium">
+        <div className="flex items-center justify-between text-xs text-ink/65 border-t border-ink/5 pt-3 font-medium">
           <span className="flex items-center gap-1.5">
             <Calendar size={12} /> {translateDataText(food.bestSeason, locale as Locale)}
           </span>

@@ -51,6 +51,12 @@ export default function CookieConsentBanner() {
       decline: "رفض",
       policy: "سياسة ملفات تعريف الارتباط",
     },
+    ru: {
+      text: "Yol Defteri использует файлы cookie для основных функций сайта и, если включено, для рекламы/аналитики.",
+      accept: "Принять",
+      decline: "Отклонить",
+      policy: "Политика использования cookie",
+    },
   }[locale];
 
   if (!visible) return null;

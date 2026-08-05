@@ -75,7 +75,7 @@ export default function RestaurantCard({ restaurant, locale = "tr", onClick }: {
           {(restaurant.priceSegment || restaurant.signatureDish) && (
             <div className="mt-3 flex items-center justify-between gap-2 border-t border-ink/5 pt-2.5">
               {restaurant.priceSegment && (
-                <span className="text-xs font-bold text-ink/40">
+                <span className="text-xs font-bold text-ink/65">
                   {"$".repeat(restaurant.priceSegment)}
                   <span className="text-ink/15">{"$".repeat(4 - restaurant.priceSegment)}</span>
                 </span>
@@ -92,7 +92,7 @@ export default function RestaurantCard({ restaurant, locale = "tr", onClick }: {
 
       <div className="p-4 pt-0">
         <div className="flex flex-col gap-1 border-t border-ink/5 pt-3">
-          <div className="flex items-center justify-between text-xs text-ink/50 font-medium">
+          <div className="flex items-center justify-between text-xs text-ink/65 font-medium">
             <span className="flex items-center gap-1 font-bold text-kiremit">
               <UtensilsCrossed size={12} /> {translateDataText(restaurant.averageCost, locale as Locale)}
             </span>
@@ -102,12 +102,12 @@ export default function RestaurantCard({ restaurant, locale = "tr", onClick }: {
               </span>
             )}
           </div>
-          <span className="text-[10px] text-ink/40 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
+          <span className="text-[10px] text-ink/65 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
           <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
         </div>
 
         {restaurant.phone && (
-          <div className="mt-2.5 flex items-center gap-1.5 text-xs text-ink/45 border-t border-ink/5 pt-2 font-medium">
+          <div className="mt-2.5 flex items-center gap-1.5 text-xs text-ink/65 border-t border-ink/5 pt-2 font-medium">
             <Phone size={12} /> <span>{restaurant.phone}</span>
           </div>
         )}

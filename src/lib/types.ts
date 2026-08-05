@@ -247,6 +247,32 @@ export interface City {
   instagram?: string;
   tags: string[];
   highlights: string[];
+
+  // Report items 155/164-171 — real, editor-verified data only, never
+  // template-generated filler (see madde 34/167). Left empty until real
+  // data exists; the UI shows an honest empty state instead of hiding or
+  // fabricating content.
+  campingSpots?: CampingSpot[];
+  filmLocations?: FilmLocation[];
+}
+
+export interface CampingSpot {
+  id: string;
+  name: string;
+  description: string;
+  location: GeoPoint;
+  hasElectricity: boolean;
+  hasWater: boolean;
+  isCoastal: boolean;
+  isFree: boolean;
+  suitableForLargeVehicles: boolean;
+}
+
+export interface FilmLocation {
+  id: string;
+  title: string; // dizi/film adı
+  description: string; // burada ne çekildi, hangi sahne
+  location?: GeoPoint;
 }
 
 export interface RoutePage {

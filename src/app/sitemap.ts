@@ -1,99 +1,132 @@
 import { MetadataRoute } from "next";
+import { execFileSync } from "child_process";
 import { regions } from "@/lib/data/regions";
 import { allCities } from "@/lib/data/cities";
 import { popularDistricts } from "@/lib/data/districts";
+import { getTranslatedCitySlugs } from "@/lib/translation/pipeline";
+import type { TranslationTargetLocale } from "@/lib/translation/types";
 
-// Only list locales that are actually indexable. en/de/ar are temporarily
-// noindexed (report items 22/283 — untranslated content) so listing them here
-// would just trigger Search Console's "submitted URL marked 'noindex'" warning.
+// Only list locales that are actually indexable site-wide. en/de/ar/ru stay
+// out of this base list (report items 22/283 — untranslated content by
+// default) so listing them here would just trigger Search Console's
+// "submitted URL marked 'noindex'" warning. City pages that DO have real
+// per-city translation data get their own entries added below instead,
+// mirroring the buildRobots(locale, contentTranslated) per-page override.
 const locales = ["tr"];
+const CANDIDATE_TRANSLATED_LOCALES: TranslationTargetLocale[] = ["en", "de", "ru", "ar"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Report item 95 — every entry used to get `lastModified: new Date()`, i.e.
+// "right now, every single build," which is a fake freshness signal (worse
+// than no signal at all). This reads the real last-commit date of whatever
+// source file actually backs that route, via `git log`, and simply omits
+// lastModified when no real source/git data is available rather than
+// fabricating one. Memoized per pathspec since sitemap() is called once per
+// generation but touches the same handful of source files hundreds of times.
+const gitDateCache = new Map<string, Date | undefined>();
+
+function getGitLastModified(pathspec: string): Date | undefined {
+  if (gitDateCache.has(pathspec)) return gitDateCache.get(pathspec);
+  let result: Date | undefined;
+  try {
+    const output = execFileSync("git", ["log", "-1", "--format=%cI", "--", pathspec], {
+      cwd: process.cwd(),
+      stdio: ["ignore", "pipe", "ignore"],
+    })
+      .toString()
+      .trim();
+    result = output ? new Date(output) : undefined;
+  } catch {
+    result = undefined;
+  }
+  gitDateCache.set(pathspec, result);
+  return result;
+}
+
+// Spreads lastModified into the route entry only when a real date was found.
+function route(
+  url: string,
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
+  priority: number,
+  sourcePathspec: string
+): MetadataRoute.Sitemap[number] {
+  const lastModified = getGitLastModified(sourcePathspec);
+  return { url, changeFrequency, priority, ...(lastModified ? { lastModified } : {}) };
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = "https://www.yoldefterim.com.tr";
   const sitemapRoutes: MetadataRoute.Sitemap = [];
 
   locales.forEach((locale) => {
-    // 1. Core/Home & Discovery Routes
+    // 1. Core/Home & Discovery Routes — each backed by its own page.tsx source.
     sitemapRoutes.push(
-      {
-        url: `${siteUrl}/${locale}`,
-        lastModified: new Date(),
-        changeFrequency: "daily",
-        priority: 1.0,
-      },
-      {
-        url: `${siteUrl}/${locale}/bolgeler`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.9,
-      },
-      {
-        url: `${siteUrl}/${locale}/kayitlerim`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.5,
-      },
-      {
-        url: `${siteUrl}/${locale}/hakkimizda`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.5,
-      },
-      {
-        url: `${siteUrl}/${locale}/gizlilik-politikasi`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.4,
-      },
-      {
-        url: `${siteUrl}/${locale}/cerez-politikasi`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.4,
-      },
-      {
-        url: `${siteUrl}/${locale}/iletisim`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.5,
-      }
+      route(`${siteUrl}/${locale}`, "daily", 1.0, "src/app/[locale]/page.tsx"),
+      route(`${siteUrl}/${locale}/bolgeler`, "weekly", 0.9, "src/app/[locale]/bolgeler/page.tsx"),
+      route(`${siteUrl}/${locale}/kayitlerim`, "weekly", 0.5, "src/app/[locale]/kayitlerim/page.tsx"),
+      route(`${siteUrl}/${locale}/hakkimizda`, "monthly", 0.5, "src/app/[locale]/hakkimizda/page.tsx"),
+      route(`${siteUrl}/${locale}/gizlilik-politikasi`, "monthly", 0.4, "src/app/[locale]/gizlilik-politikasi/page.tsx"),
+      route(`${siteUrl}/${locale}/cerez-politikasi`, "monthly", 0.4, "src/app/[locale]/cerez-politikasi/page.tsx"),
+      route(`${siteUrl}/${locale}/kullanim-sartlari`, "monthly", 0.4, "src/app/[locale]/kullanim-sartlari/page.tsx"),
+      route(`${siteUrl}/${locale}/iletisim`, "monthly", 0.5, "src/app/[locale]/iletisim/page.tsx")
     );
 
-    // 2. Region Routes
+    // 2. Region Routes — all backed by the shared regions data file.
     regions.forEach((region) => {
-      sitemapRoutes.push({
-        url: `${siteUrl}/${locale}/bolgeler/${region.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.8,
-      });
+      sitemapRoutes.push(
+        route(`${siteUrl}/${locale}/bolgeler/${region.slug}`, "weekly", 0.8, "src/lib/data/regions.ts")
+      );
     });
 
     // 3. City Routes & Category Sub-Tabs
+    // Note: the "?tab=" category variants were removed — CityContentSections
+    // never reads a tab value from the URL, so those entries pointed to pages
+    // that render byte-for-byte identical content to the bare city URL (fake
+    // duplicate-content entries wasting crawl budget, report item 16).
+    // City content is spread across many src/lib/data/cities/*.ts files with
+    // no per-city file tracking, so this uses the directory's most recent
+    // commit as a shared (coarser, but real — never fabricated) signal.
     allCities.forEach((city) => {
-      // Main City page
-      // Note: the "?tab=" category variants were removed — CityContentSections
-      // never reads a tab value from the URL, so those entries pointed to pages
-      // that render byte-for-byte identical content to the bare city URL (fake
-      // duplicate-content entries wasting crawl budget, report item 16).
-      sitemapRoutes.push({
-        url: `${siteUrl}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "daily",
-        priority: 0.8,
-      });
+      sitemapRoutes.push(
+        route(`${siteUrl}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`, "daily", 0.8, "src/lib/data/cities")
+      );
     });
 
     // 4. Tourist District Routes (Long-Tail Programmatic SEO)
     popularDistricts.forEach((district) => {
-      sitemapRoutes.push({
-        url: `${siteUrl}/${locale}/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "daily",
-        priority: 0.7,
-      });
+      sitemapRoutes.push(
+        route(
+          `${siteUrl}/${locale}/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`,
+          "daily",
+          0.7,
+          "src/lib/data/districts.ts"
+        )
+      );
     });
   });
+
+  // City pages that have real per-city translation data (see
+  // getTranslatedCity/cityHasTranslation, Faz 9a) are indexable even though
+  // their locale isn't in the base `locales` list above — this adds exactly
+  // those, one cache read per candidate locale rather than per city. The
+  // per-locale translation cache file's own last-commit date is used as the
+  // freshness signal here — a genuinely accurate one, since that's the real
+  // moment that locale's content was last (re)translated.
+  const cityLookup = allCities.map((c) => ({ slug: c.slug, title: c.title }));
+  for (const locale of CANDIDATE_TRANSLATED_LOCALES) {
+    const translatedSlugs = await getTranslatedCitySlugs(locale, cityLookup);
+    if (translatedSlugs.size === 0) continue;
+    allCities.forEach((city) => {
+      if (!translatedSlugs.has(city.slug)) return;
+      sitemapRoutes.push(
+        route(
+          `${siteUrl}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`,
+          "daily",
+          0.8,
+          `src/locales/generated/${locale}.cache.json`
+        )
+      );
+    });
+  }
 
   return sitemapRoutes;
 }

@@ -10,6 +10,7 @@ const LANGUAGES = [
   { code: "en", name: "English" },
   { code: "de", name: "Deutsch" },
   { code: "ar", name: "العربية" },
+  { code: "ru", name: "Русский" },
 ];
 
 export default function LanguageSwitcher() {
@@ -50,13 +51,13 @@ export default function LanguageSwitcher() {
       <button
         onClick={() => setIsOpen((prev) => !prev)}
         className="flex h-9 items-center gap-1.5 rounded-full border border-ink/10 bg-paper/60 px-3 text-xs font-semibold text-ink/75 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none"
-        aria-label="Dil seçimi"
+        aria-label={`Dil seçimi: ${activeLang.code.toUpperCase()}`}
       >
         <Globe size={14} className="text-ink/65" />
         <span className="uppercase">{activeLang.code}</span>
         <ChevronDown
           size={12}
-          className={`transition-transform duration-200 text-ink/40 ${isOpen ? "rotate-180" : ""}`}
+          className={`transition-transform duration-200 text-ink/65 ${isOpen ? "rotate-180" : ""}`}
         />
       </button>
 

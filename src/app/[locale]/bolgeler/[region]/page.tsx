@@ -54,7 +54,7 @@ export async function generateMetadata(props: { params: Promise<{ region: string
 
 export async function generateStaticParams() {
   const paramsList = [];
-  const locales = ["tr", "en", "de", "ar"];
+  const locales = ["tr", "en", "de", "ar", "ru"];
   for (const locale of locales) {
     for (const r of regions) {
       paramsList.push({ region: r.slug, locale });
@@ -153,7 +153,7 @@ export default async function RegionPage(props: {
                       {translateDataText(city.name, locale)}
                     </h3>
                     <p className="mt-2 text-sm text-ink/70 line-clamp-2">{translateDataText(city.summary, locale)}</p>
-                    <div className="mt-4 flex flex-wrap gap-3 text-xs text-ink/50 border-t border-ink/5 pt-4">
+                    <div className="mt-4 flex flex-wrap gap-3 text-xs text-ink/65 border-t border-ink/5 pt-4">
                       <span className="flex items-center gap-1">
                         <MapPinned size={12} /> {city.attractions.length} {dict.city.stopsCount}
                       </span>

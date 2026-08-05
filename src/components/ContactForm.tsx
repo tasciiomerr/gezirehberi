@@ -8,9 +8,15 @@ export default function ContactForm() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [kvkkConsent, setKvkkConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  // Honeypot (report item 260-ish, spam protection) — a real field name bots
+  // fill in but sighted/keyboard/screen-reader users never see or reach
+  // (off-screen, not display:none — some scrapers skip display:none fields).
+  // No CAPTCHA service key exists yet [B], so this is the code-only layer.
+  const [honeypot, setHoneypot] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return; // silently drop — bot filled the trap field
     if (formData.name && formData.email && formData.message && kvkkConsent) {
       setSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
@@ -77,42 +83,59 @@ export default function ContactForm() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot field — real bots fill every input they can find,
+                    including this one; humans never see or tab to it. */}
+                <div className="absolute -left-[9999px] w-px h-px overflow-hidden" aria-hidden="true">
+                  <label htmlFor="contact-website">Website</label>
+                  <input
+                    id="contact-website"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
+                </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-2">
+                  <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-2">
                     Adınız Soyadınız
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full rounded-xl border border-ink/10 bg-paper py-3 px-4 text-sm text-ink placeholder:text-ink/30 outline-none focus:border-kiremit focus:ring-1 focus:ring-kiremit transition-all shadow-inner"
+                    className="w-full rounded-xl border border-ink/10 bg-paper py-3 px-4 text-sm text-ink placeholder:text-ink/65 outline-none focus:border-kiremit focus:ring-1 focus:ring-kiremit transition-all shadow-inner"
                     placeholder="Örn: Ömer Taşcı"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-2">
+                  <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-2">
                     E-posta Adresiniz
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full rounded-xl border border-ink/10 bg-paper py-3 px-4 text-sm text-ink placeholder:text-ink/30 outline-none focus:border-kiremit focus:ring-1 focus:ring-kiremit transition-all shadow-inner"
+                    className="w-full rounded-xl border border-ink/10 bg-paper py-3 px-4 text-sm text-ink placeholder:text-ink/65 outline-none focus:border-kiremit focus:ring-1 focus:ring-kiremit transition-all shadow-inner"
                     placeholder="Örn: omer@example.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-2">
+                  <label htmlFor="contact-message" className="block text-xs font-bold uppercase tracking-wider text-ink/70 mb-2">
                     Mesajınız veya Düzeltme Notu
                   </label>
                   <textarea
+                    id="contact-message"
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full rounded-xl border border-ink/10 bg-paper py-3 px-4 text-sm text-ink placeholder:text-ink/30 outline-none focus:border-kiremit focus:ring-1 focus:ring-kiremit transition-all shadow-inner resize-none"
+                    className="w-full rounded-xl border border-ink/10 bg-paper py-3 px-4 text-sm text-ink placeholder:text-ink/65 outline-none focus:border-kiremit focus:ring-1 focus:ring-kiremit transition-all shadow-inner resize-none"
                     placeholder="Hangi ilçe veya mekanla ilgili bildirimde bulunmak istersiniz?"
                   />
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import PlaceholderImage from "./PlaceholderImage";
@@ -19,6 +19,22 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
       ? images
       : [{ url: "", alt: fallbackSeed, caption: undefined }];
 
+  // Report items 255-267 — keyboard accessibility: Escape closes the
+  // lightbox, Left/Right arrows navigate it (native carousel behavior).
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setLightboxIndex(null);
+      else if (e.key === "ArrowLeft") {
+        setLightboxIndex((i) => (i === null ? i : (i - 1 + displayImages.length) % displayImages.length));
+      } else if (e.key === "ArrowRight") {
+        setLightboxIndex((i) => (i === null ? i : (i + 1) % displayImages.length));
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, displayImages.length]);
+
   return (
     <>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
@@ -27,6 +43,7 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
             key={idx}
             onClick={() => setLightboxIndex(idx)}
             whileHover={{ scale: 1.03 }}
+            aria-label={img.caption || img.alt || `Image ${idx + 1}`}
             className={idx === 0 ? "col-span-2 row-span-2 sm:col-span-2 sm:row-span-2" : ""}
           >
             <PlaceholderImage
@@ -47,9 +64,13 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-ink/90 p-4"
             onClick={() => setLightboxIndex(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={displayImages[lightboxIndex].caption || displayImages[lightboxIndex].alt || "Image viewer"}
           >
             <button
               onClick={() => setLightboxIndex(null)}
+              aria-label="Close"
               className="absolute right-6 top-6 text-paper hover:text-safran"
             >
               <X size={28} />
@@ -62,6 +83,7 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
                     e.stopPropagation();
                     setLightboxIndex((lightboxIndex - 1 + displayImages.length) % displayImages.length);
                   }}
+                  aria-label="Previous image"
                   className="absolute left-4 text-paper hover:text-safran"
                 >
                   <ChevronLeft size={36} />
@@ -71,6 +93,7 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
                     e.stopPropagation();
                     setLightboxIndex((lightboxIndex + 1) % displayImages.length);
                   }}
+                  aria-label="Next image"
                   className="absolute right-4 text-paper hover:text-safran"
                 >
                   <ChevronRight size={36} />

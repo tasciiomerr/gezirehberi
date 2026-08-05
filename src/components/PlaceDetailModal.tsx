@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { 
   X, 
@@ -32,7 +33,20 @@ export default function PlaceDetailModal({
   locale = "tr",
   onClose
 }: PlaceDetailModalProps) {
-  
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Report items 255-267 — keyboard accessibility: Escape closes the modal,
+  // and focus moves to the close button on open so keyboard/screen-reader
+  // users land inside the dialog instead of on whatever was behind it.
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    closeButtonRef.current?.focus();
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   // Custom Google Maps deep link for interactive directions
   const directionsUrl = place.location
     ? `https://www.google.com/maps/dir/?api=1&destination=${place.location.lat},${place.location.lng}`
@@ -112,10 +126,14 @@ export default function PlaceDetailModal({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
+        role="dialog"
+        aria-modal="true"
+        aria-label={translateDataText(place.name, locale as Locale)}
         className="relative z-10 w-full max-w-2xl overflow-hidden rounded-3xl border border-ink/8 bg-paper shadow-2xl flex flex-col max-h-[85vh]"
       >
         {/* Close Button overlay */}
         <button
+          ref={closeButtonRef}
           onClick={onClose}
           className="absolute right-4 top-4 z-30 flex h-10 w-10 items-center justify-center rounded-full bg-paper/85 text-ink shadow-md hover:bg-paper cursor-pointer transition-colors border border-ink/5"
           aria-label={t("close")}
@@ -180,7 +198,7 @@ export default function PlaceDetailModal({
                         <p className="text-sm text-ink/85 font-semibold">{translateDataText(place.entranceFee, locale as Locale)}</p>
                         {place.entranceFee && !String(place.entranceFee).toLowerCase().includes("ücretsiz") && !String(place.entranceFee).toLowerCase().includes("free") && (
                           <>
-                            <p className="text-[10px] text-ink/40 font-bold mt-0.5 block">
+                            <p className="text-[10px] text-ink/65 font-bold mt-0.5 block">
                               Son Fiyat Güncellemesi: {getLastMondayDate(locale)}
                             </p>
                             <p className="text-[9px] text-kiremit/70 font-semibold mt-0.5 leading-tight">
@@ -201,7 +219,7 @@ export default function PlaceDetailModal({
                       <div>
                         <p className="text-xs font-bold text-kiremit uppercase tracking-wider">{t("averageCost")}</p>
                         <p className="text-sm text-ink/85 font-semibold">{translateDataText(place.averageCost, locale as Locale)}</p>
-                        <p className="text-[10px] text-ink/40 font-bold mt-0.5 block">
+                        <p className="text-[10px] text-ink/65 font-bold mt-0.5 block">
                           Son Fiyat Güncellemesi: {getLastMondayDate(locale)}
                         </p>
                         <p className="text-[9px] text-kiremit/70 font-semibold mt-0.5 leading-tight">
@@ -236,7 +254,7 @@ export default function PlaceDetailModal({
                       <div>
                         <p className="text-xs font-bold text-kiremit uppercase tracking-wider">{locale === "tr" ? "Gecelik Ücret" : "Price Per Night"}</p>
                         <p className="text-sm text-ink/85 font-semibold">{translateDataText(place.pricePerNight, locale as Locale)}</p>
-                        <p className="text-[10px] text-ink/40 font-bold mt-0.5 block">
+                        <p className="text-[10px] text-ink/65 font-bold mt-0.5 block">
                           Son Fiyat Güncellemesi: {getLastMondayDate(locale)}
                         </p>
                         <p className="text-[9px] text-kiremit/70 font-semibold mt-0.5 leading-tight">

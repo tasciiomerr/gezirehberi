@@ -61,7 +61,7 @@ export default function BudgetTracker({
           <Wallet size={15} className="text-kiremit" />
           {dict.city.budgetTracker}: <span className="font-bold text-kiremit">{total} ₺</span>
         </span>
-        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="text-ink/40">
+        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="text-ink/65">
           <ChevronDown size={16} />
         </motion.span>
       </button>
@@ -114,7 +114,7 @@ export default function BudgetTracker({
                         placeholder="0"
                         className="w-full rounded-lg border border-ink/10 bg-paper px-2 py-1.5 pr-6 text-sm text-ink focus:border-kiremit focus:outline-none"
                       />
-                      <span className="absolute right-2 text-xs font-bold text-ink/30">₺</span>
+                      <span className="absolute right-2 text-xs font-bold text-ink/65">₺</span>
                     </div>
                   </div>
                 ))}

@@ -44,7 +44,7 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
             <h3 className="font-display text-2xl italic text-ink">
               {locale === "tr" ? "Gezginlerin Paylaştığı Rotalar" : "Gezgin Community Rotaları"}
             </h3>
-            <p className="text-xs text-ink/45 font-semibold">
+            <p className="text-xs text-ink/65 font-semibold">
               {routes.length} {locale === "tr" ? "rota paylaşıldı" : "itineraries shared"}
             </p>
           </div>
@@ -83,7 +83,7 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
       {/* Shared Community Routes Feed */}
       {routes.length === 0 ? (
         <div className="rounded-xl border border-dashed border-ink/20 p-8 text-center bg-paper/30">
-          <p className="text-xs text-ink/50 font-semibold mb-3">
+          <p className="text-xs text-ink/65 font-semibold mb-3">
             {locale === "tr" ? "Bu şehir için henüz bir kullanıcı rotası paylaşılmamış." : "No user itineraries shared for this city yet."}
           </p>
           <button

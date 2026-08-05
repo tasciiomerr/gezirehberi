@@ -6,21 +6,25 @@ import WishlistButton from "@/components/WishlistButton";
 import ItinerarySection from "@/components/ItinerarySection";
 import CityContentSections from "@/components/CityContentSections";
 import CommunityRoutes from "@/components/CommunityRoutes";
+import { CampingSection, FilmLocationsSection } from "@/components/TravelStyleSections";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getCity, getAllCitySlugs } from "@/lib/data/cities";
+import { getCity, getAllCitySlugs, allCities } from "@/lib/data/cities";
+import RelatedCities from "@/components/RelatedCities";
+import AdSlot from "@/components/AdSlot";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
-import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
+import { getDictionary, Locale, translateDataText, buildAlternates, buildRobots, getAccommodationTypeLabel, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
 import FAQSection from "@/components/FAQSection";
 import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 import { getPlacesForCity } from "@/lib/places";
+import { getTranslatedCity, cityHasTranslation } from "@/lib/translation/pipeline";
 
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
-  const locales = ["tr", "en", "de", "ar"];
+  const locales = ["tr", "en", "de", "ar", "ru"];
   const paramsList = [];
   for (const locale of locales) {
     for (const s of slugs) {
@@ -35,8 +39,24 @@ export async function generateMetadata(props: {
 }) {
   const params = await props.params;
   const locale = (params.locale || "tr") as Locale;
-  const city = getCity(params.region, params.city);
-  if (!city) return { title: "Şehir bulunamadı" };
+  const rawCity = getCity(params.region, params.city);
+  if (!rawCity) return { title: "Şehir bulunamadı" };
+  const city = await getTranslatedCity(rawCity, locale);
+  // Per-page indexing override (see buildRobots) — a city that has actually
+  // been through the real translation pipeline is indexable even while its
+  // locale is still noindexed by default; a city with no cache entry yet
+  // stays noindexed, so this can't accidentally index the other ~82 cities.
+  const rawCityRecord = rawCity as unknown as Record<string, unknown>;
+  const hasTranslation = await cityHasTranslation(rawCityRecord, locale);
+  // Hreflang must match indexability exactly (report item 283's "no
+  // contradictory signal" rule) — so it's built from the same per-city check
+  // rather than the site-wide TRANSLATED_LOCALES default, one call per
+  // candidate locale (cheap: each is a single cached-file read).
+  const candidateLocales: Locale[] = ["en", "de", "ar", "ru"];
+  const translatedLocaleChecks = await Promise.all(
+    candidateLocales.map((l) => cityHasTranslation(rawCityRecord, l))
+  );
+  const extraHreflangLocales = candidateLocales.filter((_, i) => translatedLocaleChecks[i]);
   const bgImage = getCityImage(city.slug, city.regionSlug);
   const title = translateDataText(city.title, locale);
   const description = translateDataText(city.summary, locale);
@@ -44,7 +64,8 @@ export async function generateMetadata(props: {
   return {
     title,
     description,
-    alternates: buildAlternates(locale, `/bolgeler/${city.regionSlug}/${city.slug}`),
+    robots: buildRobots(locale, hasTranslation),
+    alternates: buildAlternates(locale, `/bolgeler/${city.regionSlug}/${city.slug}`, extraHreflangLocales),
     openGraph: {
       // Explicit url — without it this silently inherits the homepage's og:url from
       // the root layout on every city page (report item 10).
@@ -76,11 +97,17 @@ export default async function CityDetailPage(props: {
   const params = await props.params;
   const locale = (params.locale || "tr") as Locale;
   const dict = getDictionary(locale);
-  const city = getCity(params.region, params.city);
+  const rawCity = getCity(params.region, params.city);
 
-  if (!city) {
+  if (!rawCity) {
     notFound();
   }
+
+  // Overlays real DeepL/Google-translated text from the cache built by
+  // scripts/translate-content.ts onto the curated fields only (report items
+  // 34/167/283) — cities with no cache entries yet fall back to the raw
+  // Turkish text untouched, same as before this pipeline existed.
+  const city = await getTranslatedCity(rawCity, locale);
 
   // Server-rendered first page of the default (attractions/popularity) list, so the
   // initial HTML already contains real results instead of the client-only empty state.
@@ -351,6 +378,8 @@ export default async function CityDetailPage(props: {
 
         <div className="my-16 border-t border-ink/10" />
 
+        <AdSlot />
+
         <CityContentSections
           citySlug={city.slug}
           cityCenter={[city.location.lat, city.location.lng]}
@@ -364,16 +393,24 @@ export default async function CityDetailPage(props: {
           initialHasMore={initialPlaces?.hasMore}
         />
 
+        <CampingSection spots={city.campingSpots} locale={locale} />
+        <FilmLocationsSection locations={city.filmLocations} cityName={city.name} locale={locale} />
+
+        <RelatedCities currentCity={rawCity} allCities={allCities} locale={locale} />
+
         {/* Dynamic local foods summary for SSS / FAQ page */}
         <FAQSection
           name={translateDataText(city.name, locale)}
           whenToGo={translateDataText(city.whenToGo, locale)}
           howToGetThere={translateDataText(city.howToGetThere, locale)}
           budget={translateDataText(city.budget, locale)}
-          whatToEat={city.localFood.length > 0 
+          whatToEat={city.localFood.length > 0
             ? `${city.localFood.slice(0, 3).map(f => translateDataText(f.name, locale)).join(", ")} ${locale === "tr" ? "gibi yöresel lezzetleri mutlaka denemelisiniz." : "are among the famous local foods you must try."}`
             : (locale === "tr" ? "Bölgeye özgü yöresel lezzetleri ve tescilli tatları yerel lokantalarda denemelisiniz." : "You should try region-specific local dishes at local restaurants.")
           }
+          bestDuration={translateDataText(city.bestDuration, locale)}
+          topAttractionNames={city.attractions.slice(0, 4).map((a) => translateDataText(a.name, locale))}
+          accommodationTypeLabels={Array.from(new Set(city.accommodations.map((a) => a.type))).map((t) => getAccommodationTypeLabel(t, locale))}
           locale={locale}
         />
       </div>

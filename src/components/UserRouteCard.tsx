@@ -73,7 +73,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
             />
             <div>
               <p className="text-xs font-bold text-ink">{route.authorName}</p>
-              <p className="text-[10px] text-ink/40 font-semibold uppercase tracking-wider">
+              <p className="text-[10px] text-ink/65 font-semibold uppercase tracking-wider">
                 {new Date(route.createdAt).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US")}
               </p>
             </div>
@@ -87,7 +87,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
 
         <h3 className="mt-3.5 font-display text-lg italic text-ink">{route.title}</h3>
         
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-ink/50 border-t border-ink/5 pt-3">
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-ink/65 border-t border-ink/5 pt-3">
           <span className="flex items-center gap-1 font-semibold">
             <CalendarDays size={13} /> {route.days} {dict.city.daysCount}
           </span>
@@ -127,7 +127,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                       <div>
                         <h5 className="text-sm font-bold text-ink leading-tight">{stop.title}</h5>
                         <p className="text-xs text-ink/65 leading-relaxed mt-0.5">{stop.description}</p>
-                        <span className="text-[10px] text-ink/35 font-bold uppercase tracking-wide mt-1 block">⏱ {stop.duration}</span>
+                        <span className="text-[10px] text-ink/65 font-bold uppercase tracking-wide mt-1 block">⏱ {stop.duration}</span>
                       </div>
                     </div>
                   ))}
@@ -147,7 +147,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder={locale === "tr" ? "Yorumunuzu yazın..." : "Write your review..."}
                     rows={2}
-                    className="w-full resize-none bg-transparent text-sm text-ink placeholder:text-ink/30 focus:outline-none"
+                    className="w-full resize-none bg-transparent text-sm text-ink placeholder:text-ink/65 focus:outline-none"
                   />
                   <div className="mt-3 flex items-center justify-between border-t border-ink/5 pt-3">
                     {/* Star Rating Selector */}
@@ -179,7 +179,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                 {/* Comments List */}
                 <div className="space-y-3.5 max-h-56 overflow-y-auto pr-1">
                   {comments.length === 0 ? (
-                    <p className="text-center text-xs text-ink/40 font-semibold py-4">
+                    <p className="text-center text-xs text-ink/65 font-semibold py-4">
                       {locale === "tr" ? "İlk yorumu siz yapın!" : "Be the first to comment!"}
                     </p>
                   ) : (
@@ -198,7 +198,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                           </div>
                         </div>
                         <p className="text-xs text-ink/75 leading-relaxed">{comm.text}</p>
-                        <span className="text-[9px] text-ink/35 font-bold uppercase tracking-wider">
+                        <span className="text-[9px] text-ink/65 font-bold uppercase tracking-wider">
                           {new Date(comm.createdAt).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US")}
                         </span>
                       </div>

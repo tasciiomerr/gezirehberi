@@ -53,7 +53,7 @@ export function DayPlanCard({ day, title, stops }: DayPlanProps) {
       case "accommodation":
         return "text-kiremit";
       default:
-        return "text-ink/50";
+        return "text-ink/65";
     }
   };
 
@@ -95,7 +95,7 @@ export function DayPlanCard({ day, title, stops }: DayPlanProps) {
                 </span>
                 <h4 className="font-semibold text-ink">{stop.title}</h4>
               </div>
-              <p className="mt-1 text-sm text-ink/60">⏱ {stop.duration}</p>
+              <p className="mt-1 text-sm text-ink/65">⏱ {stop.duration}</p>
             </div>
           </motion.div>
         ))}

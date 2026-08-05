@@ -52,7 +52,7 @@ export default function AttractionCard({ attraction, locale = "tr", onClick }: {
             {translateDataText(attraction.description, locale as Locale)}
           </p>
 
-          <div className="mt-3 flex flex-wrap gap-3 text-xs text-ink/50 border-t border-ink/5 pt-3">
+          <div className="mt-3 flex flex-wrap gap-3 text-xs text-ink/65 border-t border-ink/5 pt-3">
             <span className="flex items-center gap-1">
               <Clock size={12} /> {translateDataText(attraction.duration, locale as Locale)}
             </span>
@@ -81,13 +81,13 @@ export default function AttractionCard({ attraction, locale = "tr", onClick }: {
 
       <div className="p-4 pt-0">
         <div className="flex flex-col gap-1 border-t border-ink/5 pt-3">
-          <div className="flex items-center gap-1.5 text-xs text-ink/45">
+          <div className="flex items-center gap-1.5 text-xs text-ink/65">
             <MapPin size={12} className="shrink-0" />
             <span className="truncate">{translateDataText(attraction.address, locale as Locale)}</span>
           </div>
           {attraction.entranceFee && !String(attraction.entranceFee).toLowerCase().includes("ücretsiz") && !String(attraction.entranceFee).toLowerCase().includes("free") && (
             <>
-              <span className="text-[10px] text-ink/40 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
+              <span className="text-[10px] text-ink/65 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
               <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
             </>
           )}
@@ -96,13 +96,13 @@ export default function AttractionCard({ attraction, locale = "tr", onClick }: {
         {(attraction.accessibility || attraction.parkingTip) && (
           <div className="mt-2 space-y-1 border-t border-ink/5 pt-2">
             {attraction.accessibility && (
-              <p className="flex items-start gap-1.5 text-[10px] text-ink/50 leading-normal font-medium">
+              <p className="flex items-start gap-1.5 text-[10px] text-ink/65 leading-normal font-medium">
                 <Accessibility size={12} className="mt-0.5 shrink-0" />
                 <span>{translateDataText(attraction.accessibility, locale as Locale)}</span>
               </p>
             )}
             {attraction.parkingTip && (
-              <p className="flex items-start gap-1.5 text-[10px] text-ink/50 leading-normal font-medium">
+              <p className="flex items-start gap-1.5 text-[10px] text-ink/65 leading-normal font-medium">
                 <ParkingSquare size={12} className="mt-0.5 shrink-0" />
                 <span>{translateDataText(attraction.parkingTip, locale as Locale)}</span>
               </p>

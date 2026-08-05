@@ -44,7 +44,7 @@ export default function SearchBar() {
   return (
     <div ref={containerRef} className="relative w-full max-w-xs z-50">
       <div className="flex items-center gap-2 rounded-full border border-ink/15 bg-paper/60 backdrop-blur-sm px-3.5 py-1.5 focus-within:border-kiremit focus-within:bg-paper transition-all">
-        <Search size={14} className="text-ink/40 flex-shrink-0" />
+        <Search size={14} className="text-ink/65 flex-shrink-0" />
         <input
           value={query}
           onChange={(e) => {
@@ -53,7 +53,7 @@ export default function SearchBar() {
           }}
           onFocus={() => setIsOpen(true)}
           placeholder={dict.nav.search}
-          className="w-full bg-transparent text-xs font-semibold text-ink placeholder:text-ink/40 focus:outline-none"
+          className="w-full bg-transparent text-xs font-semibold text-ink placeholder:text-ink/65 focus:outline-none"
           aria-label="Search city"
         />
         {query && (
@@ -62,7 +62,7 @@ export default function SearchBar() {
               setQuery("");
               setResults([]);
             }}
-            className="text-ink/30 hover:text-kiremit flex-shrink-0"
+            className="text-ink/65 hover:text-kiremit flex-shrink-0"
             aria-label="Clear search"
           >
             <X size={14} />
@@ -73,7 +73,7 @@ export default function SearchBar() {
       {isOpen && query.length >= 2 && (
         <div className="absolute left-0 right-0 top-full z-50 mt-2 max-h-80 overflow-y-auto rounded-xl border border-ink/10 bg-paper shadow-xl">
           {results.length === 0 ? (
-            <p className="p-4 text-xs font-semibold text-ink/50 leading-normal">
+            <p className="p-4 text-xs font-semibold text-ink/65 leading-normal">
               &quot;{query}&quot; {dict.search.noResults}
             </p>
           ) : (
@@ -92,7 +92,7 @@ export default function SearchBar() {
                 </span>
                 <div>
                   <p className="text-xs font-bold text-ink">{translateDataText(r.city.name, locale)}</p>
-                  <p className="text-[10px] font-semibold text-ink/40 uppercase tracking-wider">{translateDataText(r.city.region, locale)}</p>
+                  <p className="text-[10px] font-semibold text-ink/65 uppercase tracking-wider">{translateDataText(r.city.region, locale)}</p>
                 </div>
               </Link>
             ))

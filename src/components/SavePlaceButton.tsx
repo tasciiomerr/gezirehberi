@@ -42,7 +42,7 @@ export default function SavePlaceButton({
       className={`flex items-center justify-center rounded-full shadow-md border border-ink/5 p-2 bg-paper/90 backdrop-blur-md transition-all cursor-pointer ${
         saved 
           ? "text-kiremit bg-paper" 
-          : "text-ink/40 hover:text-kiremit hover:bg-paper"
+          : "text-ink/65 hover:text-kiremit hover:bg-paper"
       }`}
       aria-label={saved ? "Remove from saved" : "Save place"}
     >

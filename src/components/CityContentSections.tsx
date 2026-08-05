@@ -274,7 +274,7 @@ export default function CityContentSections({
             className={`flex items-center gap-2 border-b-2 px-5 py-3.5 text-sm font-bold uppercase tracking-wider transition-all whitespace-nowrap ${
               activeTab === tab.id
                 ? "border-kiremit text-kiremit"
-                : "border-transparent text-ink/50 hover:text-ink/80 hover:border-ink/20"
+                : "border-transparent text-ink/65 hover:text-ink/80 hover:border-ink/20"
             }`}
           >
             {tab.icon}
@@ -293,13 +293,13 @@ export default function CityContentSections({
             <div className="flex flex-col sm:flex-row gap-3">
               {/* Search Box */}
               <div className="relative flex-1">
-                <Search size={18} className="absolute left-3.5 top-3.5 text-ink/40" />
+                <Search size={18} className="absolute left-3.5 top-3.5 text-ink/65" />
                 <input
                   type="text"
                   placeholder={locale === "tr" ? "Mekan adı, kelime veya bölge ara..." : "Search places..."}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-xl border border-ink/10 bg-paper py-3 pl-10 pr-4 text-sm text-ink placeholder:text-ink/40 focus:border-kiremit focus:ring-1 focus:ring-kiremit outline-none transition-all shadow-inner"
+                  className="w-full rounded-xl border border-ink/10 bg-paper py-3 pl-10 pr-4 text-sm text-ink placeholder:text-ink/65 focus:border-kiremit focus:ring-1 focus:ring-kiremit outline-none transition-all shadow-inner"
                 />
               </div>
 
@@ -308,6 +308,7 @@ export default function CityContentSections({
                 <select
                   value={sortOption}
                   onChange={(e) => setSortOption(e.target.value)}
+                  aria-label={locale === "tr" ? "Sıralama" : "Sort"}
                   className="w-full appearance-none rounded-xl border border-ink/10 bg-paper py-3 pl-4 pr-10 text-sm font-semibold text-ink/85 focus:border-kiremit focus:ring-1 focus:ring-kiremit outline-none transition-all cursor-pointer shadow-sm"
                 >
                   {sortOptions.map((opt) => (
@@ -316,7 +317,7 @@ export default function CityContentSections({
                     </option>
                   ))}
                 </select>
-                <ChevronDown size={16} className="absolute right-3.5 top-4 text-ink/50 pointer-events-none" />
+                <ChevronDown size={16} className="absolute right-3.5 top-4 text-ink/65 pointer-events-none" />
               </div>
             </div>
 
@@ -363,14 +364,14 @@ export default function CityContentSections({
                   onChange={(e) => setMapViewportFilter(e.target.checked)}
                   className="rounded border-ink/20 text-kiremit focus:ring-kiremit cursor-pointer"
                 />
-                <Layers size={14} className="text-ink/60" />
+                <Layers size={14} className="text-ink/65" />
                 {locale === "tr" ? "Harita Sınırlarına Göre Filtrele" : "Filter by Map Bounds"}
               </label>
             </div>
           </div>
 
           {/* Place Count Summary */}
-          <div className="flex items-center justify-between text-xs text-ink/40 font-semibold px-1">
+          <div className="flex items-center justify-between text-xs text-ink/65 font-semibold px-1">
             <p>
               {locale === "tr" 
                 ? `${totalCount} kayıttan ${processedItems.length} adeti gösteriliyor`
@@ -418,7 +419,7 @@ export default function CityContentSections({
               {/* No results message */}
               {processedItems.length === 0 && (
                 <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-ink/20 py-16 text-center">
-                  <p className="text-sm font-semibold text-ink/50 mb-2">
+                  <p className="text-sm font-semibold text-ink/65 mb-2">
                     {locale === "tr" ? "Aradığınız kriterlere uygun sonuç bulunamadı." : "No results match your filters."}
                   </p>
                   <button 
