@@ -34,8 +34,20 @@ function getGitLastModified(pathspec: string): Date | undefined {
     })
       .toString()
       .trim();
-    result = output ? new Date(output) : undefined;
+    // Guard the Date parse too — a malformed/unexpected git output shouldn't
+    // be able to produce an "Invalid Date" that then breaks sitemap XML
+    // serialization downstream.
+    if (output) {
+      const parsed = new Date(output);
+      result = isNaN(parsed.getTime()) ? undefined : parsed;
+    } else {
+      result = undefined;
+    }
   } catch {
+    // Covers: git binary not in PATH (ENOENT — confirmed reproducible on
+    // Vercel-style build environments), no .git directory (shallow/tarball
+    // checkout, exit 128), or any other spawn/exec failure. Never fatal —
+    // this is a "nice to have" freshness signal, not a build requirement.
     result = undefined;
   }
   gitDateCache.set(pathspec, result);
@@ -43,13 +55,21 @@ function getGitLastModified(pathspec: string): Date | undefined {
 }
 
 // Spreads lastModified into the route entry only when a real date was found.
+// Wrapped in its own try/catch as a second, redundant safety net — even if
+// getGitLastModified's internal handling somehow misses a case, a sitemap
+// entry must never be allowed to take down the entire build.
 function route(
   url: string,
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"],
   priority: number,
   sourcePathspec: string
 ): MetadataRoute.Sitemap[number] {
-  const lastModified = getGitLastModified(sourcePathspec);
+  let lastModified: Date | undefined;
+  try {
+    lastModified = getGitLastModified(sourcePathspec);
+  } catch {
+    lastModified = undefined;
+  }
   return { url, changeFrequency, priority, ...(lastModified ? { lastModified } : {}) };
 }
 
