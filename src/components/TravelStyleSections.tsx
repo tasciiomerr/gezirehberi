@@ -1,6 +1,7 @@
 import { Tent, Clapperboard } from "lucide-react";
 import { CampingSpot, FilmLocation } from "@/lib/types";
 import { translateDataText, Locale } from "@/lib/i18n";
+import { withLocative } from "@/lib/turkish";
 
 // Report items 155 (film/TV location tourism) and 164-171 (camping/caravan
 // vertical). Both arrays are empty until real, editor-verified entries exist
@@ -72,7 +73,7 @@ export function FilmLocationsSection({
         </span>
         <h3 className="font-display text-2xl italic text-ink">
           {locale === "tr"
-            ? `${translateDataText(cityName, locale as Locale)}'de Çekilen Diziler & Filmler`
+            ? `${withLocative(translateDataText(cityName, locale as Locale))} Çekilen Diziler & Filmler`
             : `TV Shows & Films Filmed in ${translateDataText(cityName, locale as Locale)}`}
         </h3>
       </div>

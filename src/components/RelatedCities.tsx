@@ -2,6 +2,7 @@ import Link from "next/link";
 import { City } from "@/lib/types";
 import { Locale, translateDataText } from "@/lib/i18n";
 import { haversineDistanceKm } from "@/lib/geo";
+import { withAblative } from "@/lib/turkish";
 import PlaceholderImage from "./PlaceholderImage";
 
 // Report item 84 — internal linking: "yakın şehirler" and "aynı bölgeden
@@ -74,7 +75,7 @@ export default function RelatedCities({
         <div>
           <h3 className="font-display text-2xl italic text-ink mb-5">
             {locale === "tr"
-              ? `${translateDataText(currentCity.region, locale)}'den Diğer Şehirler`
+              ? `${withAblative(translateDataText(currentCity.region, locale))} Diğer Şehirler`
               : `More Cities in ${translateDataText(currentCity.region, locale)}`}
           </h3>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

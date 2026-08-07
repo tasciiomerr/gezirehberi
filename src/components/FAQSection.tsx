@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { withLocative } from "@/lib/turkish";
 
 interface FAQSectionProps {
   name: string;
@@ -72,7 +73,7 @@ export default function FAQSection({
             ? `${name} seyahatinde mutlaka görülmesi gereken en popüler yerler nerelerdir?`
             : `What are the top must-visit attractions and locations in ${name}?`,
           a: locale === "tr"
-            ? `${name}'de öne çıkan cazibe merkezleri arasında ${topAttractionNames.join(", ")} yer almaktadır.`
+            ? `${withLocative(name)} öne çıkan cazibe merkezleri arasında ${topAttractionNames.join(", ")} yer almaktadır.`
             : `Top spots in ${name} include ${topAttractionNames.join(", ")}.`,
         }]
       : []),
@@ -82,7 +83,7 @@ export default function FAQSection({
             ? `${name} bölgesinde konaklama için ne tür seçenekler bulunmaktadır?`
             : `What accommodation options are available for travellers in ${name}?`,
           a: locale === "tr"
-            ? `${name}'de ${accommodationTypeLabels.join(", ")} kategorilerinde konaklama seçenekleri bulunmaktadır.`
+            ? `${withLocative(name)} ${accommodationTypeLabels.join(", ")} kategorilerinde konaklama seçenekleri bulunmaktadır.`
             : `${name} offers accommodation in the following categories: ${accommodationTypeLabels.join(", ")}.`,
         }]
       : []),
