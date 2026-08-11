@@ -308,7 +308,7 @@ export default async function CityDetailPage(props: {
             </div>
             <p className="text-base text-ink/70 leading-relaxed mb-6">{translateDataText(city.longDescription, locale)}</p>
 
-            <Gallery images={galleryImages} fallbackSeed={city.slug} />
+            <Gallery images={galleryImages} fallbackSeed={city.slug} regionSlug={city.regionSlug} />
 
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[

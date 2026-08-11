@@ -9,9 +9,15 @@ import { PlaceImage } from "@/lib/types";
 interface GalleryProps {
   images: PlaceImage[];
   fallbackSeed: string;
+  // Bug: PlaceholderImage never received this, so every city's gallery
+  // thumbnail silently fell back to PlaceholderImage's "marmara" default —
+  // category (historical/nature/beach) could be right while the region-
+  // specific stock photo pool was wrong (e.g. an Ege city showing a
+  // Sultanahmet mosque photo instead of an Ege one).
+  regionSlug?: string;
 }
 
-export default function Gallery({ images, fallbackSeed }: GalleryProps) {
+export default function Gallery({ images, fallbackSeed, regionSlug }: GalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const displayImages: PlaceImage[] =
@@ -51,6 +57,7 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
               label={img.caption || img.alt}
               aspect={idx === 0 ? "square" : "square"}
               iconSize={idx === 0 ? 40 : 24}
+              regionSlug={regionSlug}
             />
           </motion.button>
         ))}
@@ -112,6 +119,7 @@ export default function Gallery({ images, fallbackSeed }: GalleryProps) {
                 label={displayImages[lightboxIndex].caption || displayImages[lightboxIndex].alt}
                 aspect="video"
                 iconSize={64}
+                regionSlug={regionSlug}
               />
               <p className="mt-3 text-center text-sm text-paper/70">
                 {lightboxIndex + 1} / {displayImages.length}
