@@ -201,7 +201,7 @@ export default function PlaceholderImage({
     else {
       // Determine category (historical, nature, beach, default)
       let cat = "nature";
-      if (l.includes("kale") || l.includes("antik") || l.includes("şehir") || l.includes("konak") || l.includes("han") || l.includes("cami") || l.includes("köprü") || l.includes("tarihi") || l.includes("manastır") || l.includes("harabe") || l.includes("müze") || l.includes("tiyatro")) {
+      if (l.includes("kale") || l.includes("antik") || l.includes("şehir") || l.includes("konak") || l.includes("han") || l.includes("cami") || l.includes("köprü") || l.includes("tarihi") || l.includes("manastır") || l.includes("harabe") || l.includes("müze") || l.includes("tiyatro") || l.includes("kule") || l.includes("saat")) {
         cat = "historical";
       } else if (l.includes("plaj") || l.includes("koy") || l.includes("sahil") || l.includes("deniz") || l.includes("marina") || l.includes("liman") || l.includes("plajı")) {
         cat = "beach";
