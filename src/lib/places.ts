@@ -223,8 +223,20 @@ export function getPlacesForCity(citySlug: string, options: GetPlacesOptions = {
     district = getDistrict(citySlug, districtSlug);
   }
 
-  // Generate stable 500 places for the chosen category and district
-  let list = generatePlacesForCity(city, type, 500, district);
+  // Curated-only mode (madde 1/34/167 follow-up): the 500-per-category
+  // generated filler used to fill this list produced severe near-duplicate
+  // content — e.g. İzmir's "nice-to-have" filter returned 163 generated
+  // entries from only 54 unique names, with the entire first page being
+  // repeats like "Kutlu İzmir Tarihi Çarşı" three times over. The name/suffix
+  // combinatorial space per category (≤65 unique names) is structurally too
+  // small for 500 items, so collisions are guaranteed, not a hash-quality bug.
+  // Until real editorial data exists per city, only curated entries (~10 per
+  // category) are ever shown — GENERATE_FILLER_PLACES flips this back on
+  // later if a genuine need for filler volume returns (it won't fix the
+  // duplicate problem on its own; the combinatorial pools would need
+  // expanding too).
+  const GENERATE_FILLER_PLACES = false;
+  let list = generatePlacesForCity(city, type, GENERATE_FILLER_PLACES ? 500 : 0, district);
 
   // Normalize items to prevent client-side crashes from missing fields in curated data
   list = list.map((item) => {
