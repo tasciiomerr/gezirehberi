@@ -370,19 +370,7 @@ export const egeCities: City[] = [
       },
     ],
     accommodations: [
-      {
-        id: "cesme-alacati-tas-otel",
-        name: "Alaçatı Taş Ev Butik Otel",
-        type: "boutique",
-        description: "Restore edilmiş taş evde, avlulu butik konaklama",
-        images: [],
-        location: { lat: 38.2812, lng: 26.377 },
-        address: "Alaçatı, Çeşme",
-        priceRange: "luxury",
-        pricePerNight: "2.800-4.500 TL",
-        rating: 4.9,
-        amenities: ["Avlu", "Havuz", "Kahvaltı dahil"],
-      },
+
       {
         id: "cesme-merkez-deniz-otel",
         name: "Çeşme Marina Otel",
@@ -972,21 +960,7 @@ export const egeCities: City[] = [
         reservationNeeded: true,
         features: ["İskele masaları", "Deniz manzarası"],
       },
-      {
-        id: "bodrum-yalikavak-marina-restoran",
-        name: "Yalıkavak Marina Restoranı",
-        diningType: "restaurant",
-        description: "Yatlara bakan terasta uluslararası ve Ege mutfağı",
-        specialties: ["Deniz ürünleri", "Meze", "İtalyan mutfağı"],
-        images: [],
-        location: { lat: 37.1078, lng: 27.29 },
-        address: "Yalıkavak, Bodrum",
-        priceRange: "luxury",
-        averageCost: "800-1.400 TL/kişi",
-        openingHours: "10:00 - 22:00",
-        reservationNeeded: false,
-        features: ["Marina manzarası", "Lüks atmosfer"],
-      },
+
       {
         id: "bodrum-torba-koy-lokantasi",
         name: "Torba Zeytinlik Lokantası",
@@ -1207,20 +1181,7 @@ export const egeCities: City[] = [
         tips: "Patatesin çıtırlığını kaybetmemesi için hemen tüketin.",
         importance: "must-see",
       },
-      {
-        id: "bodrum-mandalina-urunleri",
-        name: "Bodrum Mandalinası",
-        description: "Coğrafi işaretli, ince kabuklu ve yoğun aromalı yerel mandalina",
-        longDescription: "Yarımadanın iklimine uyum sağlamış bu mandalina, reçel, likör ve tatlılarda kullanılarak Bodrum mutfağının imzasını taşıyor.",
-        images: [],
-        origin: "Bodrum",
-        ingredients: ["Mandalina"],
-        whereToTry: [],
-        bestSeason: "Kasım-Ocak",
-        priceRange: "60-120 TL/kg",
-        tips: "Mandalina reçelini hediyelik olarak alabilirsiniz.",
-        importance: "should-see",
-      },
+
       {
         id: "bodrum-deniz-borulcesi",
         name: "Deniz Börülcesi ve Ege Otları",

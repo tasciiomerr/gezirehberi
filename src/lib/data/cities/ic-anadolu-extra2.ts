@@ -834,23 +834,7 @@ export const icAnadoluExtra2Cities: City[] = [
       },
     ],
     restaurants: [
-      {
-        id: "sivas-koftecisi",
-        name: "Sivas Köftecisi",
-        diningType: "restaurant",
-        description: "Sivas köftesinin en otantik halini sunan geleneksel lokanta",
-        specialties: ["Sivas köftesi", "Kesme çorbası"],
-        images: [],
-        location: { lat: 39.7477, lng: 37.0179 },
-        address: "Merkez, Sivas",
-        priceRange: "budget",
-        averageCost: "150-230 TL/kişi",
-        openingHours: "10:00 - 22:00",
-        reservationNeeded: false,
-        features: ["Otantik lezzet"],
-        priceSegment: 1,
-        signatureDish: "Sivas köftesi — restoranın ince uzun imza köftesi",
-      },
+
       {
         id: "sivas-tarihi-lokanta",
         name: "Sivas Tarihi Lokantası",
@@ -1057,19 +1041,7 @@ export const icAnadoluExtra2Cities: City[] = [
         rating: 4.2,
         amenities: ["Tarihi yapı yakını", "Kahvaltı dahil"],
       },
-      {
-        id: "sivas-merkez-tarihi-otel",
-        name: "Sivas Tarihi Konak Oteli",
-        type: "boutique",
-        description: "Medreseler meydanına yakın, restore taş binada otel",
-        images: [],
-        location: { lat: 39.7477, lng: 37.0179 },
-        address: "Merkez, Sivas",
-        priceRange: "mid",
-        pricePerNight: "600-1.000 TL",
-        rating: 4.4,
-        amenities: ["Tarihi bina", "Medrese yakını", "Kahvaltı dahil"],
-      },
+
       {
         id: "sivas-todurge-bungalov",
         name: "Tödürge Gölü Bungalovları",
@@ -1608,21 +1580,7 @@ export const icAnadoluExtra2Cities: City[] = [
         reservationNeeded: false,
         features: ["Günlük menü", "Uygun fiyat"],
       },
-      {
-        id: "kirikkale-merkez-kebapci2",
-        name: "Kırıkkale Merkez Kebapçısı",
-        diningType: "restaurant",
-        description: "Şehir merkezinde kömür ateşinde kebap",
-        specialties: ["Kebap", "Ayran", "Salata"],
-        images: [],
-        location: { lat: 39.8468, lng: 33.5153 },
-        address: "Merkez, Kırıkkale",
-        priceRange: "budget",
-        averageCost: "160-260 TL/kişi",
-        openingHours: "10:00 - 22:00",
-        reservationNeeded: false,
-        features: ["Kömür ateşi", "Merkezi konum"],
-      },
+
     ],
     accommodations: [
       {

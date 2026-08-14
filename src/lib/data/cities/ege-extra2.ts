@@ -312,21 +312,7 @@ export const egeExtra2Cities: City[] = [
         reservationNeeded: false,
         features: ["İncir bahçeleri", "Yerel üretim"],
       },
-      {
-        id: "aydin-kusadasi-liman-restoran",
-        name: "Kuşadası Liman Restoranı",
-        diningType: "restaurant",
-        description: "Güvercinada manzaralı sahilde balık ve meze",
-        specialties: ["Günün balığı", "Meze", "Kalamar"],
-        images: [],
-        location: { lat: 37.8583, lng: 27.2611 },
-        address: "Kuşadası, Aydın",
-        priceRange: "mid",
-        averageCost: "350-550 TL/kişi",
-        openingHours: "10:00 - 22:00",
-        reservationNeeded: false,
-        features: ["Ada manzarası", "Liman atmosferi"],
-      },
+
       {
         id: "aydin-nazilli-lokanta",
         name: "Nazilli Yöresel Lokantası",
@@ -1021,19 +1007,7 @@ export const egeExtra2Cities: City[] = [
         rating: 4.5,
         amenities: ["Traverten manzarası", "Bahçe", "Kahvaltı dahil"],
       },
-      {
-        id: "denizli-merkez-otel",
-        name: "Denizli Şehir Oteli",
-        type: "hotel",
-        description: "Şehir merkezinde, iş ve gezi amaçlı modern otel",
-        images: [],
-        location: { lat: 37.7765, lng: 29.0864 },
-        address: "Merkez, Denizli",
-        priceRange: "budget",
-        pricePerNight: "500-800 TL",
-        rating: 4.2,
-        amenities: ["WiFi", "Otopark", "Kahvaltı dahil"],
-      },
+
       {
         id: "denizli-karahayit-kirmizi-su",
         name: "Karahayıt Kırmızı Su Oteli",

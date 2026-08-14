@@ -1181,20 +1181,7 @@ export const guneydoguAnadoluExtra2Cities: City[] = [
         tips: "Sıcak süt veya çayla tüketilir.",
         importance: "should-see",
       },
-      {
-        id: "siirt-buryani",
-        name: "Siirt Büryan Kebabı",
-        description: "Kuyu tandırda asılarak pişen, sabah tüketilen kuzu",
-        longDescription: "Kuzunun taş kuyu tandırda asılıp ağzı kapatılarak kendi buharıyla pişirilmesiyle hazırlanan, sabah saatlerinde tüketilen Siirt klasiği.",
-        images: [],
-        origin: "Siirt",
-        ingredients: ["Kuzu eti", "Tuz"],
-        whereToTry: [],
-        bestSeason: "Yıl boyu",
-        priceRange: "250-400 TL",
-        tips: "Öğleden önce tükenir, erken gidin.",
-        importance: "must-see",
-      },
+
       {
         id: "siirt-perde-pilavi-siirt",
         name: "Siirt Perde Pilavı",
@@ -1803,20 +1790,7 @@ export const guneydoguAnadoluExtra2Cities: City[] = [
         tips: "Otun doğru pişirilmesi önemlidir, yerel lokantaları tercih edin.",
         importance: "should-see",
       },
-      {
-        id: "adiyaman-cigcig-kofte",
-        name: "Adıyaman Çiğ Köftesi",
-        description: "İsot ve baharatlarla saatlerce yoğrulan etli çiğ köfte",
-        longDescription: "İnce bulgurun kıyma, isot ve onlarca baharatla saatlerce yoğrulmasıyla hazırlanan, bölge sofralarının paylaşımcı yemeği.",
-        images: [],
-        origin: "Adıyaman",
-        ingredients: ["İnce bulgur", "Kıyma", "İsot", "Baharat"],
-        whereToTry: [],
-        bestSeason: "Yıl boyu",
-        priceRange: "140-220 TL",
-        tips: "Marul yaprağına sarıp limonla tüketin.",
-        importance: "should-see",
-      },
+
       {
         id: "adiyaman-kombe",
         name: "Kömbe (Adıyaman Çöreği)",

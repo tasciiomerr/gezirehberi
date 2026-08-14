@@ -547,20 +547,7 @@ export const egeExtraCities: City[] = [
         tips: "Kordon'da yürürken alıp deniz kenarında yemek yerel bir alışkanlık.",
         importance: "should-see",
       },
-      {
-        id: "izmir-kumru-sandvic",
-        name: "İzmir Kumrusu",
-        description: "Susamlı özel ekmeğinde sucuk, kaşar ve domatesli sandviç",
-        longDescription: "Çeşme kumrusundan farklı olarak daha büyük hazırlanan İzmir kumrusu, susamlı ekmeği ve bol iç harcıyla sokak lezzetlerinin başında geliyor.",
-        images: [],
-        origin: "İzmir",
-        ingredients: ["Susamlı ekmek", "Sucuk", "Kaşar", "Domates"],
-        whereToTry: [],
-        bestSeason: "Yıl boyu",
-        priceRange: "120-200 TL",
-        tips: "Sıcak servis edilmelidir, bekletmeyin.",
-        importance: "should-see",
-      },
+
       {
         id: "izmir-sambali",
         name: "Şambali Tatlısı",
@@ -1183,20 +1170,7 @@ export const egeExtraCities: City[] = [
         tips: "Hasat mevsiminde bağlardan taze alabilirsiniz.",
         importance: "should-see",
       },
-      {
-        id: "manisa-uzumu",
-        name: "Manisa Sultani Üzümü",
-        description: "Çekirdeksiz sultani üzüm ve ondan üretilen kuru üzüm",
-        longDescription: "Dünya kuru üzüm ihracatının önemli bir kısmını karşılayan Manisa sultani üzümü, çekirdeksiz yapısı ve yüksek şeker oranıyla tanınıyor.",
-        images: [],
-        origin: "Manisa",
-        ingredients: ["Sultani üzüm"],
-        whereToTry: [],
-        bestSeason: "Ağustos-Eylül",
-        priceRange: "80-160 TL/kg",
-        tips: "Hasat döneminde bağ pazarlarından taze alın.",
-        importance: "should-see",
-      },
+
       {
         id: "manisa-sirasi",
         name: "Manisa Şırası",

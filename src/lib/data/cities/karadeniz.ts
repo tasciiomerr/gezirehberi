@@ -922,21 +922,7 @@ export const karadenizCities: City[] = [
         reservationNeeded: true,
         features: ["Tarihi avlu", "Şömine", "Şarap listesi"],
       },
-      {
-        id: "safranbolu-lokum-kahve",
-        name: "Safranbolu Lokum ve Kahve Evi",
-        diningType: "cafe",
-        description: "Safranlı lokum ve Türk kahvesiyle çarşı molası",
-        specialties: ["Safranbolu lokumu", "Türk kahvesi", "Safranlı çay"],
-        images: [],
-        location: { lat: 41.2501, lng: 32.6939 },
-        address: "Çarşı, Safranbolu",
-        priceRange: "budget",
-        averageCost: "70-130 TL/kişi",
-        openingHours: "09:00 - 21:00",
-        reservationNeeded: false,
-        features: ["Tarihi çarşı", "Yerel lokum"],
-      },
+
       {
         id: "safranbolu-cinci-han-restoran",
         name: "Cinci Hanı Avlu Restoranı",
@@ -1163,20 +1149,7 @@ export const karadenizCities: City[] = [
       },
     ],
     localFood: [
-      {
-        id: "safranbolu-lokum",
-        name: "Safranbolu Lokumu",
-        description: "Bölgeye adını veren safranla aromalandırılan özel lokum",
-        longDescription: "Şeker, nişasta ve safran karışımıyla yapılan, yöreye özgü aromatik lokum çeşidi.",
-        images: [],
-        origin: "Safranbolu, Karabük",
-        ingredients: ["Şeker", "Nişasta", "Safran"],
-        whereToTry: [],
-        bestSeason: "Yıl boyu",
-        priceRange: "150-250 TL/kg",
-        tips: "Orijinal safranlı olanı tercih edin, taklitleri var.",
-        importance: "must-see",
-      },
+
       {
         id: "safranbolu-hosmerim",
         name: "Höşmerim",

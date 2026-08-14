@@ -398,19 +398,7 @@ export const marmaraCities: City[] = [
       },
     ],
     accommodations: [
-      {
-        id: "istanbul-sultanahmet-butik",
-        name: "Sultanahmet Tarihi Konak Oteli",
-        type: "boutique",
-        description: "Ayasofya'ya yürüme mesafesinde, restore edilmiş konak",
-        images: [],
-        location: { lat: 41.0075, lng: 28.978 },
-        address: "Sultanahmet, Fatih",
-        priceRange: "mid",
-        pricePerNight: "1.500-2.500 TL",
-        rating: 4.6,
-        amenities: ["WiFi", "Kahvaltı dahil", "Teras manzarası"],
-      },
+
       {
         id: "istanbul-ciragan",
         name: "Çırağan Palace Kempinski",
