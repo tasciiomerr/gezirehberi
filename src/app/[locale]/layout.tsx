@@ -40,17 +40,32 @@ export async function generateMetadata(props: {
     // page inherits this unless it explicitly overrides robots itself.
     robots: buildRobots(locale),
     // Search-engine site ownership verification (Yandex Webmaster + Google
-    // Search Console, report items 264-267). Both unset ([B], real codes
-    // pending from the user) — each key is only added when its env var is
-    // actually set, never rendering an empty/placeholder verification tag.
-    ...((process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION)
+    // Search Console, report items 264-267) + AdSense site verification.
+    // Each key is only added when its env var is actually set, never
+    // rendering an empty/placeholder verification tag. "google-adsense-account"
+    // has no dedicated field in Next's Metadata.verification type (only
+    // google/yahoo/yandex/me/other are typed), so it goes through the same
+    // `other` bag as yandex-verification — merged into one object rather than
+    // two separate `other` keys, which would otherwise just overwrite each other.
+    ...((process.env.NEXT_PUBLIC_YANDEX_VERIFICATION ||
+      process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+      process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID)
       ? {
           verification: {
             ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
               ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
               : {}),
-            ...(process.env.NEXT_PUBLIC_YANDEX_VERIFICATION
-              ? { other: { "yandex-verification": process.env.NEXT_PUBLIC_YANDEX_VERIFICATION } }
+            ...((process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID)
+              ? {
+                  other: {
+                    ...(process.env.NEXT_PUBLIC_YANDEX_VERIFICATION
+                      ? { "yandex-verification": process.env.NEXT_PUBLIC_YANDEX_VERIFICATION }
+                      : {}),
+                    ...(process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID
+                      ? { "google-adsense-account": process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID }
+                      : {}),
+                  },
+                }
               : {}),
           },
         }
