@@ -649,6 +649,7 @@ export const akdenizExtraCities: City[] = [
         importance: "must-see",
         tips: ["Kıyıdaki restoranlardan da manzarası izlenebilir", "Yüzme için de uygun bir plaj"],
         accessibility: "Tekneye biniş merdivenli",
+        accessMode: "boat-tour",
         nickname: "Kızkalesi / Maiden's Castle",
         bestPhotoTime: "Gün batımı, kale denizin ortasında siluet oluşturur",
         ticketPolicy: { fullPrice: "50 TL (tekne + giriş)" },

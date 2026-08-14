@@ -753,6 +753,7 @@ export const guneydoguAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Rumkale'ye kadar giden turu seçin", "Siyah gül sezonu ilkbahardır"],
         accessibility: "Tekne turu",
+        accessMode: "boat-tour",
       },
       {
         id: "urfa-harran",

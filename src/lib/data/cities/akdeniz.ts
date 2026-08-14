@@ -749,6 +749,7 @@ export const akdenizCities: City[] = [
         importance: "must-see",
         tips: ["Dalış ve yüzme batık alanda yasak", "Cam tabanlı teknelerle daha net görülür"],
         accessibility: "Tekne ile erişim",
+        accessMode: "boat-tour",
       },
       {
         id: "kas-patara-plaji",
@@ -1335,6 +1336,7 @@ export const akdenizCities: City[] = [
         importance: "should-see",
         tips: ["Güneş kremi ve şapka götürün", "Deniz feneri ile ödeme genelde nakit"],
         accessibility: "Tekneye biniş merdivenli",
+        accessMode: "boat-tour",
       },
       {
         id: "fethiye-kelebekler-vadisi",
@@ -1353,6 +1355,7 @@ export const akdenizCities: City[] = [
         importance: "nice-to-have",
         tips: ["Sadece teknle ulaşım, kara yolu yok", "Kamp alanı da mevcut"],
         accessibility: "Kayalık patikalar, orta zorluk",
+        accessMode: "boat-tour",
       },
       {
         id: "fethiye-kayakoy",

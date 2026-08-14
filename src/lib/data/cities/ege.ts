@@ -827,6 +827,7 @@ export const egeCities: City[] = [
         importance: "should-see",
         tips: ["Tekne turlarıyla ulaşılır"],
         accessibility: "Tekne",
+        accessMode: "boat-tour",
       },
       {
         id: "bodrum-akyarlar-koyu",

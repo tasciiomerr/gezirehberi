@@ -48,6 +48,7 @@ export const doguAnadoluCities: City[] = [
         importance: "must-see",
         tips: ["Tekne turu hava durumuna bağlı", "Adada gölge az, şapka götürün"],
         accessibility: "Tekneye biniş merdivenli",
+        accessMode: "boat-tour",
         nickname: "Akdamar Kilisesi / Akdamar Church",
         bestPhotoTime: "Öğleden önce, göl sakinken tekne turu için ideal",
         ticketPolicy: { fullPrice: "Tekne 150-250 TL, kilise girişi 50 TL" },

@@ -39,6 +39,7 @@ export const karadenizExtra3Cities: City[] = [
         importance: "must-see",
         tips: ["Tekne turları merkez limandan kalkar", "Deniz durumuna göre tur iptal olabilir"],
         accessibility: "Tekneye biniş merdivenli",
+        accessMode: "boat-tour",
         nickname: "Giresun Adası / Giresun Island",
         bestPhotoTime: "Öğleden önce, deniz sakinken tekne turu için ideal",
         parkingTip: "Liman çevresinde ücretli otopark",

@@ -214,6 +214,7 @@ export const marmaraCities: City[] = [
         importance: "should-see",
         tips: ["Salacak sahilinden kuleyi arkaya alarak çay içip fotoğraf çekmek klasiktir"],
         accessibility: "Tekneyle ulaşıldığı için engelliler için sınırlıdır",
+        accessMode: "boat-tour",
       },
       {
         id: "istanbul-istiklal",

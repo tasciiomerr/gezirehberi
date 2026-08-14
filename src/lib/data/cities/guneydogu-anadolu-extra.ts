@@ -78,6 +78,7 @@ export const guneydoguAnadoluExtraCities: City[] = [
         importance: "must-see",
         tips: ["Halfeti turlarıyla birleştirilebilir"],
         accessibility: "Tekne + tırmanış",
+        accessMode: "boat-tour",
       },
       {
         id: "antep-bakircilar-carsisi",
