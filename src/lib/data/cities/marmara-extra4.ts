@@ -1946,6 +1946,7 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Anzak Koyu ve Conkbayırı'nı birlikte gezin", "Rehberli tur önerilir"],
         accessibility: "Geniş açık alan, bazı bölümler yürüyüş gerektirir",
+        accessMode: "ferry",
       },
       {
         id: "canakkale-assos",
@@ -1980,6 +1981,7 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Yaz aylarında feribot rezervasyonu şart", "Şarap tadımı yapın"],
         accessibility: "Feribot",
+        accessMode: "ferry",
       },
       {
         id: "canakkale-troya",
@@ -2015,6 +2017,7 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Feribot rezervasyonu yaz aylarında şart", "Zeytinli ve Tepeköy'ü gezin"],
         accessibility: "Feribot",
+        accessMode: "ferry",
       },
       {
         id: "canakkale-bayramic-alacatepe",
@@ -2049,6 +2052,7 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Kale burçlarından ada manzarasını izleyin"],
         accessibility: "Erişilebilir",
+        accessMode: "ferry",
       },
       {
         id: "canakkale-kilitbahir-kalesi",
@@ -2066,6 +2070,7 @@ export const marmaraExtra4Cities: City[] = [
         importance: "must-see",
         tips: ["Boğaz'ın karşı kıyısından da izlenebilir"],
         accessibility: "Erişilebilir",
+        accessMode: "ferry",
       },
     ],
     restaurants: [
@@ -2100,6 +2105,7 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "12:00 - 00:00",
         reservationNeeded: true,
         features: ["Şarap tadımı", "Ada atmosferi"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-truva-ziyaretci-lokantasi",
@@ -2147,6 +2153,7 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "18:00 - 01:00",
         reservationNeeded: true,
         features: ["Yerel şaraplar", "Taş sokak"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-kordon-balikci",
@@ -2179,6 +2186,7 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "08:00 - 21:00",
         reservationNeeded: false,
         features: ["Feribot iskelesi yakını", "Günlük menü"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-bayramic-lokanta",
@@ -2209,6 +2217,7 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Kale manzarası", "Ada şarapları"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-gokceada-lokanta2",
@@ -2224,6 +2233,7 @@ export const marmaraExtra4Cities: City[] = [
         openingHours: "10:00 - 22:00",
         reservationNeeded: false,
         features: ["Organik ada", "Yerel ürünler"],
+        accessMode: "ferry",
       },
     ],
     accommodations: [
@@ -2252,6 +2262,7 @@ export const marmaraExtra4Cities: City[] = [
         pricePerNight: "1.500-2.500 TL",
         rating: 4.8,
         amenities: ["Bağ manzarası", "Şarap tadımı", "Kahvaltı dahil"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-assos-tas-otel",
@@ -2278,6 +2289,7 @@ export const marmaraExtra4Cities: City[] = [
         pricePerNight: "1.600-2.800 TL",
         rating: 4.7,
         amenities: ["Tarihi Rum evi", "Avlu", "Kahvaltı dahil"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-kordon-otel",
@@ -2304,6 +2316,7 @@ export const marmaraExtra4Cities: City[] = [
         pricePerNight: "450-780 TL",
         rating: 4.2,
         amenities: ["Feribot yakını", "Tur organizasyonu", "Kahvaltı dahil"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-gokceada-tas-ev",
@@ -2317,6 +2330,7 @@ export const marmaraExtra4Cities: City[] = [
         pricePerNight: "700-1.200 TL",
         rating: 4.5,
         amenities: ["Tarihi taş ev", "Ada atmosferi", "Organik kahvaltı"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-bayramic-konuk",
@@ -2343,6 +2357,7 @@ export const marmaraExtra4Cities: City[] = [
         pricePerNight: "1.800-3.200 TL",
         rating: 4.7,
         amenities: ["Kale yakını", "Ada atmosferi", "Kahvaltı dahil"],
+        accessMode: "ferry",
       },
       {
         id: "canakkale-gokceada-otel2",
@@ -2356,6 +2371,7 @@ export const marmaraExtra4Cities: City[] = [
         pricePerNight: "800-1.350 TL",
         rating: 4.5,
         amenities: ["Organik bahçe", "Sakin ada", "Kahvaltı dahil"],
+        accessMode: "ferry",
       },
     ],
     localFood: [

@@ -32,12 +32,33 @@ export function estimateTransfer(
   fromOrder: number,
   toOrder: number,
   from?: GeoPoint,
-  to?: GeoPoint
+  to?: GeoPoint,
+  fromAccessMode?: "ferry" | "boat-tour",
+  toAccessMode?: "ferry" | "boat-tour"
 ): TransferBlock | null {
   if (!from || !to) return null;
 
   const straightKm = haversineDistanceKm(from, to);
   if (straightKm < 0.05) return null; // aynı nokta sayılır, transfer gösterme
+
+  // Only the mainland<->island crossing itself needs the ferry warning — once
+  // you're already on the island, moving between two ferry-tagged stops there
+  // is a normal local walk/drive, not a second ferry crossing. Hence XOR, not
+  // "either": Çanakkale's Bozcaada/Gökçeada/Eceabat stops were getting a fake
+  // short "sürüş" (driving) duration computed straight across the strait/open
+  // water when either side (including from the mainland) was involved.
+  const fromIsFerry = fromAccessMode === "ferry";
+  const toIsFerry = toAccessMode === "ferry";
+  if (fromIsFerry !== toIsFerry) {
+    return {
+      fromOrder,
+      toOrder,
+      distanceKm: Math.round(straightKm * 10) / 10,
+      mode: "ferry",
+      estimatedMinutes: 0,
+      approximate: true,
+    };
+  }
 
   const roadKm = straightKm * ROAD_FACTOR;
   const mode: "walk" | "drive" = roadKm <= 1.5 ? "walk" : "drive";
@@ -53,6 +74,24 @@ export function estimateTransfer(
     isLongTransfer: roadKm > 15,
     approximate: true,
   };
+}
+
+// Groups items into rough geographic clusters (~5-6km grid) so a generic
+// "these are all ferry-only stops" list doesn't get treated as one blob —
+// two genuinely distinct ferry destinations in the same city (e.g. Bozcaada
+// vs. Gökçeada, ~30km apart, from Çanakkale) must never be scheduled into
+// the same day. No place names or per-city logic involved — just coordinate
+// proximity, so this generalizes to any city's data without a lookup table.
+export function clusterByLocation<T extends { location?: GeoPoint }>(items: T[]): T[][] {
+  const clusters = new Map<string, T[]>();
+  for (const item of items) {
+    if (!item.location) continue;
+    const key = `${Math.round(item.location.lat * 20) / 20},${Math.round(item.location.lng * 20) / 20}`;
+    const existing = clusters.get(key);
+    if (existing) existing.push(item);
+    else clusters.set(key, [item]);
+  }
+  return [...clusters.values()];
 }
 
 export function assignTimeSlot(order: number, totalStopsInDay: number): "morning" | "afternoon" | "evening" {

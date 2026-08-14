@@ -1,5 +1,5 @@
 import { City, DayPlan, ItineraryRoute, RouteStop, Attraction, Restaurant } from "@/lib/types";
-import { estimateTransfer, assignTimeSlot, optimizeTSP } from "@/lib/geo";
+import { estimateTransfer, assignTimeSlot, optimizeTSP, clusterByLocation } from "@/lib/geo";
 
 const IMPORTANCE_ORDER: Record<string, number> = {
   "must-see": 0,
@@ -36,14 +36,61 @@ function mealTimeSlot(title: string): "morning" | "afternoon" | "evening" | unde
  * Must-see yerler önce, sonra should-see, sonra nice-to-have dağıtılır.
  */
 export function generateItinerary(city: City, days: number): ItineraryRoute {
-  const sortedAttractions = sortByImportance(city.attractions);
-  const restaurants = city.restaurants.length > 0 ? city.restaurants : [];
+  // Ferry-only attractions/restaurants (Bozcaada/Gökçeada/Eceabat-type stops,
+  // see Attraction.accessMode) must never be mixed into a normal driving day
+  // with mainland stops — report follow-up: Çanakkale's day plans were
+  // routing "by car" straight across the strait to an island, and could even
+  // put two different islands in the same day. These get pulled out of the
+  // regular per-day pool entirely and, when the trip is long enough, handed
+  // their own dedicated day(s) instead. "boat-tour" stops (e.g. Kekova from
+  // Kaş) stay in the normal pool as-is — their departure point is already on
+  // the mainland, so same-day mixing is fine; only the transfer estimate
+  // needs the accessMode carried through (handled below via estimateTransfer).
+  const mainlandAttractions = city.attractions.filter((a) => a.accessMode !== "ferry");
+  const ferryAttractions = city.attractions.filter((a) => a.accessMode === "ferry");
+  const mainlandRestaurants = city.restaurants.filter((r) => r.accessMode !== "ferry");
+  const ferryRestaurants = city.restaurants.filter((r) => r.accessMode === "ferry");
+
+  const sortedAttractions = sortByImportance(mainlandAttractions);
+  const restaurants = mainlandRestaurants.length > 0 ? mainlandRestaurants : [];
+
+  // Cluster ferry attractions by location so two genuinely distinct ferry
+  // destinations (e.g. Bozcaada vs. Gökçeada) never land on the same day.
+  const ferryClusters = clusterByLocation(sortByImportance(ferryAttractions)).sort(
+    (a, b) => (IMPORTANCE_ORDER[a[0]?.importance] ?? 3) - (IMPORTANCE_ORDER[b[0]?.importance] ?? 3)
+  );
+
+  // Reserve one day per ferry cluster — never the first day (still a normal
+  // mainland arrival day) and, for 3+ day trips, never the last day either
+  // (keep the final day free for the return journey, matching the existing
+  // "son gün" note below). A 1-day trip can't fit a same-day island
+  // excursion realistically, so ferry clusters are simply left out of it.
+  const ferryDayNumbers: number[] = [];
+  if (days >= 2 && ferryClusters.length > 0) {
+    const lastUsableDay = days >= 3 ? days - 1 : days;
+    for (let d = 2; d <= lastUsableDay && ferryDayNumbers.length < ferryClusters.length; d++) {
+      ferryDayNumbers.push(d);
+    }
+  }
+
+  const restaurantClusterFor = (cluster: Attraction[]): Restaurant | undefined => {
+    if (ferryRestaurants.length === 0 || cluster.length === 0) return undefined;
+    const anchor = cluster[0].location;
+    if (!anchor) return ferryRestaurants[0];
+    return [...ferryRestaurants].sort((a, b) => {
+      if (!a.location || !b.location) return 0;
+      const da = Math.abs(a.location.lat - anchor.lat) + Math.abs(a.location.lng - anchor.lng);
+      const db = Math.abs(b.location.lat - anchor.lat) + Math.abs(b.location.lng - anchor.lng);
+      return da - db;
+    })[0];
+  };
 
   // Her gün için kaç attraction hedefleniyor (yoğunluk gün arttıkça azalır)
   const attractionsPerDay = days <= 2 ? 3 : days <= 5 ? 2 : 2;
 
   const dayPlans: DayPlan[] = [];
   let attractionCursor = 0;
+  let ferryClusterCursor = 0;
 
   const dayThemes = [
     "Şehrin Kalbi",
@@ -66,8 +113,12 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
     const stops: RouteStop[] = [];
     let order = 1;
 
+    const isFerryDay = ferryDayNumbers.includes(day);
+    const ferryCluster = isFerryDay ? ferryClusters[ferryClusterCursor++] ?? [] : [];
+    const ferryLunchRestaurant = isFerryDay ? restaurantClusterFor(ferryCluster) : undefined;
+
     const breakfastRestaurant = pickRestaurant(restaurants, (day - 1) * 3);
-    const lunchRestaurant = pickRestaurant(restaurants, (day - 1) * 3 + 1);
+    const lunchRestaurant = ferryLunchRestaurant ?? pickRestaurant(restaurants, (day - 1) * 3 + 1);
     const dinnerRestaurant = pickRestaurant(restaurants, (day - 1) * 3 + 2);
 
     if (breakfastRestaurant) {
@@ -79,17 +130,26 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
         type: "dining",
         itemId: breakfastRestaurant.id,
         location: breakfastRestaurant.location,
+        accessMode: breakfastRestaurant.accessMode,
       });
     }
 
-    const dayAttractions: Attraction[] = [];
-    for (let i = 0; i < attractionsPerDay; i++) {
-      const attraction = sortedAttractions[attractionCursor];
-      if (attraction) {
-        dayAttractions.push(attraction);
-        attractionCursor++;
-      }
-    }
+    // Ferry günlerinde durak havuzu mainland sortedAttractions'tan değil, o
+    // günün ayrılmış tek ferry cluster'ından geliyor — böylece aynı gün içinde
+    // iki farklı adaya (ör. Bozcaada + Gökçeada) gidilmiş gibi görünmüyor.
+    const dayAttractions: Attraction[] = isFerryDay
+      ? ferryCluster.slice(0, 2)
+      : (() => {
+          const picked: Attraction[] = [];
+          for (let i = 0; i < attractionsPerDay; i++) {
+            const attraction = sortedAttractions[attractionCursor];
+            if (attraction) {
+              picked.push(attraction);
+              attractionCursor++;
+            }
+          }
+          return picked;
+        })();
 
     dayAttractions.forEach((attraction, idx) => {
       stops.push({
@@ -101,6 +161,7 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
         itemId: attraction.id,
         location: attraction.location,
         tips: attraction.tips,
+        accessMode: attraction.accessMode,
       });
 
       // Öğlen ilk attraction sonrası öğle yemeği ekle
@@ -113,6 +174,7 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
           type: "dining",
           itemId: lunchRestaurant.id,
           location: lunchRestaurant.location,
+          accessMode: lunchRestaurant.accessMode,
         });
       }
     });
@@ -126,11 +188,12 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
         type: "dining",
         itemId: dinnerRestaurant.id,
         location: dinnerRestaurant.location,
+        accessMode: dinnerRestaurant.accessMode,
       });
     }
 
     // Eğer hiç attraction kalmadıysa (uzun rotalarda), serbest gün ekle
-    if (dayAttractions.length === 0 && sortedAttractions.length > 0) {
+    if (!isFerryDay && dayAttractions.length === 0 && sortedAttractions.length > 0) {
       stops.splice(1, 0, {
         order: 99,
         title: "Serbest Zaman: Sahilde/Çarşıda Keşif",
@@ -172,7 +235,9 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
         stops[i].order,
         stops[i + 1].order,
         stops[i].location,
-        stops[i + 1].location
+        stops[i + 1].location,
+        stops[i].accessMode,
+        stops[i + 1].accessMode
       );
       if (transfer) {
         transfers.push(transfer);

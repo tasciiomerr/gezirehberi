@@ -81,6 +81,13 @@ export interface Attraction {
   dynamicHours?: DynamicHours;
   parkingTip?: string;
   nearestTransitStop?: string;
+  // "ferry": only reachable via a vehicle/passenger ferry from the mainland
+  // (an island or opposite-shore town, e.g. Bozcaada/Gökçeada/Eceabat from
+  // Çanakkale) — generateItinerary must not mix this into a normal driving
+  // day. "boat-tour": only reachable via a guided boat excursion whose
+  // departure point is itself on the mainland (e.g. Kekova from Kaş) — still
+  // fine same-day, but the transfer isn't a real drive either.
+  accessMode?: "ferry" | "boat-tour";
 }
 
 export interface Restaurant {
@@ -105,6 +112,7 @@ export interface Restaurant {
   // Section 3: fiyat segmenti (1-4 arası $ işareti) ve imza yemek
   priceSegment?: 1 | 2 | 3 | 4;
   signatureDish?: string;
+  accessMode?: "ferry" | "boat-tour";
 }
 
 export interface Accommodation {
@@ -123,6 +131,7 @@ export interface Accommodation {
   website?: string;
   bookingUrl?: string;
   regionSlug?: string;
+  accessMode?: "ferry" | "boat-tour";
 }
 
 export interface FoodItem {
@@ -155,13 +164,21 @@ export interface RouteStop {
   timeSlot?: TimeSlot;
   startTime?: string;
   endTime?: string;
+  // Carried through from the source Attraction/Restaurant/Accommodation so
+  // estimateTransfer/UI can tell a ferry-only stop apart from a normal one.
+  accessMode?: "ferry" | "boat-tour";
 }
 
 export interface TransferBlock {
   fromOrder: number;
   toOrder: number;
   distanceKm: number;
-  mode: "walk" | "drive";
+  // "ferry": either endpoint requires a ferry crossing — distanceKm is still
+  // the straight-line hint, but estimatedMinutes is not a real drive time and
+  // callers must not render it as one (report follow-up — ferry-only stops
+  // like Bozcaada/Gökçeada from Çanakkale were getting a fake "X km / Y dk
+  // sürüş" estimate and a driving-mode Maps link, as if reachable by car).
+  mode: "walk" | "drive" | "ferry";
   estimatedMinutes: number;
   isLongTransfer?: boolean;
   // true = haversine-distance estimate (×1.3 road factor), false = real Mapbox

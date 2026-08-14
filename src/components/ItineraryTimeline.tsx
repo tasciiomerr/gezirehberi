@@ -47,6 +47,29 @@ function TransferRow({ transfer, locale }: { transfer: TransferBlock; locale: st
   const isRtl = locale === "ar";
   const dict = getDictionary(locale as Locale);
 
+  if (transfer.mode === "ferry") {
+    const ferryText =
+      locale === "tr"
+        ? "Feribot gerekli"
+        : locale === "de"
+        ? "Fähre erforderlich"
+        : locale === "ar"
+        ? "يتطلب عبّارة"
+        : "Ferry required";
+    return (
+      <div
+        className={`flex items-center gap-2 border-dashed py-2 text-xs border-deniz text-deniz font-semibold ${
+          isRtl ? "mr-5 border-r-2 pr-4 pl-0" : "ml-5 border-l-2 pl-4 pr-0"
+        }`}
+      >
+        <Navigation size={13} />
+        <span>
+          ⛴️ {ferryText} (~{transfer.distanceKm} km {locale === "tr" ? "kuş uçuşu" : "straight-line"})
+        </span>
+      </div>
+    );
+  }
+
   const modeText = transfer.mode === "walk"
     ? locale === "tr" ? "yürüyüş" : locale === "de" ? "Zu Fuß" : locale === "ar" ? "مشياً" : "walk"
     : locale === "tr" ? "sürüş" : locale === "de" ? "Fahren" : locale === "ar" ? "قيادة" : "drive";
@@ -255,6 +278,10 @@ function DayCard({
                 </div>
 
                 {(() => {
+                  // A single "open whole day in Maps as one drive/walk" link
+                  // is meaningless once the day includes a ferry crossing —
+                  // there's no one drivable route through it (report follow-up).
+                  if (plan.transfers?.some((t) => t.mode === "ferry")) return null;
                   const dayStopLocations = plan.stops.filter((s) => s.location).map((s) => s.location!);
                   const dominantMode = plan.transfers && plan.transfers.some((t) => t.mode === "drive") ? "driving" : "walking";
                   const dayRouteUrl = buildDayRouteUrl(dayStopLocations, dominantMode);
@@ -302,13 +329,17 @@ function DayCard({
                         const originStop = incomingTransfer
                           ? plan.stops.find((s) => s.order === incomingTransfer.fromOrder)
                           : undefined;
-                        const directionsUrl = stop.location
-                          ? buildStopDirectionsUrl(
-                              stop.location,
-                              originStop?.location,
-                              incomingTransfer?.mode === "drive" ? "driving" : "walking"
-                            )
-                          : null;
+                        // No "get directions" link across a ferry-only leg — a
+                        // driving/walking Maps link would misrepresent it as
+                        // reachable by car (report follow-up, Çanakkale).
+                        const directionsUrl =
+                          stop.location && incomingTransfer?.mode !== "ferry"
+                            ? buildStopDirectionsUrl(
+                                stop.location,
+                                originStop?.location,
+                                incomingTransfer?.mode === "drive" ? "driving" : "walking"
+                              )
+                            : null;
                         const displayOrder = displayOrderByStopOrder[stop.order] ?? stop.order;
                         return (
                           <div key={stop.order}>
@@ -553,7 +584,9 @@ export default function ItineraryTimeline({
             optimizedStops[i].order,
             optimizedStops[i + 1].order,
             optimizedStops[i].location,
-            optimizedStops[i + 1].location
+            optimizedStops[i + 1].location,
+            optimizedStops[i].accessMode,
+            optimizedStops[i + 1].accessMode
           );
           if (transfer) {
             transfers.push(transfer);
