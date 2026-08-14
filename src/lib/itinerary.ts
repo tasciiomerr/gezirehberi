@@ -18,6 +18,18 @@ function pickRestaurant(restaurants: Restaurant[], index: number): Restaurant | 
   return restaurants[index % restaurants.length];
 }
 
+// A dining stop's meal type (Kahvaltı/Öğle Yemeği/Akşam Yemeği, baked into its
+// title at creation time) is semantic, not positional — it must not be
+// re-derived from where optimizeTSP happens to place the stop in the day's
+// geographic route. Returns undefined for anything that isn't a recognized
+// meal-titled dining stop, so callers can fall back to position-based logic.
+function mealTimeSlot(title: string): "morning" | "afternoon" | "evening" | undefined {
+  if (title.startsWith("Kahvaltı")) return "morning";
+  if (title.startsWith("Öğle Yemeği")) return "afternoon";
+  if (title.startsWith("Akşam Yemeği")) return "evening";
+  return undefined;
+}
+
 /**
  * Otomatik itinerary oluşturucu: şehrin attraction/restaurant verisinden
  * gün sayısına göre optimize edilmiş gün gün plan üretir.
@@ -140,9 +152,16 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
     stops.length = 0;
     stops.push(...optimizedStops);
 
-    // Section 2.2: her durağı zaman dilimine (sabah/öğle/akşam) yerleştir
+    // Section 2.2: her durağı zaman dilimine (sabah/öğle/akşam) yerleştir.
+    // Dining duraklar (Kahvaltı/Öğle Yemeği/Akşam Yemeği) title'larına göre
+    // SABİT bir zaman dilimine atanır — optimizeTSP durakları coğrafi
+    // yakınlığa göre yeniden sıraladığında bir akşam-yemeği durağı erken
+    // sıraya düşebiliyor, pozisyon-oranı mantığı o zaman "Akşam Yemeği" yazan
+    // bir durağı "Sabah" rozetiyle gösteriyordu (madde 293 regresyonu).
+    // Attraction/diğer duraklar hâlâ pozisyon oranına göre yerleştiriliyor.
     stops.forEach((s) => {
-      s.timeSlot = assignTimeSlot(s.order, stops.length);
+      const mealSlot = s.type === "dining" ? mealTimeSlot(s.title) : undefined;
+      s.timeSlot = mealSlot ?? assignTimeSlot(s.order, stops.length);
     });
 
     // Section 1.3: ardışık duraklar arası mock transfer bloğu (mesafe + süre)
