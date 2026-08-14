@@ -1,5 +1,5 @@
 import { City, DayPlan, ItineraryRoute, RouteStop, Attraction, Restaurant } from "@/lib/types";
-import { estimateTransfer, assignTimeSlot } from "@/lib/geo";
+import { estimateTransfer, assignTimeSlot, optimizeTSP } from "@/lib/geo";
 
 const IMPORTANCE_ORDER: Record<string, number> = {
   "must-see": 0,
@@ -127,6 +127,18 @@ export function generateItinerary(city: City, days: number): ItineraryRoute {
         type: "activity",
       });
     }
+
+    // Attraction/restoran seçimi importance sırasına göre yapıldı (koordinattan
+    // bağımsız), bu yüzden ham sıra coğrafi olarak zikzak çizebiliyordu — ör.
+    // Kars'ta kahvaltı (merkez) -> Ani Harabeleri (53km) -> öğle yemeği (merkez)
+    // -> Kars Kalesi (merkez) -> Sarıkamış (50km, ters yön) -> akşam yemeği
+    // (yine Ani yolu üzerinde). "Rotayı Optimize Et" butonundaki optimizeTSP
+    // (nearest-neighbor, ilk durağı sabit tutar) burada da uygulanarak varsayılan
+    // sıra baştan coğrafi olarak mantıklı geliyor; kullanıcı butona hiç
+    // basmasa da SSR/ilk render zaten optimize.
+    const optimizedStops = optimizeTSP(stops);
+    stops.length = 0;
+    stops.push(...optimizedStops);
 
     // Section 2.2: her durağı zaman dilimine (sabah/öğle/akşam) yerleştir
     stops.forEach((s) => {
