@@ -12,6 +12,11 @@
 //      (Mersin/Anamur gibi meşru, aynı il içindeki uzak gezi noktaları için MAX_LEGIT_KM eşiği
 //      kasıtlı olarak yüksek tutuldu — amaç, Safranbolu'da bulunan türden ~250km'lik, başka bir
 //      şehre ait yanlış-yapıştırma koordinat hatalarını yakalamak, il-içi uzak ilçeleri değil.)
+//   8. Feribot/tekne erişimi: (a) accessibility/description metninde "feribot" ya da "sadece
+//      tekne(yle)" geçtiği halde accessMode alanı hiç set edilmemiş kayıtlar (yeni curated veri
+//      eklenirken bu bayrak unutulmuşsa yakalar — Çanakkale/Bozcaada-Gökçeada-Eceabat report
+//      follow-up'ı). (b) generateItinerary çıktısında hâlâ aynı günde iki farklı ferry cluster'ı
+//      karışmış mı, ya da 1 günlük bir rotada ferry durağı sızmış mı (mimari regresyon testi).
 
 import { allCities } from "../src/lib/data/cities";
 import { generateItinerary } from "../src/lib/itinerary";
@@ -118,6 +123,67 @@ function checkCoordinateOutliers(city: City) {
   }
 }
 
+const FERRY_TEXT = /feribot/i;
+const BOAT_ONLY_TEXT = /sadece\s+tekn|kara\s+yolu\s+yok|tekneyle\s+ulaşıldığı/i;
+
+function checkFerryFlagging(city: City) {
+  const groups: Array<[string, Array<{ id: string; name: string; description?: string; longDescription?: string; accessibility?: string; accessMode?: "ferry" | "boat-tour" }>]> = [
+    ["attractions", city.attractions],
+    ["restaurants", city.restaurants as any],
+    ["accommodations", city.accommodations as any],
+  ];
+  for (const [label, items] of groups) {
+    for (const item of items) {
+      if (item.accessMode) continue; // already flagged, nothing to catch
+      const text = [item.accessibility, item.description, (item as any).longDescription].filter(Boolean).join(" ");
+      if (FERRY_TEXT.test(text) || BOAT_ONLY_TEXT.test(text)) {
+        report(
+          city.slug,
+          `feribot/tekne-only metin var ama accessMode set edilmemiş: ${label}/"${item.name}" (${item.id})`
+        );
+      }
+    }
+  }
+}
+
+// Two stops on the *same* ferry destination (e.g. an attraction + a nearby
+// restaurant on the same island/peninsula) can legitimately be a few km
+// apart — clusterByLocation's tight ~5-6km grid can even split them into
+// separate cells. Two genuinely *different* ferry destinations (e.g.
+// Bozcaada vs. Gökçeada) are tens of km apart. So this check uses a much
+// coarser threshold than the generator's own clustering, on purpose — it's
+// asking "did two different islands end up in one day", not "did the
+// generator's clustering produce more than one cell".
+const DISTINCT_FERRY_DESTINATION_KM = 25;
+
+function checkFerryItineraryIsolation(city: City) {
+  const ferryAttractions = city.attractions.filter((a) => a.accessMode === "ferry");
+  if (ferryAttractions.length === 0) return;
+
+  for (const days of [1, 2, 3, 5]) {
+    const itinerary = generateItinerary(city, days);
+    if (days === 1) {
+      const leaked = itinerary.dayPlans.some((p) => p.stops.some((s) => s.accessMode === "ferry"));
+      if (leaked) report(city.slug, `1 günlük rotaya ferry durağı sızdı (days=1)`);
+      continue;
+    }
+    for (const plan of itinerary.dayPlans) {
+      const ferryStopsInDay = plan.stops.filter((s) => s.accessMode === "ferry" && s.location);
+      for (let i = 0; i < ferryStopsInDay.length; i++) {
+        for (let j = i + 1; j < ferryStopsInDay.length; j++) {
+          const dist = haversineDistanceKm(ferryStopsInDay[i].location!, ferryStopsInDay[j].location!);
+          if (dist > DISTINCT_FERRY_DESTINATION_KM) {
+            report(
+              city.slug,
+              `Gün ${plan.day} (${days}g): "${ferryStopsInDay[i].title}" ve "${ferryStopsInDay[j].title}" ${Math.round(dist)}km uzakta — muhtemelen iki farklı ferry destinasyonu aynı günde karışmış`
+            );
+          }
+        }
+      }
+    }
+  }
+}
+
 function main() {
   console.log(`${allCities.length} şehir denetleniyor...\n`);
   for (const city of allCities) {
@@ -126,6 +192,8 @@ function main() {
     checkCuratedCounts(city);
     checkDuplicateNames(city);
     checkCoordinateOutliers(city);
+    checkFerryFlagging(city);
+    checkFerryItineraryIsolation(city);
   }
   console.log(`\nBitti. Toplam bulgu: ${issues}`);
   if (issues === 0) console.log("Tüm kontroller temiz.");
