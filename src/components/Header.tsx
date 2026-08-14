@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { MapPin, Heart, Search, ChevronDown } from "lucide-react";
+import { Heart, Search, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { regions } from "@/lib/data/regions";
@@ -44,8 +45,8 @@ export default function Header() {
     <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/85 backdrop-blur-md shadow-sm no-print">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <Link href={`/${locale}`} className="flex items-center gap-2 group">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-kiremit text-paper transition-transform group-hover:scale-105">
-            <MapPin size={18} strokeWidth={2.5} />
+          <span className="relative h-9 w-9 shrink-0 transition-transform group-hover:scale-105">
+            <Image src="/logo-header.png" alt="" fill sizes="36px" className="object-contain" priority />
           </span>
           <span className="font-display text-xl italic text-ink group-hover:text-kiremit transition-colors">
             {dict.nav.logo}
