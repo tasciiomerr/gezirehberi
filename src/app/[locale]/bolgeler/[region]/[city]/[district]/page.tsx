@@ -14,7 +14,6 @@ import { getDistrict, getAllDistrictSlugs } from "@/lib/data/districts";
 import { getPlacesForCity } from "@/lib/places";
 import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
-import { getNextMondayISO } from "@/lib/pricingEngine";
 
 export async function generateStaticParams() {
   const slugs = getAllDistrictSlugs();
@@ -136,63 +135,6 @@ export default async function DistrictDetailPage(props: {
     }
   };
 
-  const nextMonday = getNextMondayISO();
-
-  // Generate Hotel Schemas with priceValidUntil for district
-  const hotelSchemas = [
-    { name: `Lüks ${district.name} Butik Oteli`, rating: 4.8, price: 2500 },
-    { name: `Tarihi ${district.name} Konak Otel`, rating: 4.7, price: 1800 }
-  ].map((hotel) => ({
-    "@context": "https://schema.org",
-    "@type": "Hotel",
-    "name": hotel.name,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": `${district.name} Oteller Bölgesi No: 15`,
-      "addressLocality": district.name,
-      "addressRegion": translateDataText(city.region, locale),
-      "addressCountry": "TR"
-    },
-    "starRating": {
-      "@type": "Rating",
-      "ratingValue": hotel.rating
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": hotel.price,
-      "priceCurrency": "TRY",
-      "priceValidUntil": nextMonday
-    }
-  }));
-
-  // Generate Restaurant Schemas with priceValidUntil for district
-  const restaurantSchemas = [
-    { name: `Meşhur ${district.name} Balıkçısı`, rating: 4.9, price: 650 },
-    { name: `${district.name} Lezzet Evi`, rating: 4.6, price: 350 }
-  ].map((rest) => ({
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": rest.name,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": `${district.name} Liman Sokağı No: 4`,
-      "addressLocality": district.name,
-      "addressRegion": translateDataText(city.region, locale),
-      "addressCountry": "TR"
-    },
-    "servesCuisine": "Turkish / Local",
-    "starRating": {
-      "@type": "Rating",
-      "ratingValue": rest.rating
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": rest.price,
-      "priceCurrency": "TRY",
-      "priceValidUntil": nextMonday
-    }
-  }));
-
   // Mock district-specific stats and info
   const districtObj = {
     slug: district.slug,
@@ -217,20 +159,6 @@ export default async function DistrictDetailPage(props: {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(touristDestinationSchema) }}
       />
-      {hotelSchemas.map((h, i) => (
-        <script
-          key={`hotel-${i}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(h) }}
-        />
-      ))}
-      {restaurantSchemas.map((r, i) => (
-        <script
-          key={`restaurant-${i}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
-        />
-      ))}
 
       <div className="relative">
         <CityHero city={districtObj} locale={locale} />

@@ -7,8 +7,8 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   const title = locale === "tr" ? "Hakkımızda" : "About Us";
   const description =
     locale === "tr"
-      ? "Yol Defteri, Türkiye'nin 81 ili ve en popüler turistik bölgelerine dair veri odaklı, şeffaf seyahat rehberidir."
-      : "Yol Defteri is a data-driven, transparent travel guide covering Turkey's 81 cities and most popular tourist regions.";
+      ? "Yol Defteri, Türkiye'nin 81 ili ve en popüler turistik bölgelerine dair veri odaklı, şeffaf bir seyahat rehberidir; her il için gerçek bilgi ve rotalar sunar."
+      : "Yol Defteri is a data-driven, transparent travel guide covering Turkey's 81 provinces and most popular tourist regions, with real information and routes.";
 
   return {
     title,

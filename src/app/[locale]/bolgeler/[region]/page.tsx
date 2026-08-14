@@ -15,16 +15,20 @@ export async function generateMetadata(props: { params: Promise<{ region: string
   const region = getRegion(params.region as RegionSlug);
   if (!region) return { title: "Bölge bulunamadı" };
   
+  // "Bölgesi"/"Region" inserted before the guide suffix (report follow-up: region
+  // page titles were too short/generic without it, e.g. just "Ege Gezi Rehberi").
   const guideSuffix = locale === "tr"
-    ? "Gezi Rehberi"
+    ? "Bölgesi Gezi Rehberi"
     : locale === "de"
-    ? "Reiseführer"
+    ? "Region Reiseführer"
     : locale === "ar"
-    ? "دليل السفر"
-    : "Travel Guide";
+    ? "دليل سفر منطقة"
+    : "Region Travel Guide";
 
   const regionImg = REGION_IMAGES[region.slug] || REGION_IMAGES.marmara;
-  const title = `${translateDataText(region.name, locale)} ${guideSuffix}`;
+  const title = locale === "ar"
+    ? `${guideSuffix} ${translateDataText(region.name, locale)}`
+    : `${translateDataText(region.name, locale)} ${guideSuffix}`;
   const description = translateDataText(region.description, locale);
   const pageUrl = `${SITE_URL}/${locale}/bolgeler/${region.slug}`;
   return {

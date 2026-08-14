@@ -12,7 +12,9 @@
     "subtitle": "Yol Defteri ist ein Reiseführer, der die Türkei Region für Region erklärt, nicht alles auf einmal. Anreise, Unterkunft, Essen, Budget — alles ist Schritt für Schritt hier.",
     "explore": "Regionen erkunden",
     "startBlacksea": "Beginnen Sie mit dem Schwarzen Meer",
-    "featured": "Empfohlene Stadtführer"
+    "featured": "Empfohlene Stadtführer",
+    "metaDescription": "Yol Defteri ist ein datenbasierter Reiseführer für alle 81 Provinzen der Türkei — Anreise, Unterkunft, Essen und Budget, Region für Region übersichtlich erklärt.",
+    "regionsMetaDescription": "Entdecken Sie die 7 Regionen der Türkei — Schwarzmeer, Ägäis, Mittelmeer, Marmara, Zentral-, Ost- und Südostanatolien — mit Reiseführern für jede Provinz."
   },
   "city": {
     "back": "Zurück",

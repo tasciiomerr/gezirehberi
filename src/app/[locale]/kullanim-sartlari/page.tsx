@@ -6,8 +6,8 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   const title = locale === "tr" ? "Kullanım Şartları" : "Terms of Use";
   const description =
     locale === "tr"
-      ? "Yol Defteri web sitesini kullanırken geçerli olan kullanım şartları."
-      : "The terms of use that apply when using the Yol Defteri website.";
+      ? "Yol Defteri web sitesini kullanırken geçerli olan kullanım şartları; içeriklerin kullanımı, sorumluluk sınırları ve kullanıcı yükümlülükleri hakkında bilgi."
+      : "The terms of use that apply when using the Yol Defteri website — content usage, limitations of liability, and user obligations. Read before using the site.";
 
   return {
     title,

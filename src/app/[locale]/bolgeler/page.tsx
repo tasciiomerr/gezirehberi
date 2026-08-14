@@ -13,8 +13,17 @@ export async function generateMetadata(props: {
   // Plain title, no manual "| Yol Defteri" suffix here — the root layout's title
   // template already appends it, so appending it twice produced "Bölgeler | Yol
   // Defteri | Yol Defteri" (report item 12).
-  const title = dict.nav.regions;
-  const description = dict.home.subtitle;
+  // Uses the same locale-aware "Seven Regions" heading shown on the page itself,
+  // rather than the generic nav label "Bölgeler" — more specific and keyword-rich.
+  const title =
+    locale === "tr"
+      ? "Türkiye'nin Yedi Bölgesi"
+      : locale === "de"
+      ? "Die sieben Regionen der Türkei"
+      : locale === "ar"
+      ? "مناطق تركيا السبعة"
+      : "The Seven Regions of Turkey";
+  const description = dict.home.regionsMetaDescription;
 
   return {
     title,

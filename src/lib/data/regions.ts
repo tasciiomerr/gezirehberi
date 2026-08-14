@@ -7,7 +7,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "Karadeniz",
     tagline: "Yeşilin bin tonu, bulutlara değen yaylalar",
     description:
-      "Sisli yaylalar, çay bahçeleri ve Karadeniz'e dik inen vadileriyle Türkiye'nin en yemyeşil bölgesi. Amasra'nın koylarından Ayder'in yaylalarına, her köşesinde farklı bir doğa deneyimi var.",
+      "Sisli yaylalar, çay bahçeleri ve denize dik inen vadileriyle Türkiye'nin en yemyeşil bölgesi. Amasra'dan Ayder yaylalarına, her köşede farklı bir doğa deneyimi.",
     gradientFrom: "#0F5257",
     gradientTo: "#16909C",
   },
@@ -16,7 +16,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "Ege",
     tagline: "Zeytinlikler, antik kentler ve turkuaz koylar",
     description:
-      "Antik uygarlıkların izleri, zeytin ağaçları arasında saklı köyler ve gün batımıyla altın rengine bürünen sahiller. Ege, tarih ile deniz tatilini aynı rotada buluşturur.",
+      "Antik uygarlıkların izleri, zeytinlikler arasında saklı köyler ve gün batımıyla altın rengine bürünen sahiller; tarih ile deniz tatilini buluşturan bölge.",
     gradientFrom: "#B7791F",
     gradientTo: "#16909C",
   },
@@ -25,7 +25,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "Akdeniz",
     tagline: "Turkuaz sular, dağ başında antik şehirler",
     description:
-      "Toroslar'ın denize dik indiği koylar, Likya uygarlığından kalma antik kentler ve yıl boyu güneşli plajlar. Akdeniz, macera ile dinlenmeyi bir arada sunar.",
+      "Toroslar'ın denize dik indiği koylar, Likya uygarlığından kalma antik kentler ve yıl boyu güneşli plajlar. Akdeniz, macera ile dinlenmeyi bir arada sunar; Türkiye'nin turkuaz kıyısı.",
     gradientFrom: "#0F5257",
     gradientTo: "#B33A25",
   },
@@ -34,7 +34,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "Marmara",
     tagline: "İki kıtanın, iki denizin buluştuğu bölge",
     description:
-      "İstanbul'un tarihi dokusundan Bursa'nın Osmanlı mirasına, Gelibolu'nun sessizliğinden Bozcaada'nın bağlarına uzanan çeşitlilik.",
+      "İstanbul'un tarihi dokusundan Bursa'nın Osmanlı mirasına, Gelibolu'nun sessizliğinden Bozcaada'nın bağlarına uzanan çeşitlilik; iki kıtanın buluştuğu bölge.",
     gradientFrom: "#8A3A2B",
     gradientTo: "#B33A25",
   },
@@ -43,7 +43,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "İç Anadolu",
     tagline: "Peri bacaları, bozkır ve yüzyıllık kervansaraylar",
     description:
-      "Kapadokya'nın peri bacalarından Konya'nın Mevlevi mirasına, bozkırın ortasında yükselen tarih ve gelenek.",
+      "Kapadokya'nın peri bacalarından Konya'nın Mevlevi mirasına, bozkırın ortasında yükselen tarih ve gelenek; Türkiye'nin kalbinde uzanan İç Anadolu bölgesi.",
     gradientFrom: "#B7791F",
     gradientTo: "#E4A335",
   },
@@ -52,7 +52,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "Doğu Anadolu",
     tagline: "Yüksek dağlar, buz tutmuş göller, el değmemiş doğa",
     description:
-      "Ağrı Dağı'nın gölgesinde, Van Gölü'nün kıyısında, Türkiye'nin en vahşi ve en az keşfedilmiş coğrafyası.",
+      "Ağrı Dağı'nın gölgesinde, Van Gölü'nün kıyısında, Türkiye'nin en vahşi ve en az keşfedilmiş coğrafyası; yüksek dağlar ve buz tutmuş göllerle dolu bölge.",
     gradientFrom: "#0F5257",
     gradientTo: "#8A2B45",
   },
@@ -61,7 +61,7 @@ const baseRegions: Omit<Region, "cityCount">[] = [
     name: "Güneydoğu Anadolu",
     tagline: "Bin yıllık taş şehirler, mezopotamya lezzetleri",
     description:
-      "Mardin'in taş evleri, Göbeklitepe'nin gizemi ve Gaziantep'in mutfağıyla Türkiye'nin en köklü topraklarından biri.",
+      "Mardin'in taş evleri, Göbeklitepe'nin gizemi ve Gaziantep mutfağıyla Türkiye'nin en köklü topraklarından biri; bin yıllık taş şehirlerin bölgesi.",
     gradientFrom: "#8A2B45",
     gradientTo: "#B33A5E",
   },

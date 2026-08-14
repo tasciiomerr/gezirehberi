@@ -6,8 +6,8 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   const title = locale === "tr" ? "Çerez Politikası" : "Cookie Policy";
   const description =
     locale === "tr"
-      ? "Yol Defteri'nin çerez kullanımına dair bilgilendirme sayfası."
-      : "Yol Defteri's cookie policy and usage information.";
+      ? "Yol Defteri'nin çerez kullanımına dair bilgilendirme sayfası; hangi çerezlerin, ne amaçla kullanıldığını ve tercihlerinizi nasıl yöneteceğinizi öğrenin."
+      : "Yol Defteri's cookie policy and usage information — which cookies are used, why they are used, and how you can manage your cookie preferences here.";
 
   return {
     title,

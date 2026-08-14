@@ -12,7 +12,9 @@
     "subtitle": "Yol Defteri, Türkiye'yi tek seferde değil, bölge bölge anlatan bir gezi rehberi. Nasıl gidilir, nerede kalınır, ne yenir, ne kadar bütçe gerekir — her şey durak durak burada.",
     "explore": "Bölgeleri keşfet",
     "startBlacksea": "Karadeniz ile başla",
-    "featured": "Öne çıkan şehir rehberleri"
+    "featured": "Öne çıkan şehir rehberleri",
+    "metaDescription": "Yol Defteri, Türkiye'nin 81 iline dair nasıl gidilir, nerede kalınır, ne yenir sorularını bölge bölge yanıtlayan, gerçek verilerle hazırlanmış seyahat rehberi.",
+    "regionsMetaDescription": "Türkiye'nin 7 coğrafi bölgesini keşfedin: Karadeniz, Ege, Akdeniz, Marmara, İç Anadolu, Doğu ve Güneydoğu Anadolu'nun il il gezi rehberleri burada."
   },
   "city": {
     "back": "Geri",

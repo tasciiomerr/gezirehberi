@@ -6,8 +6,8 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
   const title = locale === "tr" ? "Gizlilik Politikası" : "Privacy Policy";
   const description =
     locale === "tr"
-      ? "Yol Defteri'nin kişisel verilerinizi nasıl işlediğine dair gizlilik politikası."
-      : "Yol Defteri's privacy policy on how we handle your personal data.";
+      ? "Yol Defteri'nin kişisel verilerinizi nasıl işlediğine dair gizlilik politikası; hangi verilerin toplandığını ve haklarınızı burada öğrenebilirsiniz."
+      : "Yol Defteri's privacy policy on how we handle your personal data — what information is collected, how it is stored, and what rights you have over it.";
 
   return {
     title,

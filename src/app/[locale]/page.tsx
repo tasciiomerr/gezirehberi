@@ -15,7 +15,7 @@ export async function generateMetadata(props: {
 
   return {
     title: dict.home.title,
-    description: dict.home.subtitle,
+    description: dict.home.metaDescription,
     alternates: buildAlternates(locale, ""),
   };
 }
