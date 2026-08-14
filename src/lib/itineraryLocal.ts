@@ -56,6 +56,37 @@ const ICONS: Record<MockWeather["condition"], string> = {
   "sisli": "🌫️",
 };
 
+// Madde 293 follow-up — city.whenToGo/climate ("yaz çok sıcak (40°C+)",
+// "-30°C'ye kadar") and the mock weather generator used to be completely
+// disconnected: getMockWeather() was always called with its default
+// avgTempHint=18 regardless of the city, so Şanlıurfa in summer and Kars in
+// winter both got the same mild 12-24°C mock range. This pulls a rough
+// (deliberately not more than that — see the long-term "monthly climate"
+// note above) temperature hint out of that existing curated text via regex,
+// so hot/cold cities at least land in a plausible range. Real per-month
+// climate data is a separate, larger task.
+// Regex, "gidilecek mevsim" ile "kaçınılacak mevsim"i ayırt edemiyor — Kars'ın
+// "Haziran-Eylül (kışlar aşırı soğuk, -30°C'ye kadar)" metni önerilen mevsim
+// için (yaz) hiç sayı vermiyor, tek yakalanan sayı kaçınılması gereken kışın
+// en düşüğü oluyor. Clamp olmadan bu, "Haziran-Eylül'de gidin" tavsiyesiyle
+// çelişen, sürekli -33°C/karlı bir mock hava durumuna yol açıyordu. -15/+40°C
+// sınırı, şehri hâlâ "soğuk" ya da "sıcak" gösterirken uç/absürt değerleri
+// engelliyor.
+const MIN_TEMP_HINT = -15;
+const MAX_TEMP_HINT = 40;
+
+export function extractTempHint(...texts: (string | undefined)[]): number | undefined {
+  for (const text of texts) {
+    if (!text) continue;
+    const match = text.match(/(-?\d+)\s*°C/);
+    if (match) {
+      const value = parseInt(match[1], 10);
+      if (!isNaN(value)) return Math.min(MAX_TEMP_HINT, Math.max(MIN_TEMP_HINT, value));
+    }
+  }
+  return undefined;
+}
+
 function seededRandom(seed: string): number {
   let h = 0;
   for (let i = 0; i < seed.length; i++) {

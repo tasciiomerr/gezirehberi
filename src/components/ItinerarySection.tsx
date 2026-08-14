@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import DurationSelector from "./DurationSelector";
 import ItineraryTimeline from "./ItineraryTimeline";
 import { generateItinerary } from "@/lib/itinerary";
+import { extractTempHint } from "@/lib/itineraryLocal";
 import { City } from "@/lib/types";
 import { getDictionary, Locale } from "@/lib/i18n";
 
@@ -13,6 +14,7 @@ export default function ItinerarySection({ city, locale }: { city: City; locale:
   const dict = getDictionary(locale as Locale);
 
   const itinerary = useMemo(() => generateItinerary(city, selectedDays), [city, selectedDays]);
+  const avgTempHint = useMemo(() => extractTempHint(city.whenToGo, city.climate), [city]);
 
   return (
     <div>
@@ -50,6 +52,7 @@ export default function ItinerarySection({ city, locale }: { city: City; locale:
           dayPlans={itinerary.dayPlans}
           locale={locale}
           regionSlug={city.regionSlug}
+          avgTempHint={avgTempHint}
         />
       </motion.div>
     </div>

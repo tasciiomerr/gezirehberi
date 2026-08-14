@@ -91,6 +91,7 @@ function DayCard({
   onOptimize,
   totalDays,
   locale,
+  avgTempHint,
 }: {
   plan: DayPlan;
   citySlug: string;
@@ -104,10 +105,11 @@ function DayCard({
   onOptimize: (day: number) => void;
   totalDays: number;
   locale: string;
+  avgTempHint?: number;
 }) {
   const dict = getDictionary(locale as Locale);
   const isRtl = locale === "ar";
-  const weather = getMockWeather(citySlug, plan.day);
+  const weather = getMockWeather(citySlug, plan.day, avgTempHint);
   const checkedCount = plan.stops.filter((s) => localState.checked[`${plan.day}-${s.order}`]).length;
   const progress = plan.stops.length > 0 ? Math.round((checkedCount / plan.stops.length) * 100) : 0;
 
@@ -115,6 +117,26 @@ function DayCard({
   plan.stops.forEach((s) => {
     const slot = s.timeSlot ?? "morning";
     grouped[slot].push(s);
+  });
+
+  // Report follow-up (madde 293) — stop.order reflects the day's geographic
+  // (TSP-optimized) sequence, but dining stops are grouped for DISPLAY by
+  // timeSlot (Sabah/Öğle/Akşam), which is now assigned from the stop's meal
+  // title, not from stop.order. A dining stop with a low geographic order can
+  // land in the "evening" bucket, so the visible badges no longer read
+  // 1,2,3,4,5 top-to-bottom (e.g. Şanlıurfa Gün 1 showed 1,2,4,3,5). This
+  // renumbers badges by rendered (Sabah->Öğle->Akşam) position instead —
+  // stop.order itself is untouched, since it's still the real key for
+  // checked-state persistence, transfer lookups, and duplicate-day copying.
+  // Plain object, not `new Map()` — the "./Map" leaflet component is imported
+  // as `Map` at the top of this file, shadowing the built-in Map constructor.
+  const displayOrderByStopOrder: Record<number, number> = {};
+  let displayOrderCounter = 0;
+  (["morning", "afternoon", "evening"] as const).forEach((slot) => {
+    grouped[slot].forEach((s) => {
+      displayOrderCounter += 1;
+      displayOrderByStopOrder[s.order] = displayOrderCounter;
+    });
   });
 
   const [showDuplicateMenu, setShowDuplicateMenu] = useState(false);
@@ -287,6 +309,7 @@ function DayCard({
                               incomingTransfer?.mode === "drive" ? "driving" : "walking"
                             )
                           : null;
+                        const displayOrder = displayOrderByStopOrder[stop.order] ?? stop.order;
                         return (
                           <div key={stop.order}>
                             <div className={`flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-ink/[0.02] ${isRtl ? "flex-row-reverse text-right" : ""}`}>
@@ -301,9 +324,11 @@ function DayCard({
                                 // wasn't enough — axe checks the visually rendered text too, not
                                 // just the accessibility tree, so the accessible name must contain
                                 // the visible digit itself (report items 135-144, found via Lighthouse).
-                                aria-label={isChecked ? `Remove completed tick for stop ${stop.order}` : `Mark stop ${stop.order} completed`}
+                                // Uses displayOrder (rendered position), matching the visible badge —
+                                // stop.order (geographic order) would desync the two again.
+                                aria-label={isChecked ? `Remove completed tick for stop ${displayOrder}` : `Mark stop ${displayOrder} completed`}
                               >
-                                <span aria-hidden="true">{isChecked ? "✓" : stop.order}</span>
+                                <span aria-hidden="true">{isChecked ? "✓" : displayOrder}</span>
                               </button>
                               <div className="flex-1 min-w-0">
                                 <div className={`flex items-center gap-2 ${isRtl ? "flex-row-reverse" : ""}`}>
@@ -389,12 +414,14 @@ export default function ItineraryTimeline({
   dayPlans,
   locale,
   regionSlug,
+  avgTempHint,
 }: {
   citySlug: string;
   days: number;
   dayPlans: DayPlan[];
   locale: string;
   regionSlug?: string;
+  avgTempHint?: number;
 }) {
   const [openDay, setOpenDay] = useState<number>(1);
   const [localState, setLocalState] = useState<ItineraryLocalState>({ checked: {}, notes: {}, budgets: {} });
@@ -633,6 +660,7 @@ export default function ItineraryTimeline({
               onOptimize={handleOptimizeTSP}
               totalDays={days}
               locale={locale}
+              avgTempHint={avgTempHint}
             />
           ))}
         </div>
