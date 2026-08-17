@@ -109,6 +109,18 @@
     "writeReviewPlaceholder": "Schreiben Sie Ihre Bewertung...",
     "loadingComments": "Kommentare werden geladen...",
     "beFirstToComment": "Seien Sie der Erste, der kommentiert!",
-    "dateLocale": "de-DE"
+    "dateLocale": "de-DE",
+    "sortNewest": "Neueste",
+    "sortPopular": "Am meisten geliked",
+    "report": "Melden",
+    "reportReasonSpam": "Spam",
+    "reportReasonInappropriate": "Unangemessener Inhalt",
+    "reportReasonIncorrect": "Falsche Information",
+    "reportReasonOther": "Sonstiges",
+    "reportSubmit": "Senden",
+    "reportSuccess": "Ihre Meldung wurde empfangen, vielen Dank.",
+    "reportError": "Meldung konnte nicht gesendet werden, bitte erneut versuchen.",
+    "reportCancel": "Abbrechen",
+    "statsSummary": "{routes} Routen • {comments} Kommentare • {likes} Likes"
   }
 }

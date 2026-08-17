@@ -109,6 +109,18 @@
     "writeReviewPlaceholder": "Yorumunuzu yazın...",
     "loadingComments": "Yorumlar yükleniyor...",
     "beFirstToComment": "İlk yorumu siz yapın!",
-    "dateLocale": "tr-TR"
+    "dateLocale": "tr-TR",
+    "sortNewest": "En Yeni",
+    "sortPopular": "En Çok Beğenilen",
+    "report": "Bildir",
+    "reportReasonSpam": "Spam",
+    "reportReasonInappropriate": "Uygunsuz İçerik",
+    "reportReasonIncorrect": "Yanlış Bilgi",
+    "reportReasonOther": "Diğer",
+    "reportSubmit": "Gönder",
+    "reportSuccess": "Bildiriminiz alındı, teşekkürler.",
+    "reportError": "Bildirim gönderilemedi, lütfen tekrar deneyin.",
+    "reportCancel": "Vazgeç",
+    "statsSummary": "{routes} rota • {comments} yorum • {likes} beğeni"
   }
 }

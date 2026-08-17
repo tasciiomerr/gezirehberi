@@ -21,11 +21,17 @@ export async function GET(request: NextRequest) {
   const citySlug = request.nextUrl.searchParams.get("citySlug");
   if (!citySlug) return NextResponse.json({ error: "citySlug is required" }, { status: 400 });
 
+  // Parti 2, madde 8 — "en çok beğenilen" sıralaması like_count'a (migration
+  // 0003'teki trigger ile güncel tutulan denormalize sütun) göre, varsayılan
+  // "en yeni" ise created_at'e göre.
+  const sort = request.nextUrl.searchParams.get("sort") === "popular" ? "popular" : "newest";
+  const orderColumn = sort === "popular" ? "like_count" : "created_at";
+
   const { data, error } = await supabase
     .from("routes")
     .select("*")
     .eq("city_slug", citySlug)
-    .order("created_at", { ascending: false })
+    .order(orderColumn, { ascending: false })
     .limit(50);
 
   if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 500 });

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, MessageSquare, CalendarDays, Compass, Send, StarHalf, Heart, Loader2 } from "lucide-react";
+import { Star, MessageSquare, CalendarDays, Compass, Send, StarHalf, Heart, Loader2, Flag } from "lucide-react";
 import {
   CommunityRoute,
   CommunityComment,
@@ -10,6 +10,7 @@ import {
   createCommunityComment,
   likeCommunityRoute,
   getCommunityLikeStatus,
+  reportContent,
 } from "@/lib/communityApi";
 import { getLocalAuthorName } from "@/lib/socialDb";
 import { getDictionary, Locale } from "@/lib/i18n";
@@ -32,9 +33,14 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
   const [ratingAvg, setRatingAvg] = useState(route.ratingAvg);
   const [ratingCount, setRatingCount] = useState(route.ratingCount);
 
-  const [likeCount, setLikeCount] = useState<number | null>(null);
+  const [likeCount, setLikeCount] = useState<number | null>(route.likeCount);
   const [likedByMe, setLikedByMe] = useState(false);
   const [isLiking, setIsLiking] = useState(false);
+
+  // Parti 2, madde 7 — moderasyon bildirme.
+  const [isReportMenuOpen, setIsReportMenuOpen] = useState(false);
+  const [reportStatus, setReportStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [reportErrorMsg, setReportErrorMsg] = useState<string | null>(null);
 
   // Comment Form States
   const [commentText, setCommentText] = useState("");
@@ -68,6 +74,18 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
       setLikedByMe(true);
       if (typeof res.likeCount === "number") setLikeCount(res.likeCount);
       else setLikeCount((prev) => (prev ?? 0) + 1);
+    }
+  };
+
+  const handleReport = async (reason: "spam" | "inappropriate" | "incorrect" | "other") => {
+    setReportStatus("sending");
+    setReportErrorMsg(null);
+    const res = await reportContent({ targetType: "route", targetId: route.id, reason });
+    if (res.success) {
+      setReportStatus("sent");
+    } else {
+      setReportStatus("error");
+      setReportErrorMsg(res.error || t.reportError);
     }
   };
 
@@ -165,6 +183,48 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
             <Heart size={13} className={likedByMe ? "fill-kiremit" : ""} />
             {likeCount ?? "…"}
           </button>
+
+          <div className="relative">
+            <button
+              onClick={() => setIsReportMenuOpen((v) => !v)}
+              disabled={reportStatus === "sent"}
+              className="flex items-center gap-1 font-semibold text-ink/40 hover:text-kiremit transition-colors disabled:cursor-default disabled:text-ink/25"
+              aria-label={t.report}
+            >
+              <Flag size={12} />
+            </button>
+            {isReportMenuOpen && reportStatus !== "sent" && (
+              <div className="absolute right-0 top-6 z-10 w-44 rounded-xl border border-ink/10 bg-paper p-1.5 shadow-xl">
+                {reportStatus === "error" && (
+                  <p className="px-2 py-1 text-[10px] font-semibold text-kiremit">{reportErrorMsg}</p>
+                )}
+                {(["spam", "inappropriate", "incorrect", "other"] as const).map((reason) => (
+                  <button
+                    key={reason}
+                    onClick={() => handleReport(reason)}
+                    disabled={reportStatus === "sending"}
+                    className="block w-full rounded-lg px-2.5 py-1.5 text-left text-xs font-semibold text-ink/70 hover:bg-kiremit/10 hover:text-kiremit transition-colors disabled:opacity-50"
+                  >
+                    {reason === "spam" && t.reportReasonSpam}
+                    {reason === "inappropriate" && t.reportReasonInappropriate}
+                    {reason === "incorrect" && t.reportReasonIncorrect}
+                    {reason === "other" && t.reportReasonOther}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setIsReportMenuOpen(false)}
+                  className="block w-full rounded-lg px-2.5 py-1.5 text-left text-[11px] font-semibold text-ink/50 hover:bg-ink/[0.03] transition-colors"
+                >
+                  {t.reportCancel}
+                </button>
+              </div>
+            )}
+            {reportStatus === "sent" && (
+              <span className="absolute right-0 top-6 z-10 w-44 rounded-xl border border-ink/10 bg-paper p-2.5 text-[11px] font-semibold text-turkuaz shadow-xl">
+                {t.reportSuccess}
+              </span>
+            )}
+          </div>
         </div>
 
         <button

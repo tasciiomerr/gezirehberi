@@ -19,6 +19,7 @@ export interface Database {
           created_at: string;
           rating_avg: number;
           rating_count: number;
+          like_count: number;
         };
         Insert: {
           city_slug: string;
@@ -64,6 +65,24 @@ export interface Database {
           author_identity: string;
         };
         Update: Partial<Database["public"]["Tables"]["likes"]["Insert"]>;
+        Relationships: [];
+      };
+      reports: {
+        Row: {
+          id: string;
+          target_type: "route" | "comment";
+          target_id: string;
+          reason: "spam" | "inappropriate" | "incorrect" | "other";
+          author_identity: string;
+          created_at: string;
+        };
+        Insert: {
+          target_type: "route" | "comment";
+          target_id: string;
+          reason: "spam" | "inappropriate" | "incorrect" | "other";
+          author_identity: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["reports"]["Insert"]>;
         Relationships: [];
       };
     };

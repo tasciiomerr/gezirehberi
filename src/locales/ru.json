@@ -109,6 +109,18 @@
     "writeReviewPlaceholder": "Напишите ваш отзыв...",
     "loadingComments": "Загрузка комментариев...",
     "beFirstToComment": "Оставьте первый комментарий!",
-    "dateLocale": "ru-RU"
+    "dateLocale": "ru-RU",
+    "sortNewest": "Сначала новые",
+    "sortPopular": "Популярные",
+    "report": "Пожаловаться",
+    "reportReasonSpam": "Спам",
+    "reportReasonInappropriate": "Неприемлемый контент",
+    "reportReasonIncorrect": "Неверная информация",
+    "reportReasonOther": "Другое",
+    "reportSubmit": "Отправить",
+    "reportSuccess": "Ваша жалоба получена, спасибо.",
+    "reportError": "Не удалось отправить жалобу, попробуйте снова.",
+    "reportCancel": "Отмена",
+    "statsSummary": "{routes} маршрутов • {comments} комментариев • {likes} лайков"
   }
 }

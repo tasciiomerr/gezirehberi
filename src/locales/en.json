@@ -109,6 +109,18 @@
     "writeReviewPlaceholder": "Write your review...",
     "loadingComments": "Loading comments...",
     "beFirstToComment": "Be the first to comment!",
-    "dateLocale": "en-US"
+    "dateLocale": "en-US",
+    "sortNewest": "Newest",
+    "sortPopular": "Most Liked",
+    "report": "Report",
+    "reportReasonSpam": "Spam",
+    "reportReasonInappropriate": "Inappropriate Content",
+    "reportReasonIncorrect": "Incorrect Information",
+    "reportReasonOther": "Other",
+    "reportSubmit": "Submit",
+    "reportSuccess": "Your report has been received, thank you.",
+    "reportError": "Couldn't submit report, please try again.",
+    "reportCancel": "Cancel",
+    "statsSummary": "{routes} routes • {comments} comments • {likes} likes"
   }
 }

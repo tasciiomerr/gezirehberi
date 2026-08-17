@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Users, Plus, Compass, Loader2, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { fetchCommunityRoutes, CommunityRoute } from "@/lib/communityApi";
+import { fetchCommunityRoutes, fetchCommunityStats, CommunityRoute, CommunityStats } from "@/lib/communityApi";
 import { getDictionary, Locale } from "@/lib/i18n";
 import { Attraction } from "@/lib/types";
 import UserRouteCard from "./UserRouteCard";
@@ -26,19 +26,25 @@ export default function CommunityRoutes({ identitySlug, regionSlug, attractions,
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
+  const [sort, setSort] = useState<"newest" | "popular">("newest");
+  const [stats, setStats] = useState<CommunityStats | null>(null);
 
   const loadRoutes = useCallback(async () => {
     setIsLoading(true);
     setLoadError(null);
-    const res = await fetchCommunityRoutes(identitySlug);
+    const res = await fetchCommunityRoutes(identitySlug, sort);
     setRoutes(res.routes);
     if (res.error) setLoadError(res.error);
     setIsLoading(false);
-  }, [identitySlug]);
+  }, [identitySlug, sort]);
 
   useEffect(() => {
     loadRoutes();
   }, [loadRoutes]);
+
+  useEffect(() => {
+    fetchCommunityStats(identitySlug).then(setStats);
+  }, [identitySlug]);
 
   const handlePublish = (newRoute: CommunityRoute) => {
     setRoutes((prev) => [newRoute, ...prev]);
@@ -63,6 +69,14 @@ export default function CommunityRoutes({ identitySlug, regionSlug, attractions,
             <p className="text-xs text-ink/65 font-semibold">
               {isLoading ? dict.community.loading : `${routes.length} ${dict.community.routesSharedCountSuffix}`}
             </p>
+            {stats && (stats.routeCount > 0 || stats.commentCount > 0 || stats.likeCount > 0) && (
+              <p className="mt-0.5 text-[11px] text-ink/50 font-semibold">
+                {dict.community.statsSummary
+                  .replace("{routes}", String(stats.routeCount))
+                  .replace("{comments}", String(stats.commentCount))
+                  .replace("{likes}", String(stats.likeCount))}
+              </p>
+            )}
           </div>
         </div>
 
@@ -129,11 +143,30 @@ export default function CommunityRoutes({ identitySlug, regionSlug, attractions,
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {routes.map((route) => (
-            <UserRouteCard key={route.id} route={route} locale={locale} />
-          ))}
-        </div>
+        <>
+          {routes.length > 1 && (
+            <div className="mb-4 flex items-center justify-end gap-2">
+              {(["newest", "popular"] as const).map((option) => (
+                <button
+                  key={option}
+                  onClick={() => setSort(option)}
+                  className={`rounded-full px-3 py-1.5 text-xs font-bold transition-colors ${
+                    sort === option
+                      ? "bg-kiremit text-paper"
+                      : "border border-ink/15 text-ink/65 hover:border-kiremit hover:text-kiremit"
+                  }`}
+                >
+                  {option === "newest" ? dict.community.sortNewest : dict.community.sortPopular}
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {routes.map((route) => (
+              <UserRouteCard key={route.id} route={route} locale={locale} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

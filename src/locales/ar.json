@@ -109,6 +109,18 @@
     "writeReviewPlaceholder": "اكتب تقييمك...",
     "loadingComments": "جارٍ تحميل التعليقات...",
     "beFirstToComment": "كن أول من يعلق!",
-    "dateLocale": "ar-SA"
+    "dateLocale": "ar-SA",
+    "sortNewest": "الأحدث",
+    "sortPopular": "الأكثر إعجابًا",
+    "report": "إبلاغ",
+    "reportReasonSpam": "رسائل مزعجة",
+    "reportReasonInappropriate": "محتوى غير لائق",
+    "reportReasonIncorrect": "معلومات غير صحيحة",
+    "reportReasonOther": "أخرى",
+    "reportSubmit": "إرسال",
+    "reportSuccess": "تم استلام بلاغك، شكرًا لك.",
+    "reportError": "تعذر إرسال البلاغ، يرجى المحاولة مرة أخرى.",
+    "reportCancel": "إلغاء",
+    "statsSummary": "{routes} مسار • {comments} تعليق • {likes} إعجاب"
   }
 }

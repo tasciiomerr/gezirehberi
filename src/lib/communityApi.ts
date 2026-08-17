@@ -24,6 +24,7 @@ export interface CommunityRoute {
   createdAt: string;
   ratingAvg: number;
   ratingCount: number;
+  likeCount: number;
 }
 
 export interface CommunityComment {
@@ -46,6 +47,7 @@ interface RouteRow {
   created_at: string;
   rating_avg: number;
   rating_count: number;
+  like_count: number;
 }
 
 interface CommentRow {
@@ -69,6 +71,7 @@ function mapRoute(row: RouteRow): CommunityRoute {
     createdAt: row.created_at,
     ratingAvg: row.rating_avg,
     ratingCount: row.rating_count,
+    likeCount: row.like_count,
   };
 }
 
@@ -91,14 +94,52 @@ async function parseJsonSafe(res: Response): Promise<any> {
   }
 }
 
-export async function fetchCommunityRoutes(citySlug: string): Promise<{ routes: CommunityRoute[]; error?: string }> {
+export async function fetchCommunityRoutes(
+  citySlug: string,
+  sort: "newest" | "popular" = "newest"
+): Promise<{ routes: CommunityRoute[]; error?: string }> {
   try {
-    const res = await fetch(`/api/community/routes?citySlug=${encodeURIComponent(citySlug)}`);
+    const res = await fetch(`/api/community/routes?citySlug=${encodeURIComponent(citySlug)}&sort=${sort}`);
     const body = await parseJsonSafe(res);
     if (!res.ok) return { routes: [], error: body.error || `HTTP ${res.status}` };
     return { routes: (body.routes as RouteRow[]).map(mapRoute) };
   } catch (e: any) {
     return { routes: [], error: e?.message || "Network error" };
+  }
+}
+
+export interface CommunityStats {
+  routeCount: number;
+  commentCount: number;
+  likeCount: number;
+}
+
+export async function fetchCommunityStats(citySlug: string): Promise<CommunityStats | null> {
+  try {
+    const res = await fetch(`/api/community/stats?citySlug=${encodeURIComponent(citySlug)}`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+export async function reportContent(payload: {
+  targetType: "route" | "comment";
+  targetId: string;
+  reason: "spam" | "inappropriate" | "incorrect" | "other";
+}): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch("/api/community/reports", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const body = await parseJsonSafe(res);
+    if (!res.ok) return { success: false, error: body.error || `HTTP ${res.status}` };
+    return { success: true };
+  } catch (e: any) {
+    return { success: false, error: e?.message || "Network error" };
   }
 }
 
