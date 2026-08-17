@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getOrCreateAnonIdentity } from "@/lib/anonIdentity";
 import { isRateLimited } from "@/lib/communityRateLimit";
+import { friendlyDbError } from "@/lib/communityDbErrors";
 
 interface CreateCommentBody {
   text: string;
@@ -22,7 +23,7 @@ export async function GET(_request: NextRequest, props: { params: Promise<{ rout
     .order("created_at", { ascending: false })
     .limit(100);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 500 });
   return NextResponse.json({ comments: data });
 }
 
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest, props: { params: Promise<{ rout
     .select()
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 400 });
 
   // routes.rating_avg/rating_count güncellemesi migration 0002'deki DB
   // trigger'ında — burada ayrıca bir UPDATE çağrısına gerek yok (ve zaten

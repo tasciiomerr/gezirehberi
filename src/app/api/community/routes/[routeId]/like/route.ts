@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getOrCreateAnonIdentity } from "@/lib/anonIdentity";
+import { friendlyDbError } from "@/lib/communityDbErrors";
 
 // No unlike — a browser's like is a one-way "I found this useful" signal,
 // consistent with the rest of the site having no accounts to manage state for.
@@ -21,7 +22,7 @@ export async function POST(_request: NextRequest, props: { params: Promise<{ rou
     if (error.code === "23505") {
       return NextResponse.json({ success: true, alreadyLiked: true });
     }
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    return NextResponse.json({ error: friendlyDbError(error) }, { status: 400 });
   }
 
   const { count } = await supabase

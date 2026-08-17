@@ -6,6 +6,7 @@ import CookieConsentBanner from "@/components/CookieConsentBanner";
 import YandexMetrica from "@/components/YandexMetrica";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Clarity from "@/components/Clarity";
+import { ThemeProvider } from "@/lib/ThemeContext";
 import "../globals.css";
 import { getDictionary, Locale, buildRobots, OG_LOCALE_MAP } from "@/lib/i18n";
 
@@ -103,15 +104,18 @@ export default async function RootLayout(props: {
       dir={dir}
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
       style={{ scrollBehavior: "smooth" }}
+      data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col bg-background text-ink selection:bg-kiremit/20">
-        <Header />
-        <main className="flex-1">{props.children}</main>
-        <Footer />
-        <CookieConsentBanner />
-        <YandexMetrica />
-        <GoogleAnalytics />
-        <Clarity />
+        <ThemeProvider>
+          <Header />
+          <main className="flex-1">{props.children}</main>
+          <Footer />
+          <CookieConsentBanner />
+          <YandexMetrica />
+          <GoogleAnalytics />
+          <Clarity />
+        </ThemeProvider>
       </body>
     </html>
   );

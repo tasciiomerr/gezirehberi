@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getOrCreateAnonIdentity } from "@/lib/anonIdentity";
 import { isRateLimited } from "@/lib/communityRateLimit";
+import { friendlyDbError } from "@/lib/communityDbErrors";
 
 interface CreateRouteBody {
   citySlug: string;
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
     .order("created_at", { ascending: false })
     .limit(50);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 500 });
   return NextResponse.json({ routes: data });
 }
 
@@ -74,6 +75,6 @@ export async function POST(request: NextRequest) {
     .select()
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 400 });
   return NextResponse.json({ route: data }, { status: 201 });
 }

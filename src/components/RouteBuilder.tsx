@@ -8,6 +8,11 @@ import { getLocalAuthorName, setLocalAuthorName } from "@/lib/socialDb";
 import { createCommunityRoute, CommunityRoute, CommunityStop } from "@/lib/communityApi";
 import { getDictionary, Locale } from "@/lib/i18n";
 
+// routes tablosundaki title CHECK kısıtıyla (3-120 karakter) eşleşiyor —
+// client burada engellemezse kullanıcı ham bir Postgres hata mesajıyla
+// karşılaşıyordu (rapor follow-up).
+const MIN_TITLE_LENGTH = 3;
+
 interface RouteBuilderProps {
   city: City;
   locale: string;
@@ -53,7 +58,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
   };
 
   const handlePublish = async () => {
-    if (!title.trim() || selectedAttractions.length === 0 || isPublishing) return;
+    if (title.trim().length < MIN_TITLE_LENGTH || selectedAttractions.length === 0 || isPublishing) return;
 
     setLocalAuthorName(authorName);
     setIsPublishing(true);
@@ -151,6 +156,13 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                 placeholder={locale === "tr" ? "Örn: Hafta Sonu Gurme Gezisi" : "E.g., Weekend Culinary Tour"}
                 className="w-full rounded-lg border border-ink/10 bg-paper px-3 py-2 text-sm text-ink focus:border-kiremit focus:outline-none font-semibold"
               />
+              {title.trim().length > 0 && title.trim().length < MIN_TITLE_LENGTH && (
+                <p className="text-[11px] font-semibold text-kiremit">
+                  {locale === "tr"
+                    ? `Başlık en az ${MIN_TITLE_LENGTH} karakter olmalı.`
+                    : `Title must be at least ${MIN_TITLE_LENGTH} characters.`}
+                </p>
+              )}
             </div>
 
             <div className="space-y-1">
@@ -193,7 +205,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                disabled={!title.trim()}
+                disabled={title.trim().length < MIN_TITLE_LENGTH}
                 className="flex items-center gap-1.5 rounded-full bg-kiremit px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-paper shadow disabled:opacity-45 focus:outline-none hover:bg-ink transition-colors"
               >
                 {locale === "tr" ? "Mekanları Seç" : "Select Places"} <ArrowRight size={13} />
@@ -344,7 +356,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
               <button
                 type="button"
                 onClick={handlePublish}
-                disabled={selectedAttractions.length === 0 || isPublishing}
+                disabled={selectedAttractions.length === 0 || isPublishing || title.trim().length < MIN_TITLE_LENGTH}
                 className="flex items-center gap-1.5 rounded-full bg-kiremit px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-paper shadow disabled:opacity-45 focus:outline-none hover:bg-ink transition-all hover:scale-[1.02]"
               >
                 {isPublishing ? (
