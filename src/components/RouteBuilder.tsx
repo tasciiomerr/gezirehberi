@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Trash2, ArrowRight, ArrowLeft, Send, Sparkles, MapPin, Loader2 } from "lucide-react";
-import { City, Attraction } from "@/lib/types";
+import { Attraction } from "@/lib/types";
 import { getLocalAuthorName, setLocalAuthorName } from "@/lib/socialDb";
 import { createCommunityRoute, CommunityRoute, CommunityStop } from "@/lib/communityApi";
 import { getDictionary, Locale } from "@/lib/i18n";
@@ -14,14 +14,17 @@ import { getDictionary, Locale } from "@/lib/i18n";
 const MIN_TITLE_LENGTH = 3;
 
 interface RouteBuilderProps {
-  city: City;
+  citySlug: string;
+  regionSlug: string;
+  attractions: Attraction[];
   locale: string;
   onPublish: (newRoute: CommunityRoute) => void;
   onClose: () => void;
 }
 
-export default function RouteBuilder({ city, locale, onPublish, onClose }: RouteBuilderProps) {
+export default function RouteBuilder({ citySlug, regionSlug, attractions, locale, onPublish, onClose }: RouteBuilderProps) {
   const dict = getDictionary(locale as Locale);
+  const t = dict.community;
   const [step, setStep] = useState(1);
   const [title, setTitle] = useState("");
   const [authorName, setAuthorName] = useState(() => getLocalAuthorName());
@@ -76,8 +79,8 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
     });
 
     const res = await createCommunityRoute({
-      citySlug: city.slug,
-      regionSlug: city.regionSlug,
+      citySlug,
+      regionSlug,
       title: title.trim(),
       days,
       stops,
@@ -90,10 +93,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
       onPublish(res.route);
       onClose();
     } else {
-      setPublishError(
-        res.error ||
-          (locale === "tr" ? "Rota yayınlanamadı, lütfen tekrar deneyin." : "Couldn't publish the route, please try again.")
-      );
+      setPublishError(res.error || t.publishError);
     }
   };
 
@@ -108,15 +108,13 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
         onClick={onClose}
         className="absolute right-4 top-4 text-xs font-bold uppercase tracking-wider text-ink/65 hover:text-kiremit focus:outline-none"
       >
-        {locale === "tr" ? "İptal" : "Cancel"}
+        {t.cancel}
       </button>
 
       {/* Header */}
       <div className="mb-6 flex items-center gap-2">
         <Sparkles className="text-kiremit" size={20} />
-        <h2 className="font-display text-2xl italic text-ink">
-          {locale === "tr" ? "Kendi Rotanı Tasarla" : "Build Your Custom Route"}
-        </h2>
+        <h2 className="font-display text-2xl italic text-ink">{t.builderTitle}</h2>
       </div>
 
       {/* Steps indicator */}
@@ -147,33 +145,31 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
           >
             <div className="space-y-1">
               <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65">
-                {locale === "tr" ? "Rota Başlığı" : "Itinerary Title"}
+                {t.routeTitleLabel}
               </label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder={locale === "tr" ? "Örn: Hafta Sonu Gurme Gezisi" : "E.g., Weekend Culinary Tour"}
+                placeholder={t.routeTitlePlaceholder}
                 className="w-full rounded-lg border border-ink/10 bg-paper px-3 py-2 text-sm text-ink focus:border-kiremit focus:outline-none font-semibold"
               />
               {title.trim().length > 0 && title.trim().length < MIN_TITLE_LENGTH && (
                 <p className="text-[11px] font-semibold text-kiremit">
-                  {locale === "tr"
-                    ? `Başlık en az ${MIN_TITLE_LENGTH} karakter olmalı.`
-                    : `Title must be at least ${MIN_TITLE_LENGTH} characters.`}
+                  {t.titleMinLengthHint.replace("{min}", String(MIN_TITLE_LENGTH))}
                 </p>
               )}
             </div>
 
             <div className="space-y-1">
               <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65">
-                {locale === "tr" ? "Adınız (rotanın altında görünür)" : "Your Name (shown on the route)"}
+                {t.yourNameLabel}
               </label>
               <input
                 type="text"
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
-                placeholder={locale === "tr" ? "Misafir Gezgin" : "Guest Traveler"}
+                placeholder={t.yourNamePlaceholder}
                 maxLength={40}
                 className="w-full rounded-lg border border-ink/10 bg-paper px-3 py-2 text-sm text-ink focus:border-kiremit focus:outline-none font-semibold"
               />
@@ -181,7 +177,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
 
             <div className="space-y-1">
               <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65">
-                {locale === "tr" ? "Seyahat Süresi (Gün)" : "Trip Duration (Days)"}
+                {t.tripDurationLabel}
               </label>
               <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 5, 7].map((d) => (
@@ -195,7 +191,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                         : "border-ink/10 bg-paper text-ink hover:border-kiremit"
                     }`}
                   >
-                    {d} {locale === "tr" ? "Gün" : "Days"}
+                    {d} {t.daysUnit}
                   </button>
                 ))}
               </div>
@@ -208,7 +204,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                 disabled={title.trim().length < MIN_TITLE_LENGTH}
                 className="flex items-center gap-1.5 rounded-full bg-kiremit px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-paper shadow disabled:opacity-45 focus:outline-none hover:bg-ink transition-colors"
               >
-                {locale === "tr" ? "Mekanları Seç" : "Select Places"} <ArrowRight size={13} />
+                {t.selectPlaces} <ArrowRight size={13} />
               </button>
             </div>
           </motion.div>
@@ -223,11 +219,11 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             className="space-y-4"
           >
             <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65 block">
-              {locale === "tr" ? "Gezilecek Mekanları Ekle" : "Add Places to Visit"}
+              {t.addPlacesToVisit}
             </label>
 
             <div className="max-h-60 overflow-y-auto space-y-2 pr-1">
-              {city.attractions.map((attraction) => {
+              {attractions.map((attraction) => {
                 const isSelected = selectedAttractions.some((a) => a.id === attraction.id);
                 return (
                   <button
@@ -265,7 +261,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                 onClick={() => setStep(1)}
                 className="flex items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-ink/70 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none"
               >
-                <ArrowLeft size={13} /> {locale === "tr" ? "Geri" : "Back"}
+                <ArrowLeft size={13} /> {t.back}
               </button>
               <button
                 type="button"
@@ -273,7 +269,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                 disabled={selectedAttractions.length === 0}
                 className="flex items-center gap-1.5 rounded-full bg-kiremit px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-paper shadow disabled:opacity-45 focus:outline-none hover:bg-ink transition-colors"
               >
-                {locale === "tr" ? "Düzenle ve Kaydet" : "Edit & Finalize"} <ArrowRight size={13} />
+                {t.editAndFinalize} <ArrowRight size={13} />
               </button>
             </div>
           </motion.div>
@@ -288,7 +284,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
             className="space-y-4"
           >
             <label className="text-[10px] font-bold uppercase tracking-wider text-ink/65 block">
-              {locale === "tr" ? "Rota Notları ve Süreleri Düzenle" : "Edit Stop Notes & Durations"}
+              {t.editStopNotes}
             </label>
 
             <div className="max-h-60 overflow-y-auto space-y-3.5 pr-1">
@@ -319,7 +315,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                           type="text"
                           value={info.note}
                           onChange={(e) => handleInfoChange(attraction.id, "note", e.target.value)}
-                          placeholder={locale === "tr" ? "Durak notu (Örn: Manzarayı izle)" : "Stop note (E.g. Watch sunset)"}
+                          placeholder={t.stopNotePlaceholder}
                           className="w-full rounded-lg border border-ink/10 bg-paper px-2 py-1.5 text-[11px] text-ink focus:border-kiremit focus:outline-none"
                         />
                       </div>
@@ -351,7 +347,7 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
                 disabled={isPublishing}
                 className="flex items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-ink/70 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none disabled:opacity-45"
               >
-                <ArrowLeft size={13} /> {locale === "tr" ? "Geri" : "Back"}
+                <ArrowLeft size={13} /> {t.back}
               </button>
               <button
                 type="button"
@@ -361,11 +357,11 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
               >
                 {isPublishing ? (
                   <>
-                    <Loader2 size={13} className="animate-spin" /> {locale === "tr" ? "Yayınlanıyor..." : "Publishing..."}
+                    <Loader2 size={13} className="animate-spin" /> {t.publishing}
                   </>
                 ) : (
                   <>
-                    <Send size={13} /> {locale === "tr" ? "Rotayı Yayınla" : "Publish Itinerary"}
+                    <Send size={13} /> {t.publishRoute}
                   </>
                 )}
               </button>

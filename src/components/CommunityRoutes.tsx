@@ -5,16 +5,22 @@ import { Users, Plus, Compass, Loader2, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { fetchCommunityRoutes, CommunityRoute } from "@/lib/communityApi";
 import { getDictionary, Locale } from "@/lib/i18n";
-import { City } from "@/lib/types";
+import { Attraction } from "@/lib/types";
 import UserRouteCard from "./UserRouteCard";
 import RouteBuilder from "./RouteBuilder";
 
 interface CommunityRoutesProps {
-  city: City;
+  // Genel tutuldu (City objesi değil) — hem şehir hem ilçe sayfalarından aynı
+  // bileşen kullanılabiliyor. İlçelerin kendi curated attraction listesi yok,
+  // bu yüzden ilçe sayfası kendi slug'ını (identitySlug) + ebeveyn şehrin
+  // attractions listesini geçiriyor (report follow-up, Bulgu 3).
+  identitySlug: string;
+  regionSlug: string;
+  attractions: Attraction[];
   locale: string;
 }
 
-export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) {
+export default function CommunityRoutes({ identitySlug, regionSlug, attractions, locale }: CommunityRoutesProps) {
   const dict = getDictionary(locale as Locale);
   const [routes, setRoutes] = useState<CommunityRoute[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,11 +30,11 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
   const loadRoutes = useCallback(async () => {
     setIsLoading(true);
     setLoadError(null);
-    const res = await fetchCommunityRoutes(city.slug);
+    const res = await fetchCommunityRoutes(identitySlug);
     setRoutes(res.routes);
     if (res.error) setLoadError(res.error);
     setIsLoading(false);
-  }, [city.slug]);
+  }, [identitySlug]);
 
   useEffect(() => {
     loadRoutes();
@@ -52,12 +58,10 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
           </span>
           <div>
             <h3 className="font-display text-2xl italic text-ink">
-              {locale === "tr" ? "Gezginlerin Paylaştığı Rotalar" : "Gezgin Community Rotaları"}
+              {dict.community.title}
             </h3>
             <p className="text-xs text-ink/65 font-semibold">
-              {isLoading
-                ? locale === "tr" ? "Yükleniyor..." : "Loading..."
-                : `${routes.length} ${locale === "tr" ? "rota paylaşıldı" : "itineraries shared"}`}
+              {isLoading ? dict.community.loading : `${routes.length} ${dict.community.routesSharedCountSuffix}`}
             </p>
           </div>
         </div>
@@ -68,7 +72,7 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
             className="flex items-center gap-1.5 rounded-full bg-kiremit px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-paper shadow-md hover:bg-ink hover:scale-105 transition-all focus:outline-none"
           >
             <Plus size={14} />
-            {locale === "tr" ? "Kendi Rotanı Paylaş" : "Share Your Route"}
+            {dict.community.shareYourRoute}
           </button>
         )}
       </div>
@@ -83,7 +87,9 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
             className="mb-8"
           >
             <RouteBuilder
-              city={city}
+              citySlug={identitySlug}
+              regionSlug={regionSlug}
+              attractions={attractions}
               locale={locale}
               onPublish={handlePublish}
               onClose={() => setIsBuilderOpen(false)}
@@ -96,30 +102,30 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
       {isLoading ? (
         <div className="flex items-center justify-center gap-2 rounded-xl border border-ink/10 p-10 text-sm font-semibold text-ink/65">
           <Loader2 size={16} className="animate-spin" />
-          {locale === "tr" ? "Rotalar yükleniyor..." : "Loading routes..."}
+          {dict.community.loadingRoutes}
         </div>
       ) : loadError ? (
         <div className="rounded-xl border border-dashed border-kiremit/30 bg-kiremit/5 p-8 text-center">
           <p className="text-xs text-kiremit font-semibold mb-3">
-            {locale === "tr" ? "Rotalar yüklenemedi." : "Couldn't load routes."} ({loadError})
+            {dict.community.loadError} ({loadError})
           </p>
           <button
             onClick={loadRoutes}
             className="inline-flex items-center gap-1 rounded-full border border-kiremit/30 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-kiremit hover:bg-kiremit/5 transition-colors focus:outline-none"
           >
-            <RefreshCw size={12} /> {locale === "tr" ? "Tekrar dene" : "Retry"}
+            <RefreshCw size={12} /> {dict.community.retry}
           </button>
         </div>
       ) : routes.length === 0 ? (
         <div className="rounded-xl border border-dashed border-ink/20 p-8 text-center bg-paper/30">
           <p className="text-xs text-ink/65 font-semibold mb-3">
-            {locale === "tr" ? "Bu şehir için henüz paylaşılan rota yok, ilk sen ol!" : "No routes shared for this city yet — be the first!"}
+            {dict.community.emptyState}
           </p>
           <button
             onClick={handleCreateClick}
             className="inline-flex items-center gap-1 rounded-full border border-kiremit/30 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-kiremit hover:bg-kiremit/5 transition-colors focus:outline-none"
           >
-            <Plus size={12} /> {locale === "tr" ? "İlk sen paylaş!" : "Share the first one!"}
+            <Plus size={12} /> {dict.community.shareFirstOne}
           </button>
         </div>
       ) : (

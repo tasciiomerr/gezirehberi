@@ -21,6 +21,7 @@ interface UserRouteCardProps {
 
 export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
   const dict = getDictionary(locale as Locale);
+  const t = dict.community;
   const [isOpen, setIsOpen] = useState(false);
   const [comments, setComments] = useState<CommunityComment[]>([]);
   const [commentsLoading, setCommentsLoading] = useState(false);
@@ -98,9 +99,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
       setRatingAvg(Math.round((sum / nextComments.length) * 10) / 10);
       setRatingCount(nextComments.length);
     } else {
-      setCommentError(
-        res.error || (locale === "tr" ? "Yorum eklenemedi, lütfen tekrar deneyin." : "Couldn't add comment, please try again.")
-      );
+      setCommentError(res.error || t.commentError);
     }
   };
 
@@ -135,7 +134,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
             <div>
               <p className="text-xs font-bold text-ink">{route.authorName}</p>
               <p className="text-[10px] text-ink/65 font-semibold uppercase tracking-wider">
-                {new Date(route.createdAt).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US")}
+                {new Date(route.createdAt).toLocaleDateString(t.dateLocale)}
               </p>
             </div>
           </div>
@@ -161,7 +160,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
             className={`ml-auto flex items-center gap-1 font-semibold transition-colors ${
               likedByMe ? "text-kiremit" : "text-ink/65 hover:text-kiremit"
             } disabled:cursor-default`}
-            aria-label={locale === "tr" ? "Beğen" : "Like"}
+            aria-label={t.like}
           >
             <Heart size={13} className={likedByMe ? "fill-kiremit" : ""} />
             {likeCount ?? "…"}
@@ -172,7 +171,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
           onClick={() => setIsOpen((prev) => !prev)}
           className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl border border-ink/15 py-2 text-xs font-bold uppercase tracking-wider text-ink/75 hover:bg-kiremit hover:text-paper hover:border-kiremit transition-all focus:outline-none"
         >
-          {isOpen ? (locale === "tr" ? "Detayları Kapat" : "Hide Details") : (locale === "tr" ? "Rotayı ve Yorumları Gör" : "View Route & Reviews")}
+          {isOpen ? t.hideDetails : t.viewRouteAndReviews}
         </button>
       </div>
 
@@ -188,7 +187,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
             <div className="p-5 space-y-6">
               {/* Route Stops Sequence */}
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-deniz mb-3">📍 {locale === "tr" ? "GÜZERGAH AKIŞI" : "ROUTE STEPS"}</h4>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-deniz mb-3">📍 {t.routeSteps}</h4>
                 <div className="space-y-3 relative border-l border-ink/10 ml-2.5 pl-4 py-1">
                   {route.stops.map((stop) => (
                     <div key={stop.order} className="relative group">
@@ -209,7 +208,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
               {/* Comment & Rating Panel */}
               <div className="border-t border-ink/5 pt-4">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-deniz mb-3 flex items-center gap-1.5">
-                  <MessageSquare size={13} /> {locale === "tr" ? "YORUMLAR VE DEĞERLENDİRMELER" : "COMMENTS & RATINGS"}
+                  <MessageSquare size={13} /> {t.commentsAndRatings}
                 </h4>
 
                 {/* Comment Input Form */}
@@ -217,7 +216,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                   <textarea
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
-                    placeholder={locale === "tr" ? "Yorumunuzu yazın..." : "Write your review..."}
+                    placeholder={t.writeReviewPlaceholder}
                     rows={2}
                     disabled={isSubmittingComment}
                     className="w-full resize-none bg-transparent text-sm text-ink placeholder:text-ink/65 focus:outline-none disabled:opacity-60"
@@ -258,11 +257,11 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                   {commentsLoading ? (
                     <p className="flex items-center justify-center gap-2 text-center text-xs text-ink/65 font-semibold py-4">
                       <Loader2 size={13} className="animate-spin" />
-                      {locale === "tr" ? "Yorumlar yükleniyor..." : "Loading comments..."}
+                      {t.loadingComments}
                     </p>
                   ) : comments.length === 0 ? (
                     <p className="text-center text-xs text-ink/65 font-semibold py-4">
-                      {locale === "tr" ? "İlk yorumu siz yapın!" : "Be the first to comment!"}
+                      {t.beFirstToComment}
                     </p>
                   ) : (
                     comments.map((comm) => (
@@ -281,7 +280,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                         </div>
                         <p className="text-xs text-ink/75 leading-relaxed">{comm.text}</p>
                         <span className="text-[9px] text-ink/65 font-bold uppercase tracking-wider">
-                          {new Date(comm.createdAt).toLocaleDateString(locale === "tr" ? "tr-TR" : "en-US")}
+                          {new Date(comm.createdAt).toLocaleDateString(t.dateLocale)}
                         </span>
                       </div>
                     ))

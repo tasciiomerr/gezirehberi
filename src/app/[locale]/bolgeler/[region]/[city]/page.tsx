@@ -374,7 +374,12 @@ export default async function CityDetailPage(props: {
           <ItinerarySection city={city} locale={locale} />
         </div>
 
-        <CommunityRoutes city={city} locale={locale} />
+        <CommunityRoutes
+          identitySlug={city.slug}
+          regionSlug={city.regionSlug}
+          attractions={city.attractions}
+          locale={locale}
+        />
 
         <div className="my-16 border-t border-ink/10" />
 

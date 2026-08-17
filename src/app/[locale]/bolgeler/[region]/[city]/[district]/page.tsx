@@ -8,6 +8,7 @@ import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQSection from "@/components/FAQSection";
+import CommunityRoutes from "@/components/CommunityRoutes";
 
 import { getCity } from "@/lib/data/cities";
 import { getDistrict, getAllDistrictSlugs } from "@/lib/data/districts";
@@ -262,6 +263,17 @@ export default async function DistrictDetailPage(props: {
           initialItems={initialPlaces?.items}
           initialTotalCount={initialPlaces?.totalCount}
           initialHasMore={initialPlaces?.hasMore}
+        />
+
+        {/* İlçenin kendi curated attraction listesi yok — CommunityRoutes'un
+            "mekan seç" adımı için ebeveyn şehrin attractions listesi
+            kullanılıyor, ama rota kendi ilçe slug'ı altında saklanıyor
+            (report follow-up, Bulgu 3). */}
+        <CommunityRoutes
+          identitySlug={district.slug}
+          regionSlug={district.regionSlug}
+          attractions={city.attractions}
+          locale={locale}
         />
 
         {/* Dynamic FAQ block with JSON-LD schema */}
