@@ -143,6 +143,25 @@ export async function reportContent(payload: {
   }
 }
 
+export async function submitContentFeedback(payload: {
+  citySlug: string;
+  isAccurate: boolean;
+  note?: string;
+}): Promise<{ success: boolean; error?: string }> {
+  try {
+    const res = await fetch("/api/community/feedback", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const body = await parseJsonSafe(res);
+    if (!res.ok) return { success: false, error: body.error || `HTTP ${res.status}` };
+    return { success: true };
+  } catch (e: any) {
+    return { success: false, error: e?.message || "Network error" };
+  }
+}
+
 export async function createCommunityRoute(payload: {
   citySlug: string;
   regionSlug: string;

@@ -121,6 +121,14 @@
     "reportSuccess": "Ihre Meldung wurde empfangen, vielen Dank.",
     "reportError": "Meldung konnte nicht gesendet werden, bitte erneut versuchen.",
     "reportCancel": "Abbrechen",
-    "statsSummary": "{routes} Routen • {comments} Kommentare • {likes} Likes"
+    "statsSummary": "{routes} Routen • {comments} Kommentare • {likes} Likes",
+    "feedbackQuestion": "Sind diese Informationen noch aktuell?",
+    "feedbackYes": "Ja, aktuell",
+    "feedbackNo": "Nein, veraltet",
+    "feedbackNotePlaceholder": "Sag uns, was sich geändert hat (optional)",
+    "feedbackSubmit": "Senden",
+    "feedbackThanks": "Danke für dein Feedback, unser Team wird es prüfen.",
+    "feedbackError": "Feedback konnte nicht gesendet werden, bitte erneut versuchen.",
+    "feedbackLastUpdated": "Inhalt zuletzt aktualisiert"
   }
 }

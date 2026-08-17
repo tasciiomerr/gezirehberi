@@ -121,6 +121,14 @@
     "reportSuccess": "Ваша жалоба получена, спасибо.",
     "reportError": "Не удалось отправить жалобу, попробуйте снова.",
     "reportCancel": "Отмена",
-    "statsSummary": "{routes} маршрутов • {comments} комментариев • {likes} лайков"
+    "statsSummary": "{routes} маршрутов • {comments} комментариев • {likes} лайков",
+    "feedbackQuestion": "Эта информация всё ещё актуальна?",
+    "feedbackYes": "Да, актуально",
+    "feedbackNo": "Нет, устарело",
+    "feedbackNotePlaceholder": "Сообщите, что изменилось (необязательно)",
+    "feedbackSubmit": "Отправить",
+    "feedbackThanks": "Спасибо за отзыв, наша команда проверит это.",
+    "feedbackError": "Не удалось отправить отзыв, попробуйте снова.",
+    "feedbackLastUpdated": "Контент последний раз обновлён"
   }
 }

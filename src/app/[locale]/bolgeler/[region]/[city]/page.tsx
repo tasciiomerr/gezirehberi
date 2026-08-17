@@ -6,12 +6,13 @@ import WishlistButton from "@/components/WishlistButton";
 import ItinerarySection from "@/components/ItinerarySection";
 import CityContentSections from "@/components/CityContentSections";
 import CommunityRoutes from "@/components/CommunityRoutes";
+import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 import { CampingSection, FilmLocationsSection } from "@/components/TravelStyleSections";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getCity, getAllCitySlugs, allCities } from "@/lib/data/cities";
+import { getCity, getAllCitySlugs, allCities, getContentLastUpdated } from "@/lib/data/cities";
 import RelatedCities from "@/components/RelatedCities";
 import AdSlot from "@/components/AdSlot";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
@@ -387,6 +388,14 @@ export default async function CityDetailPage(props: {
           attractions={city.attractions}
           locale={locale}
         />
+
+        <div className="mt-8">
+          <ContentAccuracyFeedback
+            citySlug={city.slug}
+            locale={locale}
+            lastUpdated={getContentLastUpdated(city.slug)}
+          />
+        </div>
 
         <div className="my-16 border-t border-ink/10" />
 

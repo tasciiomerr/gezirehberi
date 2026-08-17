@@ -9,6 +9,7 @@ import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQSection from "@/components/FAQSection";
 import CommunityRoutes from "@/components/CommunityRoutes";
+import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 
 import { getCity } from "@/lib/data/cities";
 import { getDistrict, getAllDistrictSlugs } from "@/lib/data/districts";
@@ -275,6 +276,10 @@ export default async function DistrictDetailPage(props: {
           attractions={city.attractions}
           locale={locale}
         />
+
+        <div className="mt-8 mb-16">
+          <ContentAccuracyFeedback citySlug={district.slug} locale={locale} />
+        </div>
 
         {/* Dynamic FAQ block with JSON-LD schema */}
         <FAQSection

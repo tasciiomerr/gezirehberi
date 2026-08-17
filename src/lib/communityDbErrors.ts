@@ -18,6 +18,7 @@ const CONSTRAINT_MESSAGES: Record<string, string> = {
   comments_author_name_check: "İsim en fazla 40 karakter olabilir.",
   reports_target_type_check: "Geçersiz bildirim hedefi.",
   reports_reason_check: "Geçersiz bildirim nedeni.",
+  content_feedback_note_check: "Not en fazla 500 karakter olabilir.",
 };
 
 export function friendlyDbError(error: PostgrestErrorLike): string {

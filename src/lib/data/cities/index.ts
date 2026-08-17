@@ -1,4 +1,5 @@
 import { City, RegionSlug } from "@/lib/types";
+import contentDates from "./contentDates.json";
 import { karadenizCities } from "./karadeniz";
 import { karadenizExtraCities } from "./karadeniz-extra";
 import { karadenizExtra2Cities } from "./karadeniz-extra2";
@@ -75,4 +76,12 @@ export function getCityCount(regionSlug: RegionSlug): number {
 
 export function getAllCitySlugs(): { region: string; city: string }[] {
   return allCities.map((c) => ({ region: c.regionSlug, city: c.slug }));
+}
+
+// scripts/generate-content-dates.ts tarafından üretilir — "son doğrulama
+// tarihi" değil, gerçek git commit tarihinden alınan "içerik son güncelleme"
+// vekili (Parti 3, madde 11 — uydurma tarih yerine dürüst, doğrulanabilir bir
+// vekil metrik, madde 9'daki istatistik rozeti substitution'ıyla aynı mantık).
+export function getContentLastUpdated(citySlug: string): string | undefined {
+  return (contentDates as Record<string, string>)[citySlug];
 }

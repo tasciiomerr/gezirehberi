@@ -121,6 +121,14 @@
     "reportSuccess": "Bildiriminiz alındı, teşekkürler.",
     "reportError": "Bildirim gönderilemedi, lütfen tekrar deneyin.",
     "reportCancel": "Vazgeç",
-    "statsSummary": "{routes} rota • {comments} yorum • {likes} beğeni"
+    "statsSummary": "{routes} rota • {comments} yorum • {likes} beğeni",
+    "feedbackQuestion": "Bu bilgi hâlâ doğru mu?",
+    "feedbackYes": "Evet, doğru",
+    "feedbackNo": "Hayır, güncel değil",
+    "feedbackNotePlaceholder": "Neyin değiştiğini biliyorsan yazabilirsin (opsiyonel)",
+    "feedbackSubmit": "Gönder",
+    "feedbackThanks": "Geri bildirimin için teşekkürler, ekibimiz kontrol edecek.",
+    "feedbackError": "Geri bildirim gönderilemedi, lütfen tekrar deneyin.",
+    "feedbackLastUpdated": "İçerik son güncelleme"
   }
 }

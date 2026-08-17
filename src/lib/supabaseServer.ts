@@ -85,6 +85,24 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["reports"]["Insert"]>;
         Relationships: [];
       };
+      content_feedback: {
+        Row: {
+          id: string;
+          city_slug: string;
+          is_accurate: boolean;
+          note: string | null;
+          author_identity: string;
+          created_at: string;
+        };
+        Insert: {
+          city_slug: string;
+          is_accurate: boolean;
+          note?: string | null;
+          author_identity: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["content_feedback"]["Insert"]>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

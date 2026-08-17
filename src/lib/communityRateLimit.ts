@@ -5,21 +5,27 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 // counter would under-count and let spam through. Querying Supabase for the
 // requester's own recent rows is slightly slower but actually correct, and
 // needs no extra paid infra (no Redis) to stay within the free-tier constraint.
+// reports/content_feedback tablolarında bilinçli olarak public SELECT
+// politikası yok (moderasyon/editör kuyruğu), bu yüzden normal count sorgusu
+// RLS altında hata verir — bunun yerine sadece sayıyı döndüren birer
+// SECURITY DEFINER RPC kullanılıyor (migration 0004, 0005).
+const COUNT_RPC_BY_TABLE: Partial<Record<string, string>> = {
+  reports: "count_recent_reports",
+  content_feedback: "count_recent_content_feedback",
+};
+
 export async function isRateLimited(
   supabase: SupabaseClient,
-  table: "routes" | "comments" | "likes" | "reports",
+  table: "routes" | "comments" | "likes" | "reports" | "content_feedback",
   identity: string,
   windowMinutes: number,
   maxCount: number
 ): Promise<boolean> {
   const since = new Date(Date.now() - windowMinutes * 60 * 1000).toISOString();
 
-  // reports tablosunda bilinçli olarak public SELECT politikası yok (moderasyon
-  // kuyruğu), bu yüzden normal count sorgusu RLS altında hata verir — bunun
-  // yerine sadece sayıyı döndüren bir SECURITY DEFINER RPC kullanılıyor
-  // (migration 0004).
-  if (table === "reports") {
-    const { data, error } = await supabase.rpc("count_recent_reports", {
+  const rpcName = COUNT_RPC_BY_TABLE[table];
+  if (rpcName) {
+    const { data, error } = await supabase.rpc(rpcName, {
       p_identity: identity,
       p_since: since,
     });

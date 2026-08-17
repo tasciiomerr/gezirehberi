@@ -121,6 +121,14 @@
     "reportSuccess": "تم استلام بلاغك، شكرًا لك.",
     "reportError": "تعذر إرسال البلاغ، يرجى المحاولة مرة أخرى.",
     "reportCancel": "إلغاء",
-    "statsSummary": "{routes} مسار • {comments} تعليق • {likes} إعجاب"
+    "statsSummary": "{routes} مسار • {comments} تعليق • {likes} إعجاب",
+    "feedbackQuestion": "هل هذه المعلومات لا تزال دقيقة؟",
+    "feedbackYes": "نعم، دقيقة",
+    "feedbackNo": "لا، قديمة",
+    "feedbackNotePlaceholder": "أخبرنا بما تغيّر (اختياري)",
+    "feedbackSubmit": "إرسال",
+    "feedbackThanks": "شكرًا لملاحظتك، سيقوم فريقنا بمراجعتها.",
+    "feedbackError": "تعذّر إرسال الملاحظة، حاول مرة أخرى.",
+    "feedbackLastUpdated": "آخر تحديث للمحتوى"
   }
 }

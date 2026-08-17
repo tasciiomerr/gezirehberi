@@ -121,6 +121,14 @@
     "reportSuccess": "Your report has been received, thank you.",
     "reportError": "Couldn't submit report, please try again.",
     "reportCancel": "Cancel",
-    "statsSummary": "{routes} routes • {comments} comments • {likes} likes"
+    "statsSummary": "{routes} routes • {comments} comments • {likes} likes",
+    "feedbackQuestion": "Is this info still accurate?",
+    "feedbackYes": "Yes, accurate",
+    "feedbackNo": "No, outdated",
+    "feedbackNotePlaceholder": "Let us know what changed (optional)",
+    "feedbackSubmit": "Submit",
+    "feedbackThanks": "Thanks for the feedback, our team will review it.",
+    "feedbackError": "Couldn't submit feedback, please try again.",
+    "feedbackLastUpdated": "Content last updated"
   }
 }
