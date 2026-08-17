@@ -2,7 +2,10 @@
 // Kullanım: npx tsx scripts/audit-cities.ts
 //
 // Kontroller:
-//   1. Hava durumu: extractTempHint clamp'i (-15/+40°C) çalışıyor mu
+//   (Not: eski madde 1 — mock hava durumu clamp kontrolü — mock hava durumu
+//   widget'ının kendisi kaldırıldığı için (madde 4/288, artık her gün için
+//   "Haftalık Hava Durumunu Gör" Google arama linki var) bu kontrol de
+//   kaldırıldı; kontrol edecek bir şey kalmadı.)
 //   2. Rota mesafesi/zigzag: optimizeTSP sonrası ardışık duraklar arası mantıksız sıçrama var mı
 //   3. Durak rozet sırası: ItineraryTimeline'daki displayOrder mantığı ile aynı model
 //   4. Öğün-zaman eşleşmesi: dining duraklar doğru timeSlot'ta mı
@@ -20,7 +23,6 @@
 
 import { allCities } from "../src/lib/data/cities";
 import { generateItinerary } from "../src/lib/itinerary";
-import { extractTempHint, getMockWeather } from "../src/lib/itineraryLocal";
 import { haversineDistanceKm } from "../src/lib/geo";
 import type { City } from "../src/lib/types";
 
@@ -30,18 +32,6 @@ let issues = 0;
 function report(citySlug: string, msg: string) {
   issues++;
   console.log(`[${citySlug}] ${msg}`);
-}
-
-function checkWeather(city: City) {
-  const hint = extractTempHint(city.whenToGo, city.climate);
-  if (hint !== undefined && (hint < -15 || hint > 40)) {
-    report(city.slug, `hava durumu clamp'i başarısız: extractTempHint=${hint}`);
-  }
-  // Sanity: getMockWeather ürettiği sıcaklık da makul aralıkta olmalı
-  const w = getMockWeather(city.slug, 1, hint ?? 18);
-  if (w.tempC < -30 || w.tempC > 50) {
-    report(city.slug, `mock hava durumu aşırı değer üretti: ${w.tempC}°C`);
-  }
 }
 
 function checkItineraryRoute(city: City) {
@@ -187,7 +177,6 @@ function checkFerryItineraryIsolation(city: City) {
 function main() {
   console.log(`${allCities.length} şehir denetleniyor...\n`);
   for (const city of allCities) {
-    checkWeather(city);
     checkItineraryRoute(city);
     checkCuratedCounts(city);
     checkDuplicateNames(city);

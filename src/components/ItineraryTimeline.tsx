@@ -27,7 +27,6 @@ import { getDictionary, Locale, translateDataText } from "@/lib/i18n";
 import {
   loadItineraryLocalState,
   saveItineraryLocalState,
-  getMockWeather,
   ItineraryLocalState,
 } from "@/lib/itineraryLocal";
 import BudgetTracker, { DayBudget } from "./BudgetTracker";
@@ -104,6 +103,7 @@ function TransferRow({ transfer, locale }: { transfer: TransferBlock; locale: st
 function DayCard({
   plan,
   citySlug,
+  cityName,
   isOpen,
   onToggle,
   localState,
@@ -114,10 +114,10 @@ function DayCard({
   onOptimize,
   totalDays,
   locale,
-  avgTempHint,
 }: {
   plan: DayPlan;
   citySlug: string;
+  cityName: string;
   isOpen: boolean;
   onToggle: () => void;
   localState: ItineraryLocalState;
@@ -128,11 +128,9 @@ function DayCard({
   onOptimize: (day: number) => void;
   totalDays: number;
   locale: string;
-  avgTempHint?: number;
 }) {
   const dict = getDictionary(locale as Locale);
   const isRtl = locale === "ar";
-  const weather = getMockWeather(citySlug, plan.day, avgTempHint);
   const checkedCount = plan.stops.filter((s) => localState.checked[`${plan.day}-${s.order}`]).length;
   const progress = plan.stops.length > 0 ? Math.round((checkedCount / plan.stops.length) * 100) : 0;
 
@@ -165,14 +163,20 @@ function DayCard({
   const [showDuplicateMenu, setShowDuplicateMenu] = useState(false);
   const [noteValue, setNoteValue] = useState(localState.notes[plan.day] ?? "");
 
-  // Local weather condition translation
-  const weatherConditionText = locale === "tr"
-    ? weather.condition
-    : locale === "de"
-    ? weather.condition === "güneşli" ? "Sonnig" : weather.condition === "parçalı bulutlu" ? "Teilweise bewölkt" : weather.condition === "yağmurlu" ? "Regnerisch" : weather.condition === "karlı" ? "Schneebedeckt" : "Nebelig"
-    : locale === "ar"
-    ? weather.condition === "güneşli" ? "مشمس" : weather.condition === "parçalı bulutlu" ? "غائم جزئياً" : weather.condition === "yağmurlu" ? "ممطر" : weather.condition === "karlı" ? "ثلجي" : "ضبابي"
-    : weather.condition === "güneşli" ? "Sunny" : weather.condition === "parçalı bulutlu" ? "Partly cloudy" : weather.condition === "yağmurlu" ? "Rainy" : weather.condition === "karlı" ? "Snowy" : "Foggy";
+  // Madde 4/288 — bir rota günler/haftalar önceden planlandığı için mock bir
+  // günlük hava tahmini üretmek yanıltıcıydı (hiçbir API bu ufukta güvenilir
+  // tahmin veremez). Sahte widget yerine, her şehir için otomatik oluşan bir
+  // Google arama linki: gerçek, güncel veri her zaman kullanıcının kendi
+  // aramasından gelir.
+  const weatherSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(`hava durumu ${cityName}`)}`;
+  const weatherLinkText =
+    locale === "tr"
+      ? "Haftalık Hava Durumunu Gör"
+      : locale === "de"
+      ? "Wettervorhersage ansehen"
+      : locale === "ar"
+      ? "عرض توقعات الطقس"
+      : "See Weather Forecast";
 
   const totalBudget = localState.budgets?.[plan.day]
     ? localState.budgets[plan.day].accommodation +
@@ -194,9 +198,6 @@ function DayCard({
             </h3>
             <span className="rounded-full bg-kiremit/10 px-2.5 py-1 text-xs font-bold text-kiremit">
               {plan.stops.length} {dict.city.stopsCount}
-            </span>
-            <span className="flex items-center gap-1 text-xs text-ink/65 bg-ink/[0.03] px-2 py-0.5 rounded-full">
-              {weather.icon} {weather.tempC}°C · {weatherConditionText}
             </span>
           </div>
           <div className={`mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink/65 ${isRtl ? "flex-row-reverse" : ""}`}>
@@ -241,7 +242,16 @@ function DayCard({
                 >
                   <Printer size={13} /> {dict.city.printItinerary}
                 </button>
-                
+
+                <a
+                  href={weatherSearchUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 bg-paper/60 px-3 py-1.5 text-xs font-bold text-ink/70 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none"
+                >
+                  ☀️ {weatherLinkText}
+                </a>
+
                 <button
                   onClick={() => onOptimize(plan.day)}
                   className="inline-flex items-center gap-1.5 rounded-full bg-kiremit/10 px-3 py-1.5 text-xs font-bold text-kiremit hover:bg-kiremit hover:text-paper transition-all focus:outline-none"
@@ -441,18 +451,18 @@ function DayCard({
 
 export default function ItineraryTimeline({
   citySlug,
+  cityName,
   days,
   dayPlans,
   locale,
   regionSlug,
-  avgTempHint,
 }: {
   citySlug: string;
+  cityName: string;
   days: number;
   dayPlans: DayPlan[];
   locale: string;
   regionSlug?: string;
-  avgTempHint?: number;
 }) {
   const [openDay, setOpenDay] = useState<number>(1);
   const [localState, setLocalState] = useState<ItineraryLocalState>({ checked: {}, notes: {}, budgets: {} });
@@ -683,6 +693,7 @@ export default function ItineraryTimeline({
               key={plan.day}
               plan={plan}
               citySlug={citySlug}
+              cityName={cityName}
               isOpen={openDay === plan.day}
               onToggle={() => setOpenDay(openDay === plan.day ? -1 : plan.day)}
               localState={localState}
@@ -693,7 +704,6 @@ export default function ItineraryTimeline({
               onOptimize={handleOptimizeTSP}
               totalDays={days}
               locale={locale}
-              avgTempHint={avgTempHint}
             />
           ))}
         </div>
