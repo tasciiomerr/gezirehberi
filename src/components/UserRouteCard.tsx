@@ -2,44 +2,105 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, MessageSquare, CalendarDays, Compass, User, Send, StarHalf } from "lucide-react";
-import { SocialRoute, SocialComment, getRouteComments, addComment } from "@/lib/socialDb";
+import { Star, MessageSquare, CalendarDays, Compass, Send, StarHalf, Heart, Loader2 } from "lucide-react";
+import {
+  CommunityRoute,
+  CommunityComment,
+  fetchCommunityComments,
+  createCommunityComment,
+  likeCommunityRoute,
+  getCommunityLikeStatus,
+} from "@/lib/communityApi";
+import { getLocalAuthorName } from "@/lib/socialDb";
 import { getDictionary, Locale } from "@/lib/i18n";
 
 interface UserRouteCardProps {
-  route: SocialRoute;
+  route: CommunityRoute;
   locale: string;
 }
 
 export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
   const dict = getDictionary(locale as Locale);
   const [isOpen, setIsOpen] = useState(false);
-  const [comments, setComments] = useState<SocialComment[]>([]);
+  const [comments, setComments] = useState<CommunityComment[]>([]);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [commentsLoaded, setCommentsLoaded] = useState(false);
+
+  // Rota kartı ilk açıldığında (localStorage'dan gerçek DB veriye taşınmadan
+  // önceki UI ile aynı davranış) yorumlar yükleniyor — sadece bir kez.
+  const [ratingAvg, setRatingAvg] = useState(route.ratingAvg);
+  const [ratingCount, setRatingCount] = useState(route.ratingCount);
+
+  const [likeCount, setLikeCount] = useState<number | null>(null);
+  const [likedByMe, setLikedByMe] = useState(false);
+  const [isLiking, setIsLiking] = useState(false);
 
   // Comment Form States
   const [commentText, setCommentText] = useState("");
   const [rating, setRating] = useState(5);
+  const [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  const [commentError, setCommentError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (isOpen) {
-      setComments(getRouteComments(route.id));
+    getCommunityLikeStatus(route.id).then((res) => {
+      setLikeCount(res.likeCount);
+      setLikedByMe(res.likedByMe);
+    });
+  }, [route.id]);
+
+  useEffect(() => {
+    if (!isOpen || commentsLoaded) return;
+    setCommentsLoading(true);
+    fetchCommunityComments(route.id).then((res) => {
+      setComments(res.comments);
+      setCommentsLoading(false);
+      setCommentsLoaded(true);
+    });
+  }, [isOpen, commentsLoaded, route.id]);
+
+  const handleLike = async () => {
+    if (isLiking || likedByMe) return;
+    setIsLiking(true);
+    const res = await likeCommunityRoute(route.id);
+    setIsLiking(false);
+    if (res.success) {
+      setLikedByMe(true);
+      if (typeof res.likeCount === "number") setLikeCount(res.likeCount);
+      else setLikeCount((prev) => (prev ?? 0) + 1);
     }
-  }, [isOpen, route.id]);
+  };
 
-  const handleSubmitComment = (e: React.FormEvent) => {
+  const handleSubmitComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!commentText.trim()) return;
+    if (!commentText.trim() || isSubmittingComment) return;
 
-    const res = addComment(route.id, commentText, rating);
-    if (res.success && res.comment) {
-      setComments((prev) => [res.comment!, ...prev]);
+    setIsSubmittingComment(true);
+    setCommentError(null);
+
+    const res = await createCommunityComment(route.id, {
+      text: commentText.trim(),
+      rating,
+      authorName: getLocalAuthorName(),
+    });
+
+    setIsSubmittingComment(false);
+
+    if (res.comment) {
+      const nextComments = [res.comment, ...comments];
+      setComments(nextComments);
       setCommentText("");
       setRating(5);
-      
-      // Update local rating stats in the UI immediately
-      route.ratingCount += 1;
-      const sum = [res.comment!, ...comments].reduce((acc, curr) => acc + curr.rating, 0);
-      route.ratingAvg = Math.round((sum / (comments.length + 1)) * 10) / 10;
+
+      // routes.rating_avg/count'u gerçek şekilde günceller DB trigger'ı —
+      // burada sadece bu kartın anlık görünümünü, elimizdeki yorum listesiyle
+      // tutarlı kalması için yeniden hesaplıyoruz (yeni bir GET'e gerek yok).
+      const sum = nextComments.reduce((acc, c) => acc + c.rating, 0);
+      setRatingAvg(Math.round((sum / nextComments.length) * 10) / 10);
+      setRatingCount(nextComments.length);
+    } else {
+      setCommentError(
+        res.error || (locale === "tr" ? "Yorum eklenemedi, lütfen tekrar deneyin." : "Couldn't add comment, please try again.")
+      );
     }
   };
 
@@ -47,7 +108,7 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
     const stars = [];
     const full = Math.floor(score);
     const half = score % 1 >= 0.4;
-    
+
     for (let i = 1; i <= 5; i++) {
       if (i <= full) {
         stars.push(<Star key={i} size={13} className="text-safran fill-safran shrink-0" />);
@@ -60,17 +121,17 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
     return stars;
   };
 
+  const initial = (route.authorName || "?").trim().charAt(0).toUpperCase() || "?";
+
   return (
     <div className="overflow-hidden rounded-2xl border border-ink/10 bg-paper/85 backdrop-blur-sm shadow-sm transition-all hover:shadow-md hover:border-kiremit/30">
       {/* Route Brief */}
       <div className="p-5">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img
-              src={route.authorAvatar}
-              alt={route.authorName}
-              className="h-9 w-9 rounded-full border border-ink/10 shadow-inner object-cover"
-            />
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-kiremit/10 text-sm font-bold text-kiremit border border-ink/10 shadow-inner">
+              {initial}
+            </span>
             <div>
               <p className="text-xs font-bold text-ink">{route.authorName}</p>
               <p className="text-[10px] text-ink/65 font-semibold uppercase tracking-wider">
@@ -80,20 +141,31 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
           </div>
 
           <div className="flex items-center gap-1.5 bg-safran/10 px-2.5 py-1 rounded-full text-xs font-semibold text-kiremit">
-            {renderStars(route.ratingAvg)}
-            <span className="text-[11px] font-bold text-ink/65 ml-1">({route.ratingCount})</span>
+            {renderStars(ratingAvg)}
+            <span className="text-[11px] font-bold text-ink/65 ml-1">({ratingCount})</span>
           </div>
         </div>
 
         <h3 className="mt-3.5 font-display text-lg italic text-ink">{route.title}</h3>
-        
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-ink/65 border-t border-ink/5 pt-3">
+
+        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-ink/65 border-t border-ink/5 pt-3">
           <span className="flex items-center gap-1 font-semibold">
             <CalendarDays size={13} /> {route.days} {dict.city.daysCount}
           </span>
           <span className="flex items-center gap-1 font-semibold">
             <Compass size={13} /> {route.stops.length} {dict.city.stopsCount}
           </span>
+          <button
+            onClick={handleLike}
+            disabled={isLiking || likedByMe}
+            className={`ml-auto flex items-center gap-1 font-semibold transition-colors ${
+              likedByMe ? "text-kiremit" : "text-ink/65 hover:text-kiremit"
+            } disabled:cursor-default`}
+            aria-label={locale === "tr" ? "Beğen" : "Like"}
+          >
+            <Heart size={13} className={likedByMe ? "fill-kiremit" : ""} />
+            {likeCount ?? "…"}
+          </button>
         </div>
 
         <button
@@ -147,8 +219,12 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder={locale === "tr" ? "Yorumunuzu yazın..." : "Write your review..."}
                     rows={2}
-                    className="w-full resize-none bg-transparent text-sm text-ink placeholder:text-ink/65 focus:outline-none"
+                    disabled={isSubmittingComment}
+                    className="w-full resize-none bg-transparent text-sm text-ink placeholder:text-ink/65 focus:outline-none disabled:opacity-60"
                   />
+                  {commentError && (
+                    <p className="mt-2 text-[11px] font-semibold text-kiremit">{commentError}</p>
+                  )}
                   <div className="mt-3 flex items-center justify-between border-t border-ink/5 pt-3">
                     {/* Star Rating Selector */}
                     <div className="flex items-center gap-1">
@@ -168,17 +244,23 @@ export default function UserRouteCard({ route, locale }: UserRouteCardProps) {
                     </div>
                     <button
                       type="submit"
-                      className="flex h-8 w-8 items-center justify-center rounded-full bg-kiremit text-paper hover:bg-ink hover:scale-105 transition-all focus:outline-none"
+                      disabled={isSubmittingComment || !commentText.trim()}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-kiremit text-paper hover:bg-ink hover:scale-105 transition-all focus:outline-none disabled:opacity-45"
                       aria-label="Send review"
                     >
-                      <Send size={12} />
+                      {isSubmittingComment ? <Loader2 size={12} className="animate-spin" /> : <Send size={12} />}
                     </button>
                   </div>
                 </form>
 
                 {/* Comments List */}
                 <div className="space-y-3.5 max-h-56 overflow-y-auto pr-1">
-                  {comments.length === 0 ? (
+                  {commentsLoading ? (
+                    <p className="flex items-center justify-center gap-2 text-center text-xs text-ink/65 font-semibold py-4">
+                      <Loader2 size={13} className="animate-spin" />
+                      {locale === "tr" ? "Yorumlar yükleniyor..." : "Loading comments..."}
+                    </p>
+                  ) : comments.length === 0 ? (
                     <p className="text-center text-xs text-ink/65 font-semibold py-4">
                       {locale === "tr" ? "İlk yorumu siz yapın!" : "Be the first to comment!"}
                     </p>

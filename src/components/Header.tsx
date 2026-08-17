@@ -11,7 +11,6 @@ import ThemeToggle from "./ThemeToggle";
 import SearchBar from "./SearchBar";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { getDictionary, Locale, translateDataText } from "@/lib/i18n";
-import { initializeSocialDB } from "@/lib/socialDb";
 
 export default function Header() {
   const pathname = usePathname() || "";
@@ -26,10 +25,6 @@ export default function Header() {
   const [isRegionsOpen, setIsRegionsOpen] = useState(false);
   const regionsRef = useRef<HTMLDivElement>(null);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-
-  useEffect(() => {
-    initializeSocialDB();
-  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

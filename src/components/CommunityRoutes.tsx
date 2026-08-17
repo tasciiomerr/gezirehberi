@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Users, Plus, Compass } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Users, Plus, Compass, Loader2, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { getUserRoutes, SocialRoute, initializeSocialDB } from "@/lib/socialDb";
+import { fetchCommunityRoutes, CommunityRoute } from "@/lib/communityApi";
 import { getDictionary, Locale } from "@/lib/i18n";
 import { City } from "@/lib/types";
 import UserRouteCard from "./UserRouteCard";
@@ -16,15 +16,25 @@ interface CommunityRoutesProps {
 
 export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) {
   const dict = getDictionary(locale as Locale);
-  const [routes, setRoutes] = useState<SocialRoute[]>([]);
+  const [routes, setRoutes] = useState<CommunityRoute[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
 
-  useEffect(() => {
-    initializeSocialDB();
-    setRoutes(getUserRoutes(city.slug));
+  const loadRoutes = useCallback(async () => {
+    setIsLoading(true);
+    setLoadError(null);
+    const res = await fetchCommunityRoutes(city.slug);
+    setRoutes(res.routes);
+    if (res.error) setLoadError(res.error);
+    setIsLoading(false);
   }, [city.slug]);
 
-  const handlePublish = (newRoute: SocialRoute) => {
+  useEffect(() => {
+    loadRoutes();
+  }, [loadRoutes]);
+
+  const handlePublish = (newRoute: CommunityRoute) => {
     setRoutes((prev) => [newRoute, ...prev]);
     setIsBuilderOpen(false);
   };
@@ -45,7 +55,9 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
               {locale === "tr" ? "Gezginlerin Paylaştığı Rotalar" : "Gezgin Community Rotaları"}
             </h3>
             <p className="text-xs text-ink/65 font-semibold">
-              {routes.length} {locale === "tr" ? "rota paylaşıldı" : "itineraries shared"}
+              {isLoading
+                ? locale === "tr" ? "Yükleniyor..." : "Loading..."
+                : `${routes.length} ${locale === "tr" ? "rota paylaşıldı" : "itineraries shared"}`}
             </p>
           </div>
         </div>
@@ -81,10 +93,27 @@ export default function CommunityRoutes({ city, locale }: CommunityRoutesProps) 
       </AnimatePresence>
 
       {/* Shared Community Routes Feed */}
-      {routes.length === 0 ? (
+      {isLoading ? (
+        <div className="flex items-center justify-center gap-2 rounded-xl border border-ink/10 p-10 text-sm font-semibold text-ink/65">
+          <Loader2 size={16} className="animate-spin" />
+          {locale === "tr" ? "Rotalar yükleniyor..." : "Loading routes..."}
+        </div>
+      ) : loadError ? (
+        <div className="rounded-xl border border-dashed border-kiremit/30 bg-kiremit/5 p-8 text-center">
+          <p className="text-xs text-kiremit font-semibold mb-3">
+            {locale === "tr" ? "Rotalar yüklenemedi." : "Couldn't load routes."} ({loadError})
+          </p>
+          <button
+            onClick={loadRoutes}
+            className="inline-flex items-center gap-1 rounded-full border border-kiremit/30 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-kiremit hover:bg-kiremit/5 transition-colors focus:outline-none"
+          >
+            <RefreshCw size={12} /> {locale === "tr" ? "Tekrar dene" : "Retry"}
+          </button>
+        </div>
+      ) : routes.length === 0 ? (
         <div className="rounded-xl border border-dashed border-ink/20 p-8 text-center bg-paper/30">
           <p className="text-xs text-ink/65 font-semibold mb-3">
-            {locale === "tr" ? "Bu şehir için henüz bir kullanıcı rotası paylaşılmamış." : "No user itineraries shared for this city yet."}
+            {locale === "tr" ? "Bu şehir için henüz paylaşılan rota yok, ilk sen ol!" : "No routes shared for this city yet — be the first!"}
           </p>
           <button
             onClick={handleCreateClick}

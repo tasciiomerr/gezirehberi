@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Trash2, ArrowRight, ArrowLeft, Send, Sparkles, MapPin } from "lucide-react";
+import { Plus, Trash2, ArrowRight, ArrowLeft, Send, Sparkles, MapPin, Loader2 } from "lucide-react";
 import { City, Attraction } from "@/lib/types";
-import { createUserRoute, getLocalAuthorName, setLocalAuthorName, SocialRoute, SocialStop } from "@/lib/socialDb";
+import { getLocalAuthorName, setLocalAuthorName } from "@/lib/socialDb";
+import { createCommunityRoute, CommunityRoute, CommunityStop } from "@/lib/communityApi";
 import { getDictionary, Locale } from "@/lib/i18n";
 
 interface RouteBuilderProps {
   city: City;
   locale: string;
-  onPublish: (newRoute: SocialRoute) => void;
+  onPublish: (newRoute: CommunityRoute) => void;
   onClose: () => void;
 }
 
@@ -22,6 +23,8 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
   const [days, setDays] = useState(3);
   const [selectedAttractions, setSelectedAttractions] = useState<Attraction[]>([]);
   const [stopsInfo, setStopsInfo] = useState<Record<string, { note: string; duration: string }>>({});
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
 
   const handleToggleSelect = (attraction: Attraction) => {
     setSelectedAttractions((prev) => {
@@ -49,12 +52,14 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
     }));
   };
 
-  const handlePublish = () => {
-    if (!title.trim() || selectedAttractions.length === 0) return;
+  const handlePublish = async () => {
+    if (!title.trim() || selectedAttractions.length === 0 || isPublishing) return;
 
     setLocalAuthorName(authorName);
+    setIsPublishing(true);
+    setPublishError(null);
 
-    const socialStops: SocialStop[] = selectedAttractions.map((attraction, index) => {
+    const stops: CommunityStop[] = selectedAttractions.map((attraction, index) => {
       const info = stopsInfo[attraction.id] || { note: "", duration: "1 saat" };
       return {
         order: index + 1,
@@ -65,17 +70,25 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
       };
     });
 
-    const res = createUserRoute({
+    const res = await createCommunityRoute({
       citySlug: city.slug,
       regionSlug: city.regionSlug,
       title: title.trim(),
       days,
-      stops: socialStops,
+      stops,
+      authorName: authorName.trim() || "Misafir Gezgin",
     });
 
-    if (res.success && res.route) {
+    setIsPublishing(false);
+
+    if (res.route) {
       onPublish(res.route);
       onClose();
+    } else {
+      setPublishError(
+        res.error ||
+          (locale === "tr" ? "Rota yayınlanamadı, lütfen tekrar deneyin." : "Couldn't publish the route, please try again.")
+      );
     }
   };
 
@@ -313,21 +326,36 @@ export default function RouteBuilder({ city, locale, onPublish, onClose }: Route
               })}
             </div>
 
+            {publishError && (
+              <p className="rounded-lg border border-kiremit/30 bg-kiremit/5 px-3 py-2 text-xs font-semibold text-kiremit">
+                {publishError}
+              </p>
+            )}
+
             <div className="pt-4 flex justify-between">
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="flex items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-ink/70 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none"
+                disabled={isPublishing}
+                className="flex items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-ink/70 hover:border-kiremit hover:text-kiremit transition-colors focus:outline-none disabled:opacity-45"
               >
                 <ArrowLeft size={13} /> {locale === "tr" ? "Geri" : "Back"}
               </button>
               <button
                 type="button"
                 onClick={handlePublish}
-                disabled={selectedAttractions.length === 0}
+                disabled={selectedAttractions.length === 0 || isPublishing}
                 className="flex items-center gap-1.5 rounded-full bg-kiremit px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-paper shadow disabled:opacity-45 focus:outline-none hover:bg-ink transition-all hover:scale-[1.02]"
               >
-                <Send size={13} /> {locale === "tr" ? "Rotayı Yayınla" : "Publish Itinerary"}
+                {isPublishing ? (
+                  <>
+                    <Loader2 size={13} className="animate-spin" /> {locale === "tr" ? "Yayınlanıyor..." : "Publishing..."}
+                  </>
+                ) : (
+                  <>
+                    <Send size={13} /> {locale === "tr" ? "Rotayı Yayınla" : "Publish Itinerary"}
+                  </>
+                )}
               </button>
             </div>
           </motion.div>
