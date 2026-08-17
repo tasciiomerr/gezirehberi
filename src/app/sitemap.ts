@@ -5,6 +5,7 @@ import { allCities } from "@/lib/data/cities";
 import { popularDistricts } from "@/lib/data/districts";
 import { getTranslatedCitySlugs } from "@/lib/translation/pipeline";
 import type { TranslationTargetLocale } from "@/lib/translation/types";
+import { getAllGuides } from "@/lib/data/guides";
 
 // Only list locales that are actually indexable site-wide. en/de/ar/ru stay
 // out of this base list (report items 22/283 — untranslated content by
@@ -89,6 +90,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       route(`${siteUrl}/${locale}/kullanim-sartlari`, "monthly", 0.4, "src/app/[locale]/kullanim-sartlari/page.tsx"),
       route(`${siteUrl}/${locale}/iletisim`, "monthly", 0.5, "src/app/[locale]/iletisim/page.tsx")
     );
+
+    // 1b. Guides (madde 302 follow-up) — only listed once real articles
+    // exist (guides.ts starts empty by design, see that file's comment);
+    // the index page's own robots directive already mirrors this same
+    // guides.length > 0 check, so this stays consistent with what's
+    // actually indexable.
+    const guides = getAllGuides();
+    if (guides.length > 0) {
+      sitemapRoutes.push(route(`${siteUrl}/${locale}/rehberler`, "weekly", 0.6, "src/lib/data/guides.ts"));
+      guides.forEach((guide) => {
+        sitemapRoutes.push(
+          route(`${siteUrl}/${locale}/rehberler/${guide.slug}`, "monthly", 0.5, "src/lib/data/guides.ts")
+        );
+      });
+    }
 
     // 2. Region Routes — all backed by the shared regions data file.
     regions.forEach((region) => {
