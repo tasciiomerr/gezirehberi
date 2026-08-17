@@ -18,6 +18,8 @@ import { getRegionThemeStyle } from "@/lib/regionTheme";
 import { getDictionary, Locale, translateDataText, buildAlternates, buildRobots, getAccommodationTypeLabel, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
 import FAQSection from "@/components/FAQSection";
+import ArrivalOptionsTable from "@/components/ArrivalOptionsTable";
+import BudgetTierTable from "@/components/BudgetTierTable";
 import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 import { getPlacesForCity } from "@/lib/places";
 import { getTranslatedCity, cityHasTranslation } from "@/lib/translation/pipeline";
@@ -368,6 +370,11 @@ export default async function CityDetailPage(props: {
               )}
             </div>
           </div>
+        </div>
+
+        <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <ArrivalOptionsTable howToArrive={city.howToArrive} locale={locale} title={dict.city.arrivalOptions} />
+          <BudgetTierTable budgetBreakdown={city.budgetBreakdown} locale={locale} title={dict.city.budgetTiers} />
         </div>
 
         <div id="itinerary-section" className="mb-20 scroll-mt-20">

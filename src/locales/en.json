@@ -55,7 +55,9 @@
     "estimatedSpend": "estimated spend",
     "duration": "duration",
     "save": "Save",
-    "saved": "Saved"
+    "saved": "Saved",
+    "arrivalOptions": "How to Get There",
+    "budgetTiers": "Budget Options"
   },
   "wishlist": {
     "title": "My Wishlist",

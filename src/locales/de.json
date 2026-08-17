@@ -55,7 +55,9 @@
     "estimatedSpend": "geschätzte Ausgaben",
     "duration": "Dauer",
     "save": "Merken",
-    "saved": "Gemerkt"
+    "saved": "Gemerkt",
+    "arrivalOptions": "Anreise",
+    "budgetTiers": "Budgetoptionen"
   },
   "wishlist": {
     "title": "Merkliste",

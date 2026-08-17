@@ -55,7 +55,9 @@
     "estimatedSpend": "المصاريف المقدرة",
     "duration": "المدة",
     "save": "حفظ",
-    "saved": "تم الحفظ"
+    "saved": "تم الحفظ",
+    "arrivalOptions": "كيفية الوصول",
+    "budgetTiers": "خيارات الميزانية"
   },
   "wishlist": {
     "title": "قائمتي",

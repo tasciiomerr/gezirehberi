@@ -55,7 +55,9 @@
     "estimatedSpend": "Примерные расходы",
     "duration": "Продолжительность",
     "save": "Сохранить",
-    "saved": "Сохранено"
+    "saved": "Сохранено",
+    "arrivalOptions": "Как добраться",
+    "budgetTiers": "Варианты бюджета"
   },
   "wishlist": {
     "title": "Мой список",

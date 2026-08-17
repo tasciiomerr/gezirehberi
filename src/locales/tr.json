@@ -55,7 +55,9 @@
     "estimatedSpend": "tahmini harcama",
     "duration": "süre",
     "save": "Kaydet",
-    "saved": "Kaydedildi"
+    "saved": "Kaydedildi",
+    "arrivalOptions": "Nasıl Gidilir?",
+    "budgetTiers": "Bütçe Seçenekleri"
   },
   "wishlist": {
     "title": "Kayıtlarım",
