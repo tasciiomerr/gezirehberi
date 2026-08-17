@@ -92,6 +92,23 @@ export default async function DistrictDetailPage(props: {
   // this district, so the initial HTML already contains real results.
   const initialPlaces = getPlacesForCity(city.slug, { type: "attractions", limit: 24, districtSlug: district.slug });
 
+  // Bulgu (madde 305): bu blokta önceden her ilçe için hardcoded "500" sahte
+  // istatistik gösteriliyordu — District tipinde konaklama/restoran/lezzet
+  // verisi hiç yok, sayı tamamen uydurmaydı. Madde 296'daki sahte otel/restoran
+  // şeması düzeltmesiyle aynı mantık: gerçek veri yoksa gösterme. Burada
+  // gerçek veri, ebeveyn şehrin curated listelerinden isim/açıklama eşleşmesiyle
+  // bu ilçeye filtrelenen kayıtlar (CityContentSections'ın da kullandığı
+  // getPlacesForCity ile aynı kaynak) — sayı 0 ise o satır hiç gösterilmiyor.
+  const districtRestaurants = getPlacesForCity(city.slug, { type: "restaurants", limit: 1, districtSlug: district.slug });
+  const districtAccommodations = getPlacesForCity(city.slug, { type: "accommodations", limit: 1, districtSlug: district.slug });
+  const districtLocalFood = getPlacesForCity(city.slug, { type: "localFood", limit: 1, districtSlug: district.slug });
+  const districtStats = [
+    { icon: "attractions" as const, count: initialPlaces?.totalCount ?? 0, label: dict.city.attractionsCount },
+    { icon: "restaurants" as const, count: districtRestaurants?.totalCount ?? 0, label: dict.city.restaurantsCount },
+    { icon: "accommodations" as const, count: districtAccommodations?.totalCount ?? 0, label: dict.city.accommodationsCount },
+    { icon: "localFood" as const, count: districtLocalFood?.totalCount ?? 0, label: dict.city.foodCount },
+  ].filter((s) => s.count > 0);
+
   // Schema definitions
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -236,17 +253,26 @@ export default async function DistrictDetailPage(props: {
                   {translateDataText(city.region, locale)} / {translateDataText(city.name, locale)}
                 </div>
               </div>
-              <div className="border-t border-ink/10 pt-4">
-                <div className="text-xs font-bold uppercase tracking-wider text-kiremit mb-3">
-                  {locale === "tr" ? "İlçe İstatistikleri" : "District Stats"}
+              {districtStats.length > 0 && (
+                <div className="border-t border-ink/10 pt-4">
+                  <div className="text-xs font-bold uppercase tracking-wider text-kiremit mb-3">
+                    {locale === "tr" ? "İlçe İstatistikleri" : "District Stats"}
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    {districtStats.map((s) => {
+                      const Icon = s.icon === "accommodations" ? BedDouble
+                        : s.icon === "restaurants" ? UtensilsCrossed
+                        : s.icon === "attractions" ? MapPinned
+                        : Soup;
+                      return (
+                        <p key={s.icon} className="flex items-center gap-2 text-ink/70">
+                          <Icon size={15} className="text-kiremit shrink-0" /> {s.count} {s.label}
+                        </p>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="space-y-2 text-sm">
-                  <p className="flex items-center gap-2 text-ink/70"><BedDouble size={15} className="text-kiremit shrink-0" /> 500 {dict.city.accommodationsCount}</p>
-                  <p className="flex items-center gap-2 text-ink/70"><UtensilsCrossed size={15} className="text-kiremit shrink-0" /> 500 {dict.city.restaurantsCount}</p>
-                  <p className="flex items-center gap-2 text-ink/70"><MapPinned size={15} className="text-kiremit shrink-0" /> 500 {dict.city.attractionsCount}</p>
-                  <p className="flex items-center gap-2 text-ink/70"><Soup size={15} className="text-kiremit shrink-0" /> 500 {dict.city.foodCount}</p>
-                </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

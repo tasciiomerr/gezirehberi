@@ -60,10 +60,20 @@ export const popularDistricts: District[] = [
   },
   
   // Akdeniz
+  // Bulgu: bodrum/fethiye/marmaris citySlug'ı "mugla" idi ama "mugla" hiçbir
+  // zaman kendi başına curated bir City girdisi olarak eklenmedi (bkz.
+  // src/lib/data/cities/*.ts) — getCity() bu yüzden hep undefined dönüyor,
+  // notFound() tetikleniyor ve bu 3 sayfa production'da 404 veriyordu.
+  // Bodrum ve Fethiye'nin zaten kendi tam City sayfaları var (ege.ts,
+  // akdeniz.ts) — citySlug o gerçek girdiye işaret edecek şekilde
+  // düzeltildi (kendi kendine referans, çünkü aradaki gerçek bir "Muğla"
+  // hub şehri hiç curate edilmedi). Marmaris için curate edilmiş hiçbir
+  // City girdisi yok (kendi başına da, komşu bir şehir altında da) — uydurma
+  // bir eşleşme yapmak yerine bu girdi tamamen kaldırıldı.
   {
     slug: "bodrum",
-    citySlug: "mugla",
-    regionSlug: "ege", // Muğla can belong to Ege or Akdeniz depending on taxonomy, let's keep it ege
+    citySlug: "bodrum",
+    regionSlug: "ege",
     name: "Bodrum",
     title: "Muğla Bodrum Gezi Rehberi",
     summary: "Tarihi kalesi, beyaz badanalı evleri, Halikarnas Balıkçısı ve hareketli gece hayatıyla Türkiye'nin en popüler tatil yarımadası.",
@@ -73,25 +83,14 @@ export const popularDistricts: District[] = [
   },
   {
     slug: "fethiye",
-    citySlug: "mugla",
-    regionSlug: "ege",
+    citySlug: "fethiye",
+    regionSlug: "akdeniz",
     name: "Fethiye",
     title: "Muğla Fethiye Gezi Rehberi",
     summary: "Ölüdeniz'in sakin suları, Babadağ'dan yamaç paraşütü, Kelebekler Vadisi ve Likya Yolu'nun başlangıç noktası.",
     longDescription: "Fethiye, antik kaya mezarları, doğa harikası kanyonları, dünya çapında ödüllü plajları ve Likya uygarlığının izlerini taşıyan tarihi kalıntılarıyla benzersiz bir tatil ve doğa sporu merkezidir.",
     heroTagline: "Ölüdeniz'in Durgunluğu ve Babadağ'ın Özgürlüğü",
     location: { lat: 36.6219, lng: 29.1164 }
-  },
-  {
-    slug: "marmaris",
-    citySlug: "mugla",
-    regionSlug: "ege",
-    name: "Marmaris",
-    title: "Muğla Marmaris Gezi Rehberi",
-    summary: "Çam ormanlarının denizle buluştuğu eşsiz koyları, antik kentleri ve mavi yolculuk turlarının başlangıç noktası.",
-    longDescription: "Marmaris, yeşil ve mavinin iç içe geçtiği doğası, korunaklı marinaları, tarihi kalesi ve İçmeler plajıyla hem huzurlu bir doğa tatili hem de hareketli bir deniz turizmi sunar.",
-    heroTagline: "Yeşilin ve Mavinin Eşsiz Çam Kokulu Uyumu",
-    location: { lat: 36.8550, lng: 28.2741 }
   },
   {
     slug: "kas",
@@ -117,9 +116,16 @@ export const popularDistricts: District[] = [
   },
   
   // İç Anadolu & Karabük & Trabzon
+  // Bulgu: safranbolu'nun citySlug'ı "karabuk" idi ama "karabuk" curated bir
+  // City girdisi olarak hiç eklenmedi — Safranbolu'nun kendi tam City sayfası
+  // (karadeniz.ts) var, citySlug o girdiye işaret edecek şekilde düzeltildi.
+  // urgup/goreme'nin citySlug'ı "nevsehir" idi, o da curate edilmedi —
+  // Kapadokya bölgesi tek bir City girdisi olarak "kapadokya" slug'ıyla
+  // curate edilmiş (ic-anadolu.ts), ikisi de ona işaret edecek şekilde
+  // düzeltildi.
   {
     slug: "safranbolu",
-    citySlug: "karabuk",
+    citySlug: "safranbolu",
     regionSlug: "karadeniz",
     name: "Safranbolu",
     title: "Karabük Safranbolu Gezi Rehberi",
@@ -130,7 +136,7 @@ export const popularDistricts: District[] = [
   },
   {
     slug: "urgup",
-    citySlug: "nevsehir",
+    citySlug: "kapadokya",
     regionSlug: "ic-anadolu",
     name: "Ürgüp",
     title: "Nevşehir Ürgüp Gezi Rehberi",
@@ -141,7 +147,7 @@ export const popularDistricts: District[] = [
   },
   {
     slug: "goreme",
-    citySlug: "nevsehir",
+    citySlug: "kapadokya",
     regionSlug: "ic-anadolu",
     name: "Göreme",
     title: "Nevşehir Göreme Gezi Rehberi",
