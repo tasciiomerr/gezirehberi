@@ -111,13 +111,10 @@ async function main() {
     await auditPath(`/bolgeler/${r.slug}`);
   }
 
-  // Şehir sayfaları — hepsini taramak (400+) çok uzun sürer; her bölgeden birkaç
-  // örnek + bilinen gerçek-çevirili (tr-cache'de olan) ve olmayan şehirleri karışık
-  // örnekleyerek hem "hasTranslation=true" hem "false" yolunu kapsıyoruz.
+  // Şehir sayfaları — hepsi (84 şehir, "400+" değil — gerçek sayı doğrulandı,
+  // taraması tamamen mümkün, artık örneklenmiyor).
   const { getAllCitySlugs } = await import("../src/lib/data/cities");
-  const citySlugs = getAllCitySlugs();
-  const sampledCities = citySlugs.filter((_, i) => i % 40 === 0); // ~10-15 şehir
-  for (const s of sampledCities) {
+  for (const s of getAllCitySlugs()) {
     await auditPath(`/bolgeler/${s.region}/${s.city}`);
   }
 

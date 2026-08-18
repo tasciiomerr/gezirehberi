@@ -22,7 +22,7 @@
 //      karışmış mı, ya da 1 günlük bir rotada ferry durağı sızmış mı (mimari regresyon testi).
 
 import { allCities } from "../src/lib/data/cities";
-import { generateItinerary } from "../src/lib/itinerary";
+import { generateItinerary, AVAILABLE_DURATIONS } from "../src/lib/itinerary";
 import { haversineDistanceKm } from "../src/lib/geo";
 import type { City } from "../src/lib/types";
 
@@ -35,7 +35,7 @@ function report(citySlug: string, msg: string) {
 }
 
 function checkItineraryRoute(city: City) {
-  for (const days of [1, 2, 3]) {
+  for (const days of AVAILABLE_DURATIONS) {
     const itinerary = generateItinerary(city, days);
     for (const plan of itinerary.dayPlans) {
       const sorted = [...plan.stops].sort((a, b) => a.order - b.order);
@@ -150,7 +150,7 @@ function checkFerryItineraryIsolation(city: City) {
   const ferryAttractions = city.attractions.filter((a) => a.accessMode === "ferry");
   if (ferryAttractions.length === 0) return;
 
-  for (const days of [1, 2, 3, 5]) {
+  for (const days of AVAILABLE_DURATIONS) {
     const itinerary = generateItinerary(city, days);
     if (days === 1) {
       const leaked = itinerary.dayPlans.some((p) => p.stops.some((s) => s.accessMode === "ferry"));
@@ -174,6 +174,53 @@ function checkFerryItineraryIsolation(city: City) {
   }
 }
 
+// Gerçek zigzag (gidiş-dönüş) tespiti — sadece "durak X uzak" değil, üçlü
+// ardışık durak (A, B, C) için A->B->C'nin gerçek A->C mesafesine göre ne
+// kadar "fazladan" yol kat ettiğini ölçer (üçgen eşitsizliği farkı). Önceki
+// denemede (checkItineraryRoute'taki yorum) basit "ardışık duraklar arası
+// mesafe > eşik" kontrolü Van/Ağrı/Erzincan gibi geniş illerdeki meşru,
+// tek-yönlü uzun günlük turları (örn. Muradiye Şelalesi -> Nemrut Krater
+// Gölü, 100km+ ama tek yönde ilerliyor) yanlış-pozitif olarak işaretlerdi.
+// Bu kontrol onun yerine gerçek geometrik backtracking'i hedefliyor: A->B ve
+// B->C'nin ikisi de uzunsa (>15km, kısa şehir-içi mesafeleri elemek için)
+// AMA A->C, A->B+B->C toplamının çok altındaysa, rota B'den sonra neredeyse
+// A'nın olduğu yöne geri dönmüş demektir — optimizeTSP'nin önlemesi gereken
+// tam da bu.
+const ZIGZAG_MIN_LEG_KM = 15;
+const ZIGZAG_DETOUR_RATIO = 1.6; // (d(A,B)+d(B,C)) / d(A,C) bu oranı aşarsa zigzag
+
+function checkZigzagRoutes(city: City) {
+  for (const days of AVAILABLE_DURATIONS) {
+    const itinerary = generateItinerary(city, days);
+    for (const plan of itinerary.dayPlans) {
+      // "dining" duraklar (kahvaltı/öğle/akşam yemeği) kasıtlı olarak dışarıda
+      // bırakılıyor — bunlar o saatteki en yakın attraction'a göre yerleştirilir,
+      // günün tüm duraklarıyla küresel optimize edilmez; bu yüzden geometrik
+      // olarak "detour" gibi görünen ama aslında beklenen/kabul edilmiş bir
+      // tasarım deseni (ilk denemede 286 bulgunun neredeyse tamamı bu tipteydi,
+      // gerçek bir optimizeTSP hatası değil).
+      const sorted = [...plan.stops]
+        .sort((a, b) => a.order - b.order)
+        .filter((s) => s.location && s.type !== "dining");
+      for (let i = 0; i + 2 < sorted.length; i++) {
+        const a = sorted[i], b = sorted[i + 1], c = sorted[i + 2];
+        const dAB = haversineDistanceKm(a.location!, b.location!);
+        const dBC = haversineDistanceKm(b.location!, c.location!);
+        const dAC = haversineDistanceKm(a.location!, c.location!);
+        if (dAB < ZIGZAG_MIN_LEG_KM || dBC < ZIGZAG_MIN_LEG_KM) continue;
+        if (dAC < 0.1) continue; // A ve C pratikte aynı nokta, oran anlamsız
+        const ratio = (dAB + dBC) / dAC;
+        if (ratio > ZIGZAG_DETOUR_RATIO) {
+          report(
+            city.slug,
+            `zigzag: Gün ${plan.day} (${days}g) "${a.title}"->"${b.title}"->"${c.title}" (${dAB.toFixed(0)}+${dBC.toFixed(0)}km) gerçek mesafenin (${dAC.toFixed(0)}km) ${ratio.toFixed(1)}x'i — muhtemel gidiş-dönüş`
+          );
+        }
+      }
+    }
+  }
+}
+
 function main() {
   console.log(`${allCities.length} şehir denetleniyor...\n`);
   for (const city of allCities) {
@@ -183,6 +230,7 @@ function main() {
     checkCoordinateOutliers(city);
     checkFerryFlagging(city);
     checkFerryItineraryIsolation(city);
+    checkZigzagRoutes(city);
   }
   console.log(`\nBitti. Toplam bulgu: ${issues}`);
   if (issues === 0) console.log("Tüm kontroller temiz.");

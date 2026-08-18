@@ -13,16 +13,24 @@ export const REGION_IMAGES: Record<string, string> = {
 };
 
 export const CITY_IMAGES: Record<string, string> = {
-  alacati: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Ala%C3%A7at%C4%B1_windmills.jpg/960px-Ala%C3%A7at%C4%B1_windmills.jpg",
-  ayvalik: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Cunda_Island_%28Ayval%C4%B1k%2C_Turkey%29.JPG/960px-Cunda_Island_%28Ayval%C4%B1k%2C_Turkey%29.JPG",
-  kusadasi: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Kusadasi_G%C3%BCvercinada_Castle.jpg/960px-Kusadasi_G%C3%BCvercinada_Castle.jpg",
-  marmaris: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Marmaris_marina_view.jpg/960px-Marmaris_marina_view.jpg",
-  alanya: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Alanya_Castle_and_Red_Tower.jpg/960px-Alanya_Castle_and_Red_Tower.jpg",
-  urgup: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/%C3%9Crg%C3%BCp_cave_houses.jpg/960px-%C3%9Crg%C3%BCp_cave_houses.jpg",
-  goreme: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/G%C3%B6reme_Open_Air_Museum_Cave_Church.jpg/960px-G%C3%B6reme_Open_Air_Museum_Cave_Church.jpg",
-  bozcaada: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Bozcaada_Castle_view.jpg/960px-Bozcaada_Castle_view.jpg",
-  gokceada: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/G%C3%B6k%C3%A7eada_Derek%C3%B6y.jpg/960px-G%C3%B6k%C3%A7eada_Derek%C3%B6y.jpg",
-  uzungol: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Uzung%C3%B6l_Trabzon.jpg/960px-Uzung%C3%B6l_Trabzon.jpg",
+  // Bulgu (site geneli görsel taraması): aşağıdaki tümü Wikimedia Commons'tan
+  // kaldırılmış dosyalara işaret ediyordu (curl ile 404 doğrulandı), gerçek/
+  // çalışan alternatiflerle değiştirildi. "marmaris" girdisi tamamen
+  // kaldırıldı — Parti 3'te Marmaris'in kendi curated City/District verisi
+  // olmadığı için sayfası kaldırılmıştı, bu görsel artık hiçbir yerde
+  // kullanılmıyor (orphan veri, madde 296 mantığıyla temizlendi).
+  alacati: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Yel_degirmenleri_%28alacati%29_-_panoramio.jpg/960px-Yel_degirmenleri_%28alacati%29_-_panoramio.jpg",
+  ayvalik: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Alibey_Adasi%2C_Ayval%C4%B1k%2C_Turkey_%28Unsplash%29.jpg/960px-Alibey_Adasi%2C_Ayval%C4%B1k%2C_Turkey_%28Unsplash%29.jpg",
+  kusadasi: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Kusadasi_Burg.JPG/960px-Kusadasi_Burg.JPG",
+  alanya: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alanya_Red_Tower_2.jpg/960px-Alanya_Red_Tower_2.jpg",
+  urgup: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/G%C3%B6reme_National_Park_and_the_Rock_Sites_of_Cappadocia_-_Nev%C5%9Fehir%2C_Turkey1.jpg/960px-G%C3%B6reme_National_Park_and_the_Rock_Sites_of_Cappadocia_-_Nev%C5%9Fehir%2C_Turkey1.jpg",
+  // Bulgu (site geneli görsel taraması, madde 307 sonrası): bu iki dosya
+  // Wikimedia Commons'tan tamamen kaldırılmış (orijinal de 404) — gerçek,
+  // çalışan (curl ile doğrulanmış) alternatiflerle değiştirildi.
+  goreme: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Goreme-Open-Air-Museum1.jpg/960px-Goreme-Open-Air-Museum1.jpg",
+  bozcaada: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Bozcaada%2C_%C3%87anakkale_Province.jpg/960px-Bozcaada%2C_%C3%87anakkale_Province.jpg",
+  gokceada: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Panorama_of_Tepekoy_Village_-_Gokceada_Island_-_Turkey_%285741101490%29.jpg/960px-Panorama_of_Tepekoy_Village_-_Gokceada_Island_-_Turkey_%285741101490%29.jpg",
+  uzungol: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Trabzon_Uzung%C3%B6l_-_Long_Lake_of_Trabzon.jpg/960px-Trabzon_Uzung%C3%B6l_-_Long_Lake_of_Trabzon.jpg",
   adana: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Varda_Demiryolu_Koprusu.jpg/960px-Varda_Demiryolu_Koprusu.jpg",
   adiyaman: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/AdiyamanUhrturm.jpg/960px-AdiyamanUhrturm.jpg",
   afyonkarahisar: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Burgberg_Afyonkarahisar_02.jpg/960px-Burgberg_Afyonkarahisar_02.jpg",
