@@ -1,5 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPlacesForCity } from "@/lib/places";
+import { unstable_cache } from "next/cache";
+import { getPlacesForCity, GetPlacesOptions } from "@/lib/places";
+
+// Bulgu (madde 307): manuel `Cache-Control` set etmenin (önceki versiyon,
+// s-maxage=86400) hiçbir etkisi yoktu — bkz. api/community/stats/route.ts'teki
+// ayrıntılı not. Bu route'un altındaki getPlacesForCity zaten senkron/bellek
+// içi statik veri okuduğu için (Supabase/DB maliyeti yok), buradaki asıl
+// kazanç DB yükü azaltmak değil, tekrarlanan istekler için route handler'ı
+// tekrar çalıştırmamak — yine de unstable_cache ile sarmalandı, diğer
+// community route'larıyla tutarlı ve küçük bir CPU/latency kazancı sağlıyor.
+const getCachedPlaces = unstable_cache(
+  async (citySlug: string, options: GetPlacesOptions) => getPlacesForCity(citySlug, options),
+  ["cities-places"],
+  { revalidate: 86400 }
+);
 
 export async function GET(
   request: NextRequest,
@@ -16,18 +30,12 @@ export async function GET(
     const query = searchParams.get("query") || "";
     const districtSlug = searchParams.get("district") || "";
 
-    const result = getPlacesForCity(citySlug, { type, limit, offset, sort, query, districtSlug });
+    const result = await getCachedPlaces(citySlug, { type, limit, offset, sort, query, districtSlug });
     if (!result) {
       return NextResponse.json({ error: "City not found" }, { status: 404 });
     }
 
-    // Create JSON response
-    const response = NextResponse.json(result);
-
-    // Edge Caching and Revalidation (Cache response in Vercel Edge for 24h, revalidate in background)
-    response.headers.set("Cache-Control", "s-maxage=86400, stale-while-revalidate=3600");
-
-    return response;
+    return NextResponse.json(result);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

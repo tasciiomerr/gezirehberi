@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { unstable_cache } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getOrCreateAnonIdentity } from "@/lib/anonIdentity";
 import { isRateLimited } from "@/lib/communityRateLimit";
@@ -11,23 +12,36 @@ interface CreateCommentBody {
   hp?: string;
 }
 
+// Bulgu (madde 307) — bkz. stats/route.ts'teki not: routeId path param'ı
+// olduğu için manuel Cache-Control'un hiçbir etkisi yoktu. Sorgu
+// unstable_cache ile routeId'ye göre anahtarlanıyor.
+const getCachedComments = unstable_cache(
+  async (routeId: string) => {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) return { error: "Community DB not configured" as const };
+
+    const { data, error } = await supabase
+      .from("comments")
+      .select("*")
+      .eq("route_id", routeId)
+      .order("created_at", { ascending: false })
+      .limit(100);
+
+    if (error) return { error: friendlyDbError(error) };
+    return { comments: data };
+  },
+  ["community-comments"],
+  { revalidate: 30 }
+);
+
 export async function GET(_request: NextRequest, props: { params: Promise<{ routeId: string }> }) {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) return NextResponse.json({ error: "Community DB not configured" }, { status: 503 });
-
   const { routeId } = await props.params;
-  const { data, error } = await supabase
-    .from("comments")
-    .select("*")
-    .eq("route_id", routeId)
-    .order("created_at", { ascending: false })
-    .limit(100);
-
-  if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 500 });
-  const response = NextResponse.json({ comments: data });
-  // Parti 4, madde 13 — herkese açık liste, kişiselleştirilmemiş.
-  response.headers.set("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
-  return response;
+  const result = await getCachedComments(routeId);
+  if ("error" in result) {
+    const status = result.error === "Community DB not configured" ? 503 : 500;
+    return NextResponse.json({ error: result.error }, { status });
+  }
+  return NextResponse.json({ comments: result.comments });
 }
 
 export async function POST(request: NextRequest, props: { params: Promise<{ routeId: string }> }) {

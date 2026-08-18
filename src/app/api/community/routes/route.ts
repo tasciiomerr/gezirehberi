@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { unstable_cache } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabaseServer";
 import { getOrCreateAnonIdentity } from "@/lib/anonIdentity";
 import { isRateLimited } from "@/lib/communityRateLimit";
@@ -14,10 +15,32 @@ interface CreateRouteBody {
   hp?: string; // honeypot — same pattern as ContactForm.tsx, silently drop if filled
 }
 
-export async function GET(request: NextRequest) {
-  const supabase = getSupabaseServerClient();
-  if (!supabase) return NextResponse.json({ error: "Community DB not configured" }, { status: 503 });
+// Bulgu (madde 307) — bkz. stats/route.ts'teki not: query-param'lı (citySlug,
+// sort) bir GET Route Handler olduğu için manuel Cache-Control set etmenin
+// hiçbir etkisi yoktu (Next.js "dynamic route" varsayılanıyla override
+// ediyordu, production'da X-Vercel-Cache: MISS ile doğrulandı). Sorgu
+// unstable_cache ile sarmalanıp citySlug+sort'a göre otomatik anahtarlanıyor.
+const getCachedRoutes = unstable_cache(
+  async (citySlug: string, sort: "newest" | "popular") => {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) return { error: "Community DB not configured" as const };
 
+    const orderColumn = sort === "popular" ? "like_count" : "created_at";
+    const { data, error } = await supabase
+      .from("routes")
+      .select("*")
+      .eq("city_slug", citySlug)
+      .order(orderColumn, { ascending: false })
+      .limit(50);
+
+    if (error) return { error: friendlyDbError(error) };
+    return { routes: data };
+  },
+  ["community-routes"],
+  { revalidate: 30 }
+);
+
+export async function GET(request: NextRequest) {
   const citySlug = request.nextUrl.searchParams.get("citySlug");
   if (!citySlug) return NextResponse.json({ error: "citySlug is required" }, { status: 400 });
 
@@ -25,20 +48,13 @@ export async function GET(request: NextRequest) {
   // 0003'teki trigger ile güncel tutulan denormalize sütun) göre, varsayılan
   // "en yeni" ise created_at'e göre.
   const sort = request.nextUrl.searchParams.get("sort") === "popular" ? "popular" : "newest";
-  const orderColumn = sort === "popular" ? "like_count" : "created_at";
 
-  const { data, error } = await supabase
-    .from("routes")
-    .select("*")
-    .eq("city_slug", citySlug)
-    .order(orderColumn, { ascending: false })
-    .limit(50);
-
-  if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 500 });
-  const response = NextResponse.json({ routes: data });
-  // Parti 4, madde 13 — herkese açık liste, kişiselleştirilmemiş.
-  response.headers.set("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
-  return response;
+  const result = await getCachedRoutes(citySlug, sort);
+  if ("error" in result) {
+    const status = result.error === "Community DB not configured" ? 503 : 500;
+    return NextResponse.json({ error: result.error }, { status });
+  }
+  return NextResponse.json({ routes: result.routes });
 }
 
 export async function POST(request: NextRequest) {
