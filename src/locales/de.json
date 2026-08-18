@@ -75,7 +75,8 @@
     "compareAccommodations": "Unterkunftsoptionen",
     "compareHighlights": "Highlights",
     "compareViewCity": "Zur Stadtseite",
-    "compareEmpty": "Wählen Sie zwei Städte zum Vergleichen aus."
+    "compareEmpty": "Wählen Sie zwei Städte zum Vergleichen aus.",
+    "knownForTitle": "Wofür ist diese Stadt bekannt?"
   },
   "wishlist": {
     "title": "Merkliste",

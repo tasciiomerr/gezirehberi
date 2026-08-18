@@ -75,7 +75,8 @@
     "compareAccommodations": "Варианты проживания",
     "compareHighlights": "Основные особенности",
     "compareViewCity": "Перейти на страницу города",
-    "compareEmpty": "Выберите два города для сравнения."
+    "compareEmpty": "Выберите два города для сравнения.",
+    "knownForTitle": "Чем знаменит этот город?"
   },
   "wishlist": {
     "title": "Мой список",

@@ -75,7 +75,8 @@
     "compareAccommodations": "Accommodation Options",
     "compareHighlights": "Highlights",
     "compareViewCity": "Go to City Page",
-    "compareEmpty": "Select two cities to compare."
+    "compareEmpty": "Select two cities to compare.",
+    "knownForTitle": "What Is This City Known For?"
   },
   "wishlist": {
     "title": "My Wishlist",

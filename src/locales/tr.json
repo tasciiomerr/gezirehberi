@@ -75,7 +75,8 @@
     "compareAccommodations": "Konaklama Seçeneği",
     "compareHighlights": "Öne Çıkanlar",
     "compareViewCity": "Şehir Sayfasına Git",
-    "compareEmpty": "Karşılaştırmak için iki şehir seçin."
+    "compareEmpty": "Karşılaştırmak için iki şehir seçin.",
+    "knownForTitle": "Bu Şehir Neyle Ünlü?"
   },
   "wishlist": {
     "title": "Kayıtlarım",

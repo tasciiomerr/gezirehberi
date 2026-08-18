@@ -9,6 +9,8 @@ import PlaceholderImage from "@/components/PlaceholderImage";
 import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 import { REGION_IMAGES } from "@/lib/cityImages";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import KnownForSection from "@/components/KnownForSection";
+import { getRegionCulture } from "@/lib/data/regionCulture";
 
 export async function generateMetadata(props: { params: Promise<{ region: string; locale: string }> }) {
   const params = await props.params;
@@ -142,6 +144,15 @@ export default async function RegionPage(props: {
         <p className="mb-8 max-w-3xl text-base text-ink/70 leading-relaxed border-l-2 border-kiremit pl-4">
           {translateDataText(region.description, locale)}
         </p>
+
+        {/* PİLOT (madde 155-163) — sadece 3 bölge için içerik var, onay
+            bekleniyor; şimdilik yalnızca tr locale'de render ediliyor. */}
+        {locale === "tr" && getRegionCulture(region.slug) && (
+          <KnownForSection
+            title={locale === "tr" ? "Bölge Kültürü ve Tarihi" : "Regional Culture & History"}
+            text={getRegionCulture(region.slug)!}
+          />
+        )}
 
         {cities.length > 0 ? (
           <div>

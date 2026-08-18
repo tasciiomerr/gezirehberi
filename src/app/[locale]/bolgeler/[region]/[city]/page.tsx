@@ -9,6 +9,7 @@ import CommunityRoutes from "@/components/CommunityRoutes";
 import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
 import HiddenGemBadge from "@/components/HiddenGemBadge";
+import KnownForSection from "@/components/KnownForSection";
 import { CampingSection, FilmLocationsSection } from "@/components/TravelStyleSections";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
@@ -16,6 +17,7 @@ import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getCity, getAllCitySlugs, allCities, getContentLastUpdated, isHiddenGem } from "@/lib/data/cities";
 import { getConfusablePlaces } from "@/lib/data/confusablePlaces";
+import { getCityKnownFor } from "@/lib/data/knownFor";
 import RelatedCities from "@/components/RelatedCities";
 import AdSlot from "@/components/AdSlot";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
@@ -307,6 +309,13 @@ export default async function CityDetailPage(props: {
         </div>
 
         <ConfusedPlacesWarning places={getConfusablePlaces(city.slug)} locale={locale} />
+
+        {/* PİLOT (madde 82-83/146-154) — sadece 6 şehir için içerik var,
+            onay bekleniyor; şimdilik yalnızca tr locale'de render ediliyor
+            (paragraf henüz çeviri pipeline'ından geçmiyor). */}
+        {locale === "tr" && getCityKnownFor(city.slug) && (
+          <KnownForSection title={dict.city.knownForTitle} text={getCityKnownFor(city.slug)!} />
+        )}
 
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">

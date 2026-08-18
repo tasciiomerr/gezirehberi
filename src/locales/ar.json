@@ -75,7 +75,8 @@
     "compareAccommodations": "خيارات الإقامة",
     "compareHighlights": "أبرز المعالم",
     "compareViewCity": "الذهاب إلى صفحة المدينة",
-    "compareEmpty": "اختر مدينتين للمقارنة."
+    "compareEmpty": "اختر مدينتين للمقارنة.",
+    "knownForTitle": "بماذا تشتهر هذه المدينة؟"
   },
   "wishlist": {
     "title": "قائمتي",
