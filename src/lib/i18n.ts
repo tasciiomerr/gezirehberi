@@ -71,7 +71,15 @@ export function buildRobots(locale: Locale, contentTranslated?: boolean) {
 // actually indexable for that city, never a locale that's still noindexed.
 export function buildAlternates(locale: Locale, pathWithoutLocale: string, extraLocales: Locale[] = []) {
   const languages: Record<string, string> = {};
-  const allLangs = new Set<Locale>([...TRANSLATED_LOCALES, ...extraLocales]);
+  // Self-reference her zaman garanti: mevcut locale, TRANSLATED_LOCALES/
+  // extraLocales kümesinde olmasa bile (hreflang denetimi, madde 14 —
+  // noindex sayfalarda pratik SEO etkisi sıfır olsa da, Google'ın "her
+  // sayfa kendi locale'ine hreflang versin" kuralına uymak için). Hangi
+  // locale'lerin BİRBİRİNE çapraz link vereceği (indexlenebilirlikle
+  // tutarlı kalması gereken kısım) hâlâ sadece TRANSLATED_LOCALES/
+  // extraLocales tarafından belirleniyor — bu satır sadece kendine referansı
+  // tamamlıyor, çapraz-locale hreflang setini değiştirmiyor.
+  const allLangs = new Set<Locale>([locale, ...TRANSLATED_LOCALES, ...extraLocales]);
   for (const l of allLangs) {
     languages[l] = `${SITE_URL}/${l}${pathWithoutLocale}`;
   }

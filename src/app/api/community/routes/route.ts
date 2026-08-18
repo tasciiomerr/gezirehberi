@@ -35,7 +35,10 @@ export async function GET(request: NextRequest) {
     .limit(50);
 
   if (error) return NextResponse.json({ error: friendlyDbError(error) }, { status: 500 });
-  return NextResponse.json({ routes: data });
+  const response = NextResponse.json({ routes: data });
+  // Parti 4, madde 13 — herkese açık liste, kişiselleştirilmemiş.
+  response.headers.set("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
+  return response;
 }
 
 export async function POST(request: NextRequest) {

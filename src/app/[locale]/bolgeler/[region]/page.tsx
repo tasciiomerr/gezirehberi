@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, MapPinned, UtensilsCrossed, Soup } from "lucide-react";
 import { getRegion, regions } from "@/lib/data/regions";
@@ -103,10 +104,13 @@ export default async function RegionPage(props: {
       <div className="relative h-64 text-paper sm:h-80 overflow-hidden">
         {/* Background Image with dark overlay */}
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src={bgImage}
             alt={translateDataText(region.name, locale)}
-            className="h-full w-full object-cover filter brightness-[0.7] contrast-[1.02]"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover filter brightness-[0.7] contrast-[1.02]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/20 opacity-90" />
         </div>

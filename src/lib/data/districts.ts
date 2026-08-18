@@ -39,7 +39,11 @@ export const popularDistricts: District[] = [
   {
     slug: "ayvalik",
     citySlug: "balikesir",
-    regionSlug: "ege",
+    regionSlug: "marmara", // Bulgu (hreflang denetimi, Parti 4): gerçek Balıkesir City kaydı
+    // regionSlug "marmara" — burada "ege" olması getCity() eşleşmesini
+    // engelleyip sayfayı 404'e düşürüyordu (17.08.2026 tarihli 6-ilçe
+    // düzeltmesinde kaçırılmıştı, çünkü o taramada sadece citySlug'ın hiç
+    // var olmayan bir City'e işaret ettiği durumlar yakalanmıştı).
     name: "Ayvalık",
     title: "Balıkesir Ayvalık Gezi Rehberi",
     summary: "Tarihi Rum evleri, Cunda Adası, Şeytan Sofrası ve zeytinyağı kültürünün merkezi olan şirin Ege ilçesi.",

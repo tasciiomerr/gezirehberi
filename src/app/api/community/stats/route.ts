@@ -34,5 +34,10 @@ export async function GET(request: NextRequest) {
     commentCount = count ?? 0;
   }
 
-  return NextResponse.json({ routeCount, commentCount, likeCount });
+  const response = NextResponse.json({ routeCount, commentCount, likeCount });
+  // Parti 4, madde 13 — herkese açık, kişiselleştirilmemiş toplu istatistik;
+  // kısa bir edge cache Supabase yükünü azaltır, stale-while-revalidate ile
+  // yeni bir rota/yorum/beğeni birkaç dakika içinde görünür kalır.
+  response.headers.set("Cache-Control", "s-maxage=30, stale-while-revalidate=120");
+  return response;
 }
