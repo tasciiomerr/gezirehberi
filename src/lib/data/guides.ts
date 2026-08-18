@@ -181,6 +181,41 @@ Bir ürünle ilgilenmiyorsanız fiyat sormaktan çekinmeyin; ancak bir fiyatta a
 KISA ÖZET
 Restoran: %5-10 bahşiş normal. Taksi: yuvarlama yeterli. Kapalı çarşı/hediyelik eşya: pazarlık yapılabilir ve beklenir. Süpermarket/zincir mağaza: pazarlık yok, sabit fiyat.`,
   },
+  {
+    slug: "solo-gezgin-guvenlik-notlari",
+    title: "Türkiye'de Solo Seyahat Edenler İçin Güvenlik Notları",
+    summary:
+      "Türkiye'yi tek başına gezenler için genel güvenlik tavsiyeleri: ulaşım, konaklama, gece güvenliği ve acil durum hazırlığı.",
+    publishedAt: "2026-08-18",
+    body: `Türkiye, tek başına seyahat edenler için genel olarak güvenli bir ülke olsa da, herhangi bir yerde olduğu gibi biraz hazırlık ve dikkat işinizi kolaylaştırır. İşte bilinen, genel-geçer seyahat güvenliği tavsiyeleri.
+
+ULAŞIM
+Resmi taksi uygulamalarını (BiTaksi, Uber) veya sarı/turkuaz resmi taksileri tercih edin; taksimetrenin açık olduğundan emin olun. Gece geç saatlerde, özellikle tanımadığınız bir şehirde, yürüyerek uzun mesafeler kat etmek yerine taksi/uygulama tercih edin.
+Otobüs/tren biletlerinizi mümkünse önceden online alın — büyük terminallerde son dakika kalabalığı ve yönlendirme karmaşası yaşanabilir.
+
+KONAKLAMA
+Rezervasyon yaparken gerçek yorumları olan, puanı düşük olmayan yerleri tercih edin. Giriş yaptığınızda oda kapısının/kilidin sağlam çalıştığını kontrol edin.
+Konumunuzu (otel adı, oda numarası değil ama şehir/semt) güvendiğiniz birine bildirmek, özellikle uzun süreli solo seyahatlerde iyi bir alışkanlıktır.
+
+GECE GÜVENLİĞİ
+Büyük şehirlerin turistik ve kalabalık ana caddeleri genelde gece de hareketlidir ve güvenlidir; ıssız, az aydınlatılmış sokaklardan gece kaçının.
+Alkol tükettiğiniz mekanlarda içeceğinizi masada yalnız bırakmayın, tanımadığınız kişilerden içecek kabul ederken dikkatli olun — bu, dünyanın her yerinde geçerli genel bir tavsiyedir.
+
+KADIN SOLO GEZGİNLER İÇİN
+Türkiye'nin büyük şehir ve turistik bölgelerinde kadın solo gezginler yaygın; yine de muhafazakâr giyim kurallarının olduğu cami gibi mekanlarda buna uyum göstermek (omuz/diz kapatma, kadınlar için başörtüsü bazı camilerde) hem saygılı hem sorunsuz bir ziyaret sağlar.
+Rahatsız edici bir yaklaşımla karşılaşırsanız kararlı ve net bir şekilde "hayır" demekten çekinmeyin; kalabalık, aydınlık bir mekana yönelin.
+
+DİJİTAL HAZIRLIK
+Pasaportunuzun ve önemli belgelerinizin fotoğrafını/taramasını bulutta (e-posta, güvenli bir uygulama) yedekleyin.
+Türkiye'deki yerel bir SIM kart veya uluslararası veri paketi almak, çevrimdışı kalmadan harita/çeviri uygulamalarını kullanabilmenizi sağlar.
+Acil durum numaralarını (bkz. "Türkiye'de Acil Durum Numaraları" rehberimiz — 112 tek acil çağrı numarası) telefonunuza önceden kaydedin.
+
+GENEL SAĞDUYU
+Değerli eşyalarınızı (pasaport, nakit, kart) tek bir çantada değil dağıtarak taşıyın. Kalabalık turistik alanlarda (çarşı, toplu taşıma) çantanızı önünüzde tutun.
+Bir şey "çok iyi görünüyorsa" (aşırı ucuz tur, tanımadığınız birinin "özel indirim" teklifi), sağduyunuzu kullanın — bu, dünyanın her yerinde geçerli bir kural.
+
+Bu notlar genel, herkesçe bilinen seyahat güvenliği tavsiyeleridir; herhangi bir şehre veya bölgeye özgü güncel bir güvenlik uyarısı için seyahat öncesi kendi ülkenizin dışişleri bakanlığının Türkiye seyahat tavsiyelerini kontrol etmenizi öneririz.`,
+  },
 ];
 
 // Şehir bazlı "1 gün, X TL bütçeyle" içerik serisi (madde ek — birkaç örnek

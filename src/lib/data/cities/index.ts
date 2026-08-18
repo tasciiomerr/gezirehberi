@@ -85,3 +85,38 @@ export function getAllCitySlugs(): { region: string; city: string }[] {
 export function getContentLastUpdated(citySlug: string): string | undefined {
   return (contentDates as Record<string, string>)[citySlug];
 }
+
+// Parti 5, madde 16 — "Gizli Cennet" rozeti. Gerçek ziyaretçi/arama hacmi
+// verimiz yok. İlk denemede "editoryal öne-çıkanlar listesinde olmayan +
+// curated içeriği olan şehir" kuralı denendi, ama curated attractions
+// sayısı 84 şehirde neredeyse sabit (8-11 arası, kalıp/şablon üretiminden
+// kalma) — bu kural şehirlerin %82'sini (69/84) "gizli cennet" yapıp
+// rozeti anlamsızlaştırdı. Gerçek bir ayırt edici sinyal (trafik, arama
+// hacmi) yok, bu yüzden algoritmik bir tanım yerine küçük, elle seçilmiş,
+// UI'da AÇIKÇA "editoryal seçki" olarak etiketlenmiş bir liste kullanılıyor
+// (madde 34/167 disiplini: belirsiz bir kritere dayanan sahte-kesin bir
+// algoritma yerine, dürüstçe "bu bizim seçimimiz" demek).
+const HIDDEN_GEM_SLUGS = new Set([
+  "artvin",
+  "ardahan",
+  "bayburt",
+  "gumushane",
+  "tunceli",
+  "bingol",
+  "mus",
+  "bitlis",
+  "kirsehir",
+  "yozgat",
+  "usak",
+  "burdur",
+  "sinop",
+  "kastamonu",
+  "siirt",
+  "hakkari",
+  "igdir",
+  "cankiri",
+]);
+
+export function isHiddenGem(citySlug: string): boolean {
+  return HIDDEN_GEM_SLUGS.has(citySlug);
+}

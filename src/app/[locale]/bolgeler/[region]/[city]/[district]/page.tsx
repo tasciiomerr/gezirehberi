@@ -10,6 +10,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import FAQSection from "@/components/FAQSection";
 import CommunityRoutes from "@/components/CommunityRoutes";
 import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
+import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
+import { getConfusablePlaces } from "@/lib/data/confusablePlaces";
 
 import { getCity } from "@/lib/data/cities";
 import { getDistrict, getAllDistrictSlugs } from "@/lib/data/districts";
@@ -210,6 +212,8 @@ export default async function DistrictDetailPage(props: {
             variant="inline"
           />
         </div>
+
+        <ConfusedPlacesWarning places={getConfusablePlaces(district.slug)} locale={locale} />
 
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">

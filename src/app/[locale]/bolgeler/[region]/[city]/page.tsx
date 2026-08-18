@@ -7,12 +7,15 @@ import ItinerarySection from "@/components/ItinerarySection";
 import CityContentSections from "@/components/CityContentSections";
 import CommunityRoutes from "@/components/CommunityRoutes";
 import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
+import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
+import HiddenGemBadge from "@/components/HiddenGemBadge";
 import { CampingSection, FilmLocationsSection } from "@/components/TravelStyleSections";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
 import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getCity, getAllCitySlugs, allCities, getContentLastUpdated } from "@/lib/data/cities";
+import { getCity, getAllCitySlugs, allCities, getContentLastUpdated, isHiddenGem } from "@/lib/data/cities";
+import { getConfusablePlaces } from "@/lib/data/confusablePlaces";
 import RelatedCities from "@/components/RelatedCities";
 import AdSlot from "@/components/AdSlot";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
@@ -285,20 +288,25 @@ export default async function CityDetailPage(props: {
             { label: translateDataText(city.name, locale) },
           ]}
         />
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
           <Link
             href={`/${locale}/bolgeler/${city.regionSlug}`}
             className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-4 py-2 text-sm font-semibold text-ink hover:border-kiremit hover:text-kiremit transition-colors"
           >
             <ArrowLeft size={16} /> {dict.city.back}
           </Link>
-          <WishlistButton
-            citySlug={city.slug}
-            regionSlug={city.regionSlug}
-            cityName={city.name}
-            variant="inline"
-          />
+          <div className="flex items-center gap-3">
+            {isHiddenGem(city.slug) && <HiddenGemBadge locale={locale} />}
+            <WishlistButton
+              citySlug={city.slug}
+              regionSlug={city.regionSlug}
+              cityName={city.name}
+              variant="inline"
+            />
+          </div>
         </div>
+
+        <ConfusedPlacesWarning places={getConfusablePlaces(city.slug)} locale={locale} />
 
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
