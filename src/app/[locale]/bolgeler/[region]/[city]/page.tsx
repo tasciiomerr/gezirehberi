@@ -17,7 +17,6 @@ import AudioGuide from "@/components/AudioGuide";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getCity, getAllCitySlugs, allCities, getContentLastUpdated, isHiddenGem } from "@/lib/data/cities";
 import { getConfusablePlaces } from "@/lib/data/confusablePlaces";
-import { getCityKnownFor } from "@/lib/data/knownFor";
 import RelatedCities from "@/components/RelatedCities";
 import AdSlot from "@/components/AdSlot";
 import { getRegionThemeStyle } from "@/lib/regionTheme";
@@ -28,7 +27,7 @@ import ArrivalOptionsTable from "@/components/ArrivalOptionsTable";
 import BudgetTierTable from "@/components/BudgetTierTable";
 import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 import { getPlacesForCity } from "@/lib/places";
-import { getTranslatedCity, cityHasTranslation } from "@/lib/translation/pipeline";
+import { getTranslatedCity, cityHasTranslation, getTranslatedKnownFor } from "@/lib/translation/pipeline";
 
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
@@ -116,6 +115,7 @@ export default async function CityDetailPage(props: {
   // 34/167/283) — cities with no cache entries yet fall back to the raw
   // Turkish text untouched, same as before this pipeline existed.
   const city = await getTranslatedCity(rawCity, locale);
+  const knownForText = await getTranslatedKnownFor(city.slug, locale);
 
   // Server-rendered first page of the default (attractions/popularity) list, so the
   // initial HTML already contains real results instead of the client-only empty state.
@@ -310,11 +310,13 @@ export default async function CityDetailPage(props: {
 
         <ConfusedPlacesWarning places={getConfusablePlaces(city.slug)} locale={locale} />
 
-        {/* PİLOT (madde 82-83/146-154) — sadece 6 şehir için içerik var,
-            onay bekleniyor; şimdilik yalnızca tr locale'de render ediliyor
-            (paragraf henüz çeviri pipeline'ından geçmiyor). */}
-        {locale === "tr" && getCityKnownFor(city.slug) && (
-          <KnownForSection title={dict.city.knownForTitle} text={getCityKnownFor(city.slug)!} />
+        {/* Madde 82-83/146-154 — "bu şehir neyle ünlü" paragrafı artık
+            translateCityCurated pipeline'ının bir parçası (kalıcı, otomatik);
+            getTranslatedKnownFor sadece gerçekten çevrilmişse metin döner,
+            yoksa undefined — ham Türkçe başka bir locale'de yanlışlıkla
+            gösterilmez. */}
+        {knownForText && (
+          <KnownForSection title={dict.city.knownForTitle} text={knownForText} />
         )}
 
         <div className="mb-16 grid grid-cols-1 gap-8 lg:grid-cols-3">

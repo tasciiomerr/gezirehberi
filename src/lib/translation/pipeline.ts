@@ -2,6 +2,7 @@ import { getCached, loadCache, saveCache, setCached } from "./cache";
 import { deeplProvider } from "./providers/deepl";
 import { googleTranslateProvider } from "./providers/googleTranslate";
 import type { TranslationProvider, TranslationTargetLocale } from "./types";
+import { getCityKnownFor } from "@/lib/data/knownFor";
 
 // Provider routing decided in report follow-up (Faz 9a): DeepL covers EN/DE/RU,
 // Google Cloud Translation covers AR (DeepL has no Arabic support).
@@ -164,6 +165,16 @@ export async function translateCityCurated(
 ): Promise<TranslationRunSummary | null> {
   const texts: string[] = collectFieldTexts(city, CURATED_CITY_TEXT_FIELDS);
 
+  // "Bu şehir neyle ünlü" paragrafı (src/lib/data/knownFor.ts) City objesinin
+  // kendi bir alanı değil, ayrı bir overlay — slug üzerinden kalıcı olarak
+  // bu pipeline'a dahil ediliyor, böylece her yeni çeviri turunda otomatik
+  // çevrilir, ayrı bir manuel adım gerekmez.
+  const slug = city.slug;
+  if (typeof slug === "string") {
+    const knownFor = getCityKnownFor(slug);
+    if (knownFor) texts.push(knownFor);
+  }
+
   const itemLists = [
     (city.attractions as Record<string, unknown>[]) || [],
     (city.restaurants as Record<string, unknown>[]) || [],
@@ -184,6 +195,22 @@ export async function translateCityCurated(
 
   const result = await translateTexts(uniqueTexts, target);
   return result ? result.summary : null;
+}
+
+// Render-time helper (cache reads only) for the "Bu şehir neyle ünlü"
+// paragrafı. TR için her zaman doğrudan döner. Diğer locale'ler için sadece
+// GERÇEKTEN çevrilmişse (cache'te varsa) metni döner — henüz çevrilmemiş bir
+// şehirde undefined döner ve çağıran taraf bloğu hiç render etmez, ham
+// Türkçe metni yanlışlıkla başka bir locale altında göstermez.
+export async function getTranslatedKnownFor(
+  citySlug: string,
+  locale: TranslationTargetLocale | "tr"
+): Promise<string | undefined> {
+  const trText = getCityKnownFor(citySlug);
+  if (!trText) return undefined;
+  if (locale === "tr") return trText;
+  const cache = await loadCache(locale);
+  return getCached(cache, trText);
 }
 
 // Render-time helper (cache reads only, never calls a translation API): returns
