@@ -29,7 +29,15 @@ export const googleTranslateProvider: TranslationProvider = {
         q: texts,
         source: "tr",
         target: GOOGLE_TARGET_CODE[target],
-        format: "html",
+        // Bulgu: "html" formatı içerik gerçek HTML olmadığı halde Google'ın
+        // çıktıyı HTML entity'leriyle kaçırmasına yol açar (örn. Türkçe
+        // kesme işareti "İstanbul'un" -> "&#39;" gibi) — bu metin doğrudan
+        // React string içeriği olarak render ediliyor (dangerouslySetInnerHTML
+        // değil), entity'ler çözülmeden ekranda ham görünürdü. DeepL'in
+        // "html" tag_handling'i farklı davranır (gerçek etiketleri korur,
+        // düz metni entity'lemez) — bu yüzden iki sağlayıcı arasında bire
+        // bir eşleştirme yanlıştı. "text" doğru seçenek.
+        format: "text",
       }),
     });
 
