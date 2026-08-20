@@ -11,6 +11,7 @@ import { REGION_IMAGES } from "@/lib/cityImages";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import KnownForSection from "@/components/KnownForSection";
 import { getRegionCulture } from "@/lib/data/regionCulture";
+import AdSlot from "@/components/AdSlot";
 
 export async function generateMetadata(props: { params: Promise<{ region: string; locale: string }> }) {
   const params = await props.params;
@@ -193,6 +194,8 @@ export default async function RegionPage(props: {
             {noCitiesText}
           </p>
         )}
+
+        <AdSlot />
 
         {/* Madde 84 — RelatedCities şehir sayfasına özgü (yakınlık +
             aynı-bölge mantığı bir bölge sayfasına uymuyor); bölge

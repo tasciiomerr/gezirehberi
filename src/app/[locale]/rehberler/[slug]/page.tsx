@@ -4,6 +4,7 @@ import { ArrowLeft, MapPin } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText, getDictionary, SITE_URL } from "@/lib/i18n";
 import { getAllGuides, getGuideBySlug } from "@/lib/data/guides";
 import { allCities } from "@/lib/data/cities";
+import AdSlot from "@/components/AdSlot";
 
 export async function generateStaticParams() {
   // Empty until real guides exist — no fake slugs to prerender.
@@ -81,6 +82,8 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
       <h1 className="font-display text-3xl italic text-ink sm:text-4xl mb-4">{guide.title}</h1>
       <p className="text-base text-ink/65 mb-8">{guide.summary}</p>
       <div className="prose prose-sm max-w-none text-ink/80 leading-relaxed whitespace-pre-line">{guide.body}</div>
+
+      <AdSlot />
 
       {relatedCities.length > 0 && (
         <div className="mt-12 border-t border-ink/10 pt-8">

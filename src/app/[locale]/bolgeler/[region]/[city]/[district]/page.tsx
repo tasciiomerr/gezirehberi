@@ -12,6 +12,7 @@ import CommunityRoutes from "@/components/CommunityRoutes";
 import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
 import { getConfusablePlaces } from "@/lib/data/confusablePlaces";
+import AdSlot from "@/components/AdSlot";
 
 import { getCity } from "@/lib/data/cities";
 import { getDistrict, getAllDistrictSlugs } from "@/lib/data/districts";
@@ -310,6 +311,8 @@ export default async function DistrictDetailPage(props: {
         <div className="mt-8 mb-16">
           <ContentAccuracyFeedback citySlug={district.slug} locale={locale} />
         </div>
+
+        <AdSlot />
 
         {/* Dynamic FAQ block with JSON-LD schema */}
         <FAQSection
