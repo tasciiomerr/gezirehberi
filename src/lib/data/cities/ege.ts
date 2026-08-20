@@ -1259,4 +1259,113 @@ export const egeCities: City[] = [
     tags: ["Marina", "Gece Hayatı", "Antik Kent", "Koylar"],
     highlights: ["Bodrum Kalesi", "Gümüşlük Koyu", "Halikarnas Mozolesi", "Yalıkavak Marina"],
   },
+  // Bulgu (madde 285 takibi): Marmaris'in daha önce ne bağımsız bir City
+  // kaydı ne de başka bir şehrin attraction listesinde bir yeri vardı —
+  // Parti 3'te sayfası bu yüzden tamamen kaldırılmıştı (bkz. districts.ts).
+  // Burada gerçek, doğrulanabilir tarihi/coğrafi bilgilerle (Kanuni Sultan
+  // Süleyman döneminde 1522'de inşa edilen kale, Netsel Marina, Kızkumu)
+  // yeniden ekleniyor. Bodrum/Fethiye/Kaş gibi kendi başına bir City —
+  // Muğla'nın Ege/Akdeniz arası konumunda, yaygın turizm sınıflandırmasında
+  // genelde Ege kapsamında anılır (Bodrum ile aynı bölge ataması).
+  // Restoran/konaklama/yerel yemek alanları KASITLI OLARAK boş bırakıldı —
+  // belirli bir işletme adı/fiyatı doğrulayamadığım için uydurmak yerine
+  // dürüst bir boş durum (madde 34/167 disiplini). Bütçe rakamları,
+  // komşu ve karşılaştırılabilir Ege/Akdeniz tatil beldelerinin (Bodrum,
+  // Fethiye) mevcut curated rakamlarıyla aynı büyüklük mertebesinde,
+  // editoryal bir tahmindir — bağımsız doğrulanmış bir kaynağa dayanmaz.
+  {
+    slug: "marmaris",
+    regionSlug: "ege",
+    name: "Marmaris",
+    title: "Marmaris Gezi Rehberi — Çam Ormanları ve Marina",
+    summary:
+      "Çam ormanlarının denize indiği koyları, Netsel Marina'sı ve Kanuni döneminden kalma kalesiyle Muğla'nın hareketli tatil beldesi",
+    longDescription:
+      "Marmaris, çam kaplı tepelerin denizle buluştuğu doğal koyları, yat turizminin merkezi Netsel Marina'sı ve 1522'de Kanuni Sultan Süleyman döneminde inşa edilen tarihi kalesiyle Muğla kıyısının en tanınmış tatil beldelerinden biridir. Mavi Yolculuk (gulet) turlarının önemli bir başlangıç noktası olarak da bilinir.",
+    heroTagline: "Çam ormanları ve marina arasında bir koy kasabası",
+    heroImage: "/images/marmaris-hero.jpg",
+    location: { lat: 36.855, lng: 28.2741 },
+    region: "Ege",
+    howToGetThere:
+      "En yakın havalimanı Dalaman (yaklaşık 100 km), oradan karayoluyla ulaşım sağlanır. Muğla merkezden de düzenli otobüs seferleri mevcuttur.",
+    howToArrive: {
+      byAir: "Dalaman Havalimanı'na iniş, oradan transfer",
+      byBus: "Muğla ve Fethiye üzerinden düzenli otobüs/minibüs seferleri",
+      byCar: "D400 sahil yolu üzerinden Fethiye ve Bodrum'a bağlantılı",
+    },
+    whenToGo: "Mayıs-Ekim deniz mevsimi için ideal, Haziran-Eylül en sıcak ve kalabalık dönem",
+    climate: "Akdeniz iklimi, yazları sıcak ve kurak, kışları ılıman ve yağışlı",
+    whereToStay: "Merkez ve marina çevresinde çeşitli konaklama seçenekleri, İçmeler tarafında sahil oteller",
+    budget: "Günlük tahmini 1.200-2.400 TL/kişi (orta segment konaklama, 3 öğün, aktiviteler dahil)",
+    budgetBreakdown: {
+      accommodation: "600-1.200 TL (orta segment)",
+      food: "200-350 TL/gün",
+      activities: "300-700 TL (tekne turu, aktiviteler)",
+      transport: "60-120 TL/gün",
+    },
+    transportation: "Merkez yaya dostu, çevre koylara ve İçmeler'e dolmuş/taksi ile ulaşım",
+    bestDuration: "2-3 gün ideal, tekne turlarıyla birlikte 4-5 gün",
+    attractions: [
+      {
+        id: "marmaris-kalesi",
+        name: "Marmaris Kalesi",
+        category: "historical",
+        description: "Kanuni Sultan Süleyman döneminde 1522'de inşa edilen, bugün müze olarak kullanılan tarihi kale",
+        longDescription:
+          "Osmanlı donanmasının Rodos seferi hazırlıkları sırasında inşa edilen kale, günümüzde arkeoloji ve etnografya eserlerinin sergilendiği bir müzeye ev sahipliği yapmaktadır.",
+        images: [],
+        location: { lat: 36.8558, lng: 28.2736 },
+        address: "Marmaris Merkez",
+        openingHours: "Mevsime göre değişir",
+        entranceFee: "Müzekart geçerli",
+        duration: "45 dakika - 1 saat",
+        bestTime: "Sabah erken",
+        importance: "must-see",
+        tips: ["Merkeze yürüme mesafesindedir"],
+        accessibility: "Kısmen erişilebilir, taş zemin",
+      },
+      {
+        id: "marmaris-netsel-marina",
+        name: "Netsel Marina",
+        category: "activity",
+        description: "Yat turizminin merkezi, kafe ve dükkanlarla çevrili tarihi limana bitişik marina",
+        longDescription:
+          "Türkiye'nin bilinen büyük marinalarından biri olan Netsel Marina, Mavi Yolculuk teknelerinin ve yatların bağlandığı, yürüyüş için de tercih edilen bir bölgedir.",
+        images: [],
+        location: { lat: 36.8534, lng: 28.2712 },
+        address: "Marmaris Merkez",
+        openingHours: "24 saat açık (dış alan)",
+        entranceFee: "Ücretsiz",
+        duration: "1-2 saat",
+        bestTime: "Akşamüstü",
+        importance: "should-see",
+        tips: ["Gün batımında yürüyüş için idealdir"],
+        accessibility: "Düz zemin, erişilebilir",
+      },
+      {
+        id: "marmaris-kizkumu",
+        name: "Kızkumu",
+        category: "nature",
+        description: "Turunç yakınında, denizin ortasında uzanan doğal kum settir",
+        longDescription:
+          "İki koyu birbirinden ayıran, deniz seviyesinin altında kalan doğal bir kum seti olan Kızkumu, tekne turlarının uğrak noktalarından biridir.",
+        images: [],
+        location: { lat: 36.7967, lng: 28.2444 },
+        address: "Turunç, Marmaris",
+        openingHours: "Tekne turu saatlerine bağlı",
+        entranceFee: "Ücretsiz",
+        duration: "1-2 saat",
+        bestTime: "Öğleden sonra",
+        importance: "should-see",
+        tips: ["Genellikle tekne turlarına dahildir, karadan ulaşım kısıtlıdır"],
+        accessibility: "Deniz üzerinden erişim",
+      },
+    ],
+    restaurants: [],
+    accommodations: [],
+    localFood: [],
+    itineraries: [],
+    tags: ["Marina", "Koylar", "Mavi Yolculuk", "Kale"],
+    highlights: ["Marmaris Kalesi", "Netsel Marina", "Kızkumu"],
+  },
 ];

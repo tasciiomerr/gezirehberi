@@ -30,6 +30,10 @@ export const CITY_IMAGES: Record<string, string> = {
   goreme: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Goreme-Open-Air-Museum1.jpg/960px-Goreme-Open-Air-Museum1.jpg",
   bozcaada: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Bozcaada%2C_%C3%87anakkale_Province.jpg/960px-Bozcaada%2C_%C3%87anakkale_Province.jpg",
   gokceada: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Panorama_of_Tepekoy_Village_-_Gokceada_Island_-_Turkey_%285741101490%29.jpg/960px-Panorama_of_Tepekoy_Village_-_Gokceada_Island_-_Turkey_%285741101490%29.jpg",
+  // Marmaris (madde 285 takibi, Faz 3): şehir Parti 3'te kaldırılmıştı, bu
+  // görsel de o zaman kaldırılmıştı — sayfa yeniden eklenince gerçek,
+  // çalışan (curl ile doğrulanmış) bir görsel geri eklendi.
+  marmaris: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Marmaris%2C_Netsel_Marina_-_panoramio_%282%29.jpg/960px-Marmaris%2C_Netsel_Marina_-_panoramio_%282%29.jpg",
   uzungol: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Trabzon_Uzung%C3%B6l_-_Long_Lake_of_Trabzon.jpg/960px-Trabzon_Uzung%C3%B6l_-_Long_Lake_of_Trabzon.jpg",
   adana: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Varda_Demiryolu_Koprusu.jpg/960px-Varda_Demiryolu_Koprusu.jpg",
   adiyaman: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/AdiyamanUhrturm.jpg/960px-AdiyamanUhrturm.jpg",
