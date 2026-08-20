@@ -298,6 +298,198 @@ Konaklama hariç günlük yaklaşık 350-650 TL; bir gece konaklamayla toplam b�
   }
 );
 
+// Madde 83 — liste formatında 5 yeni makale. Hedef kitle (Rusya/Almanya/
+// İngiltere/İran'dan gelen ziyaretçiler) göz önünde bulundurularak konu
+// seçildi: sahil kasabaları (İngiltere/Rusya paket turizmi), Karadeniz'in
+// yeşil/serin iklimi (İran'dan gelen ziyaretçiler arasında bilinen bir
+// tercih nedeni — sıcak iklimden kaçış), UNESCO listesi (milliyet-bağımsız,
+// saf gerçek), doğa yürüyüşü (Almanya'nın güçlü trekking kültürü), balon
+// turu/manzara (görsel çekicilik, tüm kitlelerde ortak). Her madde bu
+// oturumda zaten doğrulanmış/curate edilmiş gerçek yerlerden derlendi —
+// yeni bir gerçek uydurulmadı. relatedCitySlugs sadece GERÇEK, bağımsız
+// City kaydı olan yerlere işaret ediyor (ilçe-only yerler metinde
+// anılabilir ama linklenebilir olmadığı için relatedCitySlugs'a alınmadı).
+guides.push(
+  {
+    slug: "turkiyede-en-iyi-10-sahil-kasabasi",
+    title: "Türkiye'de Gezilecek En İyi 10 Sahil Kasabası",
+    summary:
+      "Ege ve Akdeniz kıyısından Karadeniz'e, Türkiye'nin en sevilen 10 sahil kasabası — kale, koy, marina ve balıkçı limanlarıyla.",
+    publishedAt: "2026-08-18",
+    relatedCitySlugs: ["amasra", "kas", "bodrum", "fethiye", "marmaris", "cesme", "canakkale"],
+    body: `Türkiye'nin kıyı şeridi boyunca, her biri kendine özgü bir karaktere sahip onlarca sahil kasabası bulunur. İşte en çok tercih edilenlerden 10 tanesi.
+
+1. AMASRA (KARADENİZ)
+İki koyu ayıran bir kale yarımadası üzerine kurulu, balıkçı tekneleriyle dolu sakin bir Karadeniz kasabası.
+
+2. KAŞ (AKDENİZ)
+Berrak sularıyla dalış tutkunlarının favorisi, antik Likya kalıntılarına ve kayaya oyulmuş mezarlara ev sahipliği yapıyor.
+
+3. BODRUM (EGE)
+Antik Halikarnassos, Dünyanın Yedi Harikası'ndan Halikarnas Mozolesi'ne ev sahipliği yapmıştı; bugün beyaz badanalı mimarisi ve marinasıyla tanınıyor.
+
+4. FETHİYE (AKDENİZ)
+Ölüdeniz'in mavi lagünü ve Babadağ'dan yamaç paraşütüyle bilinir; Likya Yolu yürüyüş rotası buradan başlar.
+
+5. MARMARİS (EGE)
+Çam ormanlarının denizle buluştuğu koyları ve Netsel Marina'sıyla, Mavi Yolculuk (gulet) turlarının önemli bir başlangıç noktası.
+
+6. ÇEŞME (EGE)
+Alaçatı'nın taş sokakları ve dünya çapında tanınan rüzgar sörfü rüzgarlarıyla ünlü.
+
+7. AYVALIK VE CUNDA ADASI (EGE)
+Zeytin bahçeleri ve tarihi Rum mimarisiyle bilinen, Balıkesir'e bağlı şirin bir kıyı beldesi.
+
+8. ÇANAKKALE (MARMARA)
+Antik Truva kentine ve I. Dünya Savaşı'nın Gelibolu cephesine ev sahipliği yapan, Dardanel Boğazı kıyısındaki tarihi kent.
+
+9. BOZCAADA (ÇANAKKALE)
+Kuzey Ege'de, tarihi Venedik kalesi ve üzüm bağlarıyla bilinen sakin bir ada kasabası.
+
+10. ALANYA (AKDENİZ)
+Selçuklu dönemine ait kalesi, Kızıl Kule'si ve altın kumlu Kleopatra Plajı'yla Akdeniz'in büyük tatil merkezlerinden biri.
+
+Bu kasabaların çoğunda konaklama, ulaşım ve gezilecek yer bilgilerini sitemizin ilgili şehir sayfalarında bulabilirsiniz.`,
+  },
+  {
+    slug: "karadenizde-en-yesil-10-yer",
+    title: "Türkiye'nin Karadeniz Kıyısında Gezilecek En Yeşil 10 Yer",
+    summary:
+      "Sıcak iklimden kaçıp serin, yeşil bir doğa deneyimi arayanlar için Karadeniz Bölgesi'nin en bilinen yayla ve doğa noktaları.",
+    publishedAt: "2026-08-18",
+    relatedCitySlugs: ["trabzon", "rize", "artvin", "giresun", "ordu", "amasra", "sinop"],
+    body: `Türkiye'nin Karadeniz kıyısı, yoğun yağış alan iklimi sayesinde ülkenin en yeşil ve serin bölgesidir — özellikle sıcak ve kurak bir iklimden gelenler için belirgin bir kontrast sunar.
+
+1. UZUNGÖL (TRABZON)
+Dağların arasına sıkışmış, sisli ve yeşil bir göl manzarasıyla bölgenin en tanınmış doğa noktalarından biri.
+
+2. AYDER YAYLASI (RİZE)
+Kaçkar Dağları'nın eteğinde, kaplıcaları ve yayla evleriyle bilinen bir yükseklik turizmi merkezi. Rize ili genelinde uzanan çay bahçeleri de bölgenin karakteristik yeşil dokusunu oluşturur.
+
+3. KAÇKAR DAĞLARI VE KARAGÖL (ARTVİN)
+Derin vadileri, Karagöl Milli Parkı ve el değmemiş yaylalarıyla Türkiye'nin en yeşil illerinden biri.
+
+4. GİRESUN ADASI VE FINDIK BAHÇELERİ (GİRESUN)
+Türkiye'nin fındık üretiminin kalbi olan bölge, yemyeşil tepeleriyle de tanınır.
+
+5. BOZTEPE (ORDU)
+Teleferikle çıkılan, kente ve fındık bahçelerine tepeden bakan panoramik bir seyir noktası.
+
+6. AMASRA VE KIYI ORMANLARI (BARTIN)
+Sahil ile orman dokusunun iç içe geçtiği, sakin bir Batı Karadeniz kasabası.
+
+7. SİNOP YARIMADASI
+Türkiye'nin en kuzey noktasında, koyları ve yeşil doğasıyla bilinen bir yarımada kenti.
+
+8. EFTENİ GÖLÜ (DÜZCE)
+Göçmen kuşların konakladığı, sulak alan ekosistemine sahip bir doğa gözlem noktası.
+
+9. MUNZUR VADİSİ MİLLİ PARKI (TUNCELİ)
+Karadeniz'in değil Doğu Anadolu'nun bir parçası olsa da, benzer şekilde yoğun yeşil doku ve akarsu vadileriyle bilinir.
+
+10. KÜRE DAĞLARI MİLLİ PARKI (KASTAMONU)
+El değmemiş orman örtüsüyle bilinen, Batı Karadeniz'in doğa turizmi noktalarından biri.
+
+Bu bölgeyi ziyaret etmeyi planlıyorsanız, yoğun yağış alan bir iklim olduğu için yanınıza yağmurluk almanız faydalı olacaktır.`,
+  },
+  {
+    slug: "turkiyede-unesco-dunya-mirasi-yerleri",
+    title: "Türkiye'de UNESCO Dünya Mirası Listesindeki Yerler",
+    summary:
+      "Türkiye'de UNESCO Dünya Mirası Listesi'ne kayıtlı, tarihi ve doğal açıdan evrensel değere sahip başlıca yerler.",
+    publishedAt: "2026-08-18",
+    relatedCitySlugs: ["safranbolu", "canakkale", "kapadokya", "denizli", "kars", "diyarbakir", "adiyaman", "sanliurfa", "malatya", "istanbul"],
+    body: `UNESCO Dünya Mirası Listesi, evrensel değere sahip kültürel ve doğal alanları tanımlar. Türkiye, bu listede çok sayıda yerle temsil edilir — işte bilinen başlıcaları.
+
+SAFRANBOLU (1994)
+İyi korunmuş Osmanlı dönemi sivil mimarisi — ahşap konaklar ve tarihi çarşı dokusuyla.
+
+TRUVA ANTİK KENTİ, ÇANAKKALE (1998)
+Homeros'un İlyada'sına konu olan, dokuz farklı yerleşim katmanına sahip antik kent.
+
+GÖREME MİLLİ PARKI VE KAPADOKYA KAYA SİTLERİ (1985)
+Peri bacaları, kaya oyma kiliseler ve yeraltı şehirleriyle bilinen benzersiz bir jeolojik ve tarihi alan.
+
+HİERAPOLİS-PAMUKKALE, DENİZLİ (1988)
+Beyaz traverten terasları ve üzerindeki Roma dönemi kaplıca kenti Hierapolis'in kalıntıları.
+
+ANİ ARKEOLOJİK ALANI, KARS (2016)
+Orta Çağ'da önemli bir Ermeni krallık başkenti olan, günümüzde harabe halindeki tarihi kent.
+
+DİYARBAKIR SURLARI VE HEVSEL BAHÇELERİ (2015)
+Dünyanın en uzun ve iyi korunmuş şehir surlarından biri, Dicle Nehri kıyısındaki tarihi bahçelerle birlikte.
+
+NEMRUT DAĞI, ADIYAMAN (1987)
+Kommagene Kralı I. Antiokhos'un anıt-mezarındaki dev taş heykel başlarıyla bilinen ikonik arkeolojik alan.
+
+GÖBEKLİTEPE, ŞANLIURFA (2018)
+Bilinen en eski anıtsal tapınak komplekslerinden biri, insanlık tarihinin en eski yerleşim izlerini taşır.
+
+ARSLANTEPE HÖYÜĞÜ, MALATYA (2021)
+Erken devlet organizasyonuna dair önemli arkeolojik buluntularıyla bilinen bir höyük.
+
+İSTANBUL'UN TARİHİ ALANLARI (1985)
+Sultanahmet bölgesindeki Ayasofya, Topkapı Sarayı ve çevresindeki tarihi doku dahil olmak üzere kentin çok katmanlı mirası.
+
+Bu listedeki her alan, ülke çapında farklı bölgelere dağılmış durumda — bir gezi planı yaparken birkaçını aynı bölge içinde birleştirmek mümkün (örn. Kapadokya ve çevresi, ya da Güneydoğu Anadolu'daki Diyarbakır-Nemrut-Göbeklitepe üçgeni).`,
+  },
+  {
+    slug: "turkiyede-doga-yuruyusu-icin-en-iyi-bolgeler",
+    title: "Türkiye'de Doğa Yürüyüşü ve Trekking İçin En İyi Bölgeler",
+    summary:
+      "Likya Yolu'ndan Kaçkar Dağları'na, Türkiye'de doğa yürüyüşü ve trekking için bilinen başlıca rotalar ve bölgeler.",
+    publishedAt: "2026-08-18",
+    relatedCitySlugs: ["kas", "fethiye", "rize", "artvin", "aksaray", "tunceli", "antalya"],
+    body: `Türkiye, farklı zorluk seviyelerinde uzun mesafe yürüyüş rotalarına ve doğal güzelliklere sahip birçok bölge sunar.
+
+LİKYA YOLU (FETHİYE - ANTALYA)
+Türkiye'nin en bilinen uzun mesafe yürüyüş rotalarından biri; antik Likya uygarlığının kalıntıları boyunca Akdeniz kıyısını takip eder, Fethiye'den başlar.
+
+KAÇKAR DAĞLARI (RİZE - ARTVİN)
+Yüksek dağ gölleri, yaylalar ve zengin bitki örtüsüyle bilinen, daha zorlu rotalar arayan yürüyüşçüler için popüler bir dağ silsilesi.
+
+IHLARA VADİSİ (AKSARAY)
+Kanyonun tabanında ilerleyen, kayaya oyulmuş kiliselerin eşlik ettiği daha kolay ve erişilebilir bir vadi yürüyüşü.
+
+MUNZUR VADİSİ MİLLİ PARKI (TUNCELİ)
+Akarsu vadileri ve zengin doğasıyla bilinen, daha az bilinen ama etkileyici bir doğa yürüyüşü alanı.
+
+KAPADOKYA VADİLERİ (NEVŞEHİR)
+Kızıl Vadi, Güvercinlik Vadisi gibi rotalarda peri bacaları arasında yürüyüş yapma imkanı sunar; genellikle gün batımı manzarasıyla birleştirilir.
+
+TOROS DAĞLARI (ANTALYA VE ISPARTA ÇEVRESİ)
+Akdeniz kıyı şeridinin hemen arkasında yükselen dağ silsilesi, hem kısa hem uzun rotalar için çeşitli seçenekler barındırır.
+
+Yürüyüş rotalarına çıkmadan önce mevsim koşullarını (özellikle yüksek rakımlı rotalarda kar/erime dönemleri) ve güncel yol durumunu yerel kaynaklardan teyit etmenizi öneririz.`,
+  },
+  {
+    slug: "balon-turu-ve-nefes-kesen-manzaralar",
+    title: "Türkiye'de Balon Turu ve Nefes Kesen Manzaralar İçin En İyi Yerler",
+    summary:
+      "Sıcak hava balonu turlarından gün doğumu manzaralarına, Türkiye'nin en etkileyici görsel deneyimlerini sunan yerler.",
+    publishedAt: "2026-08-18",
+    relatedCitySlugs: ["kapadokya", "adiyaman", "trabzon", "denizli", "rize"],
+    body: `Türkiye, sıcak hava balonu turlarından doğal terasların ve dağ zirvelerinin sunduğu manzaralara kadar birçok görsel açıdan etkileyici deneyim sunar.
+
+KAPADOKYA'DA SICAK HAVA BALONU TURU (NEVŞEHİR)
+Türkiye'nin en tanınmış balon turu rotası — gün doğumunda yüzlerce rengarenk balonun peri bacaları üzerinde süzülmesi dünya çapında bilinen bir manzaradır.
+
+NEMRUT DAĞI'NDA GÜN DOĞUMU (ADIYAMAN)
+Dev taş heykel başlarının siluetleri eşliğinde izlenen gün doğumu, bölgenin en bilinen deneyimlerinden biri.
+
+SÜMELA MANASTIRI (TRABZON)
+Bir kayalığın dik yamacına inşa edilmiş Rum Ortodoks manastırı, hem mimarisi hem konumuyla etkileyici bir manzara sunar.
+
+PAMUKKALE'NİN BEYAZ TRAVERTENLERİ (DENİZLİ)
+Pamuk gibi beyaz kalsiyum teraslarının güneş ışığıyla aldığı görünüm, dünya çapında tanınan bir doğa manzarasıdır.
+
+AYDER YAYLASI VE KAÇKAR DAĞLARI (RİZE)
+Sisli dağ manzaraları ve yeşil yaylalarıyla, özellikle bulutların vadiler arasında süzüldüğü anlarda etkileyici bir görsel deneyim sunar.
+
+Bu deneyimlerin çoğu mevsime ve hava koşullarına bağlıdır — özellikle balon turları rüzgar nedeniyle sık sık iptal edilebilir, bu yüzden esnek bir seyahat planı yapmanız önerilir.`,
+  }
+);
+
 export function getAllGuides(): GuideArticle[] {
   return [...guides].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
 }
