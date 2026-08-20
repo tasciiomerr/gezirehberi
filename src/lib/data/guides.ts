@@ -305,3 +305,10 @@ export function getAllGuides(): GuideArticle[] {
 export function getGuideBySlug(slug: string): GuideArticle | undefined {
   return guides.find((g) => g.slug === slug);
 }
+
+// Madde 84 — relatedCitySlugs'ın ters yönü: bir şehir sayfasından, o şehri
+// referans alan rehber makalelerine link vermek için (rehberden şehre link
+// zaten madde 85'te eklendi, bu onun karşı yönü).
+export function getGuidesForCity(citySlug: string): GuideArticle[] {
+  return guides.filter((g) => g.relatedCitySlugs?.includes(citySlug));
+}

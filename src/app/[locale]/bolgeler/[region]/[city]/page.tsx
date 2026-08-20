@@ -28,6 +28,8 @@ import BudgetTierTable from "@/components/BudgetTierTable";
 import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 import { getPlacesForCity } from "@/lib/places";
 import { getTranslatedCity, cityHasTranslation, getTranslatedKnownFor } from "@/lib/translation/pipeline";
+import { getGuidesForCity } from "@/lib/data/guides";
+import { BookOpen } from "lucide-react";
 
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
@@ -116,6 +118,7 @@ export default async function CityDetailPage(props: {
   // Turkish text untouched, same as before this pipeline existed.
   const city = await getTranslatedCity(rawCity, locale);
   const knownForText = await getTranslatedKnownFor(city.slug, locale);
+  const relatedGuides = getGuidesForCity(city.slug);
 
   // Server-rendered first page of the default (attractions/popularity) list, so the
   // initial HTML already contains real results instead of the client-only empty state.
@@ -437,6 +440,35 @@ export default async function CityDetailPage(props: {
         <FilmLocationsSection locations={city.filmLocations} cityName={city.name} locale={locale} />
 
         <RelatedCities currentCity={rawCity} allCities={allCities} locale={locale} />
+
+        {/* Madde 84 — rehber makalelerinden şehre link (85'te eklendi) ile
+            simetrik: şehirden, o şehri referans alan rehber makalelerine
+            link. Sadece relatedCitySlugs'ta gerçekten bu şehir işaretliyse
+            görünür (şu an 3 makale) — boşsa hiç render edilmez. */}
+        {relatedGuides.length > 0 && (
+          <div className="mt-16 border-t border-ink/10 pt-16 no-print">
+            <h3 className="font-display text-2xl italic text-ink mb-5">
+              {locale === "tr" ? "İlgili Rehberler" : "Related Guides"}
+            </h3>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {relatedGuides.map((guide) => (
+                <Link
+                  key={guide.slug}
+                  href={`/${locale}/rehberler/${guide.slug}`}
+                  className="group flex items-start gap-3 rounded-xl border border-ink/8 bg-paper p-4 shadow-sm hover:border-kiremit/40 transition-colors"
+                >
+                  <BookOpen size={18} className="mt-0.5 shrink-0 text-kiremit" />
+                  <span>
+                    <span className="block text-sm font-bold text-ink group-hover:text-kiremit transition-colors">
+                      {guide.title}
+                    </span>
+                    <span className="block text-xs text-ink/65 mt-0.5 line-clamp-2">{guide.summary}</span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Dynamic local foods summary for SSS / FAQ page */}
         <FAQSection

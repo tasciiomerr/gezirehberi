@@ -193,6 +193,30 @@ export default async function RegionPage(props: {
             {noCitiesText}
           </p>
         )}
+
+        {/* Madde 84 — RelatedCities şehir sayfasına özgü (yakınlık +
+            aynı-bölge mantığı bir bölge sayfasına uymuyor); bölge
+            seviyesindeki karşılığı diğer 6 bölgeye link vermek. */}
+        <div className="mt-16 border-t border-ink/10 pt-16 no-print">
+          <h3 className="font-display text-2xl italic text-ink mb-5">
+            {locale === "tr" ? "Diğer Bölgeler" : "Other Regions"}
+          </h3>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {regions
+              .filter((r) => r.slug !== region.slug)
+              .map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/${locale}/bolgeler/${r.slug}`}
+                  className="group rounded-xl border border-ink/8 bg-paper p-3 text-center shadow-sm hover:border-kiremit/40 transition-colors"
+                >
+                  <span className="block text-sm font-bold text-ink group-hover:text-kiremit transition-colors">
+                    {translateDataText(r.name, locale)}
+                  </span>
+                </Link>
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );
