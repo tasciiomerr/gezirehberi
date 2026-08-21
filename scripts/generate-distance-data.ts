@@ -11,7 +11,7 @@
 // MAPBOX_ACCESS_TOKEN .env.local'den okunur (gerçek, çalışan bir token
 // gerekiyor — sahte/tahmini veri üretilmiyor, API başarısız olursa script
 // o çifti atlar ve hangi çiftin eksik kaldığını raporlar).
-import { writeFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { allCities } from "../src/lib/data/cities";
 import { distancePairs, distancePairSlug } from "../src/lib/data/distancePairs";
@@ -68,10 +68,23 @@ async function main() {
     process.exit(1);
   }
 
-  const cache: Record<string, DistanceCacheEntry> = {};
-  const missing: string[] = [];
+  // Zaten cache'lenmiş çiftleri atla — genişletme senaryosunda (madde 150/312)
+  // sadece yeni eklenen çiftler için gerçek Mapbox isteği yapılıyor, mevcut
+  // 50 çiftin verisi tekrar çekilip boşa API çağrısı harcanmıyor.
+  let cache: Record<string, DistanceCacheEntry> = {};
+  try {
+    const existingRaw = await readFile(CACHE_PATH, "utf-8");
+    cache = JSON.parse(existingRaw);
+    console.log(`Mevcut cache'te ${Object.keys(cache).length} çift bulundu, sadece eksikler çekilecek.\n`);
+  } catch {
+    // Cache dosyası yok — ilk çalıştırma, sıfırdan başlanıyor.
+  }
 
-  for (const pair of distancePairs) {
+  const missing: string[] = [];
+  const toFetch = distancePairs.filter((pair) => !cache[distancePairSlug(pair)]);
+  console.log(`Çekilecek yeni çift sayısı: ${toFetch.length}\n`);
+
+  for (const pair of toFetch) {
     const slug = distancePairSlug(pair);
     const cityA = allCities.find((c) => c.slug === pair.cityA);
     const cityB = allCities.find((c) => c.slug === pair.cityB);
@@ -94,13 +107,13 @@ async function main() {
       console.error(`  Hata: ${err?.message || err}`);
       missing.push(slug);
     }
-    // Mapbox rate limit'e nazik davran.
-    await new Promise((r) => setTimeout(r, 200));
+    // Mapbox rate limit'e nazik davran — 100 yeni istekte art arda gitmemek için.
+    await new Promise((r) => setTimeout(r, 350));
   }
 
   await writeFile(CACHE_PATH, JSON.stringify(cache, null, 2) + "\n", "utf-8");
   console.log(`\nYazıldı: ${CACHE_PATH}`);
-  console.log(`Başarılı: ${Object.keys(cache).length}/${distancePairs.length}`);
+  console.log(`Toplam cache: ${Object.keys(cache).length}/${distancePairs.length}`);
   if (missing.length > 0) {
     console.log(`Eksik kalan çiftler (${missing.length}): ${missing.join(", ")}`);
   }

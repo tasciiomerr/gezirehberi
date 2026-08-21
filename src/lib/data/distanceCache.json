@@ -1008,5 +1008,1521 @@
       "Bitlis-Tatvan yolu",
       "Şabaniye Caddesi"
     ]
+  },
+  "ankara-istanbul": {
+    "distanceKm": 454.3,
+    "durationMin": 309,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "İstanbul Caddesi",
+      "Fatih Sultan Mehmet Bulvarı",
+      "Kuzey Marmara Otoyolu",
+      "Viyadük-34",
+      "2. Çevre Yolu",
+      "K-11 Kozyatağı Köprülü Kavşağı",
+      "Eski D-100 Karayolu",
+      "Koşuyolu Köprüsü",
+      "Avrasya Tüneli",
+      "Kennedy Caddesi",
+      "Aksakal Sokağı",
+      "Küçük Ayasofya Caddesi",
+      "Torun Sokağı",
+      "Mimar Mehmet Ağa Caddesi",
+      "Akbıyık Caddesi",
+      "İshakpaşa Caddesi",
+      "Kutlugün Sokağı",
+      "Tevkifhane Sokağı"
+    ]
+  },
+  "ankara-kapadokya": {
+    "distanceKm": 298.8,
+    "durationMin": 191,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "Denizciler Caddesi",
+      "Talatpaşa Bulvarı",
+      "Hipodrom Caddesi",
+      "Dögol Caddesi",
+      "Mevlana Bulvarı",
+      "Ankara Çevre Yolu",
+      "Ankara Çevre Yolu Güney Kavşağı",
+      "Alayhan Kavşağı",
+      "Aksaray - Nevşehir Yolu",
+      "Uçhisar-Nevşehir yolu",
+      "Belediye Caddesi"
+    ]
+  },
+  "ankara-konya": {
+    "distanceKm": 270.4,
+    "durationMin": 198,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "Denizciler Caddesi",
+      "Talatpaşa Bulvarı",
+      "Hipodrom Caddesi",
+      "Dögol Caddesi",
+      "Mevlana Bulvarı",
+      "Ankara Çevre Yolu",
+      "Ankara Çevre Yolu Güney Kavşağı",
+      "Kulu Kavşağı"
+    ]
+  },
+  "ankara-safranbolu": {
+    "distanceKm": 225.3,
+    "durationMin": 172,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "İstanbul Caddesi",
+      "Fatih Sultan Mehmet Bulvarı",
+      "Gerede Kavşağı",
+      "Gerede-Karabük yolu",
+      "Atatürk Bulvarı",
+      "Şehit Ateşe Reşat Moralı Caddesi"
+    ]
+  },
+  "ankara-kayseri": {
+    "distanceKm": 345.6,
+    "durationMin": 229,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "Denizciler Caddesi",
+      "Talatpaşa Bulvarı",
+      "Hipodrom Caddesi",
+      "Dögol Caddesi",
+      "Mevlana Bulvarı",
+      "Ankara Çevre Yolu",
+      "Ankara Çevre Yolu Güney Kavşağı",
+      "K14 Ağaçören Köprülü Kavşağı",
+      "Ağaçören - Kırşehir Bağlantısı",
+      "Kayseri-Kırıkkale yolu",
+      "Boğazköprü Üst Geçidi",
+      "Kocasinan Bulvarı",
+      "Depo Caddesi"
+    ]
+  },
+  "ankara-eskisehir": {
+    "distanceKm": 236.4,
+    "durationMin": 172,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "Denizciler Caddesi",
+      "Talatpaşa Bulvarı",
+      "Hipodrom Caddesi",
+      "Celal Bayar Bulvarı",
+      "Ankara Bulvarı",
+      "Ankara-Sabancı Bulvarı Bağlantı Yolu",
+      "Edip Akbayram Caddesi",
+      "Dumlupınar Bulvarı",
+      "Ankara - Eskişehir Yolu",
+      "Sivrihisar-2 Caddesi",
+      "Gazi Yakup Satar Caddesi",
+      "İleri Sokak",
+      "Ferahiye Sokak"
+    ]
+  },
+  "ankara-bolu": {
+    "distanceKm": 211.1,
+    "durationMin": 184,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "İstanbul Caddesi",
+      "Fatih Sultan Mehmet Bulvarı",
+      "Bolu Doğu Kavşağı",
+      "İstanbul-Ankara Yolu",
+      "İzzet Baysal Caddesi",
+      "Süreyya Sokak",
+      "Taşhancılar Caddesi"
+    ]
+  },
+  "ankara-corum": {
+    "distanceKm": 242.6,
+    "durationMin": 194,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "Atatürk Bulvarı",
+      "Şehit Ömer Halisdemir Bulvarı",
+      "Turgut Özal 2 Bulvarı",
+      "19 Mayıs Bulvarı",
+      "Ankara - Kırıkkale Yolu",
+      "Varinli Caddesi",
+      "Recep Tayyip Erdoğan Sokağı",
+      "Gazi Caddesi"
+    ]
+  },
+  "ankara-kirsehir": {
+    "distanceKm": 223.7,
+    "durationMin": 141,
+    "roadNames": [
+      "A.Adnan Saygun Caddesi",
+      "Denizciler Caddesi",
+      "Talatpaşa Bulvarı",
+      "Hipodrom Caddesi",
+      "Dögol Caddesi",
+      "Mevlana Bulvarı",
+      "Ankara Çevre Yolu",
+      "Ankara Çevre Yolu Güney Kavşağı",
+      "K14 Ağaçören Köprülü Kavşağı",
+      "Ağaçören - Kırşehir Bağlantısı",
+      "Fatih Bulvarı",
+      "İmaret Caddesi",
+      "103. Sokak"
+    ]
+  },
+  "izmir-manisa": {
+    "distanceKm": 39,
+    "durationMin": 43,
+    "roadNames": [
+      "Cumhuriyet Bulvarı",
+      "Mucibur Rahman Sokağı",
+      "Fevzi Paşa Bulvarı",
+      "Mürsel Paşa Bulvarı",
+      "Altınyol",
+      "Manisa - İzmir Yolu",
+      "Mimar Sinan Bulvarı",
+      "İbrahim Gökçen Bulvarı",
+      "1507. Sokak",
+      "1700. Sokak"
+    ]
+  },
+  "aydin-izmir": {
+    "distanceKm": 113.7,
+    "durationMin": 85,
+    "roadNames": [
+      "Kalfaköy Yolu",
+      "1614. Sokak",
+      "Batı Gazi Bulvarı",
+      "Ataturk Bulvarı",
+      "İzmir Bulvarı",
+      "Şevketiye Bağlantı Yolu",
+      "Akçay Caddesi",
+      "Konak Tüneli",
+      "Birleşmiş Milletler Caddesi",
+      "Mucibur Rahman Caddesi",
+      "Cumhuriyet Bulvarı"
+    ]
+  },
+  "izmir-kutahya": {
+    "distanceKm": 341.5,
+    "durationMin": 261,
+    "roadNames": [
+      "Cumhuriyet Bulvarı",
+      "Mucibur Rahman Sokağı",
+      "Fevzi Paşa Bulvarı",
+      "Mürsel Paşa Bulvarı",
+      "Altınyol",
+      "Ankara Caddesi",
+      "Uşak - İzmir Yolu",
+      "Uşak - Kütahya Yolu",
+      "Kütahya - Gediz Yolu",
+      "Kütahya - Balıkesir Yolu",
+      "Abdurrahman Karaa Bulvarı"
+    ]
+  },
+  "izmir-usak": {
+    "distanceKm": 220.7,
+    "durationMin": 179,
+    "roadNames": [
+      "Cumhuriyet Bulvarı",
+      "Mucibur Rahman Sokağı",
+      "Fevzi Paşa Bulvarı",
+      "Mürsel Paşa Bulvarı",
+      "Altınyol",
+      "Ankara Caddesi",
+      "Uşak - İzmir Yolu",
+      "Barbaros Caddesi",
+      "1. Yeni Sokak",
+      "Şehit Mehmet Özen Sokak",
+      "Şehit Ahmet Yılmaz Caddesi",
+      "1. Tan Sokak",
+      "Şehit Ali Rıza Horasan Caddesi",
+      "Ateş Sokak",
+      "Okumuş Sokak",
+      "1. Irak Sokak",
+      "1. Yurt Sokak",
+      "1. Yürek Sokak"
+    ]
+  },
+  "aydin-denizli": {
+    "distanceKm": 134,
+    "durationMin": 98,
+    "roadNames": [
+      "Kalfaköy Yolu",
+      "Muğla Bulvarı",
+      "Kumkısık Köprülü Kavşağı",
+      "Kumkısık Bağlantı Yolu",
+      "Menderes Bulvarı",
+      "164 Sokak",
+      "Izmir Bulvan",
+      "Gazi Mustafa Kemal Bulvan",
+      "Kayalık Caddesi",
+      "Ressam Cevdet Ahmet Şemsioğlu Sokak",
+      "794 Sokak"
+    ]
+  },
+  "fethiye-kas": {
+    "distanceKm": 106.4,
+    "durationMin": 113,
+    "roadNames": [
+      "102. Sokak",
+      "101. Sokak",
+      "Kaya Caddesi",
+      "Çarşı Caddesi",
+      "Süleyman Demirel Bulvarı",
+      "Alparslan Türkeş Bulvarı",
+      "Fethiye - Seydikemer Yolu",
+      "Kaş - Seydikemer Yolu",
+      "Uğur Mumcu Caddesi",
+      "Atatürk Bulvarı",
+      "Veli Kaptan Sokak"
+    ]
+  },
+  "antalya-kas": {
+    "distanceKm": 186.3,
+    "durationMin": 193,
+    "roadNames": [
+      "Adnan Menderes Bulvarı",
+      "Akdeniz Bulvarı",
+      "50. Yıl Caddesi",
+      "Demre - Kaş Yolu",
+      "Andifli Mahallesi",
+      "Uğur Mumcu Caddesi",
+      "Veli Kaptan Sokak"
+    ]
+  },
+  "antalya-isparta": {
+    "distanceKm": 127.7,
+    "durationMin": 112,
+    "roadNames": [
+      "Evliya Çelebi Caddesi",
+      "Aspendos Bulvarı",
+      "Antalya - Isparta Yolu",
+      "İstasyon Caddesi"
+    ]
+  },
+  "antalya-burdur": {
+    "distanceKm": 126.8,
+    "durationMin": 111,
+    "roadNames": [
+      "Adnan Menderes Bulvarı",
+      "Yüzüncü Yıl Bulvarı",
+      "Güllük Caddesi",
+      "D650",
+      "Antalya - Burdur Yolu",
+      "Burdur - Karamanlı Yolu"
+    ]
+  },
+  "burdur-isparta": {
+    "distanceKm": 29.6,
+    "durationMin": 48,
+    "roadNames": [
+      "Afyonkarahisar - Burdur Yolu",
+      "Isparta - Burdur Dostluk Yolu",
+      "Süleyman Sinop Caddesi",
+      "Muzaffer Sinop Caddesi",
+      "Fatih Sultan Mehmet Caddesi",
+      "İstasyon Caddesi"
+    ]
+  },
+  "isparta-konya": {
+    "distanceKm": 266,
+    "durationMin": 239,
+    "roadNames": [
+      "İstasyon Caddesi",
+      "Hasan Fehmi Caddesi",
+      "Zübeyde Hanım Caddesi",
+      "6 Mart Atatürk Caddesi",
+      "Doğan Kimilli Caddesi",
+      "Atatürk Bulvarı",
+      "Hüsamettin Tanış Caddesi",
+      "Doktor İsa Köklü Caddesi",
+      "Ömer Şengöl Caddesi",
+      "Akşehir - Gelendost Yolu",
+      "Konya-Afyon yolu",
+      "Mobilyacılar Kavşağı",
+      "Ankara Caddesi"
+    ]
+  },
+  "bursa-yalova": {
+    "distanceKm": 72.1,
+    "durationMin": 68,
+    "roadNames": [
+      "Haşim İşcan Caddesi",
+      "Kiremitçi Caddesi",
+      "Tayakadın Caddesi",
+      "Celal Bayar Caddesi",
+      "4. Çinko Sokak",
+      "İstanbul Caddesi",
+      "Bursa 1 Kavşağı",
+      "Bursa Kavşağı",
+      "Bursa Çevre Yolu",
+      "Çağlayan Kavşağı",
+      "Gemlik Kavşağı",
+      "İznik Kavşağı",
+      "Yakup Acar Caddesi",
+      "Vatan caddesi",
+      "Millet Caddesi",
+      "Mehmet Durman Caddesi",
+      "Karanfil Sokak"
+    ]
+  },
+  "bursa-kocaeli": {
+    "distanceKm": 138.2,
+    "durationMin": 113,
+    "roadNames": [
+      "Haşim İşcan Caddesi",
+      "Kiremitçi Caddesi",
+      "Tayakadın Caddesi",
+      "Celal Bayar Caddesi",
+      "4. Çinko Sokak",
+      "İstanbul Caddesi",
+      "Bursa 1 Kavşağı",
+      "Bursa Kavşağı",
+      "Bursa Çevre Yolu",
+      "Çağlayan Kavşağı",
+      "Sevindikli Köprülü Kavşağı"
+    ]
+  },
+  "bursa-eskisehir": {
+    "distanceKm": 151.7,
+    "durationMin": 122,
+    "roadNames": [
+      "Haşim İşcan Caddesi",
+      "Ali Ferruh Yücel Caddesi",
+      "Ankara Yolu Caddesi",
+      "Üniversite Caddesi",
+      "Cengiz Topel Caddesi",
+      "Sakarya -1 Caddesi",
+      "Kırım Caddesi",
+      "Ferahiye Sokak"
+    ]
+  },
+  "balikesir-bursa": {
+    "distanceKm": 153.5,
+    "durationMin": 110,
+    "roadNames": [
+      "Yaymacılar Caddesi",
+      "Gazi Bulvarı",
+      "Vasıf Çınar Caddesi",
+      "Yeniköy Yolu",
+      "Susurluk-Balıkesir Yolu",
+      "Balıkesir Kuzey Kavşağı",
+      "Mudanya Kavşağı",
+      "Sanayi Caddesi",
+      "Mudanya Caddesi",
+      "Merinos Kavşağı",
+      "Stadyum Caddesi",
+      "Ahmet Hamdi Tanpınar Caddesi"
+    ]
+  },
+  "istanbul-kocaeli": {
+    "distanceKm": 97,
+    "durationMin": 109,
+    "roadNames": [
+      "Tevkifhane Sokağı",
+      "Utangaç Sokağı",
+      "Seyit Hasan Sokağı",
+      "Kutlugün Sokağı",
+      "Adliye Sokağı",
+      "Akbıyık Caddesi",
+      "Ishakpaşa Caddesi",
+      "Cankurtaran Meydanı Sokağı",
+      "Ahırkapı Caddesi",
+      "Ahırkapı İskele Sokağı",
+      "Kennedy Caddesi",
+      "Avrasya Tüneli",
+      "K-11 Kozyatağı Köprülü Kavşağı",
+      "Kozyatağı O-2 Bağlantısı",
+      "Anadolu Otoyolu Kavşağı",
+      "Mecidiye 1 Kavşağı",
+      "Sevindikli Köprülü Kavşağı"
+    ]
+  },
+  "istanbul-sakarya": {
+    "distanceKm": 153.3,
+    "durationMin": 129,
+    "roadNames": [
+      "Tevkifhane Sokağı",
+      "Utangaç Sokağı",
+      "Seyit Hasan Sokağı",
+      "Kutlugün Sokağı",
+      "Adliye Sokağı",
+      "Akbıyık Caddesi",
+      "Ishakpaşa Caddesi",
+      "Cankurtaran Meydanı Sokağı",
+      "Ahırkapı Caddesi",
+      "Ahırkapı İskele Sokağı",
+      "Kennedy Caddesi",
+      "Avrasya Tüneli",
+      "K-11 Kozyatağı Köprülü Kavşağı",
+      "Kozyatağı O-2 Bağlantısı",
+      "Anadolu Otoyolu Kavşağı",
+      "Sakarya Kavşağı",
+      "Orhan Gazi Caddesi",
+      "922. Sokak",
+      "638. Sokak"
+    ]
+  },
+  "edirne-istanbul": {
+    "distanceKm": 260.5,
+    "durationMin": 183,
+    "roadNames": [
+      "Atatürk Bulvarı",
+      "Kıyık Caddesi",
+      "Avrupa Otoyolu",
+      "Kınalı Kavşağı",
+      "Kuzey Marmara Otoyolu",
+      "Adnan Menderes Vatan Bulvarı",
+      "Gazi Mustafa Kemalpaşa Caddesi",
+      "Kennedy Caddesi",
+      "Aksakal Sokağı",
+      "Küçük Ayasofya Caddesi",
+      "Torun Sokağı",
+      "Mimar Mehmet Ağa Caddesi",
+      "Akbıyık Caddesi",
+      "İshakpaşa Caddesi",
+      "Kutlugün Sokağı",
+      "Tevkifhane Sokağı"
+    ]
+  },
+  "bilecik-istanbul": {
+    "distanceKm": 200.1,
+    "durationMin": 189,
+    "roadNames": [
+      "Bilecik-Eskişehir Yolu",
+      "Osmanlı Caddesi",
+      "Bilecik - Yenişehir Yolu",
+      "Yenişehir Çevre Yolu",
+      "İznik - Yenişehir Yolu",
+      "Muallimköy Kavşağı",
+      "Çamlıca Kavşağı",
+      "Uzunçayır Köprülü Kavşağı",
+      "Eski D-100 Karayolu",
+      "Koşuyolu Köprüsü",
+      "Avrasya Tüneli",
+      "Kennedy Caddesi",
+      "Aksakal Sokağı",
+      "Küçük Ayasofya Caddesi",
+      "Torun Sokağı",
+      "Mimar Mehmet Ağa Caddesi",
+      "Akbıyık Caddesi",
+      "İshakpaşa Caddesi",
+      "Kutlugün Sokağı",
+      "Tevkifhane Sokağı"
+    ]
+  },
+  "istanbul-tekirdag": {
+    "distanceKm": 167.6,
+    "durationMin": 137,
+    "roadNames": [
+      "Tevkifhane Sokağı",
+      "Utangaç Sokağı",
+      "Seyit Hasan Sokağı",
+      "Kutlugün Sokağı",
+      "Adliye Sokağı",
+      "Akbıyık Caddesi",
+      "Ishakpaşa Caddesi",
+      "Cankurtaran Meydanı Sokağı",
+      "Ahırkapı Caddesi",
+      "Ahırkapı İskele Sokağı",
+      "Kennedy Caddesi",
+      "Şehit Vefa Karakurdu Alt Geçidi",
+      "Turgut Özal Millet Caddesi",
+      "Adnan Menderes Vatan Bulvarı",
+      "Mahmutbey Caddesi",
+      "Batışehir Caddesi",
+      "Odayeri Kavşağı",
+      "Kuzey Marmara Otoyolu",
+      "Servis Yolu Caddesi",
+      "Süleymanpaşa Kavşağı",
+      "İbrahim Efendi Sokak",
+      "Mevlana Ek Sokak"
+    ]
+  },
+  "istanbul-yalova": {
+    "distanceKm": 95.7,
+    "durationMin": 101,
+    "roadNames": [
+      "Tevkifhane Sokağı",
+      "Utangaç Sokağı",
+      "Seyit Hasan Sokağı",
+      "Kutlugün Sokağı",
+      "Adliye Sokağı",
+      "Akbıyık Caddesi",
+      "Ishakpaşa Caddesi",
+      "Cankurtaran Meydanı Sokağı",
+      "Ahırkapı Caddesi",
+      "Ahırkapı İskele Sokağı",
+      "Kennedy Caddesi",
+      "Avrasya Tüneli",
+      "K-11 Kozyatağı Köprülü Kavşağı",
+      "Kozyatağı O-2 Bağlantısı",
+      "Anadolu Otoyolu Kavşağı",
+      "Altınova Kavşağı",
+      "Altınova 1 Kavşağı",
+      "Yalova Yolu",
+      "Şehit Ömer Faydalı Caddesi",
+      "Mehmet Durman Caddesi",
+      "Karanfil Sokak"
+    ]
+  },
+  "istanbul-kirklareli": {
+    "distanceKm": 232.3,
+    "durationMin": 154,
+    "roadNames": [
+      "Tevkifhane Sokağı",
+      "Utangaç Sokağı",
+      "Seyit Hasan Sokağı",
+      "Kutlugün Sokağı",
+      "Adliye Sokağı",
+      "Akbıyık Caddesi",
+      "Ishakpaşa Caddesi",
+      "Cankurtaran Meydanı Sokağı",
+      "Ahırkapı Caddesi",
+      "Ahırkapı İskele Sokağı",
+      "Kennedy Caddesi",
+      "Şehit Vefa Karakurdu Alt Geçidi",
+      "Turgut Özal Millet Caddesi",
+      "Adnan Menderes Vatan Bulvarı",
+      "Mahmutbey Caddesi",
+      "Batışehir Caddesi",
+      "Odayeri Kavşağı",
+      "Kuzey Marmara Otoyolu",
+      "Kınalı Kavşağı",
+      "Avrupa Otoyolu",
+      "Babaeski Kavşağı",
+      "Öztürk Bulvarı",
+      "İstiklal Caddesi",
+      "Ord. Prof. Mazhar Usman Bulvarı",
+      "766. Sokak",
+      "765. Sokak",
+      "Lojman"
+    ]
+  },
+  "canakkale-edirne": {
+    "distanceKm": 230.4,
+    "durationMin": 166,
+    "roadNames": [
+      "Yasemin Sokak",
+      "Nazım Demircioğlu Sokak",
+      "Velibey Sokak",
+      "Pirireis Caddesi",
+      "İzmir - Çanakkale Yolu",
+      "Çanakkale - Bursa Yolu",
+      "Kavakköy Kavşağı",
+      "Çanakkale - Edirne Yolu",
+      "Havsa Kavşağı",
+      "İstanbul - Edirne Yolu",
+      "Atatürk Bulvarı"
+    ]
+  },
+  "balikesir-canakkale": {
+    "distanceKm": 192,
+    "durationMin": 182,
+    "roadNames": [
+      "Yaymacılar Caddesi",
+      "Paşa Sarayı Sokağı",
+      "Gazi Bulvarı",
+      "Çanakkale Caddesi",
+      "Yenice - Balya Yolu",
+      "Çan - Yenice Yolu",
+      "Velibey Sokak",
+      "Nazım Demircioğlu Sokak",
+      "Yasemin Sokak"
+    ]
+  },
+  "kocaeli-sakarya": {
+    "distanceKm": 64.1,
+    "durationMin": 56,
+    "roadNames": [
+      "Kurtuluş Bulvarı",
+      "İzmit - Kandıra Yolu",
+      "Kandıra 1 Kavşağı",
+      "Anadolu Otoyolu",
+      "Sakarya Kavşağı",
+      "Orhan Gazi Caddesi",
+      "922. Sokak",
+      "638. Sokak"
+    ]
+  },
+  "samsun-sinop": {
+    "distanceKm": 157.5,
+    "durationMin": 182,
+    "roadNames": [
+      "100. Yıl Bulvarı",
+      "Osmaniye Caddesi",
+      "Şehit Korhan Ekiz Bulvarı",
+      "Ankara Bulvarı",
+      "Çevre Yolu Bulvarı",
+      "Recep Tayyip Erdoğan Bulvarı",
+      "İsmet İnönü Bulvarı",
+      "Toplu Konut Bulvarı",
+      "Atatürk Bulvarı 5. Kısım",
+      "Sinop - Samsun yolu",
+      "Sinop - Samsun Yeni Sahil Yolu",
+      "Fatih Caddesi",
+      "Tuzcular Cad.",
+      "Gazi Cad."
+    ]
+  },
+  "kastamonu-sinop": {
+    "distanceKm": 182,
+    "durationMin": 181,
+    "roadNames": [
+      "Afşinbey Sokak",
+      "Rauf Denktaş Caddesi",
+      "Kastamonu-Sinop yolu",
+      "Fatih Caddesi",
+      "Tuzcular Cad.",
+      "Gazi Cad."
+    ]
+  },
+  "bolu-safranbolu": {
+    "distanceKm": 181.4,
+    "durationMin": 171,
+    "roadNames": [
+      "Bolu Güney Çevre Yolu",
+      "BOLU YOLU",
+      "Gerede Kavşağı",
+      "Gerede-Karabük yolu",
+      "Atatürk Bulvarı",
+      "Şehit Ateşe Reşat Moralı Caddesi"
+    ]
+  },
+  "bolu-duzce": {
+    "distanceKm": 75.7,
+    "durationMin": 94,
+    "roadNames": [
+      "Bolu Güney Çevre Yolu",
+      "BOLU YOLU",
+      "Tem Bağlantı Yolu",
+      "Hamit Şerifoğlu Köprülü Kavşağı",
+      "Adapazarı-Bolu Yolu",
+      "Mehmet Akif Caddesi"
+    ]
+  },
+  "amasya-samsun": {
+    "distanceKm": 124.6,
+    "durationMin": 105,
+    "roadNames": [
+      "Karaca Sokak",
+      "Güvercin Sokak",
+      "Ruhi Tingiz Caddesi",
+      "Mustafa Kemal Paşa Caddesi",
+      "Elçibey Bulvarı",
+      "Mehmet Paşa Caddesi",
+      "Kunç Köprüsü",
+      "Recep Tayyip Erdoğan Bulvarı",
+      "İstiklal Caddesi",
+      "Samsun Çorum Yolu",
+      "Şehit Korhan Ekiz Bulvarı",
+      "Barış Bulvarı",
+      "100. Yıl Bulvarı"
+    ]
+  },
+  "amasya-tokat": {
+    "distanceKm": 112.9,
+    "durationMin": 97,
+    "roadNames": [
+      "Karaca Sokak",
+      "Ruhi Tingiz Caddesi",
+      "Çelebi Mehmet Caddesi",
+      "Mustafa Kemal Paşa Caddesi",
+      "Atatürk Caddesi",
+      "Gaziosmanpaşa Caddesi",
+      "Mustafa Satan Caddesi",
+      "Behzat Bulvarı"
+    ]
+  },
+  "giresun-trabzon": {
+    "distanceKm": 131,
+    "durationMin": 115,
+    "roadNames": [
+      "Trabzon-Giresun yolu",
+      "Atatürk Bulvarı",
+      "Şenol Güneş Caddesi"
+    ]
+  },
+  "giresun-ordu": {
+    "distanceKm": 47.1,
+    "durationMin": 51,
+    "roadNames": [
+      "Ordu-Giresun yolu",
+      "Mustafa Kemal Bulvarı",
+      "Atatürk Bulvarı",
+      "Hükümet Cadde",
+      "Stadyum Cadde",
+      "Buharalı Şeyh Şakir Efendi Cadde",
+      "Hamam Deresi Sokak"
+    ]
+  },
+  "bayburt-trabzon": {
+    "distanceKm": 168.7,
+    "durationMin": 148,
+    "roadNames": [
+      "Danışmendiler Caddesi",
+      "Vali Nihat Üçyıldız Caddesi",
+      "Bayburt - Gümüşhane Yolu",
+      "Trabzon - Gümüşhane Yolu",
+      "Erzurum Yolu Caddesi",
+      "Devlet Karayolu Caddesi",
+      "Yavuz Selim Bulvarı"
+    ]
+  },
+  "gumushane-trabzon": {
+    "distanceKm": 109.4,
+    "durationMin": 131,
+    "roadNames": [
+      "Kazım Karabekir Cad.",
+      "Gümüşhane Çevre Yolu",
+      "Trabzon - Gümüşhane Yolu",
+      "Erzurum Yolu Caddesi",
+      "Devlet Karayolu Caddesi",
+      "Yavuz Selim Bulvarı"
+    ]
+  },
+  "amasra-zonguldak": {
+    "distanceKm": 78.5,
+    "durationMin": 96,
+    "roadNames": [
+      "Bartın-Zonguldak yolu",
+      "Zonguldak-Çaycuma yolu",
+      "Zonguldak - Çaycuma Yolu",
+      "Devrek - Zonguldak Yolu",
+      "Zonguldak-Çaycuma Yolu",
+      "Bülent Ecevit Caddesi"
+    ]
+  },
+  "kastamonu-safranbolu": {
+    "distanceKm": 108.1,
+    "durationMin": 116,
+    "roadNames": [
+      "Kışla Caddesi",
+      "Halime Çavuş Caddesi",
+      "Safranbolu-Araç yolu",
+      "Bartın-Karabük yolu"
+    ]
+  },
+  "amasya-corum": {
+    "distanceKm": 91.7,
+    "durationMin": 83,
+    "roadNames": [
+      "Karaca Sokak",
+      "Ruhi Tingiz Caddesi",
+      "Çelebi Mehmet Caddesi",
+      "Mustafa Kemal Paşa Caddesi",
+      "Çorum-Amasya yolu",
+      "Çorum-Samsun yolu",
+      "Recep Tayyip Erdoğan Sokağı",
+      "Gazi Caddesi"
+    ]
+  },
+  "corum-tokat": {
+    "distanceKm": 180.7,
+    "durationMin": 146,
+    "roadNames": [
+      "Gazi Caddesi",
+      "Hürriyet Sokağı",
+      "Çorum-Samsun yolu",
+      "Çorum-Amasya yolu",
+      "Turhal-Amasya yolu",
+      "Gaziosmanpaşa Caddesi",
+      "Mustafa Satan Caddesi",
+      "Behzat Bulvarı"
+    ]
+  },
+  "samsun-tokat": {
+    "distanceKm": 236.5,
+    "durationMin": 191,
+    "roadNames": [
+      "100. Yıl Bulvarı",
+      "Osmaniye Caddesi",
+      "Şehit Korhan Ekiz Bulvarı",
+      "Ankara Bulvarı",
+      "Samsun Çorum Yolu",
+      "İstiklal Caddesi",
+      "Ferhat Arası Caddesi",
+      "Atatürk Caddesi",
+      "Gaziosmanpaşa Caddesi",
+      "Mustafa Satan Caddesi",
+      "Behzat Bulvarı"
+    ]
+  },
+  "kayseri-sivas": {
+    "distanceKm": 196.9,
+    "durationMin": 154,
+    "roadNames": [
+      "Depo Caddesi",
+      "Kocasinan Bulvarı",
+      "Kayseri-Sivas yolu",
+      "Sivas Kayseri Yolu",
+      "Sivas-Kayseri yolu",
+      "Kayseri Bulvarı",
+      "Turgut Özal Bulvarı",
+      "Sofu Nuri Sokak",
+      "33-9. Sokak",
+      "Fevzi Çakmak Caddesi",
+      "Hoca Ahmet Yesevi Caddesi",
+      "Mehmet Akyol Sokak",
+      "Ulu Cami Park Sokak",
+      "35-3. Sokak",
+      "Hakkı Hafız Sokak",
+      "Ulu Camii Sokak"
+    ]
+  },
+  "karaman-konya": {
+    "distanceKm": 112.8,
+    "durationMin": 109,
+    "roadNames": [
+      "Ahmet Yesevi Caddesi",
+      "Alparslan Türkeş Bulvarı",
+      "Karaman - Silifke yolu",
+      "Karaman Caddesi",
+      "Burhan Dede Caddesi",
+      "Piri Esat Caddesi",
+      "Aziziye Caddesi",
+      "Cihangir Caddesi",
+      "Ankara Caddesi"
+    ]
+  },
+  "kapadokya-nigde": {
+    "distanceKm": 96.9,
+    "durationMin": 86,
+    "roadNames": [
+      "Uzundere Caddesi",
+      "Adnan Menderes Caddesi",
+      "Kayseri-Nevşehir yolu",
+      "Barış Manço Bulvarı",
+      "Gölcük 1 Kavşağı",
+      "Aydınlık Caddesi",
+      "Cumhuriyet Bulvarı",
+      "Murat Zeren Caddesi"
+    ]
+  },
+  "aksaray-kapadokya": {
+    "distanceKm": 86.3,
+    "durationMin": 73,
+    "roadNames": [
+      "Atatürk Bulvarı",
+      "Nevşehir Caddesi",
+      "Uçhisar-Nevşehir yolu",
+      "Belediye Caddesi"
+    ]
+  },
+  "eskisehir-kutahya": {
+    "distanceKm": 78.9,
+    "durationMin": 67,
+    "roadNames": [
+      "Ferahiye Sokak",
+      "İsmet İnönü-1 Bulvarı",
+      "Üniversite Caddesi",
+      "Eskişehir - Kütahya Yolu",
+      "Bozüyük - Kütahya Yolu",
+      "Musalla Caddesi"
+    ]
+  },
+  "kayseri-kirsehir": {
+    "distanceKm": 132.4,
+    "durationMin": 98,
+    "roadNames": [
+      "Depo Caddesi",
+      "Kocasinan Bulvarı",
+      "Osman Kavuncu Bulvarı",
+      "Kayseri-Kırıkkale yolu",
+      "Fatih Bulvarı",
+      "İmaret Caddesi",
+      "103. Sokak"
+    ]
+  },
+  "kayseri-yozgat": {
+    "distanceKm": 172.2,
+    "durationMin": 149,
+    "roadNames": [
+      "Depo Caddesi",
+      "Kocasinan Bulvarı",
+      "Osman Kavuncu Bulvarı",
+      "Yozgat-Kayseri yolu",
+      "Cemil Çiçek Bulvarı",
+      "Adnan Menderes Bulvarı"
+    ]
+  },
+  "kayseri-nigde": {
+    "distanceKm": 132.2,
+    "durationMin": 112,
+    "roadNames": [
+      "Depo Caddesi",
+      "Kocasinan Bulvarı",
+      "Osman Kavuncu Bulvarı",
+      "Kayseri - Niğde Yolu",
+      "Niğde Kuzey 1 Kavşağı",
+      "Aydınlık Caddesi",
+      "Cumhuriyet Bulvarı",
+      "Murat Zeren Caddesi"
+    ]
+  },
+  "aksaray-konya": {
+    "distanceKm": 151.7,
+    "durationMin": 125,
+    "roadNames": [
+      "Atatürk Bulvarı",
+      "Ankara - Adana Yolu",
+      "Konya - Aksaray Yolu",
+      "Aksaray Çevre Yolu Caddesi"
+    ]
+  },
+  "erzurum-kars": {
+    "distanceKm": 205.1,
+    "durationMin": 207,
+    "roadNames": [
+      "Cumhuriyet Caddesi",
+      "Tortum Yolu Caddesi",
+      "Fatih Sultan Mehmet Bulvarı",
+      "Kars - Erzurum Yolu",
+      "İsmail Aytemiz Blv.",
+      "Haydar Aliyev Caddesi"
+    ]
+  },
+  "erzurum-trabzon": {
+    "distanceKm": 293.6,
+    "durationMin": 265,
+    "roadNames": [
+      "Cumhuriyet Caddesi",
+      "Ömer Nasuhi Bilmen Caddesi",
+      "E80 Karayolu Bulvarı",
+      "Erzincan - Erzurum Yolu",
+      "Bayburt - Erzurum Yolu",
+      "Bayburt - Gümüşhane Yolu",
+      "Trabzon - Gümüşhane Yolu",
+      "Erzurum Yolu Caddesi",
+      "Devlet Karayolu Caddesi",
+      "Yavuz Selim Bulvarı"
+    ]
+  },
+  "erzurum-van": {
+    "distanceKm": 381.4,
+    "durationMin": 392,
+    "roadNames": [
+      "Cumhuriyet Caddesi",
+      "Tortum Yolu Caddesi",
+      "Fatih Sultan Mehmet Bulvarı",
+      "Hınıs - Köprüköy Yolu",
+      "Karayazı - Köprüköy Yolu",
+      "Tutak - Karayazı Yolu",
+      "Patnos - Tutak Yolu",
+      "Van-Ağrı yolu",
+      "Şabaniye Caddesi"
+    ]
+  },
+  "adiyaman-malatya": {
+    "distanceKm": 102.8,
+    "durationMin": 154,
+    "roadNames": [
+      "Sakarya Cad.",
+      "Malatya - Adıyaman yolu",
+      "Güney Kuşak Yolu",
+      "İsmet Paşa Caddesi",
+      "Emeksiz Caddesi"
+    ]
+  },
+  "adiyaman-sanliurfa": {
+    "distanceKm": 112.5,
+    "durationMin": 109,
+    "roadNames": [
+      "Sakarya Cad.",
+      "Atatürk Bulvarı Yanyolu",
+      "Zey Caddes",
+      "Atatürk Bulvarı",
+      "Şanlıurfa-Adıyaman yolu",
+      "Şanlıurfa-Adıyaman Yolu",
+      "Gap Bulvarı",
+      "Necmettin Cevheri Bulvarı",
+      "Kadri Erdoğan Caddesi"
+    ]
+  },
+  "elazig-malatya": {
+    "distanceKm": 101.8,
+    "durationMin": 95,
+    "roadNames": [
+      "İnönü Caddesi",
+      "Yunus Emre Bulvarı",
+      "Yahya Kemal Caddesi",
+      "Gazi Caddesi",
+      "Malatya Caddesi",
+      "Malatya-Elazığ yolu",
+      "Buhara Caddesi"
+    ]
+  },
+  "diyarbakir-elazig": {
+    "distanceKm": 156.5,
+    "durationMin": 136,
+    "roadNames": [
+      "İnaloğlu Caddesi",
+      "Elazığ Bulvarı",
+      "Diyarbakır-Elazığ yolu",
+      "Cahit Dalokay Bulvarı",
+      "Balakgazi Caddesi"
+    ]
+  },
+  "adana-gaziantep": {
+    "distanceKm": 221.9,
+    "durationMin": 163,
+    "roadNames": [
+      "Şimasi Efendi Caddesi",
+      "Ramazanoğlu Caddesi",
+      "Atatürk Caddesi",
+      "Cevat Yurdakul Caddesi",
+      "Gazipaşa Bulvarı",
+      "Mustafa Kemal Paşa Bulvarı",
+      "Mithat Özsan Bulvarı",
+      "Kahramanmaraş-Gaziantep yolu"
+    ]
+  },
+  "adana-hatay": {
+    "distanceKm": 176.8,
+    "durationMin": 152,
+    "roadNames": [
+      "Şimasi Efendi Caddesi",
+      "Ramazanoğlu Caddesi",
+      "Atatürk Caddesi",
+      "Cevat Yurdakul Caddesi",
+      "Gazipaşa Bulvarı",
+      "Mustafa Kemal Paşa Bulvarı",
+      "Mithat Özsan Bulvarı",
+      "Ceyhan-İskenderun Otoyolu",
+      "Belen Kavşağı",
+      "Belen 1 Kavşağı",
+      "E5 Karayolu Caddesi"
+    ]
+  },
+  "adana-mersin": {
+    "distanceKm": 85.1,
+    "durationMin": 63,
+    "roadNames": [
+      "Şimasi Efendi Caddesi",
+      "Ramazanoğlu Caddesi",
+      "Alparslan Türkeş Bulvarı",
+      "Kasım Ener Caddesi",
+      "U-Turn",
+      "Mersin Doğu Kavşağı",
+      "Cumhuriyet Bulvarı",
+      "İsmet İnönü Bulvarı",
+      "5306 Sokak",
+      "Uray Caddesi",
+      "5204. Sokak"
+    ]
+  },
+  "hatay-osmaniye": {
+    "distanceKm": 114.3,
+    "durationMin": 121,
+    "roadNames": [
+      "Çevre Yolu Caddesi",
+      "E5 Karayolu Caddesi",
+      "Belen 1 Kavşağı",
+      "Ceyhan-İskenderun Otoyolu",
+      "Erzin Bağlantı Yolu",
+      "Hanife Soylu Bulvarı",
+      "Adana-İskenderun yolu",
+      "Adana-Osmaniye yolu",
+      "Dadaloğlu Caddesi",
+      "Şehit Mehmet Tatlı Sokak",
+      "501. Sokak"
+    ]
+  },
+  "adana-kahramanmaras": {
+    "distanceKm": 194,
+    "durationMin": 147,
+    "roadNames": [
+      "Şimasi Efendi Caddesi",
+      "Ramazanoğlu Caddesi",
+      "Atatürk Caddesi",
+      "Cevat Yurdakul Caddesi",
+      "Gazipaşa Bulvarı",
+      "Mustafa Kemal Paşa Bulvarı",
+      "Mithat Özsan Bulvarı",
+      "Kahramanmaraş-Osmaniye yolu",
+      "Kuddusi Baba Bulvarı"
+    ]
+  },
+  "batman-mardin": {
+    "distanceKm": 109.6,
+    "durationMin": 140,
+    "roadNames": [
+      "tupras",
+      "Özgörlük Bulvarı",
+      "Güney Bulvarı",
+      "Midyat - Savur yolu",
+      "Mardin-Midyat yolu"
+    ]
+  },
+  "batman-siirt": {
+    "distanceKm": 86.7,
+    "durationMin": 93,
+    "roadNames": [
+      "tupras",
+      "Özgörlük Bulvarı",
+      "Emek Bulvarı",
+      "Siirt-Batman yolu",
+      "Çevre Yolu"
+    ]
+  },
+  "bitlis-van": {
+    "distanceKm": 165.8,
+    "durationMin": 209,
+    "roadNames": [
+      "Bitlis-Tatvan yolu",
+      "Şabaniye Caddesi"
+    ]
+  },
+  "bitlis-mus": {
+    "distanceKm": 111.5,
+    "durationMin": 151,
+    "roadNames": [
+      "Muş-Bitlis yolu",
+      "Muş - Bulanık yolu"
+    ]
+  },
+  "agri-kars": {
+    "distanceKm": 160.3,
+    "durationMin": 199,
+    "roadNames": [
+      "Ağrı - Kağızman Yolu",
+      "Iğdır - Erzurum Yolu",
+      "Iğdır - Kars Yolu",
+      "Şht. Er Asım Ağçay Sok.",
+      "İsmet İnönü Caddesi",
+      "Haydar Aliyev Caddesi"
+    ]
+  },
+  "agri-igdir": {
+    "distanceKm": 146.9,
+    "durationMin": 144,
+    "roadNames": [
+      "Ağrı - Kağızman Yolu",
+      "Ağrı Çevre Yolu",
+      "Doğubayazıt - Ağrı Yolu",
+      "Doğubayazıt Çevre Yolu",
+      "Doğubayazıt - Iğdır Yolu",
+      "Fatih Caddesi"
+    ]
+  },
+  "ardahan-kars": {
+    "distanceKm": 88.8,
+    "durationMin": 109,
+    "roadNames": [
+      "Ardahan Çevre Yolu",
+      "Ardahan - Kars Yolu",
+      "Vali Hüseyin Atak Blv.",
+      "Haydar Aliyev Caddesi"
+    ]
+  },
+  "elazig-tunceli": {
+    "distanceKm": 76.5,
+    "durationMin": 88,
+    "roadNames": [
+      "İnönü Caddesi",
+      "Pertek-Elazığ Feribot",
+      "Pertek - Elazığ yolu",
+      "Tunceli-Elazığ yolu",
+      "Cumhuriyet Caddesi",
+      "Aras Sokağı"
+    ]
+  },
+  "erzincan-erzurum": {
+    "distanceKm": 188.2,
+    "durationMin": 203,
+    "roadNames": [
+      "Recep Tayyip Erdoğan Caddesi",
+      "Erzincan - Erzurum Yolu",
+      "E80 Karayolu Bulvarı",
+      "Ömer Nasuhi Bilmen Caddesi"
+    ]
+  },
+  "erzincan-tunceli": {
+    "distanceKm": 127.1,
+    "durationMin": 147,
+    "roadNames": [
+      "Recep Tayyip Erdoğan Caddesi",
+      "Erzincan-Tunceli yolu",
+      "Cumhuriyet Caddesi",
+      "Aras Sokağı"
+    ]
+  },
+  "gaziantep-kahramanmaras": {
+    "distanceKm": 78,
+    "durationMin": 71,
+    "roadNames": [
+      "Hasırcı Sokak",
+      "Kıbrıs Caddesi",
+      "Kahramanmaraş-Gaziantep Yolu",
+      "Kahramanmaraş-Gaziantep yolu",
+      "Doğu Çevre Yolu Bulvarı",
+      "Kuddusi Baba Bulvarı"
+    ]
+  },
+  "adana-osmaniye": {
+    "distanceKm": 92.8,
+    "durationMin": 73,
+    "roadNames": [
+      "Şimasi Efendi Caddesi",
+      "Ramazanoğlu Caddesi",
+      "Atatürk Caddesi",
+      "Cevat Yurdakul Caddesi",
+      "Gazipaşa Bulvarı",
+      "Mustafa Kemal Paşa Bulvarı",
+      "Mithat Özsan Bulvarı",
+      "Adana-Şanlıurfa Otoyolu",
+      "K8-1 Osmaniye Batı Kavşağı",
+      "Yusuf Çenet Bulvarı",
+      "2022. Sokak",
+      "Ray Sokak",
+      "Hasan Çenet Caddesi",
+      "Şehit Mehmet Tatlı Sokak",
+      "501. Sokak"
+    ]
+  },
+  "batman-diyarbakir": {
+    "distanceKm": 100.8,
+    "durationMin": 104,
+    "roadNames": [
+      "tupras",
+      "Özgörlük Bulvarı",
+      "Diyarbakır-Batman yolu",
+      "Diyarbakır-Mardin yolu",
+      "Akkoyunlu Bulvarı",
+      "İnaloğlu Caddesi",
+      "Ali Emiri Caddesi",
+      "Ali Emiri 3. Sokak"
+    ]
+  },
+  "siirt-sirnak": {
+    "distanceKm": 99.3,
+    "durationMin": 159,
+    "roadNames": [
+      "Şeyh Aziz Caddesi",
+      "Siirt - Şırnak yolu"
+    ]
+  },
+  "hakkari-van": {
+    "distanceKm": 196.7,
+    "durationMin": 241,
+    "roadNames": [
+      "Hakkari Van Bulvarı",
+      "Dopin Köprüsü",
+      "Hakkari-Van yolu",
+      "Van-Hakkari yolu",
+      "Koçdağı yolu",
+      "Van Hakkari Yolu"
+    ]
+  },
+  "mus-van": {
+    "distanceKm": 284.1,
+    "durationMin": 321,
+    "roadNames": [
+      "Muş - Bulanık yolu",
+      "Patnos-Malazgirt yolu",
+      "Van-Ağrı yolu",
+      "Şabaniye Caddesi"
+    ]
+  },
+  "gaziantep-kilis": {
+    "distanceKm": 61.4,
+    "durationMin": 61,
+    "roadNames": [
+      "Karagöz Caddesi",
+      "Şehitler Caddesi",
+      "Inönü Caddesi",
+      "Havalimanı Yolu Caddesi"
+    ]
+  },
+  "erzincan-sivas": {
+    "distanceKm": 247.7,
+    "durationMin": 260,
+    "roadNames": [
+      "Erzincan - Sivas Yolu",
+      "Sultanşehir Bulvarı",
+      "Şehit Fethi Akyüz Caddesi",
+      "Mahkeme Çarşısı Caddesi",
+      "Ulu Çarşı Sokak",
+      "Ulu Camii Sokak"
+    ]
+  },
+  "sivas-tokat": {
+    "distanceKm": 108.4,
+    "durationMin": 102,
+    "roadNames": [
+      "Ulu Camii Sokak",
+      "Fevzi Çakmak Caddesi",
+      "Arap Şeyh Caddesi",
+      "Yahya Bey Caddesi",
+      "Kemal İbni Humam Caddesi",
+      "Kayseri Bulvarı",
+      "Sultanşehir Bulvarı",
+      "Tokat-Sivas yolu",
+      "Gaziosmanpaşa Bulvarı"
+    ]
+  },
+  "balikesir-izmir": {
+    "distanceKm": 206.3,
+    "durationMin": 137,
+    "roadNames": [
+      "Yaymacılar Caddesi",
+      "Paşa Sarayı Sokağı",
+      "Gazi Bulvarı",
+      "Balıkesir Batı Kavşağı",
+      "İzmir Otogar Bağlantısı",
+      "Ankara Caddesi",
+      "İzmir-Uşak yolu",
+      "Mürsel Paşa Bulvarı",
+      "Şehit Fethibey Caddesi",
+      "860. Sokak",
+      "853. Sokak",
+      "Mucibur Rahman Sokağı",
+      "Cumhuriyet Bulvarı"
+    ]
+  },
+  "aydin-manisa": {
+    "distanceKm": 136.7,
+    "durationMin": 102,
+    "roadNames": [
+      "Kalfaköy Yolu",
+      "1614. Sokak",
+      "Batı Gazi Bulvarı",
+      "Ataturk Bulvarı",
+      "İzmir Bulvarı",
+      "Şevketiye Bağlantı Yolu",
+      "İzmir Otogar Bağlantısı",
+      "Ankara Caddesi",
+      "Mimar Sinan Bulvarı",
+      "İbrahim Gökçen Bulvarı",
+      "1507. Sokak",
+      "1700. Sokak"
+    ]
+  },
+  "afyonkarahisar-kutahya": {
+    "distanceKm": 98.6,
+    "durationMin": 81,
+    "roadNames": [
+      "İsmet İnönü Blv.",
+      "Turgut Özal Cd.",
+      "Afyonkarahisar - Kütahya Yolu",
+      "Kütahya - Balıkesir Yolu",
+      "Abdurrahman Karaa Bulvarı"
+    ]
+  },
+  "afyonkarahisar-isparta": {
+    "distanceKm": 167.8,
+    "durationMin": 135,
+    "roadNames": [
+      "İsmet İnönü Blv.",
+      "Turgut Özal Cd.",
+      "Afyonkarahisar - Burdur Yolu",
+      "Isparta-Burdur yolu",
+      "Özkanlar Kavşağı",
+      "Atatürk Bulvarı",
+      "Fatih Sultan Mehmet Caddesi",
+      "İstasyon Caddesi"
+    ]
+  },
+  "afyonkarahisar-konya": {
+    "distanceKm": 226.9,
+    "durationMin": 183,
+    "roadNames": [
+      "Fatih Cd.",
+      "Kocatepe Cd.",
+      "Taş Ocakları Yolu Cd.",
+      "Filistin Cd.",
+      "Konya-Afyon yolu",
+      "Mobilyacılar Kavşağı",
+      "Ankara Caddesi"
+    ]
+  },
+  "afyonkarahisar-usak": {
+    "distanceKm": 111.8,
+    "durationMin": 91,
+    "roadNames": [
+      "İsmet İnönü Blv.",
+      "Turgut Özal Cd.",
+      "Afyonkarahisar - Uşak Yolu",
+      "Gazi Bulvarı",
+      "Celal Bayar Caddesi",
+      "Fatih Caddesi",
+      "Nuri Şeker Caddesi",
+      "1. Elkurtaran Sokak",
+      "1. Ergün Sokak",
+      "Yeniceköy Caddesi",
+      "1. Köme Sokak",
+      "1. Yürek Sokak"
+    ]
+  },
+  "burdur-denizli": {
+    "distanceKm": 168.2,
+    "durationMin": 146,
+    "roadNames": [
+      "Afyonkarahisar - Burdur Yolu",
+      "Burdur - Dinar Yolu",
+      "Denizli - Afyonkarahisar Yolu",
+      "Ankara Bulvarı",
+      "Üçgen Köprülü Kavşağı",
+      "Izmir Bulvan",
+      "Deliktaş Köprülü Kavşağı",
+      "762 Sokak",
+      "789 Sokak",
+      "787 Sokak",
+      "794 Sokak",
+      "785 Sokak"
+    ]
+  },
+  "kahramanmaras-osmaniye": {
+    "distanceKm": 107,
+    "durationMin": 86,
+    "roadNames": [
+      "Kuddusi Baba Bulvarı",
+      "Azerbaycan Bulvarı",
+      "Gazi Mustafa Kemal Bulvarı",
+      "Musa Şahin Bulvarı",
+      "Cevdet Sunay Caddesi",
+      "Zafer Cami Sokak",
+      "Şehit Bekir Evirgen Sokak",
+      "501. Sokak"
+    ]
+  },
+  "gaziantep-hatay": {
+    "distanceKm": 181.6,
+    "durationMin": 168,
+    "roadNames": [
+      "Hasırcı Sokak",
+      "Kıbrıs Caddesi",
+      "Kahramanmaraş-Gaziantep Yolu",
+      "Adana-Şanlıurfa Otoyolu",
+      "Kahramanmaraş-Osmaniye yolu",
+      "Gaziantep-Antakya yolu",
+      "Çevre Yolu Caddesi"
+    ]
+  },
+  "giresun-samsun": {
+    "distanceKm": 194.7,
+    "durationMin": 174,
+    "roadNames": [
+      "Ordu-Giresun yolu",
+      "Şehit Yalçın Yamaner Bulvar",
+      "Çelebioğlu Cadde",
+      "Ordu Çevre Yolu",
+      "Atatürk Bulvarı",
+      "19 Mayıs Bulvarı",
+      "100. Yıl Bulvarı"
+    ]
+  },
+  "gumushane-rize": {
+    "distanceKm": 182.7,
+    "durationMin": 196,
+    "roadNames": [
+      "Kazım Karabekir Cad.",
+      "Gümüşhane Çevre Yolu",
+      "Trabzon - Gümüşhane Yolu",
+      "Anadolu Bulvarı",
+      "Devlet Karayolu Caddesi",
+      "Menderes Bulvarı",
+      "Zübeyde Hanım Caddesi",
+      "Recep Tayyip Erdoğan Bulvarı"
+    ]
   }
 }

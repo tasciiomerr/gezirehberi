@@ -127,17 +127,31 @@ export function buildDistanceDescription(data: DistancePageData, locale: Locale)
 
   const whenToGoSentence = `${cityA.name} için en iyi ziyaret zamanı: ${cityA.whenToGo}. ${cityB.name} için ise: ${cityB.whenToGo}.`;
   const climateSentence = `İklim açısından ${cityA.name}: ${cityA.climate}. ${cityB.name}: ${cityB.climate}.`;
+  const durationRecommendationSentence = `Gezi süresi olarak ${cityA.name} için ${cityA.bestDuration}, ${cityB.name} için ise ${cityB.bestDuration} önerilir.`;
 
-  return [
+  // Çekirdek cümleler (mesafe, güzergah, bölge, summary, ulaşım, highlights)
+  // her zaman ekleniyor. whenToGo/climate/süre önerisi ise sadece hedef
+  // 150-200 kelime aralığına ulaşmak için gerektiği kadar ekleniyor — bazı
+  // şehirlerin curated metinleri (özellikle küçük illerin) kısa olduğu için
+  // hepsini her zaman eklemek bazı sayfaları 200'ün üstüne taşıyordu.
+  const core = [
     `${cityA.name} ile ${cityB.name} arası karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ise ${durationText} civarında.`,
     roadsSentence,
     regionSentence,
     summarySentence,
     arrivalSentence,
     highlightsSentence,
-    whenToGoSentence,
-    climateSentence,
-  ]
-    .filter((s) => s && s.trim().length > 0)
-    .join(" ");
+  ].filter((s) => s && s.trim().length > 0);
+
+  const fillers = [whenToGoSentence, climateSentence, durationRecommendationSentence];
+
+  const countWords = (parts: string[]) => parts.join(" ").split(/\s+/).filter(Boolean).length;
+
+  const result = [...core];
+  for (const filler of fillers) {
+    if (countWords(result) >= 175) break;
+    result.push(filler);
+  }
+
+  return result.join(" ");
 }
