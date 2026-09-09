@@ -4,7 +4,9 @@ import { ArrowLeft, MapPin, Clock, Route as RouteIcon } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText } from "@/lib/i18n";
 import { getAllDistancePageData, getDistancePageData, buildDistanceDescription } from "@/lib/data/distances";
 import { buildStopDirectionsUrl } from "@/lib/geo";
+import { getGuidesForCity } from "@/lib/data/guides";
 import AdSlot from "@/components/AdSlot";
+import { BookOpen } from "lucide-react";
 
 export async function generateStaticParams() {
   return getAllDistancePageData().map((d) => ({ pair: d.slug }));
@@ -59,6 +61,13 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
 
   const { cityA, cityB, distanceKm, durationMin, majorRoads } = data;
   const description = buildDistanceDescription(data, locale);
+  // Madde 84 tutarlılığı — mesafe sayfaları önceden ilgili rehber
+  // makalelerine hiç link vermiyordu (şehir sayfalarında zaten vardı).
+  // İki şehrin relatedCitySlugs eşleşen makaleleri birleştirilip
+  // tekilleştiriliyor — boşsa hiç render edilmiyor, uydurma link yok.
+  const relatedGuides = [...getGuidesForCity(cityA.slug), ...getGuidesForCity(cityB.slug)].filter(
+    (g, i, arr) => arr.findIndex((g2) => g2.slug === g.slug) === i
+  );
   const directionsUrl = buildStopDirectionsUrl(cityB.location, cityA.location, "driving");
   const hours = Math.floor(durationMin / 60);
   const minutes = durationMin % 60;
@@ -162,6 +171,31 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
           ))}
         </div>
       </div>
+
+      {relatedGuides.length > 0 && (
+        <div className="mt-12 border-t border-ink/10 pt-8">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">
+            {locale === "tr" ? "İlgili Rehberler" : "Related Guides"}
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {relatedGuides.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`/${locale}/rehberler/${guide.slug}`}
+                className="group flex items-start gap-3 rounded-xl border border-ink/8 bg-paper p-4 shadow-sm hover:border-kiremit/40 transition-colors"
+              >
+                <BookOpen size={18} className="mt-0.5 shrink-0 text-kiremit" />
+                <span>
+                  <span className="block text-sm font-bold text-ink group-hover:text-kiremit transition-colors">
+                    {guide.title}
+                  </span>
+                  <span className="block text-xs text-ink/65 mt-0.5 line-clamp-2">{guide.summary}</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
