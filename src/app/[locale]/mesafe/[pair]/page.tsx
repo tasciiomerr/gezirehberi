@@ -16,10 +16,24 @@ export async function generateMetadata(props: { params: Promise<{ pair: string; 
   const data = getDistancePageData(params.pair);
   if (!data) return { title: locale === "tr" ? "Sayfa bulunamadı" : "Page not found" };
 
+  // Bulgu (Search Console, 2026-09): "X-Y arası kaç km" sorgusunda Google
+  // sonucu doğrudan bir AI özetiyle veriyor, tıklama neredeyse hiç gelmiyor
+  // (1072 gösterim / 0 tık gibi örnekler). Başlığa gerçek sayıyı koymak
+  // (rakip "mesafe hesaplama" siteleri de böyle yapıyor) taramada öne çıkma
+  // ve olası AI-özet/People-Also-Ask alıntısı ihtimalini artırmak için —
+  // tıklamayı garanti etmiyor ama elimizdeki tek gerçekçi kaldıraç bu.
+  // Başlıkta yuvarlanmış tam sayı (rakip sitelerin çoğu da böyle gösteriyor,
+  // "237.1" yerine "237" taranabilirliği artırıyor) — sayfa içeriğinde
+  // (istatistik kutusu, açıklama) tam ondalıklı Mapbox değeri değişmeden kalıyor.
+  // Suffix kısa tutuldu ("— Yol Tarifi") — uzun şehir isimli çiftlerde
+  // (İstanbul-Şanlıurfa gibi) "— Gerçek Mesafe ve Yol Tarifi" 150 çiftin
+  // 47'sinde 60 karakteri aşıp Google'da kesiliyordu; bu haliyle en uzun
+  // başlık bile 50 karakter, hiçbiri kesilmiyor.
+  const roundedKm = Math.round(data.distanceKm);
   const title =
     locale === "tr"
-      ? `${data.cityA.name} - ${data.cityB.name} Arası Kaç Km? Mesafe ve Yol Tarifi`
-      : `${data.cityA.name} to ${data.cityB.name} Distance`;
+      ? `${data.cityA.name} - ${data.cityB.name} Arası ${roundedKm} Km — Yol Tarifi`
+      : `${data.cityA.name} to ${data.cityB.name}: ${roundedKm} km Distance`;
   const description =
     locale === "tr"
       ? `${data.cityA.name} ile ${data.cityB.name} arası ${data.distanceKm} km, ortalama sürüş süresi ve gerçek güzergah bilgisi.`
@@ -53,8 +67,35 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
       ? [hours > 0 ? `${hours} sa` : null, minutes > 0 ? `${minutes} dk` : null].filter(Boolean).join(" ")
       : [hours > 0 ? `${hours}h` : null, minutes > 0 ? `${minutes}min` : null].filter(Boolean).join(" ");
 
+  // Google bu sorgu tipinde ("X-Y arası kaç km") kendi AI özetini gösteriyor
+  // — bu şema, o özetin/People-Also-Ask'ın kaynağı olma ihtimalimizi
+  // artırmak için. Cevap tamamen gerçek Mapbox verisinden (distanceKm/
+  // durationLabel), uydurma değil.
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": locale === "tr"
+          ? `${cityA.name} ile ${cityB.name} arası kaç km?`
+          : `How many km between ${cityA.name} and ${cityB.name}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": locale === "tr"
+            ? `${cityA.name} ile ${cityB.name} arası karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationLabel}.`
+            : `${cityA.name} and ${cityB.name} are approximately ${distanceKm} km apart by road, an average drive of ${durationLabel}.`,
+        },
+      },
+    ],
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Link
         href={`/${locale}/bolgeler/${cityA.regionSlug}/${cityA.slug}`}
         className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-ink/65 hover:text-kiremit transition-colors"
