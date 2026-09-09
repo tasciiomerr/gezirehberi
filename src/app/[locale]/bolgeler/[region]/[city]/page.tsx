@@ -29,6 +29,8 @@ import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 import { getPlacesForCity } from "@/lib/places";
 import { getTranslatedCity, cityHasTranslation, getTranslatedKnownFor } from "@/lib/translation/pipeline";
 import { getGuidesForCity } from "@/lib/data/guides";
+import { getDistanceLinksForCity } from "@/lib/data/distances";
+import { Route as RouteIcon } from "lucide-react";
 import { BookOpen } from "lucide-react";
 
 export async function generateStaticParams() {
@@ -119,6 +121,7 @@ export default async function CityDetailPage(props: {
   const city = await getTranslatedCity(rawCity, locale);
   const knownForText = await getTranslatedKnownFor(city.slug, locale);
   const relatedGuides = getGuidesForCity(city.slug);
+  const distanceLinks = getDistanceLinksForCity(city.slug);
 
   // Server-rendered first page of the default (attractions/popularity) list, so the
   // initial HTML already contains real results instead of the client-only empty state.
@@ -464,6 +467,30 @@ export default async function CityDetailPage(props: {
                     </span>
                     <span className="block text-xs text-ink/65 mt-0.5 line-clamp-2">{guide.summary}</span>
                   </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Denetim bulgusu (2026-09): 150 mesafe sayfası (madde 150) hiçbir
+            şehir sayfasından linklenmiyordu, sadece sitemap.xml üzerinden
+            keşfedilebiliyordu — bu ters yönü ekliyor. Gerçek Mapbox
+            verisinden (distanceCache), boşsa hiç render edilmez. */}
+        {distanceLinks.length > 0 && (
+          <div className="mt-16 border-t border-ink/10 pt-16 no-print">
+            <h3 className="font-display text-2xl italic text-ink mb-5">
+              {locale === "tr" ? "Diğer Şehirlere Mesafe" : "Distance to Other Cities"}
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              {distanceLinks.map((d) => (
+                <Link
+                  key={d.slug}
+                  href={`/${locale}/mesafe/${d.slug}`}
+                  className="flex items-center gap-1.5 rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink/75 hover:border-kiremit hover:text-kiremit transition-colors"
+                >
+                  <RouteIcon size={14} className="text-kiremit shrink-0" />
+                  {translateDataText(d.otherCityName, locale)} · {d.distanceKm} km
                 </Link>
               ))}
             </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Heart, Search, ChevronDown } from "lucide-react";
+import { Heart, Search, ChevronDown, BookOpen, GitCompareArrows } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { regions } from "@/lib/data/regions";
@@ -100,12 +100,24 @@ export default function Header() {
             </AnimatePresence>
           </div>
           <Link
+            href={`/${locale}/rehberler`}
+            className="flex items-center gap-1.5 hover:text-kiremit transition-colors"
+          >
+            <BookOpen size={15} /> {dict.nav.guides}
+          </Link>
+          <Link
+            href={`/${locale}/karsilastir`}
+            className="flex items-center gap-1.5 hover:text-kiremit transition-colors"
+          >
+            <GitCompareArrows size={15} /> {dict.nav.compare}
+          </Link>
+          <Link
             href={`/${locale}/kayitlerim`}
             className="flex items-center gap-1.5 hover:text-kiremit transition-colors"
           >
             <Heart size={15} /> {dict.nav.wishlist}
           </Link>
-          
+
           <div className="h-4 w-px bg-ink/15" />
           
           <ThemeToggle />

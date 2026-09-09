@@ -27,15 +27,18 @@ export async function generateMetadata(props: { params: Promise<{ pair: string; 
   // Başlıkta yuvarlanmış tam sayı (rakip sitelerin çoğu da böyle gösteriyor,
   // "237.1" yerine "237" taranabilirliği artırıyor) — sayfa içeriğinde
   // (istatistik kutusu, açıklama) tam ondalıklı Mapbox değeri değişmeden kalıyor.
-  // Suffix kısa tutuldu ("— Yol Tarifi") — uzun şehir isimli çiftlerde
-  // (İstanbul-Şanlıurfa gibi) "— Gerçek Mesafe ve Yol Tarifi" 150 çiftin
-  // 47'sinde 60 karakteri aşıp Google'da kesiliyordu; bu haliyle en uzun
-  // başlık bile 50 karakter, hiçbiri kesilmiyor.
+  // Düzeltme (2026-09 denetim): önceki "— Yol Tarifi" suffix'i kendi
+  // uzunluğuyla 60 altındaydı ama root layout'un otomatik eklediği
+  // " | Yol Defteri" marka ekini (14 karakter) hesaba katmamıştım — gerçek
+  // render edilen title'ların 61/150'si hâlâ 60'ı aşıyordu. "Arası"
+  // kelimesi (dominant sorgu deseniyle birebir eşleşiyor) korunup "Yol
+  // Tarifi" suffix'i kaldırıldı — marka eki dahil en uzun başlık artık 51
+  // karakter (TR) / 47 karakter (EN), hiçbiri kesilmiyor.
   const roundedKm = Math.round(data.distanceKm);
   const title =
     locale === "tr"
-      ? `${data.cityA.name} - ${data.cityB.name} Arası ${roundedKm} Km — Yol Tarifi`
-      : `${data.cityA.name} to ${data.cityB.name}: ${roundedKm} km Distance`;
+      ? `${data.cityA.name} - ${data.cityB.name} Arası ${roundedKm} Km`
+      : `${data.cityA.name} to ${data.cityB.name}: ${roundedKm} km`;
   const description =
     locale === "tr"
       ? `${data.cityA.name} ile ${data.cityB.name} arası ${data.distanceKm} km, ortalama sürüş süresi ve gerçek güzergah bilgisi.`

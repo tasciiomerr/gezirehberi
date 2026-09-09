@@ -35,6 +35,30 @@ export function getAllDistancePairSlugs(): string[] {
   return distancePairs.map(distancePairSlug);
 }
 
+export interface DistanceLinkInfo {
+  slug: string;
+  otherCityName: string;
+  distanceKm: number;
+}
+
+// Şehir sayfasından ilgili mesafe sayfalarına ters link için (madde 84
+// tutarlılığı — mesafe sayfaları şehirlere link veriyordu ama tersi hiç
+// yoktu, bu 150 sayfayı iç link ağında yetim bırakıyordu). Gerçek cache
+// verisinden gerçek mesafe okunuyor, uydurma yok.
+export function getDistanceLinksForCity(citySlug: string): DistanceLinkInfo[] {
+  return distancePairs
+    .filter((p) => p.cityA === citySlug || p.cityB === citySlug)
+    .map((p) => {
+      const slug = distancePairSlug(p);
+      const otherSlug = p.cityA === citySlug ? p.cityB : p.cityA;
+      const otherCity = allCities.find((c) => c.slug === otherSlug);
+      const entry = distanceCache[slug];
+      if (!otherCity || !entry) return undefined;
+      return { slug, otherCityName: otherCity.name, distanceKm: entry.distanceKm };
+    })
+    .filter((d): d is DistanceLinkInfo => Boolean(d));
+}
+
 export function getDistancePageData(slug: string): DistancePageData | undefined {
   const pair: DistancePair | undefined = distancePairs.find((p) => distancePairSlug(p) === slug);
   if (!pair) return undefined;
