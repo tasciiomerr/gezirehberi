@@ -51,6 +51,25 @@ export const popularDistricts: District[] = [
     heroTagline: "Zeytin Kokulu Sokaklar ve Cunda Rüzgarı",
     location: { lat: 39.3178, lng: 26.6978 }
   },
+  // Denetim bulgusu (2026-09, madde 284): Pamukkale — UNESCO Dünya Mirası
+  // (Hierapolis-Pamukkale, 1988), Türkiye'nin en çok aranan doğa
+  // harikalarından biri — hiçbir zaman kendi bağımsız sayfası olmadı,
+  // sadece Denizli City kaydının içinde bir attraction olarak geçiyordu.
+  // "Pamukkale" arayan biri /bolgeler/ege/denizli'ye değil kendi sayfasına
+  // düşmeliydi. Koordinatlar ve gerçekler Denizli'nin zaten var olan,
+  // doğrulanmış attraction kaydından (denizli-pamukkale) birebir alındı —
+  // uydurma yeni veri yok.
+  {
+    slug: "pamukkale",
+    citySlug: "denizli",
+    regionSlug: "ege",
+    name: "Pamukkale",
+    title: "Denizli Pamukkale Gezi Rehberi",
+    summary: "Kalsiyum karbonatlı sıcak su kaynaklarının binlerce yılda oluşturduğu bembeyaz travertenler ve üzerindeki Hierapolis antik kentiyle UNESCO Dünya Mirası listesindeki doğa ve tarih harikası.",
+    longDescription: "Pamukkale, adını (\"pamuk kale\") aldığı pamuk beyazı kalsiyum teraslarıyla dünyanın en ikonik doğa oluşumlarından biri. Travertenlerin üzerinde kurulu Hierapolis antik kenti, Roma döneminden kalma iyi korunmuş tiyatrosu ve dünyanın en büyük antik nekropollerinden biriyle dikkat çekiyor. 1988'den beri Hierapolis-Pamukkale adıyla UNESCO Dünya Mirası listesinde yer alıyor.",
+    heroTagline: "Pamuktan Beyaz Teraslar, Antik Bir Şehrin Kalıntıları",
+    location: { lat: 37.9142, lng: 29.1189 }
+  },
   {
     slug: "kusadasi",
     citySlug: "aydin",
