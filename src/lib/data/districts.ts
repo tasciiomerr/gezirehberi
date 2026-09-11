@@ -70,6 +70,22 @@ export const popularDistricts: District[] = [
     heroTagline: "Pamuktan Beyaz Teraslar, Antik Bir Şehrin Kalıntıları",
     location: { lat: 37.9142, lng: 29.1189 }
   },
+  // Denetim bulgusu (2026-09, madde 285): Selçuk/Efes — Türkiye'nin en çok
+  // ziyaret edilen antik kenti, ne kendi sayfası ne İzmir'in curated
+  // listesinde hiç yoktu (bkz. ege-extra.ts'e eklenen izmir-efes/
+  // izmir-meryem-ana-evi attraction kayıtları). Koordinatlar ve tarihi
+  // gerçekler (UNESCO 2015) doğrulanabilir/kalıcı bilgiler.
+  {
+    slug: "selcuk",
+    citySlug: "izmir",
+    regionSlug: "ege",
+    name: "Selçuk",
+    title: "İzmir Selçuk (Efes) Gezi Rehberi",
+    summary: "Celsus Kütüphanesi ve dev antik tiyatrosuyla dünyaca ünlü Efes Antik Kenti'nin ve Meryem Ana Evi'nin bulunduğu, 2015'ten beri UNESCO Dünya Mirası listesindeki ilçe.",
+    longDescription: "Selçuk, Roma döneminin en önemli liman kentlerinden Efes'in ve Hristiyanlık ile İslam'da kutsal kabul edilen Meryem Ana Evi'nin bulunduğu ilçe. Efes'in Celsus Kütüphanesi cephesi ve 24.000 kişilik tiyatrosu, Akdeniz'in en iyi korunmuş Roma kalıntıları arasında sayılıyor.",
+    heroTagline: "Roma'nın İzinde, Antik Bir Liman Kentinin Kalıntıları",
+    location: { lat: 37.9500, lng: 27.3667 }
+  },
   {
     slug: "kusadasi",
     citySlug: "aydin",
@@ -114,6 +130,23 @@ export const popularDistricts: District[] = [
     longDescription: "Fethiye, antik kaya mezarları, doğa harikası kanyonları, dünya çapında ödüllü plajları ve Likya uygarlığının izlerini taşıyan tarihi kalıntılarıyla benzersiz bir tatil ve doğa sporu merkezidir.",
     heroTagline: "Ölüdeniz'in Durgunluğu ve Babadağ'ın Özgürlüğü",
     location: { lat: 36.6219, lng: 29.1164 }
+  },
+  // Denetim bulgusu (2026-09, madde 285): Ölüdeniz — Türkiye'nin en tanınmış
+  // lagünlerinden biri, sadece üstteki Fethiye City kaydının içinde bir
+  // attraction/restoran/otel grubu olarak geçiyordu, kendi sayfası yoktu.
+  // Koordinatlar ve gerçekler Fethiye'nin zaten var olan, doğrulanmış
+  // "fethiye-oludeniz" attraction kaydından birebir alındı — uydurma yeni
+  // veri yok.
+  {
+    slug: "oludeniz",
+    citySlug: "fethiye",
+    regionSlug: "akdeniz",
+    name: "Ölüdeniz",
+    title: "Fethiye Ölüdeniz Gezi Rehberi",
+    summary: "Kum seti ile denizden ayrılmış sakin turkuaz lagünü ve Babadağ'ın 1969 metre yüksekliğinden yapılan yamaç paraşütü uçuşlarıyla dünyaca tanınan Akdeniz kıyısı.",
+    longDescription: "Ölüdeniz, adını dalgasız, durgun sularından alan doğal bir lagün. Kelebekler Vadisi'ne tekneyle bu koydan ulaşılır, Babadağ'ın zirvesinden teleferikle çıkılıp tandem yamaç paraşütüyle lagünün üzerine inilir. Milli park sınırları içinde koruma altındadır.",
+    heroTagline: "Turkuaz Bir Lagün, Gökyüzünden Bakan Bir Manzara",
+    location: { lat: 36.5486, lng: 29.1164 }
   },
   {
     slug: "kas",
