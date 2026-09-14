@@ -42,8 +42,18 @@ export default function AdSlot({ slotId }: { slotId?: string }) {
 
   if (!clientId || !consented) return null;
 
+  // Bulgu (2026-09, AdSense onayı sonrası canlı test): önceki "flex
+  // justify-center" sarmalayıcı, gerçek AdSense script'inin ölçüm anında
+  // <ins>'in genişliğini 0 hesaplamasına yol açıyordu (konsolda
+  // "TagError: No slot size for availableWidth=0") — flexbox'ta bir child
+  // sadece width:100% ile (flex-basis olmadan) content-bazlı boyutlanır,
+  // <ins> boş olduğu için bu 0'a düşüyor. Bu, Google'ın kendi
+  // dokümantasyonunda da geçen bilinen bir hata deseni (auto/responsive
+  // reklamlar flex/grid container içinde). Çözüm: flex yerine düz block
+  // layout + margin:auto ile ortalama — <ins> artık her zaman gerçek bir
+  // genişlik hesaplıyor.
   return (
-    <div className="my-10 flex justify-center no-print" aria-hidden="true">
+    <div className="my-10 w-full no-print" aria-hidden="true">
       <Script
         id="adsbygoogle-loader"
         strategy="afterInteractive"
@@ -52,7 +62,7 @@ export default function AdSlot({ slotId }: { slotId?: string }) {
       />
       <ins
         className="adsbygoogle"
-        style={{ display: "block", width: "100%", maxWidth: 728 }}
+        style={{ display: "block", width: "100%", maxWidth: 728, marginLeft: "auto", marginRight: "auto" }}
         data-ad-client={clientId}
         data-ad-slot={slotId}
         data-ad-format="auto"
