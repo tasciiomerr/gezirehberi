@@ -10,6 +10,8 @@ import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
 import HiddenGemBadge from "@/components/HiddenGemBadge";
 import KnownForSection from "@/components/KnownForSection";
+import QuickFactsCard from "@/components/QuickFactsCard";
+import { getCityQuickFacts } from "@/lib/data/quickFacts";
 import { CampingSection, FilmLocationsSection } from "@/components/TravelStyleSections";
 import Gallery from "@/components/Gallery";
 import StickyPlanBar from "@/components/StickyPlanBar";
@@ -122,6 +124,7 @@ export default async function CityDetailPage(props: {
   const knownForText = await getTranslatedKnownFor(city.slug, locale);
   const relatedGuides = getGuidesForCity(city.slug);
   const distanceLinks = getDistanceLinksForCity(city.slug);
+  const quickFacts = getCityQuickFacts(city.slug);
 
   // Server-rendered first page of the default (attractions/popularity) list, so the
   // initial HTML already contains real results instead of the client-only empty state.
@@ -156,6 +159,10 @@ export default async function CityDetailPage(props: {
     ]
   };
 
+  // Madde 154 — schema.org'un çekirdek Place/TouristDestination sözlüğünde
+  // resmi bir "population" alanı yok; bu tür serbest gerçekleri işaretlemenin
+  // standart, geçerli yolu additionalProperty/PropertyValue. Sadece
+  // quickFacts.ts'te gerçek veri girilen şehirlerde ekleniyor.
   const touristDestinationSchema = {
     "@context": "https://schema.org",
     "@type": "TouristDestination",
@@ -166,7 +173,17 @@ export default async function CityDetailPage(props: {
       "@type": "GeoCoordinates",
       "latitude": city.location.lat,
       "longitude": city.location.lng
-    }
+    },
+    ...(quickFacts
+      ? {
+          "additionalProperty": [
+            { "@type": "PropertyValue", "name": "population", "value": quickFacts.population },
+            ...(quickFacts.elevationM !== undefined
+              ? [{ "@type": "PropertyValue", "name": "elevation", "value": `${quickFacts.elevationM} m` }]
+              : []),
+          ],
+        }
+      : {}),
   };
 
   const nextMonday = getNextMondayISO();
@@ -315,6 +332,14 @@ export default async function CityDetailPage(props: {
         </div>
 
         <ConfusedPlacesWarning places={getConfusablePlaces(city.slug)} locale={locale} />
+
+        {/* Madde 146/148/149/152 — "Hızlı Bilgi Kartı" + "İlginç Bilgiler" +
+            "Ünlü Kişiler" + rehbere köprü cümlesi. PİLOT: 12 şehir, bkz.
+            src/lib/data/quickFacts.ts — sadece gerçek/doğrulanmış veri girilen
+            şehirlerde render edilir, boşsa hiç görünmez. */}
+        {quickFacts && (
+          <QuickFactsCard facts={quickFacts} cityName={translateDataText(city.name, locale)} locale={locale} />
+        )}
 
         {/* Madde 82-83/146-154 — "bu şehir neyle ünlü" paragrafı artık
             translateCityCurated pipeline'ının bir parçası (kalıcı, otomatik);
