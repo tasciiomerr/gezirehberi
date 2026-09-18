@@ -84,7 +84,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     sitemapRoutes.push(
       route(`${siteUrl}/${locale}`, "daily", 1.0, "src/app/[locale]/page.tsx"),
       route(`${siteUrl}/${locale}/bolgeler`, "weekly", 0.9, "src/app/[locale]/bolgeler/page.tsx"),
-      route(`${siteUrl}/${locale}/kayitlerim`, "weekly", 0.5, "src/app/[locale]/kayitlerim/page.tsx"),
+      // Denetim bulgusu (2026-09): /kayitlerim kisisel/ozel bir sayfa —
+      // robots.txt'te disallow, sayfanin kendi meta'sinda noindex. Sitemap'te
+      // listelenmesi GSC'nin "Submitted URL marked 'noindex'" uyarisini
+      // tetikleyen celiskili bir sinyaldi, madde 16'nin ruhuna aykiri.
       route(`${siteUrl}/${locale}/hakkimizda`, "monthly", 0.5, "src/app/[locale]/hakkimizda/page.tsx"),
       route(`${siteUrl}/${locale}/gizlilik-politikasi`, "monthly", 0.4, "src/app/[locale]/gizlilik-politikasi/page.tsx"),
       route(`${siteUrl}/${locale}/cerez-politikasi`, "monthly", 0.4, "src/app/[locale]/cerez-politikasi/page.tsx"),

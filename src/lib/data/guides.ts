@@ -396,10 +396,10 @@ Bu bölgeyi ziyaret etmeyi planlıyorsanız, yoğun yağış alan bir iklim oldu
     slug: "turkiyede-unesco-dunya-mirasi-yerleri",
     title: "Türkiye'de UNESCO Dünya Mirası Listesindeki Yerler",
     summary:
-      "Türkiye'de UNESCO Dünya Mirası Listesi'ne kayıtlı, tarihi ve doğal açıdan evrensel değere sahip başlıca yerler.",
-    publishedAt: "2026-08-18",
-    relatedCitySlugs: ["safranbolu", "canakkale", "kapadokya", "denizli", "kars", "diyarbakir", "adiyaman", "sanliurfa", "malatya", "istanbul"],
-    body: `UNESCO Dünya Mirası Listesi, evrensel değere sahip kültürel ve doğal alanları tanımlar. Türkiye, bu listede çok sayıda yerle temsil edilir — işte bilinen başlıcaları.
+      "Türkiye'nin 22 UNESCO Dünya Mirası alanından, tarihi ve doğal açıdan evrensel değere sahip başlıcaları.",
+    publishedAt: "2026-09-18",
+    relatedCitySlugs: ["safranbolu", "canakkale", "kapadokya", "denizli", "kars", "diyarbakir", "adiyaman", "sanliurfa", "malatya", "istanbul", "izmir", "bursa", "manisa"],
+    body: `UNESCO Dünya Mirası Listesi, evrensel değere sahip kültürel ve doğal alanları tanımlar. 2025'te "Sardes ve Bin Tepe Lidya Tümülüsleri"nin eklenmesiyle Türkiye'nin listedeki alan sayısı 22'ye ulaştı — işte bilinen başlıcaları.
 
 SAFRANBOLU (1994)
 İyi korunmuş Osmanlı dönemi sivil mimarisi — ahşap konaklar ve tarihi çarşı dokusuyla.
@@ -431,7 +431,19 @@ Erken devlet organizasyonuna dair önemli arkeolojik buluntularıyla bilinen bir
 İSTANBUL'UN TARİHİ ALANLARI (1985)
 Sultanahmet bölgesindeki Ayasofya, Topkapı Sarayı ve çevresindeki tarihi doku dahil olmak üzere kentin çok katmanlı mirası.
 
-Bu listedeki her alan, ülke çapında farklı bölgelere dağılmış durumda — bir gezi planı yaparken birkaçını aynı bölge içinde birleştirmek mümkün (örn. Kapadokya ve çevresi, ya da Güneydoğu Anadolu'daki Diyarbakır-Nemrut-Göbeklitepe üçgeni).`,
+EFES ANTİK KENTİ, İZMİR (2015)
+Celsus Kütüphanesi'nin cephesi ve dev antik tiyatrosuyla Akdeniz'in en iyi korunmuş Roma dönemi kalıntılarından biri; yakınındaki Meryem Ana Evi ile birlikte gezilir.
+
+BERGAMA ÇOK KATMANLI KÜLTÜREL PEYZAJ ALANI, İZMİR (2014)
+Antik Pergamon Krallığı'nın başkenti — akropolündeki anıtsal tapınaklar, tiyatro ve kütüphane kalıntılarıyla, Helenistik dönemden Osmanlı'ya uzanan çok katmanlı bir tarih taşıyor. İzmir'in ilk, Türkiye'nin 13. UNESCO alanı.
+
+BURSA VE CUMALIKIZIK: OSMANLI İMPARATORLUĞU'NUN DOĞUŞU (2014)
+Osmanlı Devleti'nin ilk başkenti Bursa'daki külliyeler (Yıldırım, Yeşil, Muradiye) ve vakıf sistemiyle kurulmuş Cumalıkızık köyü — erken dönem Osmanlı kent planlamasının somut örneği.
+
+SARDES ANTİK KENTİ VE BİN TEPE LİDYA TÜMÜLÜSLERİ, MANİSA (2025)
+Lidya Krallığı'nın başkenti Sardes'in kalıntıları (Artemis Tapınağı, hamam-gymnasion) ve krallara/soylulara ait 119 höyükten oluşan Bin Tepe nekropolü — Türkiye'nin listeye en son eklenen, 22. alanı.
+
+Bu listedeki her alan, ülke çapında farklı bölgelere dağılmış durumda — bir gezi planı yaparken birkaçını aynı bölge içinde birleştirmek mümkün (örn. Kapadokya ve çevresi, İzmir'deki Efes-Bergama ikilisi, ya da Güneydoğu Anadolu'daki Diyarbakır-Nemrut-Göbeklitepe üçgeni).`,
   },
   {
     slug: "turkiyede-doga-yuruyusu-icin-en-iyi-bolgeler",
