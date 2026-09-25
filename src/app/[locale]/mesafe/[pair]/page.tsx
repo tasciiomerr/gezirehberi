@@ -157,6 +157,13 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
 
       <AdSlot />
 
+      <Link
+        href={`/${locale}/mesafe`}
+        className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-kiremit hover:underline"
+      >
+        <RouteIcon size={14} /> {locale === "tr" ? "Tüm şehirler arası mesafe tablosu" : "All city-to-city distances"}
+      </Link>
+
       <div className="mt-12 border-t border-ink/10 pt-8">
         <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">
           {locale === "tr" ? "İlgili Şehirler" : "Related Cities"}

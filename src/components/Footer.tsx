@@ -72,6 +72,9 @@ export default function Footer() {
                 <Link href={`/${locale}/karsilastir`} className="transition-colors">
                   {dict.nav.compare}
                 </Link>
+                <Link href={`/${locale}/mesafe`} className="transition-colors">
+                  {dict.nav.distances}
+                </Link>
                 <Link href={`/${locale}/hakkimizda`} className="transition-colors">
                   {locale === "tr" ? "Hakkımızda" : "About Us"}
                 </Link>

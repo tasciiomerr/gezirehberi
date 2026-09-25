@@ -110,6 +110,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
+    // 1b'. Mesafe hub sayfası (150 çift sayfasının crawl merkezi).
+    sitemapRoutes.push(route(`${siteUrl}/${locale}/mesafe`, "monthly", 0.7, "src/lib/data/distanceCache.json"));
+
     // 1c. Madde 150 — programatik mesafe sayfaları (50 el ile seçilmiş şehir
     // çifti). Guides ile aynı desen: locales zaten sadece ["tr"] olduğu için
     // bu blok otomatik olarak TR-only kalıyor, ayrı bir kontrol gerekmiyor.
