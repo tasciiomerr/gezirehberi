@@ -6,7 +6,6 @@ import PlaceholderImage from "./PlaceholderImage";
 import { Attraction } from "@/lib/types";
 import { translateDataText, Locale } from "@/lib/i18n";
 import SavePlaceButton from "./SavePlaceButton";
-import { getLastMondayDate } from "@/lib/pricingEngine";
 
 export default function AttractionCard({ attraction, locale = "tr", onClick }: { attraction: Attraction; locale?: string; onClick?: () => void }) {
   const IMPORTANCE_LABELS: Record<string, { label: string; color: string }> = {
@@ -86,10 +85,7 @@ export default function AttractionCard({ attraction, locale = "tr", onClick }: {
             <span className="truncate">{translateDataText(attraction.address, locale as Locale)}</span>
           </div>
           {attraction.entranceFee && !String(attraction.entranceFee).toLowerCase().includes("ücretsiz") && !String(attraction.entranceFee).toLowerCase().includes("free") && (
-            <>
-              <span className="text-[10px] text-ink/65 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
-              <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
-            </>
+            <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
           )}
         </div>
 

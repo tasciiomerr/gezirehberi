@@ -6,7 +6,6 @@ import PlaceholderImage from "./PlaceholderImage";
 import { Accommodation } from "@/lib/types";
 import { translateDataText, Locale } from "@/lib/i18n";
 import SavePlaceButton from "./SavePlaceButton";
-import { getLastMondayDate } from "@/lib/pricingEngine";
 
 export default function AccommodationCard({ accommodation, locale = "tr", onClick }: { accommodation: Accommodation; locale?: string; onClick?: () => void }) {
   const TYPE_LABELS: Record<string, string> = {
@@ -45,9 +44,11 @@ export default function AccommodationCard({ accommodation, locale = "tr", onClic
             <h3 className="font-display text-lg italic text-ink group-hover:text-kiremit transition-colors">
               {translateDataText(accommodation.name, locale as Locale)}
             </h3>
-            <span className="flex shrink-0 items-center gap-1 text-sm font-semibold text-safran">
-              <Star size={14} fill="currentColor" /> {accommodation.rating}
-            </span>
+            {accommodation.rating !== undefined && (
+              <span className="flex shrink-0 items-center gap-1 text-sm font-semibold text-safran">
+                <Star size={14} fill="currentColor" /> {accommodation.rating}
+              </span>
+            )}
           </div>
           <p className="mt-1.5 text-sm text-ink/70 line-clamp-2 leading-relaxed">
             {translateDataText(accommodation.description, locale as Locale)}
@@ -71,7 +72,6 @@ export default function AccommodationCard({ accommodation, locale = "tr", onClic
             {translateDataText(accommodation.pricePerNight, locale as Locale)}{" "}
             <span className="text-xs font-normal text-ink/65">{perNightText}</span>
           </p>
-          <span className="text-[10px] text-ink/65 font-bold block">Son Fiyat Güncellemesi: {getLastMondayDate(locale)}</span>
           <span className="text-[9px] text-kiremit/70 font-semibold leading-tight block">🛡️ Sezonluk Ortalama Tahmini Fiyattır</span>
         </div>
       </div>

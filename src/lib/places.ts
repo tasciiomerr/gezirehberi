@@ -1,6 +1,5 @@
 import { allCities } from "@/lib/data/cities";
 import { getDistrict } from "@/lib/data/districts";
-import { getDynamicPrice } from "@/lib/pricingEngine";
 
 // Helper hash function to ensure stable, seed-based dynamic generation
 function hashString(str: string): number {
@@ -238,27 +237,25 @@ export function getPlacesForCity(citySlug: string, options: GetPlacesOptions = {
   const GENERATE_FILLER_PLACES = false;
   let list = generatePlacesForCity(city, type, GENERATE_FILLER_PLACES ? 500 : 0, district);
 
-  // Normalize items to prevent client-side crashes from missing fields in curated data
+  // Normalize items to prevent client-side crashes from missing fields in curated data.
+  //
+  // Düzeltme (2026-09-29): fiyatlar önceden pricingEngine.getDynamicPrice'tan
+  // geçiyordu — mevsim çarpanı (yaz +%25, kış -%10) + id/hafta hash'inden
+  // -%5..+%4 "dalgalanma"; yani kullanıcıya gösterilen müze giriş ücreti
+  // dahil tüm fiyatlar her hafta uydurma biçimde değişiyordu. Eksik puan 4.5,
+  // eksik yorum sayısı 100 ve eksik fiyat sabit bir değerle dolduruluyordu
+  // (2.452 kaydın 1.630'unda puan, hiçbirinde yorum sayısı yok). Artık sadece
+  // editörün girdiği gerçek değer gösteriliyor; olmayan alan boş kalıyor.
   list = list.map((item) => {
-    const normalId = item.id;
-    const rawCost = item.averageCost || "150-250 TL";
-    const rawPrice = item.pricePerNight || "1.000 TL";
-    const rawFee = item.entranceFee;
-
     return {
       ...item,
       regionSlug: district ? district.regionSlug : city.regionSlug,
-      rating: item.rating !== undefined ? item.rating : 4.5,
-      reviewCount: item.reviewCount !== undefined ? item.reviewCount : 100,
       specialties: item.specialties || [],
       features: item.features || [],
       amenities: item.amenities || [],
       ingredients: item.ingredients || [],
       diningType: item.diningType || "restaurant",
       priceRange: item.priceRange || "mid",
-      averageCost: getDynamicPrice(rawCost, normalId),
-      pricePerNight: getDynamicPrice(rawPrice, normalId),
-      entranceFee: rawFee ? getDynamicPrice(rawFee, normalId) : undefined,
       bestSeason: item.bestSeason || "Yıl boyu",
       tips: Array.isArray(item.tips) ? item.tips.join(". ") : (item.tips || "")
     };
@@ -277,8 +274,10 @@ export function getPlacesForCity(citySlug: string, options: GetPlacesOptions = {
   // Apply Sorting logic
   list.sort((a, b) => {
     if (sort === "popularity") {
-      const rA = a.rating;
-      const rB = b.rating;
+      // Puanı olmayan kayıt (artık uydurma 4.5 yok) sona gider; sort
+      // karşılaştırıcısına NaN dönmesin.
+      const rA = a.rating ?? 0;
+      const rB = b.rating ?? 0;
       if (rB !== rA) return rB - rA;
       return (b.reviewCount || 0) - (a.reviewCount || 0);
     }

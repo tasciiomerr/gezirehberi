@@ -18,7 +18,6 @@ import {
 } from "lucide-react";
 import PlaceholderImage from "./PlaceholderImage";
 import { translateDataText, Locale } from "@/lib/i18n";
-import { getLastMondayDate } from "@/lib/pricingEngine";
 
 interface PlaceDetailModalProps {
   place: any;
@@ -155,9 +154,9 @@ export default function PlaceDetailModal({
               <span className="rounded-full bg-kiremit/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-kiremit shadow-sm">
                 {category === "attractions" ? (place.category || "attraction") : category}
               </span>
-              {place.rating && (
+              {place.rating !== undefined && (
                 <span className="flex items-center gap-1 rounded-full bg-safran/10 px-2.5 py-0.5 text-xs font-bold text-kiremit">
-                  <Star size={12} fill="currentColor" className="text-safran" /> {place.rating} ({place.reviewCount})
+                  <Star size={12} fill="currentColor" className="text-safran" /> {place.rating}{place.reviewCount !== undefined ? ` (${place.reviewCount})` : ""}
                 </span>
               )}
             </div>
@@ -198,9 +197,6 @@ export default function PlaceDetailModal({
                         <p className="text-sm text-ink/85 font-semibold">{translateDataText(place.entranceFee, locale as Locale)}</p>
                         {place.entranceFee && !String(place.entranceFee).toLowerCase().includes("ücretsiz") && !String(place.entranceFee).toLowerCase().includes("free") && (
                           <>
-                            <p className="text-[10px] text-ink/65 font-bold mt-0.5 block">
-                              Son Fiyat Güncellemesi: {getLastMondayDate(locale)}
-                            </p>
                             <p className="text-[9px] text-kiremit/70 font-semibold mt-0.5 leading-tight">
                               🛡️ Sezonluk Ortalama Tahmini Fiyattır (Tesisle Teyit Ediniz)
                             </p>
@@ -219,9 +215,6 @@ export default function PlaceDetailModal({
                       <div>
                         <p className="text-xs font-bold text-kiremit uppercase tracking-wider">{t("averageCost")}</p>
                         <p className="text-sm text-ink/85 font-semibold">{translateDataText(place.averageCost, locale as Locale)}</p>
-                        <p className="text-[10px] text-ink/65 font-bold mt-0.5 block">
-                          Son Fiyat Güncellemesi: {getLastMondayDate(locale)}
-                        </p>
                         <p className="text-[9px] text-kiremit/70 font-semibold mt-0.5 leading-tight">
                           🛡️ Sezonluk Ortalama Tahmini Fiyattır (Tesisle Teyit Ediniz)
                         </p>
@@ -254,9 +247,6 @@ export default function PlaceDetailModal({
                       <div>
                         <p className="text-xs font-bold text-kiremit uppercase tracking-wider">{locale === "tr" ? "Gecelik Ücret" : "Price Per Night"}</p>
                         <p className="text-sm text-ink/85 font-semibold">{translateDataText(place.pricePerNight, locale as Locale)}</p>
-                        <p className="text-[10px] text-ink/65 font-bold mt-0.5 block">
-                          Son Fiyat Güncellemesi: {getLastMondayDate(locale)}
-                        </p>
                         <p className="text-[9px] text-kiremit/70 font-semibold mt-0.5 leading-tight">
                           🛡️ Sezonluk Ortalama Tahmini Fiyattır (Tesisle Teyit Ediniz)
                         </p>
