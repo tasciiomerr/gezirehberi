@@ -1,0 +1,4336 @@
+{
+  "antalya-istanbul": {
+    "cities": [
+      {
+        "slug": "burdur",
+        "kmFromA": 127
+      },
+      {
+        "slug": "afyonkarahisar",
+        "kmFromA": 281
+      },
+      {
+        "slug": "kutahya",
+        "kmFromA": 368
+      },
+      {
+        "slug": "bursa",
+        "kmFromA": 545
+      },
+      {
+        "slug": "yalova",
+        "kmFromA": 605
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "burdur",
+        "attractionId": "burdur-bucak-incir-han",
+        "kmFromA": 83,
+        "offsetKm": 3.4
+      },
+      {
+        "citySlug": "burdur",
+        "attractionId": "burdur-insuyu-magarasi",
+        "kmFromA": 112,
+        "offsetKm": 9
+      },
+      {
+        "citySlug": "burdur",
+        "attractionId": "burdur-burdur-muzesi",
+        "kmFromA": 127,
+        "offsetKm": 0.7
+      },
+      {
+        "citySlug": "afyonkarahisar",
+        "attractionId": "afyon-kalesi",
+        "kmFromA": 281,
+        "offsetKm": 8.3
+      },
+      {
+        "citySlug": "afyonkarahisar",
+        "attractionId": "afyon-ulu-camii",
+        "kmFromA": 281,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kutahya",
+        "attractionId": "kutahya-frig-vadisi-kutahya",
+        "kmFromA": 327,
+        "offsetKm": 1.9
+      },
+      {
+        "citySlug": "kutahya",
+        "attractionId": "kutahya-cini-atolyeleri",
+        "kmFromA": 367,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "kutahya",
+        "attractionId": "kutahya-kossuth-evi",
+        "kmFromA": 367,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "kutahya",
+        "attractionId": "kutahya-kalesi",
+        "kmFromA": 368,
+        "offsetKm": 1.1
+      },
+      {
+        "citySlug": "kutahya",
+        "attractionId": "kutahya-germiyan-konagi",
+        "kmFromA": 368,
+        "offsetKm": 1.4
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-cumalikizik",
+        "kmFromA": 530,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-misi-koyu",
+        "kmFromA": 544,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-yesil-turbe",
+        "kmFromA": 545,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-koza-han",
+        "kmFromA": 545,
+        "offsetKm": 9.3
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-ulu-camii",
+        "kmFromA": 545,
+        "offsetKm": 9.3
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-muradiye-kulliyesi",
+        "kmFromA": 545,
+        "offsetKm": 9.9
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-tophane-saat-kulesi",
+        "kmFromA": 545,
+        "offsetKm": 9.3
+      },
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-irgandi-koprusu",
+        "kmFromA": 545,
+        "offsetKm": 9.2
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 597,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 629,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 641,
+        "offsetKm": 8.4
+      }
+    ]
+  },
+  "bodrum-istanbul": {
+    "cities": [
+      {
+        "slug": "izmir",
+        "kmFromA": 231
+      },
+      {
+        "slug": "balikesir",
+        "kmFromA": 423
+      },
+      {
+        "slug": "bursa",
+        "kmFromA": 559
+      },
+      {
+        "slug": "yalova",
+        "kmFromA": 609
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-milet",
+        "kmFromA": 104,
+        "offsetKm": 5.8
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-miletos",
+        "kmFromA": 104,
+        "offsetKm": 5.8
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-milet-limani",
+        "kmFromA": 104,
+        "offsetKm": 5.6
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-priene",
+        "kmFromA": 118,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-sirince",
+        "kmFromA": 166,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 225,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 231,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 231,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 231,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 231,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 231,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 247,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 601,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 633,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 645,
+        "offsetKm": 8.4
+      }
+    ]
+  },
+  "istanbul-izmir": {
+    "cities": [
+      {
+        "slug": "yalova",
+        "kmFromA": 90
+      },
+      {
+        "slug": "bursa",
+        "kmFromA": 141
+      },
+      {
+        "slug": "balikesir",
+        "kmFromA": 276
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 54,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 66,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 98,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 453,
+        "offsetKm": 8.7
+      }
+    ]
+  },
+  "istanbul-kapadokya": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 90
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 140
+      },
+      {
+        "slug": "duzce",
+        "kmFromA": 208
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 97,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 97,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 106,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 106,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 140,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 141,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 161,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 197,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 198,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 208,
+        "offsetKm": 4.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 208,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 218,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 219,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 225,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 228,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 240,
+        "offsetKm": 4.8
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 244,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 250,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 685,
+        "offsetKm": 2.8
+      }
+    ]
+  },
+  "canakkale-istanbul": {
+    "cities": [
+      {
+        "slug": "tekirdag",
+        "kmFromA": 160
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-naip-baglari",
+        "kmFromA": 148,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-sahili",
+        "kmFromA": 160,
+        "offsetKm": 1.4
+      },
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-eski-cami",
+        "kmFromA": 160,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-rakoczi-muzesi",
+        "kmFromA": 160,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-namik-kemal-evi",
+        "kmFromA": 160,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-marmaraereglisi-heraklia",
+        "kmFromA": 201,
+        "offsetKm": 0.5
+      }
+    ]
+  },
+  "bursa-istanbul": {
+    "cities": [
+      {
+        "slug": "yalova",
+        "kmFromA": 65
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 57,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 89,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 101,
+        "offsetKm": 8.4
+      }
+    ]
+  },
+  "istanbul-trabzon": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 91
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 142
+      },
+      {
+        "slug": "duzce",
+        "kmFromA": 211
+      },
+      {
+        "slug": "samsun",
+        "kmFromA": 732
+      },
+      {
+        "slug": "ordu",
+        "kmFromA": 877
+      },
+      {
+        "slug": "giresun",
+        "kmFromA": 928
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 99,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 99,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 105,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 105,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 107,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 107,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 142,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 143,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 163,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 199,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 201,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 210,
+        "offsetKm": 4.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 211,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 221,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 222,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 228,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 231,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 243,
+        "offsetKm": 4.8
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 248,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 253,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "cankiri",
+        "attractionId": "cankiri-cerkes-kaplicalari",
+        "kmFromA": 383,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "cankiri",
+        "attractionId": "cankiri-ilgaz-milli-park",
+        "kmFromA": 450,
+        "offsetKm": 4.2
+      },
+      {
+        "citySlug": "cankiri",
+        "attractionId": "cankiri-ilgaz-gecidi",
+        "kmFromA": 450,
+        "offsetKm": 4.2
+      },
+      {
+        "citySlug": "corum",
+        "attractionId": "corum-kargi-vadisi",
+        "kmFromA": 533,
+        "offsetKm": 7.6
+      },
+      {
+        "citySlug": "corum",
+        "attractionId": "corum-osmancik-koprusu",
+        "kmFromA": 563,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-havza-kaplicalari",
+        "kmFromA": 651,
+        "offsetKm": 0.8
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-atakum-sahili",
+        "kmFromA": 721,
+        "offsetKm": 3
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-amisos-tepesi",
+        "kmFromA": 724,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-bandirma-vapuru",
+        "kmFromA": 734,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-amazon-koyu",
+        "kmFromA": 734,
+        "offsetKm": 2.4
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-19-mayis-aniti",
+        "kmFromA": 734,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-alacahoyuk-tekkekoy",
+        "kmFromA": 749,
+        "offsetKm": 3.3
+      },
+      {
+        "citySlug": "samsun",
+        "attractionId": "samsun-carsamba-ovasi",
+        "kmFromA": 767,
+        "offsetKm": 0.6
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-ulubey-tarihi",
+        "kmFromA": 820,
+        "offsetKm": 1.7
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-yason-burnu",
+        "kmFromA": 848,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-persembe-pazari2",
+        "kmFromA": 848,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-pasakoy-koskleri",
+        "kmFromA": 877,
+        "offsetKm": 2.4
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-boztepe",
+        "kmFromA": 884,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-boztepe-teleferik",
+        "kmFromA": 884,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-adasi",
+        "kmFromA": 929,
+        "offsetKm": 0.1
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-kalesi",
+        "kmFromA": 930,
+        "offsetKm": 0.5
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-espiye-sahili",
+        "kmFromA": 956,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-tirebolu-kalesi",
+        "kmFromA": 971,
+        "offsetKm": 0.2
+      }
+    ]
+  },
+  "istanbul-safranbolu": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 92
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 143
+      },
+      {
+        "slug": "duzce",
+        "kmFromA": 212
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 99,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 99,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 105,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 105,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 107,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 108,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 143,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 143,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 164,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 200,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 202,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 211,
+        "offsetKm": 4.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 212,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 222,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 223,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 229,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 232,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 244,
+        "offsetKm": 4.8
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 249,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 254,
+        "offsetKm": 5.7
+      }
+    ]
+  },
+  "amasra-istanbul": {
+    "cities": [
+      {
+        "slug": "duzce",
+        "kmFromA": 217
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 287
+      },
+      {
+        "slug": "kocaeli",
+        "kmFromA": 337
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "zonguldak",
+        "attractionId": "zonguldak-devrek-baston-carsisi2",
+        "kmFromA": 65,
+        "offsetKm": 0.2
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 175,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 181,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 186,
+        "offsetKm": 4.9
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 197,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 200,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 206,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 208,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 217,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 218,
+        "offsetKm": 4.4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 227,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 229,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 266,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 286,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 287,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 321,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 322,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 324,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 324,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 330,
+        "offsetKm": 7.8
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 330,
+        "offsetKm": 8.2
+      }
+    ]
+  },
+  "istanbul-konya": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 90
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 139
+      },
+      {
+        "slug": "duzce",
+        "kmFromA": 207
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 97,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 97,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 105,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 105,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 139,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 140,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 160,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 196,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 197,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 207,
+        "offsetKm": 4.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 207,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 217,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 218,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 224,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 227,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 239,
+        "offsetKm": 4.8
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 243,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 249,
+        "offsetKm": 5.7
+      }
+    ]
+  },
+  "fethiye-istanbul": {
+    "cities": [
+      {
+        "slug": "aydin",
+        "kmFromA": 232
+      },
+      {
+        "slug": "izmir",
+        "kmFromA": 330
+      },
+      {
+        "slug": "balikesir",
+        "kmFromA": 521
+      },
+      {
+        "slug": "bursa",
+        "kmFromA": 658
+      },
+      {
+        "slug": "yalova",
+        "kmFromA": 707
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-cine-carsi",
+        "kmFromA": 189,
+        "offsetKm": 0
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-sirince",
+        "kmFromA": 266,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 325,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 330,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 330,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 330,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 330,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 330,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 346,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 699,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 731,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 743,
+        "offsetKm": 8.4
+      }
+    ]
+  },
+  "istanbul-marmaris": {
+    "cities": [
+      {
+        "slug": "yalova",
+        "kmFromA": 89
+      },
+      {
+        "slug": "bursa",
+        "kmFromA": 140
+      },
+      {
+        "slug": "balikesir",
+        "kmFromA": 275
+      },
+      {
+        "slug": "izmir",
+        "kmFromA": 468
+      },
+      {
+        "slug": "aydin",
+        "kmFromA": 567
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 54,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 65,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 98,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 451,
+        "offsetKm": 8.7
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 468,
+        "offsetKm": 6.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 468,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 468,
+        "offsetKm": 6.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 468,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 468,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 468,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-sirince",
+        "kmFromA": 534,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-cine-carsi",
+        "kmFromA": 611,
+        "offsetKm": 0
+      }
+    ]
+  },
+  "cesme-istanbul": {
+    "cities": [
+      {
+        "slug": "izmir",
+        "kmFromA": 80
+      },
+      {
+        "slug": "balikesir",
+        "kmFromA": 301
+      },
+      {
+        "slug": "bursa",
+        "kmFromA": 437
+      },
+      {
+        "slug": "yalova",
+        "kmFromA": 487
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 80,
+        "offsetKm": 6.3
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 80,
+        "offsetKm": 6.3
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 93,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 93,
+        "offsetKm": 6.2
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 93,
+        "offsetKm": 5.3
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 109,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 125,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 479,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 511,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 523,
+        "offsetKm": 8.4
+      }
+    ]
+  },
+  "istanbul-mardin": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 90
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 140
+      },
+      {
+        "slug": "duzce",
+        "kmFromA": 208
+      },
+      {
+        "slug": "nigde",
+        "kmFromA": 758
+      },
+      {
+        "slug": "adana",
+        "kmFromA": 932
+      },
+      {
+        "slug": "osmaniye",
+        "kmFromA": 1018
+      },
+      {
+        "slug": "gaziantep",
+        "kmFromA": 1147
+      },
+      {
+        "slug": "sanliurfa",
+        "kmFromA": 1291
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 97,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 97,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 106,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 106,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 140,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 141,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 161,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 197,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 199,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 208,
+        "offsetKm": 4.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 208,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 218,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 220,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 226,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 229,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 240,
+        "offsetKm": 4.8
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 245,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 250,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 685,
+        "offsetKm": 4.2
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-gumusler-manastiri",
+        "kmFromA": 750,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-eskigumus-manzara",
+        "kmFromA": 753,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-kalesi",
+        "kmFromA": 757,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-alaaddin-camii",
+        "kmFromA": 758,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-bor-camii",
+        "kmFromA": 769,
+        "offsetKm": 9.7
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-tyana-kemerhisar",
+        "kmFromA": 775,
+        "offsetKm": 3.3
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-tas-kopru",
+        "kmFromA": 932,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-sabanci-camii",
+        "kmFromA": 932,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-etnografya-muzesi",
+        "kmFromA": 933,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-merkez-park",
+        "kmFromA": 933,
+        "offsetKm": 3.1
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-ulu-cami",
+        "kmFromA": 933,
+        "offsetKm": 3.5
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-misis-koprusu",
+        "kmFromA": 956,
+        "offsetKm": 3.1
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-toprakkale",
+        "kmFromA": 1007,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kadirli-muzesi",
+        "kmFromA": 1018,
+        "offsetKm": 3.4
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-zorkun-yaylasi",
+        "kmFromA": 1024,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-hierapolis-kastabala",
+        "kmFromA": 1026,
+        "offsetKm": 9
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kastabala-tiyatro",
+        "kmFromA": 1026,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-yerkopru-selalesi",
+        "kmFromA": 1031,
+        "offsetKm": 6.5
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "antep-dulukbaba-mitras",
+        "kmFromA": 1136,
+        "offsetKm": 2
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "gaziantep-zeugma",
+        "kmFromA": 1146,
+        "offsetKm": 5.2
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "gaziantep-bakircilar-carsisi",
+        "kmFromA": 1147,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "antep-bakircilar-carsisi",
+        "kmFromA": 1147,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "antep-antep-kalesi",
+        "kmFromA": 1147,
+        "offsetKm": 5.4
+      },
+      {
+        "citySlug": "sanliurfa",
+        "attractionId": "sanliurfa-gobeklitepe",
+        "kmFromA": 1293,
+        "offsetKm": 2.8
+      }
+    ]
+  },
+  "istanbul-sanliurfa": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 90
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 140
+      },
+      {
+        "slug": "duzce",
+        "kmFromA": 208
+      },
+      {
+        "slug": "nigde",
+        "kmFromA": 755
+      },
+      {
+        "slug": "adana",
+        "kmFromA": 929
+      },
+      {
+        "slug": "osmaniye",
+        "kmFromA": 1015
+      },
+      {
+        "slug": "gaziantep",
+        "kmFromA": 1143
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 97,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 97,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 103,
+        "offsetKm": 7.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 105,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 106,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 140,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 140,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 161,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 196,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 198,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 207,
+        "offsetKm": 4.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 208,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 218,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 219,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 225,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 228,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 240,
+        "offsetKm": 4.8
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 244,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 250,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 682,
+        "offsetKm": 4.2
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-gumusler-manastiri",
+        "kmFromA": 748,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-eskigumus-manzara",
+        "kmFromA": 751,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-kalesi",
+        "kmFromA": 755,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-alaaddin-camii",
+        "kmFromA": 755,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-bor-camii",
+        "kmFromA": 767,
+        "offsetKm": 9.7
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-tyana-kemerhisar",
+        "kmFromA": 773,
+        "offsetKm": 3.3
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-tas-kopru",
+        "kmFromA": 929,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-sabanci-camii",
+        "kmFromA": 930,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-etnografya-muzesi",
+        "kmFromA": 930,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-merkez-park",
+        "kmFromA": 930,
+        "offsetKm": 3.1
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-ulu-cami",
+        "kmFromA": 930,
+        "offsetKm": 3.5
+      },
+      {
+        "citySlug": "adana",
+        "attractionId": "adana-misis-koprusu",
+        "kmFromA": 953,
+        "offsetKm": 3.1
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-toprakkale",
+        "kmFromA": 1004,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kadirli-muzesi",
+        "kmFromA": 1015,
+        "offsetKm": 3.4
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-zorkun-yaylasi",
+        "kmFromA": 1021,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-hierapolis-kastabala",
+        "kmFromA": 1023,
+        "offsetKm": 9
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kastabala-tiyatro",
+        "kmFromA": 1023,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-yerkopru-selalesi",
+        "kmFromA": 1028,
+        "offsetKm": 6.5
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "antep-dulukbaba-mitras",
+        "kmFromA": 1133,
+        "offsetKm": 2
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "gaziantep-zeugma",
+        "kmFromA": 1143,
+        "offsetKm": 5.2
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "gaziantep-bakircilar-carsisi",
+        "kmFromA": 1143,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "antep-bakircilar-carsisi",
+        "kmFromA": 1143,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "gaziantep",
+        "attractionId": "antep-antep-kalesi",
+        "kmFromA": 1143,
+        "offsetKm": 5.4
+      }
+    ]
+  },
+  "antalya-bodrum": {
+    "cities": [
+      {
+        "slug": "fethiye",
+        "kmFromA": 194
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-tlos",
+        "kmFromA": 171,
+        "offsetKm": 9.8
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-babadag",
+        "kmFromA": 190,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-gemiler-koyu",
+        "kmFromA": 193,
+        "offsetKm": 10
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-golbeli-yolu",
+        "kmFromA": 194,
+        "offsetKm": 5.3
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-12-ada",
+        "kmFromA": 195,
+        "offsetKm": 5.3
+      }
+    ]
+  },
+  "antalya-fethiye": {
+    "cities": [],
+    "attractions": []
+  },
+  "antalya-marmaris": {
+    "cities": [
+      {
+        "slug": "fethiye",
+        "kmFromA": 194
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-tlos",
+        "kmFromA": 171,
+        "offsetKm": 9.8
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-babadag",
+        "kmFromA": 190,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-gemiler-koyu",
+        "kmFromA": 193,
+        "offsetKm": 10
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-12-ada",
+        "kmFromA": 194,
+        "offsetKm": 5.3
+      },
+      {
+        "citySlug": "fethiye",
+        "attractionId": "fethiye-golbeli-yolu",
+        "kmFromA": 194,
+        "offsetKm": 5.3
+      }
+    ]
+  },
+  "antalya-kapadokya": {
+    "cities": [
+      {
+        "slug": "konya",
+        "kmFromA": 267
+      },
+      {
+        "slug": "aksaray",
+        "kmFromA": 415
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-beysehir-esrefoglu",
+        "kmFromA": 177,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-meram-baglari",
+        "kmFromA": 261,
+        "offsetKm": 5.1
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-sile-kaya-kiliseleri",
+        "kmFromA": 262,
+        "offsetKm": 5.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-sille",
+        "kmFromA": 265,
+        "offsetKm": 5.6
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-mevlana-turbesi",
+        "kmFromA": 267,
+        "offsetKm": 3.1
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-ince-minareli",
+        "kmFromA": 267,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-karatay-medresesi",
+        "kmFromA": 267,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-alaeddin-tepesi",
+        "kmFromA": 267,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-mevlana-muzesi",
+        "kmFromA": 267,
+        "offsetKm": 3.3
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-sultanhani",
+        "kmFromA": 372,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-egri-minare",
+        "kmFromA": 415,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 456,
+        "offsetKm": 2.8
+      }
+    ]
+  },
+  "antalya-konya": {
+    "cities": [],
+    "attractions": []
+  },
+  "antalya-mersin": {
+    "cities": [
+      {
+        "slug": "konya",
+        "kmFromA": 263
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-beysehir-esrefoglu",
+        "kmFromA": 175,
+        "offsetKm": 0.3
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-meram-baglari",
+        "kmFromA": 258,
+        "offsetKm": 5.1
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-sile-kaya-kiliseleri",
+        "kmFromA": 259,
+        "offsetKm": 5.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-sille",
+        "kmFromA": 262,
+        "offsetKm": 5.6
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-mevlana-turbesi",
+        "kmFromA": 263,
+        "offsetKm": 3.1
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-ince-minareli",
+        "kmFromA": 263,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-karatay-medresesi",
+        "kmFromA": 263,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-alaeddin-tepesi",
+        "kmFromA": 263,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "konya",
+        "attractionId": "konya-mevlana-muzesi",
+        "kmFromA": 263,
+        "offsetKm": 3.3
+      }
+    ]
+  },
+  "antalya-denizli": {
+    "cities": [],
+    "attractions": []
+  },
+  "bodrum-fethiye": {
+    "cities": [],
+    "attractions": []
+  },
+  "bodrum-marmaris": {
+    "cities": [],
+    "attractions": []
+  },
+  "bodrum-cesme": {
+    "cities": [
+      {
+        "slug": "izmir",
+        "kmFromA": 239
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-milet",
+        "kmFromA": 103,
+        "offsetKm": 5.8
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-miletos",
+        "kmFromA": 103,
+        "offsetKm": 5.8
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-milet-limani",
+        "kmFromA": 103,
+        "offsetKm": 5.6
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-priene",
+        "kmFromA": 117,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-sirince",
+        "kmFromA": 165,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 226,
+        "offsetKm": 6.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 226,
+        "offsetKm": 6.2
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 226,
+        "offsetKm": 5.2
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 226,
+        "offsetKm": 7.9
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 239,
+        "offsetKm": 6.2
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 239,
+        "offsetKm": 6.2
+      }
+    ]
+  },
+  "bodrum-izmir": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-milet",
+        "kmFromA": 103,
+        "offsetKm": 5.8
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-miletos",
+        "kmFromA": 103,
+        "offsetKm": 5.8
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-milet-limani",
+        "kmFromA": 103,
+        "offsetKm": 5.6
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-priene",
+        "kmFromA": 118,
+        "offsetKm": 6.7
+      }
+    ]
+  },
+  "cesme-izmir": {
+    "cities": [],
+    "attractions": []
+  },
+  "fethiye-izmir": {
+    "cities": [
+      {
+        "slug": "aydin",
+        "kmFromA": 230
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-cine-carsi",
+        "kmFromA": 187,
+        "offsetKm": 0
+      }
+    ]
+  },
+  "denizli-izmir": {
+    "cities": [
+      {
+        "slug": "aydin",
+        "kmFromA": 134
+      }
+    ],
+    "attractions": []
+  },
+  "fethiye-marmaris": {
+    "cities": [],
+    "attractions": []
+  },
+  "cesme-fethiye": {
+    "cities": [
+      {
+        "slug": "izmir",
+        "kmFromA": 78
+      },
+      {
+        "slug": "aydin",
+        "kmFromA": 186
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 78,
+        "offsetKm": 6.3
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 78,
+        "offsetKm": 6.3
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 91,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 91,
+        "offsetKm": 6.2
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 91,
+        "offsetKm": 5.3
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 91,
+        "offsetKm": 7.9
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-sirince",
+        "kmFromA": 152,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "aydin",
+        "attractionId": "aydin-cine-carsi",
+        "kmFromA": 229,
+        "offsetKm": 0
+      }
+    ]
+  },
+  "kapadokya-konya": {
+    "cities": [
+      {
+        "slug": "aksaray",
+        "kmFromA": 83
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 45,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-egri-minare",
+        "kmFromA": 83,
+        "offsetKm": 3.8
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-sultanhani",
+        "kmFromA": 129,
+        "offsetKm": 0.4
+      }
+    ]
+  },
+  "kapadokya-kayseri": {
+    "cities": [],
+    "attractions": []
+  },
+  "kapadokya-mersin": {
+    "cities": [
+      {
+        "slug": "nigde",
+        "kmFromA": 94
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kayseri",
+        "attractionId": "kayseri-soganli-vadisi",
+        "kmFromA": 32,
+        "offsetKm": 9
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-gumusler-manastiri",
+        "kmFromA": 87,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-eskigumus-manzara",
+        "kmFromA": 89,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-kalesi",
+        "kmFromA": 94,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-alaaddin-camii",
+        "kmFromA": 94,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-bor-camii",
+        "kmFromA": 106,
+        "offsetKm": 9.7
+      },
+      {
+        "citySlug": "nigde",
+        "attractionId": "nigde-tyana-kemerhisar",
+        "kmFromA": 111,
+        "offsetKm": 3.3
+      }
+    ]
+  },
+  "kayseri-konya": {
+    "cities": [
+      {
+        "slug": "aksaray",
+        "kmFromA": 148
+      },
+      {
+        "slug": "kapadokya",
+        "kmFromA": 234
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-sultanhani",
+        "kmFromA": 105,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-egri-minare",
+        "kmFromA": 148,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 190,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "kapadokya",
+        "attractionId": "kapadokya-guvercinlik-vadisi",
+        "kmFromA": 232,
+        "offsetKm": 5.4
+      },
+      {
+        "citySlug": "kapadokya",
+        "attractionId": "kapadokya-balon-turu",
+        "kmFromA": 234,
+        "offsetKm": 4.4
+      },
+      {
+        "citySlug": "kapadokya",
+        "attractionId": "kapadokya-goreme-muzesi",
+        "kmFromA": 234,
+        "offsetKm": 6
+      },
+      {
+        "citySlug": "kapadokya",
+        "attractionId": "kapadokya-devrent-vadisi",
+        "kmFromA": 235,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "kapadokya",
+        "attractionId": "kapadokya-pasabag",
+        "kmFromA": 240,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "kapadokya",
+        "attractionId": "kapadokya-zelve-acik-hava",
+        "kmFromA": 240,
+        "offsetKm": 5.6
+      }
+    ]
+  },
+  "amasra-safranbolu": {
+    "cities": [],
+    "attractions": []
+  },
+  "rize-trabzon": {
+    "cities": [],
+    "attractions": []
+  },
+  "artvin-rize": {
+    "cities": [],
+    "attractions": []
+  },
+  "artvin-trabzon": {
+    "cities": [
+      {
+        "slug": "rize",
+        "kmFromA": 147
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "rize",
+        "attractionId": "rize-findikli-sahili",
+        "kmFromA": 84,
+        "offsetKm": 0
+      },
+      {
+        "citySlug": "rize",
+        "attractionId": "rize-guneysu-yaylalari",
+        "kmFromA": 139,
+        "offsetKm": 6.5
+      },
+      {
+        "citySlug": "rize",
+        "attractionId": "rize-cay-bahceleri",
+        "kmFromA": 148,
+        "offsetKm": 0.7
+      }
+    ]
+  },
+  "samsun-trabzon": {
+    "cities": [
+      {
+        "slug": "ordu",
+        "kmFromA": 144
+      },
+      {
+        "slug": "giresun",
+        "kmFromA": 194
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-ulubey-tarihi",
+        "kmFromA": 88,
+        "offsetKm": 1.7
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-yason-burnu",
+        "kmFromA": 116,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-persembe-pazari2",
+        "kmFromA": 116,
+        "offsetKm": 2.9
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-pasakoy-koskleri",
+        "kmFromA": 144,
+        "offsetKm": 2.4
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-boztepe",
+        "kmFromA": 151,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-boztepe-teleferik",
+        "kmFromA": 151,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-adasi",
+        "kmFromA": 195,
+        "offsetKm": 0.1
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-kalesi",
+        "kmFromA": 196,
+        "offsetKm": 0.5
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-espiye-sahili",
+        "kmFromA": 222,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-tirebolu-kalesi",
+        "kmFromA": 238,
+        "offsetKm": 0.2
+      }
+    ]
+  },
+  "ordu-samsun": {
+    "cities": [],
+    "attractions": []
+  },
+  "ordu-trabzon": {
+    "cities": [
+      {
+        "slug": "giresun",
+        "kmFromA": 46
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-adasi",
+        "kmFromA": 47,
+        "offsetKm": 0.1
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-kalesi",
+        "kmFromA": 48,
+        "offsetKm": 0.5
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-espiye-sahili",
+        "kmFromA": 74,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "giresun",
+        "attractionId": "giresun-tirebolu-kalesi",
+        "kmFromA": 90,
+        "offsetKm": 0.2
+      }
+    ]
+  },
+  "gaziantep-sanliurfa": {
+    "cities": [],
+    "attractions": []
+  },
+  "mardin-sanliurfa": {
+    "cities": [],
+    "attractions": []
+  },
+  "diyarbakir-mardin": {
+    "cities": [],
+    "attractions": []
+  },
+  "gaziantep-mardin": {
+    "cities": [
+      {
+        "slug": "sanliurfa",
+        "kmFromA": 153
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "sanliurfa",
+        "attractionId": "sanliurfa-gobeklitepe",
+        "kmFromA": 156,
+        "offsetKm": 2.8
+      }
+    ]
+  },
+  "diyarbakir-sanliurfa": {
+    "cities": [],
+    "attractions": []
+  },
+  "bursa-canakkale": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "balikesir",
+        "attractionId": "balikesir-kapidag-yarimadasi",
+        "kmFromA": 122,
+        "offsetKm": 9.7
+      }
+    ]
+  },
+  "kars-van": {
+    "cities": [
+      {
+        "slug": "igdir",
+        "kmFromA": 135
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-tuzluca-tuz-magaralari",
+        "kmFromA": 96,
+        "offsetKm": 0.5
+      },
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-agri-dagi-manzara",
+        "kmFromA": 136,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-soykirim-aniti",
+        "kmFromA": 136,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-kayi-koyu-kervansaray",
+        "kmFromA": 136,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-meya-magaralari",
+        "kmFromA": 137,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-aras-nehri",
+        "kmFromA": 140,
+        "offsetKm": 1.1
+      },
+      {
+        "citySlug": "igdir",
+        "attractionId": "igdir-korhan-yaylasi",
+        "kmFromA": 164,
+        "offsetKm": 7.1
+      },
+      {
+        "citySlug": "agri",
+        "attractionId": "agri-ishak-pasa-sarayi",
+        "kmFromA": 187,
+        "offsetKm": 3.8
+      }
+    ]
+  },
+  "diyarbakir-van": {
+    "cities": [
+      {
+        "slug": "bitlis",
+        "kmFromA": 202
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "batman",
+        "attractionId": "batman-malabadi-koprusu",
+        "kmFromA": 94,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "siirt",
+        "attractionId": "siirt-veysel-karani",
+        "kmFromA": 154,
+        "offsetKm": 0
+      },
+      {
+        "citySlug": "bitlis",
+        "attractionId": "bitlis-bitlis-kalesi",
+        "kmFromA": 201,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "bitlis",
+        "attractionId": "bitlis-ihlasiye-medresesi",
+        "kmFromA": 201,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "bitlis",
+        "attractionId": "bitlis-eski-sehir",
+        "kmFromA": 203,
+        "offsetKm": 1.1
+      },
+      {
+        "citySlug": "bitlis",
+        "attractionId": "bitlis-ulu-camii",
+        "kmFromA": 203,
+        "offsetKm": 1.3
+      }
+    ]
+  },
+  "ankara-istanbul": {
+    "cities": [
+      {
+        "slug": "duzce",
+        "kmFromA": 232
+      },
+      {
+        "slug": "sakarya",
+        "kmFromA": 301
+      },
+      {
+        "slug": "kocaeli",
+        "kmFromA": 352
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-golcuk-yamac-parasutu",
+        "kmFromA": 190,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "bolu",
+        "attractionId": "bolu-gorlic-selalesi",
+        "kmFromA": 196,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-topuk-yaylasi",
+        "kmFromA": 200,
+        "offsetKm": 4.9
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-manzara2",
+        "kmFromA": 212,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-hasanlar-baraji",
+        "kmFromA": 214,
+        "offsetKm": 5.5
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-samandere-selalesi",
+        "kmFromA": 221,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-kurugol",
+        "kmFromA": 222,
+        "offsetKm": 1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-efteni-golu",
+        "kmFromA": 232,
+        "offsetKm": 4.4
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-camkoy-tabiat-parki",
+        "kmFromA": 232,
+        "offsetKm": 4.7
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-cumayeri-tarihi",
+        "kmFromA": 242,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "duzce",
+        "attractionId": "duzce-guzeldere-selalesi",
+        "kmFromA": 243,
+        "offsetKm": 6.7
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-akyazi-tarihi",
+        "kmFromA": 280,
+        "offsetKm": 6.6
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-poyrazlar-golu",
+        "kmFromA": 300,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-adapazari-tarihi-carsi",
+        "kmFromA": 301,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 336,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "sakarya",
+        "attractionId": "sakarya-masukiye",
+        "kmFromA": 336,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 339,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 339,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 345,
+        "offsetKm": 7.8
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 345,
+        "offsetKm": 8.2
+      }
+    ]
+  },
+  "ankara-kapadokya": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "aksaray",
+        "attractionId": "aksaray-agzikarahan",
+        "kmFromA": 254,
+        "offsetKm": 2.8
+      }
+    ]
+  },
+  "ankara-konya": {
+    "cities": [],
+    "attractions": []
+  },
+  "ankara-safranbolu": {
+    "cities": [],
+    "attractions": []
+  },
+  "ankara-kayseri": {
+    "cities": [
+      {
+        "slug": "kirsehir",
+        "kmFromA": 217
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-terme-kaplicalari",
+        "kmFromA": 211,
+        "offsetKm": 7.8
+      },
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-cacabey",
+        "kmFromA": 217,
+        "offsetKm": 5.2
+      },
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-ahi-evran-turbesi",
+        "kmFromA": 217,
+        "offsetKm": 5
+      },
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-neset-ertas-muzesi",
+        "kmFromA": 217,
+        "offsetKm": 4.9
+      },
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-karakurt-tabiat-parki",
+        "kmFromA": 217,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-kirsehir-muzesi",
+        "kmFromA": 217,
+        "offsetKm": 4.9
+      },
+      {
+        "citySlug": "kirsehir",
+        "attractionId": "kirsehir-mucur-yeralti-sehri",
+        "kmFromA": 234,
+        "offsetKm": 0.8
+      }
+    ]
+  },
+  "ankara-eskisehir": {
+    "cities": [],
+    "attractions": []
+  },
+  "ankara-bolu": {
+    "cities": [],
+    "attractions": []
+  },
+  "ankara-corum": {
+    "cities": [
+      {
+        "slug": "kirikkale",
+        "kmFromA": 72
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kirikkale",
+        "attractionId": "kirikkale-kizilirmak-vadi-yuruyus",
+        "kmFromA": 67,
+        "offsetKm": 7.2
+      },
+      {
+        "citySlug": "kirikkale",
+        "attractionId": "kirikkale-kizilirmak-vadisi",
+        "kmFromA": 71,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "kirikkale",
+        "attractionId": "kirikkale-silah-sanayi-muzesi",
+        "kmFromA": 72,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "kirikkale",
+        "attractionId": "kirikkale-hasandede",
+        "kmFromA": 78,
+        "offsetKm": 3.2
+      },
+      {
+        "citySlug": "kirikkale",
+        "attractionId": "kirikkale-delice-vadisi",
+        "kmFromA": 109,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "kirikkale",
+        "attractionId": "kirikkale-delice-koyleri",
+        "kmFromA": 109,
+        "offsetKm": 1.2
+      }
+    ]
+  },
+  "ankara-kirsehir": {
+    "cities": [],
+    "attractions": []
+  },
+  "izmir-manisa": {
+    "cities": [],
+    "attractions": []
+  },
+  "aydin-izmir": {
+    "cities": [],
+    "attractions": []
+  },
+  "izmir-kutahya": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 28,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-sardes",
+        "kmFromA": 89,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-kula-peribacalari",
+        "kmFromA": 147,
+        "offsetKm": 0.8
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-kula-jeoparki",
+        "kmFromA": 147,
+        "offsetKm": 0.8
+      }
+    ]
+  },
+  "izmir-usak": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 28,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-sardes",
+        "kmFromA": 93,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-kula-peribacalari",
+        "kmFromA": 151,
+        "offsetKm": 0.8
+      },
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-kula-jeoparki",
+        "kmFromA": 151,
+        "offsetKm": 0.8
+      }
+    ]
+  },
+  "aydin-denizli": {
+    "cities": [],
+    "attractions": []
+  },
+  "fethiye-kas": {
+    "cities": [],
+    "attractions": []
+  },
+  "antalya-kas": {
+    "cities": [],
+    "attractions": []
+  },
+  "antalya-isparta": {
+    "cities": [],
+    "attractions": []
+  },
+  "antalya-burdur": {
+    "cities": [],
+    "attractions": []
+  },
+  "burdur-isparta": {
+    "cities": [],
+    "attractions": []
+  },
+  "isparta-konya": {
+    "cities": [],
+    "attractions": []
+  },
+  "bursa-yalova": {
+    "cities": [],
+    "attractions": []
+  },
+  "bursa-kocaeli": {
+    "cities": [
+      {
+        "slug": "yalova",
+        "kmFromA": 65
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 57,
+        "offsetKm": 8.1
+      }
+    ]
+  },
+  "bursa-eskisehir": {
+    "cities": [],
+    "attractions": []
+  },
+  "balikesir-bursa": {
+    "cities": [],
+    "attractions": []
+  },
+  "istanbul-kocaeli": {
+    "cities": [],
+    "attractions": []
+  },
+  "istanbul-sakarya": {
+    "cities": [
+      {
+        "slug": "kocaeli",
+        "kmFromA": 98
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 54,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 72,
+        "offsetKm": 0.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-seka-parki",
+        "kmFromA": 101,
+        "offsetKm": 0.8
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-pertevpasa-camii",
+        "kmFromA": 101,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-maskirmizi-kosku",
+        "kmFromA": 103,
+        "offsetKm": 1.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-nicomedia-antik",
+        "kmFromA": 103,
+        "offsetKm": 1.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe",
+        "kmFromA": 115,
+        "offsetKm": 1.3
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-kartepe-kayak",
+        "kmFromA": 118,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-masukiye-vadisi",
+        "kmFromA": 122,
+        "offsetKm": 4.4
+      }
+    ]
+  },
+  "edirne-istanbul": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "kirklareli",
+        "attractionId": "kirklareli-trakya-baglari",
+        "kmFromA": 46,
+        "offsetKm": 6.4
+      },
+      {
+        "citySlug": "kirklareli",
+        "attractionId": "kirklareli-lüleburgaz-tarihi",
+        "kmFromA": 77,
+        "offsetKm": 5.6
+      },
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-corlu-tarihi",
+        "kmFromA": 127,
+        "offsetKm": 9.9
+      }
+    ]
+  },
+  "bilecik-istanbul": {
+    "cities": [
+      {
+        "slug": "yalova",
+        "kmFromA": 110
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "bursa",
+        "attractionId": "bursa-iznik-golü",
+        "kmFromA": 58,
+        "offsetKm": 1.1
+      },
+      {
+        "citySlug": "yalova",
+        "attractionId": "yalova-samanli-daglari",
+        "kmFromA": 101,
+        "offsetKm": 8.1
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 134,
+        "offsetKm": 6.9
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 146,
+        "offsetKm": 8.4
+      }
+    ]
+  },
+  "istanbul-tekirdag": {
+    "cities": [],
+    "attractions": []
+  },
+  "istanbul-yalova": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-darica-hayvanat",
+        "kmFromA": 54,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "kocaeli",
+        "attractionId": "kocaeli-hereke-halisi-muzesi",
+        "kmFromA": 66,
+        "offsetKm": 6.9
+      }
+    ]
+  },
+  "istanbul-kirklareli": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "tekirdag",
+        "attractionId": "tekirdag-corlu-tarihi",
+        "kmFromA": 129,
+        "offsetKm": 9.9
+      }
+    ]
+  },
+  "canakkale-edirne": {
+    "cities": [],
+    "attractions": []
+  },
+  "balikesir-canakkale": {
+    "cities": [],
+    "attractions": []
+  },
+  "kocaeli-sakarya": {
+    "cities": [],
+    "attractions": []
+  },
+  "samsun-sinop": {
+    "cities": [],
+    "attractions": []
+  },
+  "kastamonu-sinop": {
+    "cities": [],
+    "attractions": []
+  },
+  "bolu-safranbolu": {
+    "cities": [],
+    "attractions": []
+  },
+  "bolu-duzce": {
+    "cities": [],
+    "attractions": []
+  },
+  "amasya-samsun": {
+    "cities": [],
+    "attractions": []
+  },
+  "amasya-tokat": {
+    "cities": [],
+    "attractions": []
+  },
+  "giresun-trabzon": {
+    "cities": [],
+    "attractions": []
+  },
+  "giresun-ordu": {
+    "cities": [],
+    "attractions": []
+  },
+  "bayburt-trabzon": {
+    "cities": [
+      {
+        "slug": "gumushane",
+        "kmFromA": 74
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-tomara-selalesi",
+        "kmFromA": 67,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-suleymaniye-mahallesi",
+        "kmFromA": 75,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-limni-golu",
+        "kmFromA": 97,
+        "offsetKm": 0.7
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-harsit-vadisi",
+        "kmFromA": 97,
+        "offsetKm": 8.3
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-torul-baraji",
+        "kmFromA": 105,
+        "offsetKm": 2
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-santa-harabeleri",
+        "kmFromA": 106,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-santa-manzara",
+        "kmFromA": 106,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-zigana-gecidi",
+        "kmFromA": 116,
+        "offsetKm": 6.9
+      }
+    ]
+  },
+  "gumushane-trabzon": {
+    "cities": [],
+    "attractions": []
+  },
+  "amasra-zonguldak": {
+    "cities": [],
+    "attractions": []
+  },
+  "kastamonu-safranbolu": {
+    "cities": [],
+    "attractions": []
+  },
+  "amasya-corum": {
+    "cities": [],
+    "attractions": []
+  },
+  "corum-tokat": {
+    "cities": [
+      {
+        "slug": "amasya",
+        "kmFromA": 84
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-kral-kaya-mezarlari",
+        "kmFromA": 84,
+        "offsetKm": 10
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-hazeranlar-konagi",
+        "kmFromA": 84,
+        "offsetKm": 9.8
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-sultan-beyazit-camii",
+        "kmFromA": 84,
+        "offsetKm": 9.6
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-yalıboyu-evleri",
+        "kmFromA": 84,
+        "offsetKm": 9.8
+      }
+    ]
+  },
+  "samsun-tokat": {
+    "cities": [
+      {
+        "slug": "amasya",
+        "kmFromA": 128
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-ferhat-sirin-yolu",
+        "kmFromA": 120,
+        "offsetKm": 4
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-harsena-kalesi",
+        "kmFromA": 122,
+        "offsetKm": 2.7
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-kral-kaya-mezarlari",
+        "kmFromA": 128,
+        "offsetKm": 3
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-hazeranlar-konagi",
+        "kmFromA": 128,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-sultan-beyazit-camii",
+        "kmFromA": 128,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-yalıboyu-evleri",
+        "kmFromA": 128,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-ferhat-ile-sirin",
+        "kmFromA": 128,
+        "offsetKm": 3.3
+      },
+      {
+        "citySlug": "amasya",
+        "attractionId": "amasya-yesilirmak-koprusu",
+        "kmFromA": 128,
+        "offsetKm": 2.9
+      }
+    ]
+  },
+  "kayseri-sivas": {
+    "cities": [],
+    "attractions": []
+  },
+  "karaman-konya": {
+    "cities": [],
+    "attractions": []
+  },
+  "kapadokya-nigde": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "kayseri",
+        "attractionId": "kayseri-soganli-vadisi",
+        "kmFromA": 32,
+        "offsetKm": 9
+      }
+    ]
+  },
+  "aksaray-kapadokya": {
+    "cities": [],
+    "attractions": []
+  },
+  "eskisehir-kutahya": {
+    "cities": [],
+    "attractions": []
+  },
+  "kayseri-kirsehir": {
+    "cities": [],
+    "attractions": []
+  },
+  "kayseri-yozgat": {
+    "cities": [],
+    "attractions": []
+  },
+  "kayseri-nigde": {
+    "cities": [],
+    "attractions": []
+  },
+  "aksaray-konya": {
+    "cities": [],
+    "attractions": []
+  },
+  "erzurum-kars": {
+    "cities": [],
+    "attractions": []
+  },
+  "erzurum-trabzon": {
+    "cities": [
+      {
+        "slug": "bayburt",
+        "kmFromA": 126
+      },
+      {
+        "slug": "gumushane",
+        "kmFromA": 200
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-kop-dagi-sehitligi",
+        "kmFromA": 112,
+        "offsetKm": 7.1
+      },
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-kalesi",
+        "kmFromA": 126,
+        "offsetKm": 0.4
+      },
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-camisi",
+        "kmFromA": 126,
+        "offsetKm": 0.1
+      },
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-coruh-koprusu2",
+        "kmFromA": 126,
+        "offsetKm": 0.8
+      },
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-aydintepe-yeralti",
+        "kmFromA": 127,
+        "offsetKm": 8.4
+      },
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-coruh-vadisi-bayburt",
+        "kmFromA": 134,
+        "offsetKm": 0.9
+      },
+      {
+        "citySlug": "bayburt",
+        "attractionId": "bayburt-sirakayalar-selalesi",
+        "kmFromA": 145,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-tomara-selalesi",
+        "kmFromA": 192,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-suleymaniye-mahallesi",
+        "kmFromA": 200,
+        "offsetKm": 1.6
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-limni-golu",
+        "kmFromA": 222,
+        "offsetKm": 0.7
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-harsit-vadisi",
+        "kmFromA": 223,
+        "offsetKm": 8.3
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-torul-baraji",
+        "kmFromA": 230,
+        "offsetKm": 2
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-santa-harabeleri",
+        "kmFromA": 231,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-santa-manzara",
+        "kmFromA": 231,
+        "offsetKm": 1.2
+      },
+      {
+        "citySlug": "gumushane",
+        "attractionId": "gumushane-zigana-gecidi",
+        "kmFromA": 242,
+        "offsetKm": 6.9
+      }
+    ]
+  },
+  "erzurum-van": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "agri",
+        "attractionId": "agri-patnos-kalesi",
+        "kmFromA": 224,
+        "offsetKm": 1
+      }
+    ]
+  },
+  "adiyaman-malatya": {
+    "cities": [],
+    "attractions": []
+  },
+  "adiyaman-sanliurfa": {
+    "cities": [],
+    "attractions": []
+  },
+  "elazig-malatya": {
+    "cities": [],
+    "attractions": []
+  },
+  "diyarbakir-elazig": {
+    "cities": [],
+    "attractions": []
+  },
+  "adana-gaziantep": {
+    "cities": [
+      {
+        "slug": "osmaniye",
+        "kmFromA": 90
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-toprakkale",
+        "kmFromA": 79,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kadirli-muzesi",
+        "kmFromA": 91,
+        "offsetKm": 3.4
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-zorkun-yaylasi",
+        "kmFromA": 97,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-hierapolis-kastabala",
+        "kmFromA": 99,
+        "offsetKm": 9
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kastabala-tiyatro",
+        "kmFromA": 99,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-yerkopru-selalesi",
+        "kmFromA": 104,
+        "offsetKm": 6.5
+      }
+    ]
+  },
+  "adana-hatay": {
+    "cities": [],
+    "attractions": []
+  },
+  "adana-mersin": {
+    "cities": [],
+    "attractions": []
+  },
+  "hatay-osmaniye": {
+    "cities": [],
+    "attractions": []
+  },
+  "adana-kahramanmaras": {
+    "cities": [
+      {
+        "slug": "osmaniye",
+        "kmFromA": 91
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-toprakkale",
+        "kmFromA": 79,
+        "offsetKm": 2.5
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kadirli-muzesi",
+        "kmFromA": 91,
+        "offsetKm": 3.4
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-zorkun-yaylasi",
+        "kmFromA": 97,
+        "offsetKm": 2.1
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-hierapolis-kastabala",
+        "kmFromA": 99,
+        "offsetKm": 9
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-kastabala-tiyatro",
+        "kmFromA": 100,
+        "offsetKm": 5.7
+      },
+      {
+        "citySlug": "osmaniye",
+        "attractionId": "osmaniye-yerkopru-selalesi",
+        "kmFromA": 105,
+        "offsetKm": 6.5
+      }
+    ]
+  },
+  "batman-mardin": {
+    "cities": [],
+    "attractions": []
+  },
+  "batman-siirt": {
+    "cities": [],
+    "attractions": []
+  },
+  "bitlis-van": {
+    "cities": [],
+    "attractions": []
+  },
+  "bitlis-mus": {
+    "cities": [],
+    "attractions": []
+  },
+  "agri-kars": {
+    "cities": [],
+    "attractions": []
+  },
+  "agri-igdir": {
+    "cities": [],
+    "attractions": []
+  },
+  "ardahan-kars": {
+    "cities": [],
+    "attractions": []
+  },
+  "elazig-tunceli": {
+    "cities": [],
+    "attractions": []
+  },
+  "erzincan-erzurum": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "tunceli",
+        "attractionId": "tunceli-pulumur-vadisi",
+        "kmFromA": 42,
+        "offsetKm": 9.2
+      }
+    ]
+  },
+  "erzincan-tunceli": {
+    "cities": [],
+    "attractions": []
+  },
+  "gaziantep-kahramanmaras": {
+    "cities": [],
+    "attractions": []
+  },
+  "adana-osmaniye": {
+    "cities": [],
+    "attractions": []
+  },
+  "batman-diyarbakir": {
+    "cities": [],
+    "attractions": []
+  },
+  "siirt-sirnak": {
+    "cities": [],
+    "attractions": []
+  },
+  "hakkari-van": {
+    "cities": [],
+    "attractions": []
+  },
+  "mus-van": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "agri",
+        "attractionId": "agri-patnos-kalesi",
+        "kmFromA": 127,
+        "offsetKm": 0
+      }
+    ]
+  },
+  "gaziantep-kilis": {
+    "cities": [],
+    "attractions": []
+  },
+  "erzincan-sivas": {
+    "cities": [],
+    "attractions": []
+  },
+  "sivas-tokat": {
+    "cities": [],
+    "attractions": []
+  },
+  "balikesir-izmir": {
+    "cities": [],
+    "attractions": [
+      {
+        "citySlug": "manisa",
+        "attractionId": "manisa-spil-lale",
+        "kmFromA": 178,
+        "offsetKm": 8.7
+      }
+    ]
+  },
+  "aydin-manisa": {
+    "cities": [
+      {
+        "slug": "izmir",
+        "kmFromA": 103
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-sirince",
+        "kmFromA": 39,
+        "offsetKm": 7.4
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kadifekale",
+        "kmFromA": 98,
+        "offsetKm": 7.7
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kordon",
+        "kmFromA": 103,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti",
+        "kmFromA": 103,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-agora",
+        "kmFromA": 103,
+        "offsetKm": 7.5
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-kemeralti-carsisi",
+        "kmFromA": 103,
+        "offsetKm": 8.8
+      },
+      {
+        "citySlug": "izmir",
+        "attractionId": "izmir-alsancak-kordon",
+        "kmFromA": 103,
+        "offsetKm": 7.4
+      }
+    ]
+  },
+  "afyonkarahisar-kutahya": {
+    "cities": [],
+    "attractions": []
+  },
+  "afyonkarahisar-isparta": {
+    "cities": [],
+    "attractions": []
+  },
+  "afyonkarahisar-konya": {
+    "cities": [],
+    "attractions": []
+  },
+  "afyonkarahisar-usak": {
+    "cities": [],
+    "attractions": []
+  },
+  "burdur-denizli": {
+    "cities": [],
+    "attractions": []
+  },
+  "kahramanmaras-osmaniye": {
+    "cities": [],
+    "attractions": []
+  },
+  "gaziantep-hatay": {
+    "cities": [],
+    "attractions": []
+  },
+  "giresun-samsun": {
+    "cities": [
+      {
+        "slug": "ordu",
+        "kmFromA": 51
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-boztepe",
+        "kmFromA": 44,
+        "offsetKm": 1.5
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-boztepe-teleferik",
+        "kmFromA": 44,
+        "offsetKm": 2.6
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-pasakoy-koskleri",
+        "kmFromA": 51,
+        "offsetKm": 2.4
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-yason-burnu",
+        "kmFromA": 79,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-persembe-pazari2",
+        "kmFromA": 79,
+        "offsetKm": 2.8
+      },
+      {
+        "citySlug": "ordu",
+        "attractionId": "ordu-ulubey-tarihi",
+        "kmFromA": 107,
+        "offsetKm": 1.7
+      }
+    ]
+  },
+  "gumushane-rize": {
+    "cities": [
+      {
+        "slug": "trabzon",
+        "kmFromA": 105
+      }
+    ],
+    "attractions": [
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-sumela",
+        "kmFromA": 72,
+        "offsetKm": 9.9
+      },
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-boztepe",
+        "kmFromA": 105,
+        "offsetKm": 0.7
+      },
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-ayasofya-muzesi",
+        "kmFromA": 105,
+        "offsetKm": 3.3
+      },
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-ataturk-kosku",
+        "kmFromA": 105,
+        "offsetKm": 4.2
+      },
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-ayasofya-trabzon",
+        "kmFromA": 105,
+        "offsetKm": 4.2
+      },
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-boztepe-trabzon",
+        "kmFromA": 105,
+        "offsetKm": 1.9
+      },
+      {
+        "citySlug": "trabzon",
+        "attractionId": "trabzon-of-sahili",
+        "kmFromA": 155,
+        "offsetKm": 0.8
+      }
+    ]
+  }
+}

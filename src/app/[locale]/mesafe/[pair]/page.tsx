@@ -1,8 +1,14 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Clock, Route as RouteIcon } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Coffee, Route as RouteIcon } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText } from "@/lib/i18n";
-import { getAllDistancePageData, getDistancePageData, buildDistanceDescription, formatDuration } from "@/lib/data/distances";
+import {
+  getAllDistancePageData,
+  getDistancePageData,
+  buildDistanceDescription,
+  formatDuration,
+  getTopAttractions,
+} from "@/lib/data/distances";
 import { buildStopDirectionsUrl } from "@/lib/geo";
 import { getGuidesForCity } from "@/lib/data/guides";
 import AdSlot from "@/components/AdSlot";
@@ -61,11 +67,23 @@ export async function generateMetadata(props: { params: Promise<{ pair: string; 
   // (ters sorgular binlerce gösterim alıyor) + Google'ın cevap kutusunun
   // vermediği şeyler (güzergah, gezi önerileri) tıklama sebebi olarak.
   // Mapbox yol adları gürültülü/tekrarlı olduğu için açıklamaya konmuyor.
+  // Yol üstü şehir varsa (gerçek güzergahtan hesaplanan) o da ekleniyor —
+  // parçalar sırayla, 155'i aşmayanlar eklenerek birleştiriyor.
   const durationText = formatDuration(data.durationMin, locale);
-  const description =
+  const stopNames = data.stopCities.slice(0, 3).map((s) => s.city.name).join(", ");
+  const descriptionParts =
     locale === "tr"
-      ? `${cityA.name} ${cityB.name} arası karayoluyla ${roundedKm} km, arabayla yaklaşık ${durationText}. ${cityB.name} ${cityA.name} yönü, güzergah, yol tarifi ve gezi önerileri.`
-      : `${cityA.name} to ${cityB.name} is ${roundedKm} km by road, about ${durationText} by car. Route, directions and travel tips for both directions.`;
+      ? [
+          `${cityA.name} ${cityB.name} arası karayoluyla ${roundedKm} km, arabayla yaklaşık ${durationText}.`,
+          stopNames ? ` Yol üstü: ${stopNames}.` : "",
+          ` ${cityB.name} ${cityA.name} yönü, güzergah ve gezilecek yerler.`,
+        ]
+      : [
+          `${cityA.name} to ${cityB.name} is ${roundedKm} km by road, about ${durationText} by car.`,
+          stopNames ? ` On the way: ${stopNames}.` : "",
+          ` Route, stops and places to see.`,
+        ];
+  const description = descriptionParts.reduce((acc, part) => (acc.length + part.length <= 155 ? acc + part : acc), "");
 
   return {
     title,
@@ -85,7 +103,7 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
     notFound();
   }
 
-  const { cityA, cityB, distanceKm, durationMin, majorRoads } = data;
+  const { cityA, cityB, distanceKm, durationMin, majorRoads, stopCities, stopAttractions } = data;
   const description = buildDistanceDescription(data, locale);
   // Madde 84 tutarlılığı — mesafe sayfaları önceden ilgili rehber
   // makalelerine hiç link vermiyordu (şehir sayfalarında zaten vardı).
@@ -112,6 +130,20 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
   // Her biri ayrı soru; aynı liste sayfada görünür SSS olarak da render
   // ediliyor (Google, şemadaki içeriğin sayfada da görünmesini istiyor).
   const durationText = formatDuration(durationMin, locale);
+  // Yakıt: fiyat değil litre — pompa fiyatı haftalık değişiyor, sayfaya
+  // yazılan TL tutarı hızla yanlışa dönerdi. 7 L/100 km, binek araç için
+  // yuvarlak bir varsayım ve sayfada açıkça belirtiliyor.
+  const FUEL_L_PER_100KM = 7;
+  const fuelLiters = Math.round((distanceKm * FUEL_L_PER_100KM) / 100);
+  // 2,5 saatten uzun yolculukta rotanın ortasına en yakın yol üstü şehir
+  // mola önerisi olarak gösteriliyor (gerçek güzergah verisinden).
+  const breakStop =
+    durationMin >= 150 && stopCities.length > 0
+      ? stopCities.reduce((best, s) =>
+          Math.abs(s.kmFromA - distanceKm / 2) < Math.abs(best.kmFromA - distanceKm / 2) ? s : best
+        )
+      : undefined;
+  const stopNamesText = stopCities.map((s) => translateDataText(s.city.name, locale)).join(", ");
   const faqItems =
     locale === "tr"
       ? [
@@ -127,6 +159,14 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
             q: `${cityB.name} ile ${cityA.name} arası kaç km?`,
             a: `${cityB.name} - ${cityA.name} yönünde de mesafe aynı: karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationText}.`,
           },
+          ...(stopCities.length > 0
+            ? [
+                {
+                  q: `${cityA.name} ${cityB.name} yolu üzerinde hangi şehirler var?`,
+                  a: `${cityA.name} - ${cityB.name} karayolu güzergahı ${stopNamesText} üzerinden ya da yakınından geçiyor.${breakStop ? ` Yolun ortalarındaki ${breakStop.city.name}, mola vermek için uygun bir ara durak.` : ""}`,
+                },
+              ]
+            : []),
         ]
       : [
           {
@@ -141,6 +181,14 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
             q: `How far is ${cityB.name} from ${cityA.name}?`,
             a: `The distance is the same in the ${cityB.name} to ${cityA.name} direction: about ${distanceKm} km, roughly ${durationText} by car.`,
           },
+          ...(stopCities.length > 0
+            ? [
+                {
+                  q: `Which cities are on the way from ${cityA.name} to ${cityB.name}?`,
+                  a: `The driving route passes through or near ${stopNamesText}.${breakStop ? ` ${translateDataText(breakStop.city.name, locale)}, around the midpoint, is a good place for a break.` : ""}`,
+                },
+              ]
+            : []),
         ];
   const faqSchema = {
     "@context": "https://schema.org",
@@ -171,7 +219,7 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
           : `${cityA.name} to ${cityB.name} Distance`}
       </h1>
 
-      <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+      <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="rounded-lg border border-ink/10 bg-paper p-4 shadow-sm">
           <div className="text-xs font-bold uppercase tracking-wider text-kiremit mb-1 flex items-center gap-1.5">
             <RouteIcon size={13} /> {locale === "tr" ? "Mesafe" : "Distance"}
@@ -184,11 +232,20 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
           </div>
           <p className="text-lg font-bold text-ink">{durationLabel}</p>
         </div>
+        <div className="rounded-lg border border-ink/10 bg-paper p-4 shadow-sm">
+          <div className="text-xs font-bold uppercase tracking-wider text-kiremit mb-1 flex items-center gap-1.5">
+            <Fuel size={13} /> {locale === "tr" ? "Yakıt" : "Fuel"}
+          </div>
+          <p className="text-lg font-bold text-ink">~{fuelLiters} L</p>
+          <p className="text-[11px] text-ink/55">
+            {locale === "tr" ? `${FUEL_L_PER_100KM} L/100 km araçla` : `at ${FUEL_L_PER_100KM} L/100 km`}
+          </p>
+        </div>
         <a
           href={directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="col-span-2 flex items-center justify-center gap-2 rounded-lg bg-kiremit px-4 py-4 text-sm font-bold text-paper shadow-sm hover:bg-kiremit/90 transition-colors sm:col-span-1"
+          className="flex items-center justify-center gap-2 rounded-lg bg-kiremit px-4 py-4 text-sm font-bold text-paper shadow-sm hover:bg-kiremit/90 transition-colors"
         >
           <MapPin size={16} /> {locale === "tr" ? "Yol Tarifi Al" : "Get Directions"}
         </a>
@@ -204,6 +261,114 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
           <p className="text-sm text-ink/75">{majorRoads.join(", ")}</p>
         </div>
       )}
+
+      {stopCities.length > 0 && (
+        <div className="mb-10">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">
+            {locale === "tr" ? "Yol Üstü Duraklar" : "Stops on the Way"}
+          </h2>
+          <ol className="relative border-l-2 border-kiremit/25 pl-5 space-y-3">
+            {[
+              { city: cityA, kmFromA: 0 },
+              ...stopCities,
+              { city: cityB, kmFromA: Math.round(distanceKm) },
+            ].map((s, i, arr) => {
+              const isEndpoint = i === 0 || i === arr.length - 1;
+              return (
+                <li key={s.city.slug} className="relative">
+                  <span
+                    className={`absolute -left-[27px] top-1.5 h-3 w-3 rounded-full border-2 border-paper ${isEndpoint ? "bg-kiremit" : "bg-safran"}`}
+                  />
+                  <Link
+                    href={`/${locale}/bolgeler/${s.city.regionSlug}/${s.city.slug}`}
+                    className={`text-sm hover:text-kiremit transition-colors ${isEndpoint ? "font-bold text-ink" : "font-semibold text-ink/80"}`}
+                  >
+                    {translateDataText(s.city.name, locale)}
+                  </Link>
+                  <span className="ml-2 text-xs text-ink/55">{s.kmFromA} km</span>
+                </li>
+              );
+            })}
+          </ol>
+          {breakStop && (
+            <p className="mt-4 flex items-start gap-2 rounded-lg bg-safran/10 p-3 text-sm text-ink/80">
+              <Coffee size={16} className="mt-0.5 shrink-0 text-kiremit" />
+              {locale === "tr"
+                ? `${durationText} süren bu yolculukta, yolun ortalarındaki ${breakStop.city.name} (${breakStop.kmFromA}. km) mola vermek için uygun bir ara durak.`
+                : `On this ${durationText} drive, ${translateDataText(breakStop.city.name, locale)} (km ${breakStop.kmFromA}), around the midpoint, is a good place for a break.`}
+            </p>
+          )}
+          <p className="mt-3 text-xs text-ink/50">
+            {locale === "tr"
+              ? "Duraklar, gerçek karayolu güzergahının içinden ya da yakınından geçtiği şehirlerdir; km değerleri yaklaşıktır."
+              : "Stops are cities the actual driving route passes through or near; km values are approximate."}
+          </p>
+        </div>
+      )}
+
+      {stopAttractions.length > 0 && (
+        <div className="mb-10">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">
+            {locale === "tr" ? "Yol Üstünde Görülecek Yerler" : "Places to See on the Way"}
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {stopAttractions.map((s) => (
+              <Link
+                key={`${s.city.slug}-${s.attraction.id}`}
+                href={`/${locale}/bolgeler/${s.city.regionSlug}/${s.city.slug}`}
+                className="group rounded-xl border border-ink/8 bg-paper p-4 shadow-sm hover:border-kiremit/40 transition-colors"
+              >
+                <span className="block text-sm font-bold text-ink group-hover:text-kiremit transition-colors">
+                  {translateDataText(s.attraction.name, locale)}
+                </span>
+                <span className="block text-xs text-ink/55 mt-0.5">
+                  {translateDataText(s.city.name, locale)} ·{" "}
+                  {locale === "tr"
+                    ? `${s.kmFromA}. km civarı, yoldan ~${Math.max(1, Math.round(s.offsetKm))} km`
+                    : `around km ${s.kmFromA}, ~${Math.max(1, Math.round(s.offsetKm))} km off the road`}
+                </span>
+                <span className="block text-xs text-ink/70 mt-1.5 line-clamp-2">
+                  {translateDataText(s.attraction.description, locale)}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mb-10">
+        <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">
+          {locale === "tr" ? "Varınca Gezilecek Yerler" : "What to See at Each End"}
+        </h2>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {[cityB, cityA].map((city) => {
+            const top = getTopAttractions(city, 3);
+            if (top.length === 0) return null;
+            return (
+              <div key={city.slug}>
+                <Link
+                  href={`/${locale}/bolgeler/${city.regionSlug}/${city.slug}`}
+                  className="text-sm font-bold text-ink hover:text-kiremit transition-colors"
+                >
+                  {locale === "tr"
+                    ? `${city.name} gezilecek yerler`
+                    : `Things to do in ${translateDataText(city.name, locale)}`}
+                </Link>
+                <ul className="mt-2 space-y-1.5">
+                  {top.map((a) => (
+                    <li key={a.id} className="text-sm text-ink/75">
+                      <span className="font-semibold text-ink/85">{translateDataText(a.name, locale)}</span>
+                      <span className="block text-xs text-ink/60 line-clamp-1">
+                        {translateDataText(a.description, locale)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
       <div className="mb-10">
         <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">

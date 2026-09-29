@@ -1,7 +1,8 @@
 import distanceCacheRaw from "./distanceCache.json";
+import routeStopsRaw from "./routeStops.json";
 import { allCities } from "./cities";
 import { distancePairs, distancePairSlug, type DistancePair } from "./distancePairs";
-import type { City } from "../types";
+import type { Attraction, City } from "../types";
 import type { Locale } from "../i18n";
 
 export interface DistanceCacheEntry {
@@ -12,6 +13,26 @@ export interface DistanceCacheEntry {
 
 const distanceCache = distanceCacheRaw as Record<string, DistanceCacheEntry>;
 
+// scripts/generate-route-stops.ts çıktısı — gerçek Mapbox güzergah
+// çizgisine yakınlıkla hesaplanmış yol üstü şehirler/yerler.
+interface RouteStopsEntry {
+  cities: { slug: string; kmFromA: number }[];
+  attractions: { citySlug: string; attractionId: string; kmFromA: number; offsetKm: number }[];
+}
+const routeStops = routeStopsRaw as Record<string, RouteStopsEntry>;
+
+export interface RouteStopCity {
+  city: City;
+  kmFromA: number;
+}
+
+export interface RouteStopAttraction {
+  attraction: Attraction;
+  city: City;
+  kmFromA: number;
+  offsetKm: number;
+}
+
 export interface DistancePageData {
   slug: string;
   cityA: City;
@@ -19,6 +40,37 @@ export interface DistancePageData {
   distanceKm: number;
   durationMin: number;
   majorRoads: string[];
+  stopCities: RouteStopCity[];
+  stopAttractions: RouteStopAttraction[];
+}
+
+const IMPORTANCE_RANK: Record<Attraction["importance"], number> = {
+  "must-see": 0,
+  "should-see": 1,
+  "nice-to-have": 2,
+};
+
+// En önemli yerleri seç, sonra yol sırasına diz — uzun rotalarda (İstanbul-
+// Trabzon 40+ yer) sayfayı liste çöplüğüne çevirmemek için sınırlı.
+function pickRouteAttractions(entry: RouteStopsEntry | undefined, limit: number): RouteStopAttraction[] {
+  if (!entry) return [];
+  return entry.attractions
+    .map((s) => {
+      const city = allCities.find((c) => c.slug === s.citySlug);
+      const attraction = city?.attractions.find((a) => a.id === s.attractionId);
+      return city && attraction ? { attraction, city, kmFromA: s.kmFromA, offsetKm: s.offsetKm } : undefined;
+    })
+    .filter((s): s is RouteStopAttraction => Boolean(s))
+    .sort((x, y) => IMPORTANCE_RANK[x.attraction.importance] - IMPORTANCE_RANK[y.attraction.importance] || x.offsetKm - y.offsetKm)
+    .slice(0, limit)
+    .sort((x, y) => x.kmFromA - y.kmFromA);
+}
+
+// Varış/başlangıç şehrinin öne çıkan yerleri (must-see öncelikli).
+export function getTopAttractions(city: City, limit: number): Attraction[] {
+  return [...city.attractions]
+    .sort((x, y) => IMPORTANCE_RANK[x.importance] - IMPORTANCE_RANK[y.importance])
+    .slice(0, limit);
 }
 
 // Ham step isimleri arasından ("Tevkifhane Sokağı" gibi lokal sokaklar dahil)
@@ -70,6 +122,14 @@ export function getDistancePageData(slug: string): DistancePageData | undefined 
   const entry = distanceCache[slug];
   if (!entry) return undefined; // Gerçek Mapbox verisi yoksa sayfa hiç üretilmez — uydurma yok.
 
+  const stops = routeStops[slug];
+  const stopCities = (stops?.cities ?? [])
+    .map((s) => {
+      const city = allCities.find((c) => c.slug === s.slug);
+      return city ? { city, kmFromA: s.kmFromA } : undefined;
+    })
+    .filter((s): s is RouteStopCity => Boolean(s));
+
   return {
     slug,
     cityA,
@@ -77,6 +137,8 @@ export function getDistancePageData(slug: string): DistancePageData | undefined 
     distanceKm: entry.distanceKm,
     durationMin: entry.durationMin,
     majorRoads: extractMajorRoads(entry.roadNames),
+    stopCities,
+    stopAttractions: pickRouteAttractions(stops, 6),
   };
 }
 
