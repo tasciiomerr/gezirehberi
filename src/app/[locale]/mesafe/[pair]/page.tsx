@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, MapPin, Clock, Route as RouteIcon } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText } from "@/lib/i18n";
-import { getAllDistancePageData, getDistancePageData, buildDistanceDescription } from "@/lib/data/distances";
+import { getAllDistancePageData, getDistancePageData, buildDistanceDescription, formatDuration } from "@/lib/data/distances";
 import { buildStopDirectionsUrl } from "@/lib/geo";
 import { getGuidesForCity } from "@/lib/data/guides";
 import AdSlot from "@/components/AdSlot";
@@ -34,15 +34,38 @@ export async function generateMetadata(props: { params: Promise<{ pair: string; 
   // kelimesi (dominant sorgu deseniyle birebir eşleşiyor) korunup "Yol
   // Tarifi" suffix'i kaldırıldı — marka eki dahil en uzun başlık artık 51
   // karakter (TR) / 47 karakter (EN), hiçbiri kesilmiyor.
+  //
+  // Güncelleme (Search Console, 2026-09-29): "X Y arası kaç saat" sorguları
+  // 3.147 gösterim / 1 tık — başlıkta süre yoktu. Süre de başlığa ekleniyor;
+  // marka eki (" | Yol Defteri", 14 karakter) dahil 60'ı aşmamak için
+  // adaylar uzundan kısaya deneniyor, sığan ilk başlık kullanılıyor.
   const roundedKm = Math.round(data.distanceKm);
-  const title =
+  const { cityA, cityB } = data;
+  const h = Math.floor(data.durationMin / 60);
+  const m = data.durationMin % 60;
+  const MAX_TITLE = 60 - " | Yol Defteri".length;
+  const titleCandidates =
     locale === "tr"
-      ? `${data.cityA.name} - ${data.cityB.name} Arası ${roundedKm} Km`
-      : `${data.cityA.name} to ${data.cityB.name}: ${roundedKm} km`;
+      ? [
+          `${cityA.name} - ${cityB.name} Arası ${roundedKm} Km, ${[h > 0 ? `${h} Saat` : null, m > 0 ? `${m} Dk` : null].filter(Boolean).join(" ")}`,
+          `${cityA.name} - ${cityB.name} Arası ${roundedKm} Km, ${[h > 0 ? `${h} Sa` : null, m > 0 ? `${m} Dk` : null].filter(Boolean).join(" ")}`,
+          `${cityA.name} - ${cityB.name} ${roundedKm} Km, ${[h > 0 ? `${h} Saat` : null, m > 0 ? `${m} Dk` : null].filter(Boolean).join(" ")}`,
+          `${cityA.name} - ${cityB.name} Arası ${roundedKm} Km`,
+        ]
+      : [
+          `${cityA.name} to ${cityB.name}: ${roundedKm} km, ${[h > 0 ? `${h}h` : null, m > 0 ? `${m}min` : null].filter(Boolean).join(" ")} Drive`,
+          `${cityA.name} to ${cityB.name}: ${roundedKm} km`,
+        ];
+  const title = titleCandidates.find((t) => t.length <= MAX_TITLE) ?? titleCandidates[titleCandidates.length - 1];
+  // Açıklama: ~155 karakterde kesilmemesi için kısa; km + süre + ters yön
+  // (ters sorgular binlerce gösterim alıyor) + Google'ın cevap kutusunun
+  // vermediği şeyler (güzergah, gezi önerileri) tıklama sebebi olarak.
+  // Mapbox yol adları gürültülü/tekrarlı olduğu için açıklamaya konmuyor.
+  const durationText = formatDuration(data.durationMin, locale);
   const description =
     locale === "tr"
-      ? `${data.cityA.name} ile ${data.cityB.name} arası ${data.distanceKm} km, ortalama sürüş süresi ve gerçek güzergah bilgisi.`
-      : `Real driving distance between ${data.cityA.name} and ${data.cityB.name}: ${data.distanceKm} km.`;
+      ? `${cityA.name} ${cityB.name} arası karayoluyla ${roundedKm} km, arabayla yaklaşık ${durationText}. ${cityB.name} ${cityA.name} yönü, güzergah, yol tarifi ve gezi önerileri.`
+      : `${cityA.name} to ${cityB.name} is ${roundedKm} km by road, about ${durationText} by car. Route, directions and travel tips for both directions.`;
 
   return {
     title,
@@ -83,23 +106,50 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
   // — bu şema, o özetin/People-Also-Ask'ın kaynağı olma ihtimalimizi
   // artırmak için. Cevap tamamen gerçek Mapbox verisinden (distanceKm/
   // durationLabel), uydurma değil.
+  //
+  // Güncelleme (Search Console, 2026-09-29): sorguların üç ana kalıbı var —
+  // "kaç km", "kaç saat" ve ters yön ("mardin gaziantep" = ~760 gösterim).
+  // Her biri ayrı soru; aynı liste sayfada görünür SSS olarak da render
+  // ediliyor (Google, şemadaki içeriğin sayfada da görünmesini istiyor).
+  const durationText = formatDuration(durationMin, locale);
+  const faqItems =
+    locale === "tr"
+      ? [
+          {
+            q: `${cityA.name} ile ${cityB.name} arası kaç km?`,
+            a: `${cityA.name} ile ${cityB.name} arası karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationText}.`,
+          },
+          {
+            q: `${cityA.name} ${cityB.name} arası arabayla kaç saat sürer?`,
+            a: `Normal trafik koşullarında ${cityA.name} ile ${cityB.name} arası arabayla yaklaşık ${durationText} sürüyor. Mola ve trafik durumuna göre süre uzayabilir.`,
+          },
+          {
+            q: `${cityB.name} ile ${cityA.name} arası kaç km?`,
+            a: `${cityB.name} - ${cityA.name} yönünde de mesafe aynı: karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationText}.`,
+          },
+        ]
+      : [
+          {
+            q: `How many km between ${cityA.name} and ${cityB.name}?`,
+            a: `${cityA.name} and ${cityB.name} are approximately ${distanceKm} km apart by road, roughly ${durationText} by car.`,
+          },
+          {
+            q: `How long is the drive from ${cityA.name} to ${cityB.name}?`,
+            a: `Under normal traffic the drive takes about ${durationText}; breaks and traffic can add to it.`,
+          },
+          {
+            q: `How far is ${cityB.name} from ${cityA.name}?`,
+            a: `The distance is the same in the ${cityB.name} to ${cityA.name} direction: about ${distanceKm} km, roughly ${durationText} by car.`,
+          },
+        ];
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": locale === "tr"
-          ? `${cityA.name} ile ${cityB.name} arası kaç km?`
-          : `How many km between ${cityA.name} and ${cityB.name}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": locale === "tr"
-            ? `${cityA.name} ile ${cityB.name} arası karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationLabel}.`
-            : `${cityA.name} and ${cityB.name} are approximately ${distanceKm} km apart by road, an average drive of ${durationLabel}.`,
-        },
-      },
-    ],
+    "mainEntity": faqItems.map((item) => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a },
+    })),
   };
 
   return (
@@ -154,6 +204,20 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
           <p className="text-sm text-ink/75">{majorRoads.join(", ")}</p>
         </div>
       )}
+
+      <div className="mb-10">
+        <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">
+          {locale === "tr" ? "Sık Sorulan Sorular" : "Frequently Asked Questions"}
+        </h2>
+        <div className="space-y-4">
+          {faqItems.map((item) => (
+            <div key={item.q}>
+              <h3 className="text-base font-bold text-ink">{item.q}</h3>
+              <p className="mt-1 text-sm text-ink/75 leading-relaxed">{item.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <AdSlot />
 

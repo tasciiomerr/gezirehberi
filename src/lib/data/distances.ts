@@ -86,7 +86,7 @@ export function getAllDistancePageData(): DistancePageData[] {
     .filter((d): d is DistancePageData => Boolean(d));
 }
 
-function formatDuration(minutes: number, locale: Locale): string {
+export function formatDuration(minutes: number, locale: Locale): string {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   if (locale === "tr") {
