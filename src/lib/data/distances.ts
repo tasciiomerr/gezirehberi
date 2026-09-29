@@ -44,7 +44,7 @@ export interface DistancePageData {
   stopAttractions: RouteStopAttraction[];
 }
 
-const IMPORTANCE_RANK: Record<Attraction["importance"], number> = {
+export const IMPORTANCE_RANK: Record<Attraction["importance"], number> = {
   "must-see": 0,
   "should-see": 1,
   "nice-to-have": 2,

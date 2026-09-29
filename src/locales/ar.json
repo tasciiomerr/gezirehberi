@@ -42,6 +42,8 @@
     "whereToEat": "أين تأكل",
     "whatToEat": "ماذا تأكل — الأكلات الشعبية",
     "attractions": "أماكن للزيارة",
+    "h1Subtitle": "أماكن سياحية ودليل السفر",
+    "attractionsHeading": "أماكن سياحية في {city}",
     "budgetTracker": "الميزانية والمصاريف",
     "optimizeRoute": "تحسين المسار",
     "printItinerary": "طباعة / PDF",

@@ -27,11 +27,10 @@ import { getCityImage } from "@/lib/cityImages";
 import FAQSection from "@/components/FAQSection";
 import ArrivalOptionsTable from "@/components/ArrivalOptionsTable";
 import BudgetTierTable from "@/components/BudgetTierTable";
-import { getNextMondayISO, getDynamicPrice } from "@/lib/pricingEngine";
 import { getPlacesForCity } from "@/lib/places";
 import { getTranslatedCity, cityHasTranslation, getTranslatedKnownFor } from "@/lib/translation/pipeline";
 import { getGuidesForCity } from "@/lib/data/guides";
-import { getDistanceLinksForCity } from "@/lib/data/distances";
+import { getDistanceLinksForCity, IMPORTANCE_RANK } from "@/lib/data/distances";
 import { Route as RouteIcon } from "lucide-react";
 import { BookOpen } from "lucide-react";
 
@@ -71,8 +70,34 @@ export async function generateMetadata(props: {
   );
   const extraHreflangLocales = candidateLocales.filter((_, i) => translatedLocaleChecks[i]);
   const bgImage = getCityImage(city.slug, city.regionSlug);
-  const title = translateDataText(city.title, locale);
-  const description = translateDataText(city.summary, locale);
+  // Search Console (2026-09-29): 114 şehir/ilçe sayfası 3 ayda toplam 421
+  // gösterim, ortalama sıra ~27. Türkçede baskın arama kalıbı "X gezilecek
+  // yerler" ama 85 başlığın hiçbiri bunu içermiyordu ("Amasra Gezi Rehberi —
+  // Balıkçı Kasabası"), bazıları da marka ekiyle 60 karakteri aşıp
+  // kesiliyordu. TR'de başlık sorgu kalıbıyla + gerçek yer sayısıyla
+  // kuruluyor; açıklama gerçek must-see yerlerin adlarını sayıyor. Diğer
+  // dillerde (çeviri hattından gelen) eski davranış korunuyor.
+  const MAX_TITLE = 60 - " | Yol Defteri".length;
+  const attractionCount = city.attractions.length;
+  const topAttractionNames = [...city.attractions]
+    .sort((a, b) => IMPORTANCE_RANK[a.importance] - IMPORTANCE_RANK[b.importance])
+    .map((a) => a.name);
+  let title = translateDataText(city.title, locale);
+  let description = translateDataText(city.summary, locale);
+  if (locale === "tr") {
+    const titleCandidates = [
+      `${city.name} Gezilecek Yerler: ${attractionCount} Yer ve Gezi Rehberi`,
+      `${city.name} Gezilecek Yerler ve Gezi Rehberi`,
+      `${city.name} Gezilecek Yerler`,
+    ];
+    title = titleCandidates.find((t) => t.length <= MAX_TITLE) ?? titleCandidates[titleCandidates.length - 1];
+    const tail = ` Ne yenir, nerede kalınır, kaç gün yeter: ${city.name} gezi rehberi.`;
+    // Sığan en fazla yer adıyla (4'ten geriye) açıklama kuruluyor.
+    description =
+      [4, 3, 2, 1]
+        .map((n) => `${city.name} gezilecek yerler: ${topAttractionNames.slice(0, n).join(", ")} ve daha fazlası.${tail}`)
+        .find((d) => d.length <= 155) ?? `${city.name} gezilecek yerler.${tail}`;
+  }
   const pageUrl = `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`;
   return {
     title,
@@ -186,64 +211,12 @@ export default async function CityDetailPage(props: {
       : {}),
   };
 
-  const nextMonday = getNextMondayISO();
-
-  // Generate Hotel Schemas with priceValidUntil
-  const hotelSchemas = city.accommodations.slice(0, 3).map((hotel) => ({
-    "@context": "https://schema.org",
-    "@type": "Hotel",
-    "name": translateDataText(hotel.name, locale),
-    "description": translateDataText(hotel.description, locale),
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": translateDataText(hotel.address, locale),
-      "addressLocality": translateDataText(city.name, locale),
-      "addressRegion": translateDataText(city.region, locale),
-      "addressCountry": "TR"
-    },
-    "starRating": {
-      "@type": "Rating",
-      "ratingValue": hotel.rating || 4.5
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": parseFloat(getDynamicPrice(hotel.pricePerNight, hotel.id).replace(/[^0-9]/g, "")) || 1200,
-      "priceCurrency": "TRY",
-      "priceValidUntil": nextMonday
-    }
-  }));
-
-  // Generate Restaurant Schemas with priceValidUntil
-  const restaurantSchemas = city.restaurants.slice(0, 3).map((rest) => {
-    const cost = getDynamicPrice(rest.averageCost, rest.id);
-    const priceLimit = cost.includes("-") ? cost.split("-")[1] : cost;
-    const numericPrice = parseFloat(priceLimit.replace(/[^0-9]/g, "")) || 250;
-
-    return {
-      "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "name": translateDataText(rest.name, locale),
-      "description": translateDataText(rest.description || "", locale),
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": translateDataText(rest.address, locale),
-        "addressLocality": translateDataText(city.name, locale),
-        "addressRegion": translateDataText(city.region, locale),
-        "addressCountry": "TR"
-      },
-      "servesCuisine": rest.diningType,
-      "starRating": {
-        "@type": "Rating",
-        "ratingValue": rest.rating || 4.5
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": numericPrice,
-        "priceCurrency": "TRY",
-        "priceValidUntil": nextMonday
-      }
-    };
-  });
+  // Hotel/Restaurant JSON-LD kaldırıldı (2026-09-29): fiyatlar
+  // pricingEngine'in hash tabanlı haftalık dalgalanmasından, eksik puan/fiyat
+  // ise sabit 4.5 / 1200 TL fallback'inden geliyordu — gerçek olmayan Offer
+  // verisi Google'ın yapılandırılmış veri spam politikasına giriyor (ilçe
+  // sayfalarında eb1914e'de aynı sebeple kaldırılmıştı). Ayrıca bu işletmeler
+  // sayfanın ana konusu değil; ana konu şehir ve gezilecek yerler.
 
   // TouristAttraction schema per attraction (report item 188)
   const attractionSchemas = city.attractions.slice(0, 10).map((attraction) => ({
@@ -281,20 +254,6 @@ export default async function CityDetailPage(props: {
           key={`attraction-${i}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(a) }}
-        />
-      ))}
-      {hotelSchemas.map((h, i) => (
-        <script
-          key={`hotel-${i}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(h) }}
-        />
-      ))}
-      {restaurantSchemas.map((r, i) => (
-        <script
-          key={`restaurant-${i}`}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
         />
       ))}
       <div className="relative">
@@ -450,6 +409,12 @@ export default async function CityDetailPage(props: {
         <div className="my-16 border-t border-ink/10" />
 
         <AdSlot />
+
+        {/* Gezilecek yerler (h3) önceden başlıksız bir sekme altındaydı —
+            sayfanın ana arama kalıbı olan bölüme gerçek bir H2. */}
+        <h2 className="mb-6 font-display text-3xl italic text-ink">
+          {dict.city.attractionsHeading.replace("{city}", translateDataText(city.name, locale))}
+        </h2>
 
         <CityContentSections
           citySlug={city.slug}

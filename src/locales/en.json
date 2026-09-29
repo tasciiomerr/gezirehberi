@@ -42,6 +42,8 @@
     "whereToEat": "Where to Eat",
     "whatToEat": "What to Eat — Local Delicacies",
     "attractions": "Things to See",
+    "h1Subtitle": "Things to Do & Travel Guide",
+    "attractionsHeading": "Things to Do in {city}",
     "budgetTracker": "Budget & Expenses",
     "optimizeRoute": "Optimize Route",
     "printItinerary": "Print / PDF",

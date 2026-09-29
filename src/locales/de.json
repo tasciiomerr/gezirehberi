@@ -42,6 +42,8 @@
     "whereToEat": "Essen & Trinken",
     "whatToEat": "Lokale Spezialitäten",
     "attractions": "Sehenswürdigkeiten",
+    "h1Subtitle": "Sehenswürdigkeiten & Reiseführer",
+    "attractionsHeading": "Sehenswürdigkeiten in {city}",
     "budgetTracker": "Budget & Ausgaben",
     "optimizeRoute": "Route optimieren",
     "printItinerary": "Drucken / PDF",

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 import { getRegion } from "@/lib/data/regions";
-import { translateDataText, Locale } from "@/lib/i18n";
+import { translateDataText, Locale, getDictionary } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
 
 interface CityHeroProps {
@@ -89,6 +89,11 @@ export default function CityHero({ city, locale = "tr" }: CityHeroProps) {
           className="font-display text-4xl italic leading-tight text-paper sm:text-6xl drop-shadow-md"
         >
           {translateDataText(city.name, locale as Locale)}
+          {/* H1 önceden sadece şehir adıydı — "X gezilecek yerler" arama
+              kalıbını başlık hiyerarşisinde de karşılamak için alt satır. */}
+          <span className="mt-2 block font-sans text-base not-italic font-bold tracking-wide text-paper/85 sm:text-xl">
+            {getDictionary(locale as Locale).city.h1Subtitle}
+          </span>
         </motion.h1>
 
         <motion.p

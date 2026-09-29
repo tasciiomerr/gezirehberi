@@ -42,6 +42,8 @@
     "whereToEat": "Nerede Yenir",
     "whatToEat": "Ne Yenir — Yöresel Lezzetler",
     "attractions": "Gezilecek Yerler",
+    "h1Subtitle": "Gezilecek Yerler ve Gezi Rehberi",
+    "attractionsHeading": "{city} Gezilecek Yerler",
     "budgetTracker": "Bütçe ve Harcama",
     "optimizeRoute": "Rotayı Optimize Et",
     "printItinerary": "Yazdır / PDF",

@@ -42,6 +42,8 @@
     "whereToEat": "Где поесть",
     "whatToEat": "Что поесть — местные деликатесы",
     "attractions": "Достопримечательности",
+    "h1Subtitle": "Достопримечательности и путеводитель",
+    "attractionsHeading": "Достопримечательности: {city}",
     "budgetTracker": "Бюджет и расходы",
     "optimizeRoute": "Оптимизировать маршрут",
     "printItinerary": "Печать / PDF",
