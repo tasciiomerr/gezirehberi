@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Compass, Utensils, Wallet, MapPinned, Route as RouteIcon, BookOpen } from "lucide-react";
 import { regions } from "@/lib/data/regions";
 import { allCities } from "@/lib/data/cities";
-import { getAllDistancePageData, getDistancePageData, formatDuration } from "@/lib/data/distances";
+import { getAllDistancePageData, getPopularDistances, formatDuration } from "@/lib/data/distances";
 import { getAllGuides } from "@/lib/data/guides";
 import RegionCard from "@/components/RegionCard";
 import PlaceholderImage from "@/components/PlaceholderImage";
@@ -33,23 +33,6 @@ export async function generateMetadata(props: {
   };
 }
 
-// GSC'de en çok gösterim alan mesafe çiftleri (2026-09-29 dışa aktarımı) —
-// ana sayfa sitenin en güçlü iç link kaynağı, en çok aranan sayfalara link
-// veriyor. Sayfası olmayan slug sessizce atlanır.
-const POPULAR_DISTANCE_SLUGS = [
-  "gaziantep-mardin",
-  "bodrum-fethiye",
-  "batman-siirt",
-  "izmir-kutahya",
-  "ankara-corum",
-  "burdur-isparta",
-  "bolu-safranbolu",
-  "hatay-osmaniye",
-  "giresun-samsun",
-  "aksaray-kapadokya",
-  "gumushane-trabzon",
-  "eskisehir-kutahya",
-];
 
 // Önceden allCities.slice(0, 6) — veri dosyasının sırası yüzünden hep ilk
 // 6 Karadeniz şehri (Amasra, Safranbolu, Amasya, Artvin, Bayburt, Bolu)
@@ -66,9 +49,7 @@ export default async function Home(props: {
   const featuredCities = FEATURED_CITY_SLUGS.map((slug) => allCities.find((c) => c.slug === slug)).filter(
     (c): c is (typeof allCities)[number] => Boolean(c)
   );
-  const popularDistances = POPULAR_DISTANCE_SLUGS.map((slug) => getDistancePageData(slug)).filter(
-    (d): d is NonNullable<typeof d> => Boolean(d)
-  );
+  const popularDistances = getPopularDistances();
   const latestGuides = getAllGuides().slice(0, 6);
 
   // Site-wide identity schema (report items 193-194). No SearchAction here — the

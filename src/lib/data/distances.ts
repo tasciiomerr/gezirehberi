@@ -142,6 +142,28 @@ export function getDistancePageData(slug: string): DistancePageData | undefined 
   };
 }
 
+// GSC'de en çok gösterim alan mesafe çiftleri (2026-09-29 dışa aktarımı) —
+// ana sayfa ve /mesafe hub'ında öne çıkarılıyor. Yeni bir dışa aktarımda
+// farklı çiftler öne çıkarsa burası güncellenmeli.
+const POPULAR_DISTANCE_SLUGS = [
+  "gaziantep-mardin",
+  "bodrum-fethiye",
+  "batman-siirt",
+  "izmir-kutahya",
+  "ankara-corum",
+  "burdur-isparta",
+  "bolu-safranbolu",
+  "hatay-osmaniye",
+  "giresun-samsun",
+  "aksaray-kapadokya",
+  "gumushane-trabzon",
+  "eskisehir-kutahya",
+];
+// Sayfası olmayan slug sessizce atlanır.
+export function getPopularDistances(): DistancePageData[] {
+  return POPULAR_DISTANCE_SLUGS.map(getDistancePageData).filter((d): d is DistancePageData => Boolean(d));
+}
+
 export function getAllDistancePageData(): DistancePageData[] {
   return getAllDistancePairSlugs()
     .map(getDistancePageData)
