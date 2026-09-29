@@ -6,6 +6,31 @@ import { getAllGuides, getGuideBySlug } from "@/lib/data/guides";
 import { allCities } from "@/lib/data/cities";
 import AdSlot from "@/components/AdSlot";
 
+// Rehber gövdeleri düz metin; bölüm başlıkları kendi satırında BÜYÜK HARFLE
+// yazılmış ("SELAMLAŞMA", "112 — TEK ACİL ÇAĞRI NUMARASI"). Önceden hepsi tek
+// bir whitespace-pre-line div'inde basılıyordu — sayfada hiç H2 yoktu. Paragraf
+// bloğunun ilk satırı büyük harfse (parantez içi açıklama hariç) başlık sayılır.
+function isHeadingLine(line: string): boolean {
+  const core = line.replace(/\(.*?\)/g, "").trim();
+  return (
+    core.length > 0 &&
+    line.length <= 120 &&
+    /\p{Lu}/u.test(core) &&
+    core === core.toLocaleUpperCase("tr")
+  );
+}
+
+function parseGuideBody(body: string): { heading?: string; text: string }[] {
+  return body
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .map((block) => {
+      const [first, ...rest] = block.split("\n");
+      return isHeadingLine(first) ? { heading: first.trim(), text: rest.join("\n").trim() } : { text: block };
+    });
+}
+
 export async function generateStaticParams() {
   // Empty until real guides exist — no fake slugs to prerender.
   const guides = getAllGuides();
@@ -18,12 +43,18 @@ export async function generateMetadata(props: { params: Promise<{ slug: string; 
   const guide = getGuideBySlug(params.slug);
   if (!guide) return { title: locale === "tr" ? "Rehber bulunamadı" : "Guide not found" };
 
+  // Rehber içeriği yalnızca Türkçe — önceden buildRobots(locale, true) ile 5
+  // dilde de indexlenebilir ve self-canonical'dı; Search Console'da (2026-09)
+  // Türkçe sorgular için /en/ kopyası TR'nin önüne geçiyordu (acil durum
+  // numaraları: EN 44 gösterim, TR 1). Artık site geneli kural: sadece
+  // çevrilmiş locale'ler (TR) indexleniyor, diğerleri noindex.
+  const title = guide.seoTitle ?? guide.title;
   return {
-    title: guide.title,
+    title,
     description: guide.summary,
-    robots: buildRobots(locale, true),
+    robots: buildRobots(locale),
     alternates: buildAlternates(locale, `/rehberler/${guide.slug}`),
-    ...buildPageSocialMeta(locale, `/rehberler/${guide.slug}`, guide.title, guide.summary),
+    ...buildPageSocialMeta(locale, `/rehberler/${guide.slug}`, title, guide.summary),
   };
 }
 
@@ -57,7 +88,7 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
     "headline": guide.title,
     "description": guide.summary,
     "datePublished": guide.publishedAt,
-    "dateModified": guide.publishedAt,
+    "dateModified": guide.updatedAt ?? guide.publishedAt,
     "url": pageUrl,
     "mainEntityOfPage": pageUrl,
     "publisher": {
@@ -81,7 +112,20 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
       </Link>
       <h1 className="font-display text-3xl italic text-ink sm:text-4xl mb-4">{guide.title}</h1>
       <p className="text-base text-ink/65 mb-8">{guide.summary}</p>
-      <div className="prose prose-sm max-w-none text-ink/80 leading-relaxed whitespace-pre-line">{guide.body}</div>
+      <div className="max-w-none text-ink/80 leading-relaxed">
+        {parseGuideBody(guide.body).map((block, i) =>
+          block.heading ? (
+            <section key={i} className="mt-8">
+              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider text-kiremit">{block.heading}</h2>
+              {block.text && <p className="whitespace-pre-line">{block.text}</p>}
+            </section>
+          ) : (
+            <p key={i} className="mt-6 whitespace-pre-line first:mt-0">
+              {block.text}
+            </p>
+          )
+        )}
+      </div>
 
       <AdSlot />
 

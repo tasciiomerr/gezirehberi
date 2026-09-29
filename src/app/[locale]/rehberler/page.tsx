@@ -19,7 +19,9 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     // No real articles exist yet — an empty list page has no indexable value,
     // so this stays noindexed regardless of locale until guides.length > 0
     // (report item 83 decision: architecture now, content added by hand later).
-    robots: buildRobots(locale, guides.length > 0),
+    // Kartlar (rehber başlık/özetleri) yalnızca Türkçe — TR dışı locale'ler
+    // site geneli varsayılanla noindex (bkz. rehberler/[slug]).
+    robots: buildRobots(locale, guides.length > 0 ? undefined : false),
     alternates: buildAlternates(locale, "/rehberler"),
     ...buildPageSocialMeta(locale, "/rehberler", title, description),
   };

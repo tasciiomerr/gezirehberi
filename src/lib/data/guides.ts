@@ -5,6 +5,12 @@ export interface GuideArticle {
   coverImage?: string;
   body: string;
   publishedAt: string; // ISO date
+  // İçerik sonradan olgusal olarak güncellendiyse (Article.dateModified).
+  updatedAt?: string;
+  // <title> için kısa sürüm — marka eki (" | Yol Defteri") dahil 60
+  // karakteri aşan editoryal başlıklar arama sonucunda kesiliyordu
+  // (2026-09-29 denetimi: 13 rehberin 11'i). H1 editoryal title'ı korur.
+  seoTitle?: string;
   relatedCitySlugs?: string[];
 }
 
@@ -21,6 +27,7 @@ export const guides: GuideArticle[] = [
   {
     slug: "turkce-konusma-rehberi",
     title: "Türkiye'de Seyahat Edenler İçin Türkçe Konuşma Rehberi",
+    seoTitle: "Türkçe Konuşma Rehberi: Temel Kelimeler",
     summary:
       "Türkiye'yi ziyaret ederken işinize yarayacak temel Türkçe kelime ve ifadeler: selamlaşma, sayılar, yön sorma, restoran ve acil durum cümleleri.",
     publishedAt: "2026-08-17",
@@ -96,6 +103,7 @@ Bu ifadeleri telefonunuza not almanız veya bir fotoğrafını çekmeniz, çevri
   {
     slug: "turkiye-vize-pasaport-bilgisi",
     title: "Türkiye'ye Seyahat İçin Vize ve Pasaport Bilgisi",
+    seoTitle: "Türkiye Vize ve Pasaport Bilgisi",
     summary:
       "Türkiye'yi ziyaret edecek yabancı turistler için vize gereklilikleri, e-Vize sistemi ve pasaport süresi hakkında genel bilgilendirme.",
     publishedAt: "2026-08-17",
@@ -122,35 +130,33 @@ Vize durumunuzu her zaman resmi kaynaktan (evisa.gov.tr veya konsolosluk) teyit 
   {
     slug: "turkiye-acil-durum-numaralari",
     title: "Türkiye'de Acil Durum Numaraları",
+    seoTitle: "Türkiye Acil Durum Numaraları Listesi",
     summary:
-      "Türkiye'de seyahat ederken ihtiyaç duyabileceğiniz tüm acil durum telefon numaraları tek sayfada.",
+      "Türkiye'de tüm acil durumlar için tek numara 112. Eski polis, jandarma, itfaiye, sahil güvenlik hatları ve yabancılar için 157 YİMER.",
     publishedAt: "2026-08-17",
-    body: `Türkiye'de acil bir durumla karşılaşırsanız aşağıdaki numaraları arayabilirsiniz. Tüm bu numaralar ücretsizdir ve Türkiye genelinde geçerlidir.
+    // Düzeltme (2026-09-29): 122 sahil güvenlik olarak yazılmıştı (doğrusu
+    // 158, o da artık 112'de); 157 "Alo Turist" değil, Göç İdaresi'nin
+    // YİMER hattı. Kaynak: sg.gov.tr, 112.gov.tr, goc.gov.tr.
+    updatedAt: "2026-09-29",
+    body: `Türkiye'de acil bir durumla karşılaşırsanız hatırlamanız gereken tek numara 112. Tüm acil çağrılar ücretsizdir, cep telefonundan ve sabit hattan aranabilir; arayanın konumu sistem tarafından otomatik belirlenir.
 
 112 — TEK ACİL ÇAĞRI NUMARASI
-Türkiye'de tüm acil durumlar (sağlık, yangın, polis, jandarma, afet) için önce 112'yi aramanız yeterlidir — operatör sizi doğru birime yönlendirir. Yabancı diller (özellikle İngilizce) genellikle destekleniyor olsa da, aceleyle arandığında dil bariyeri yaşanabilir; mümkünse bulunduğunuz konumu (şehir/ilçe adı) net şekilde belirtin.
+Sağlık, yangın, polis, jandarma, deniz ve afet dahil tüm acil durumlar için 112'yi arayın — operatör çağrınızı doğru birime yönlendirir. 112 çağrı merkezleri Türkçe dışında yabancı dillerde de hizmet veriyor; yine de bulunduğunuz yeri (şehir, ilçe, yakındaki belirgin bir nokta) net şekilde söylemeniz yardım ekibinin size daha hızlı ulaşmasını sağlar.
 
-155 — POLİS
-Şehir merkezlerinde güvenlikle ilgili acil durumlar için.
+ESKİ ACİL NUMARALAR ARTIK 112'DE
+Eskiden ayrı olan acil hatlar İçişleri Bakanlığı'nın 112 Acil Çağrı Merkezleri projesiyle tek numarada toplandı. Aşağıdaki numaraları çevirdiğinizde de 112'ye bağlanırsınız:
+155 — Polis
+156 — Jandarma
+110 — İtfaiye
+158 — Sahil Güvenlik
+122 — AFAD (afet ve acil durum)
+177 — Orman yangını ihbarı
 
-156 — JANDARMA
-Kırsal alanlarda ve şehir dışında güvenlik olayları için (jandarma, kırsal bölgelerin güvenliğinden sorumludur).
+157 — YİMER (YABANCILAR İLETİŞİM MERKEZİ)
+Göç İdaresi Başkanlığı'na bağlı, 7/24 çalışan hat. Türkçe, İngilizce, Rusça, Arapça ve Farsça hizmet veriyor; vize ve ikamet gibi konularda bilgi vermenin yanında yabancılar için ihbar ve destek hattı olarak da çalışıyor. Yurt dışından +90 312 157 11 22 numarasıyla ulaşılabilir.
 
-110 — İTFAİYE
-Yangın ve bazı kurtarma operasyonları için.
-
-122 — SAHİL GÜVENLİK
-Denizde yaşanan acil durumlar için.
-
-177 — ORMAN YANGINI İHBAR HATTI
-Orman yangını gördüğünüzde.
-
-184 — SAĞLIK BAKANLIĞI DANIŞMA HATTI
-Acil olmayan sağlık soruları için.
-
-DİĞER ÖNEMLİ NUMARALAR
-AFAD (Afet ve Acil Durum Yönetimi) — 122
-Alo Turist Hattı (turizm şikayeti/danışma) — 157
+184 — SABİM (SAĞLIK BAKANLIĞI İLETİŞİM MERKEZİ)
+Acil olmayan sağlık soruları, şikayet ve bilgi talepleri için.
 
 KONSOLOSLUK BİLGİSİ
 Ciddi bir hukuki sorun, pasaport kaybı veya benzeri bir durumda kendi ülkenizin Türkiye'deki büyükelçilik veya konsolosluğuyla iletişime geçmeniz gerekebilir — seyahat öncesi konsolosluğunuzun İstanbul, Ankara veya en yakın şehirdeki iletişim bilgilerini not almanızı öneririz.
@@ -184,6 +190,7 @@ Restoran: %5-10 bahşiş normal. Taksi: yuvarlama yeterli. Kapalı çarşı/hedi
   {
     slug: "solo-gezgin-guvenlik-notlari",
     title: "Türkiye'de Solo Seyahat Edenler İçin Güvenlik Notları",
+    seoTitle: "Türkiye'de Solo Seyahat: Güvenlik Notları",
     summary:
       "Türkiye'yi tek başına gezenler için genel güvenlik tavsiyeleri: ulaşım, konaklama, gece güvenliği ve acil durum hazırlığı.",
     publishedAt: "2026-08-18",
@@ -228,6 +235,7 @@ guides.push(
   {
     slug: "amasrada-1-gun-butce-rehberi",
     title: "Amasra'da 1 Gün, 1.000-1.500 TL Bütçeyle Neler Yapılır?",
+    seoTitle: "Amasra'da 1 Gün: Bütçe ve Gezi Planı",
     summary: "Amasra'yı günübirlik ziyaret edenler için gerçekçi bir bütçe planı: konaklama, yemek ve aktivite kalemleri.",
     publishedAt: "2026-08-17",
     relatedCitySlugs: ["amasra"],
@@ -252,6 +260,7 @@ Konaklama hariç (günübirlik ziyaretçiyseniz) yaklaşık 250-450 TL'ye Amasra
   {
     slug: "safranboluda-1-gun-butce-rehberi",
     title: "Safranbolu'da 1 Gün, 900-1.800 TL Bütçeyle Neler Yapılır?",
+    seoTitle: "Safranbolu'da 1 Gün: Bütçe ve Gezi Planı",
     summary: "UNESCO'lu Safranbolu'yu bir günde gezmek isteyenler için gerçekçi bir bütçe kırılımı.",
     publishedAt: "2026-08-17",
     relatedCitySlugs: ["safranbolu"],
@@ -276,6 +285,7 @@ Günübirlik bir ziyaret için (konaklama hariç) yaklaşık 300-550 TL yeterli;
   {
     slug: "canakkalede-1-gun-butce-rehberi",
     title: "Çanakkale'de 1 Gün, 900-1.700 TL Bütçeyle Neler Yapılır?",
+    seoTitle: "Çanakkale'de 1 Gün: Bütçe ve Gezi Planı",
     summary: "Truva ve Çanakkale Boğazı'nı bir günde keşfetmek isteyenler için gerçekçi bir bütçe planı.",
     publishedAt: "2026-08-17",
     relatedCitySlugs: ["canakkale"],
@@ -354,6 +364,7 @@ Bu kasabaların çoğunda konaklama, ulaşım ve gezilecek yer bilgilerini sitem
   {
     slug: "karadenizde-en-yesil-10-yer",
     title: "Türkiye'nin Karadeniz Kıyısında Gezilecek En Yeşil 10 Yer",
+    seoTitle: "Karadeniz'de Gezilecek En Yeşil 10 Yer",
     summary:
       "Sıcak iklimden kaçıp serin, yeşil bir doğa deneyimi arayanlar için Karadeniz Bölgesi'nin en bilinen yayla ve doğa noktaları.",
     publishedAt: "2026-08-18",
@@ -394,12 +405,38 @@ Bu bölgeyi ziyaret etmeyi planlıyorsanız, yoğun yağış alan bir iklim oldu
   },
   {
     slug: "turkiyede-unesco-dunya-mirasi-yerleri",
-    title: "Türkiye'de UNESCO Dünya Mirası Listesindeki Yerler",
+    title: "Türkiye'de UNESCO Dünya Mirası Listesindeki 22 Yer",
+    seoTitle: "Türkiye UNESCO Dünya Mirası Listesi (22 Alan)",
     summary:
-      "Türkiye'nin 22 UNESCO Dünya Mirası alanından, tarihi ve doğal açıdan evrensel değere sahip başlıcaları.",
+      "Türkiye'nin UNESCO Dünya Mirası Listesi'ndeki 22 alanın tamamı, listeye girdikleri yılla birlikte: Kapadokya ve İstanbul'dan 2025'te eklenen Sardes'e.",
     publishedAt: "2026-09-18",
-    relatedCitySlugs: ["safranbolu", "canakkale", "kapadokya", "denizli", "kars", "diyarbakir", "adiyaman", "sanliurfa", "malatya", "istanbul", "izmir", "bursa", "manisa"],
-    body: `UNESCO Dünya Mirası Listesi, evrensel değere sahip kültürel ve doğal alanları tanımlar. 2025'te "Sardes ve Bin Tepe Lidya Tümülüsleri"nin eklenmesiyle Türkiye'nin listedeki alan sayısı 22'ye ulaştı — işte bilinen başlıcaları.
+    // Güncelleme (2026-09-29): önceki metin "22 alan" deyip 14'ünü
+    // sayıyordu; eksik 8 alan eklendi, liste yıl sırasına dizildi.
+    // Kaynak: whc.unesco.org/en/statesparties/tr (22 alan: 20 kültürel, 2 karma).
+    updatedAt: "2026-09-29",
+    relatedCitySlugs: ["kapadokya", "istanbul", "sivas", "corum", "adiyaman", "denizli", "kas", "safranbolu", "canakkale", "edirne", "konya", "bursa", "izmir", "diyarbakir", "kars", "aydin", "sanliurfa", "malatya", "ankara", "afyonkarahisar", "eskisehir", "kastamonu", "manisa"],
+    body: `UNESCO Dünya Mirası Listesi, insanlık için evrensel değere sahip kültürel ve doğal alanları tanımlar. 2025'te "Sardes ve Bin Tepe Lidya Tümülüsleri"nin eklenmesiyle Türkiye'nin listedeki alan sayısı 22'ye ulaştı: 20'si kültürel, 2'si (Kapadokya ve Pamukkale) hem kültürel hem doğal "karma" alan. İşte 22 alanın tamamı, listeye girdikleri yıl sırasıyla.
+
+GÖREME MİLLİ PARKI VE KAPADOKYA KAYA SİTLERİ, NEVŞEHİR (1985)
+Peri bacaları, kaya oyma kiliseler ve yeraltı şehirleriyle bilinen benzersiz bir jeolojik ve tarihi alan.
+
+İSTANBUL'UN TARİHİ ALANLARI (1985)
+Sultanahmet bölgesindeki Ayasofya, Topkapı Sarayı ve çevresindeki tarihi doku dahil olmak üzere kentin çok katmanlı mirası.
+
+DİVRİĞİ ULU CAMİİ VE DARÜŞŞİFASI, SİVAS (1985)
+Mengücekliler döneminde 1228-1229'da yapılan cami ve şifahane; taş oymacılığının doruk örneği sayılan anıtsal taçkapılarıyla ünlü.
+
+HATTUŞA: HİTİT BAŞKENTİ, ÇORUM (1986)
+Boğazkale'deki Hitit İmparatorluğu başkenti — Aslanlı Kapı, Kral Kapı, surlar ve hemen yakınındaki Yazılıkaya kaya tapınağı.
+
+NEMRUT DAĞI, ADIYAMAN (1987)
+Kommagene Kralı I. Antiokhos'un anıt-mezarındaki dev taş heykel başlarıyla bilinen ikonik arkeolojik alan.
+
+HİERAPOLİS-PAMUKKALE, DENİZLİ (1988)
+Beyaz traverten terasları ve üzerindeki Roma dönemi kaplıca kenti Hierapolis'in kalıntıları.
+
+KSANTHOS-LETOON, ANTALYA VE MUĞLA (1988)
+Likya'nın başkenti Ksanthos (Kaş) ile Likya Birliği'nin kutsal alanı Letoon (Fethiye); Likçe yazıtları ve anıt mezarlarıyla.
 
 SAFRANBOLU (1994)
 İyi korunmuş Osmanlı dönemi sivil mimarisi — ahşap konaklar ve tarihi çarşı dokusuyla.
@@ -407,20 +444,29 @@ SAFRANBOLU (1994)
 TRUVA ANTİK KENTİ, ÇANAKKALE (1998)
 Homeros'un İlyada'sına konu olan, dokuz farklı yerleşim katmanına sahip antik kent.
 
-GÖREME MİLLİ PARKI VE KAPADOKYA KAYA SİTLERİ (1985)
-Peri bacaları, kaya oyma kiliseler ve yeraltı şehirleriyle bilinen benzersiz bir jeolojik ve tarihi alan.
+SELİMİYE CAMİİ VE KÜLLİYESİ, EDİRNE (2011)
+Mimar Sinan'ın "ustalık eserim" dediği, klasik Osmanlı mimarisinin zirvesi kabul edilen 16. yüzyıl cami ve külliyesi.
 
-HİERAPOLİS-PAMUKKALE, DENİZLİ (1988)
-Beyaz traverten terasları ve üzerindeki Roma dönemi kaplıca kenti Hierapolis'in kalıntıları.
+ÇATALHÖYÜK NEOLİTİK KENTİ, KONYA (2012)
+Yaklaşık MÖ 7400-6200 arasına tarihlenen, bitişik kerpiç evleri ve duvar resimleriyle bilinen en önemli Neolitik yerleşimlerden biri.
 
-ANİ ARKEOLOJİK ALANI, KARS (2016)
-Orta Çağ'da önemli bir Ermeni krallık başkenti olan, günümüzde harabe halindeki tarihi kent.
+BURSA VE CUMALIKIZIK: OSMANLI İMPARATORLUĞU'NUN DOĞUŞU (2014)
+Osmanlı Devleti'nin ilk başkenti Bursa'daki külliyeler (Yıldırım, Yeşil, Muradiye) ve vakıf sistemiyle kurulmuş Cumalıkızık köyü — erken dönem Osmanlı kent planlamasının somut örneği.
+
+BERGAMA ÇOK KATMANLI KÜLTÜREL PEYZAJ ALANI, İZMİR (2014)
+Antik Pergamon Krallığı'nın başkenti — akropolündeki anıtsal tapınaklar, tiyatro ve kütüphane kalıntılarıyla, Helenistik dönemden Osmanlı'ya uzanan çok katmanlı bir tarih taşıyor.
 
 DİYARBAKIR SURLARI VE HEVSEL BAHÇELERİ (2015)
 Dünyanın en uzun ve iyi korunmuş şehir surlarından biri, Dicle Nehri kıyısındaki tarihi bahçelerle birlikte.
 
-NEMRUT DAĞI, ADIYAMAN (1987)
-Kommagene Kralı I. Antiokhos'un anıt-mezarındaki dev taş heykel başlarıyla bilinen ikonik arkeolojik alan.
+EFES ANTİK KENTİ, İZMİR (2015)
+Celsus Kütüphanesi'nin cephesi ve dev antik tiyatrosuyla Akdeniz'in en iyi korunmuş Roma dönemi kalıntılarından biri; yakınındaki Meryem Ana Evi ile birlikte gezilir.
+
+ANİ ARKEOLOJİK ALANI, KARS (2016)
+Orta Çağ'da önemli bir Ermeni krallık başkenti olan, günümüzde harabe halindeki tarihi kent.
+
+AFRODİSİAS, AYDIN (2017)
+Tanrıça Afrodit'e adanmış antik kent ve yakınındaki mermer ocakları; Roma döneminde ünlü bir heykeltıraşlık merkeziydi.
 
 GÖBEKLİTEPE, ŞANLIURFA (2018)
 Bilinen en eski anıtsal tapınak komplekslerinden biri, insanlık tarihinin en eski yerleşim izlerini taşır.
@@ -428,26 +474,21 @@ Bilinen en eski anıtsal tapınak komplekslerinden biri, insanlık tarihinin en 
 ARSLANTEPE HÖYÜĞÜ, MALATYA (2021)
 Erken devlet organizasyonuna dair önemli arkeolojik buluntularıyla bilinen bir höyük.
 
-İSTANBUL'UN TARİHİ ALANLARI (1985)
-Sultanahmet bölgesindeki Ayasofya, Topkapı Sarayı ve çevresindeki tarihi doku dahil olmak üzere kentin çok katmanlı mirası.
+GORDİON, ANKARA (2023)
+Polatlı yakınlarındaki Frig Krallığı başkenti — kale höyüğü ve Midas Tümülüsü olarak bilinen dev mezar tepesiyle.
 
-EFES ANTİK KENTİ, İZMİR (2015)
-Celsus Kütüphanesi'nin cephesi ve dev antik tiyatrosuyla Akdeniz'in en iyi korunmuş Roma dönemi kalıntılarından biri; yakınındaki Meryem Ana Evi ile birlikte gezilir.
-
-BERGAMA ÇOK KATMANLI KÜLTÜREL PEYZAJ ALANI, İZMİR (2014)
-Antik Pergamon Krallığı'nın başkenti — akropolündeki anıtsal tapınaklar, tiyatro ve kütüphane kalıntılarıyla, Helenistik dönemden Osmanlı'ya uzanan çok katmanlı bir tarih taşıyor. İzmir'in ilk, Türkiye'nin 13. UNESCO alanı.
-
-BURSA VE CUMALIKIZIK: OSMANLI İMPARATORLUĞU'NUN DOĞUŞU (2014)
-Osmanlı Devleti'nin ilk başkenti Bursa'daki külliyeler (Yıldırım, Yeşil, Muradiye) ve vakıf sistemiyle kurulmuş Cumalıkızık köyü — erken dönem Osmanlı kent planlamasının somut örneği.
+ANADOLU'NUN ORTAÇAĞ AHŞAP HİPOSTİL CAMİLERİ (2023)
+13-14. yüzyıldan, ahşap sütun ve tavan işçiliğiyle öne çıkan beş cami: Afyonkarahisar Ulu Camii, Eskişehir Sivrihisar Ulu Camii, Ankara Ahi Şerafettin (Arslanhane) Camii, Kastamonu Kasaba Köyü Mahmut Bey Camii ve Konya Beyşehir Eşrefoğlu Camii.
 
 SARDES ANTİK KENTİ VE BİN TEPE LİDYA TÜMÜLÜSLERİ, MANİSA (2025)
 Lidya Krallığı'nın başkenti Sardes'in kalıntıları (Artemis Tapınağı, hamam-gymnasion) ve krallara/soylulara ait 119 höyükten oluşan Bin Tepe nekropolü — Türkiye'nin listeye en son eklenen, 22. alanı.
 
-Bu listedeki her alan, ülke çapında farklı bölgelere dağılmış durumda — bir gezi planı yaparken birkaçını aynı bölge içinde birleştirmek mümkün (örn. Kapadokya ve çevresi, İzmir'deki Efes-Bergama ikilisi, ya da Güneydoğu Anadolu'daki Diyarbakır-Nemrut-Göbeklitepe üçgeni).`,
+Bu alanlar ülke çapında farklı bölgelere dağılmış durumda — bir gezi planı yaparken birkaçını aynı bölge içinde birleştirmek mümkün (örn. Kapadokya ve Konya'daki Çatalhöyük, İzmir'deki Efes-Bergama ikilisi, Manisa'daki Sardes, ya da Güneydoğu Anadolu'daki Diyarbakır-Nemrut-Göbeklitepe üçgeni).`,
   },
   {
     slug: "turkiyede-doga-yuruyusu-icin-en-iyi-bolgeler",
     title: "Türkiye'de Doğa Yürüyüşü ve Trekking İçin En İyi Bölgeler",
+    seoTitle: "Türkiye'de Trekking İçin En İyi Bölgeler",
     summary:
       "Likya Yolu'ndan Kaçkar Dağları'na, Türkiye'de doğa yürüyüşü ve trekking için bilinen başlıca rotalar ve bölgeler.",
     publishedAt: "2026-08-18",
@@ -477,6 +518,7 @@ Yürüyüş rotalarına çıkmadan önce mevsim koşullarını (özellikle yüks
   {
     slug: "balon-turu-ve-nefes-kesen-manzaralar",
     title: "Türkiye'de Balon Turu ve Nefes Kesen Manzaralar İçin En İyi Yerler",
+    seoTitle: "Türkiye'de Balon Turu İçin En İyi Yerler",
     summary:
       "Sıcak hava balonu turlarından gün doğumu manzaralarına, Türkiye'nin en etkileyici görsel deneyimlerini sunan yerler.",
     publishedAt: "2026-08-18",
