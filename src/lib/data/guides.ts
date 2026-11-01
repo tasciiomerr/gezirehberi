@@ -1,4 +1,5 @@
 import { routeGuides } from "./guidesRoutes";
+import { routeGuides2 } from "./guidesRoutes2";
 
 export interface GuideArticle {
   slug: string;
@@ -692,7 +693,7 @@ Doğu Anadolu ve yüksek geçitlerde kış lastiği ve zincir bulundurun, yola �
   }
 );
 
-guides.push(...routeGuides);
+guides.push(...routeGuides, ...routeGuides2);
 
 export function getAllGuides(): GuideArticle[] {
   return [...guides].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
