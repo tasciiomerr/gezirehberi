@@ -1,0 +1,132 @@
+// Şehir sayfaları için anlık hava durumu ve 5 günlük tahmin (2026-11-02).
+// Kaynak: MET Norway (Norveç Meteoroloji Enstitüsü) Locationforecast 2.0 —
+// API anahtarı gerektirmez, ticari kullanıma izin verir; koşullar: tanımlayıcı
+// User-Agent (iletişim bilgisiyle), enlem/boylam en fazla 4 ondalık, kaynak
+// gösterimi (CC BY 4.0) ve önbellekleme. Önbellek: Next fetch revalidate ile
+// saatlik (sayfa ISR olur); hata/zaman aşımında null döner ve bölüm gizlenir,
+// sayfa asla kırılmaz.
+const ENDPOINT = "https://api.met.no/weatherapi/locationforecast/2.0/compact";
+const USER_AGENT = "YolDefteri/1.0 (+https://www.yoldefterim.com.tr; info@yoldefterim.com.tr)";
+export const WEATHER_REVALIDATE_SECONDS = 3600;
+
+export interface WeatherNow {
+  temp: number;
+  wind: number; // km/sa
+  humidity: number; // %
+  label: string;
+}
+export interface WeatherDay {
+  date: string; // YYYY-MM-DD (Europe/Istanbul)
+  weekday: string;
+  min: number;
+  max: number;
+  label: string;
+}
+export interface WeatherData {
+  now: WeatherNow;
+  days: WeatherDay[];
+  updatedAt: string; // ISO (kaynağın üretim zamanı)
+}
+
+// symbol_code (ör. "lightrain_day", "partlycloudy_night") -> Türkçe etiket.
+const BASE: Record<string, string> = {
+  clearsky: "Açık",
+  fair: "Az bulutlu",
+  partlycloudy: "Parçalı bulutlu",
+  cloudy: "Bulutlu",
+  fog: "Sisli",
+};
+export function symbolLabel(code: string | undefined): string {
+  if (!code) return "";
+  const c = code.replace(/_(day|night|polartwilight)$/, "");
+  if (BASE[c]) return BASE[c];
+  const thunder = c.includes("thunder");
+  const strength = c.startsWith("light") ? "Hafif " : c.startsWith("heavy") ? "Kuvvetli " : "";
+  const core = c.replace(/^(light|heavy)/, "");
+  let kind = "";
+  if (core.startsWith("rainshowers")) kind = "sağanak yağışlı";
+  else if (core.startsWith("snowshowers")) kind = "kar sağanaklı";
+  else if (core.startsWith("sleetshowers")) kind = "karla karışık sağanaklı";
+  else if (core.startsWith("rain")) kind = "yağmurlu";
+  else if (core.startsWith("snow")) kind = "karlı";
+  else if (core.startsWith("sleet")) kind = "karla karışık yağmurlu";
+  if (!kind) return thunder ? "Gök gürültülü" : "";
+  const text = `${strength}${kind}`;
+  const out = text.charAt(0).toUpperCase() + text.slice(1);
+  return thunder ? `${out}, gök gürültülü` : out;
+}
+
+const dateFmt = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Istanbul", year: "numeric", month: "2-digit", day: "2-digit" });
+const hourFmt = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Istanbul", hour: "2-digit", hour12: false });
+const weekdayFmt = new Intl.DateTimeFormat("tr-TR", { timeZone: "Europe/Istanbul", weekday: "long" });
+
+interface Entry {
+  time: string;
+  data: {
+    instant: { details: { air_temperature?: number; wind_speed?: number; relative_humidity?: number } };
+    next_1_hours?: { summary?: { symbol_code?: string } };
+    next_6_hours?: { summary?: { symbol_code?: string } };
+    next_12_hours?: { summary?: { symbol_code?: string } };
+  };
+}
+
+export async function getWeather(lat: number, lng: number): Promise<WeatherData | null> {
+  try {
+    const url = `${ENDPOINT}?lat=${lat.toFixed(4)}&lon=${lng.toFixed(4)}`;
+    const res = await fetch(url, {
+      headers: { "User-Agent": USER_AGENT, Accept: "application/json" },
+      next: { revalidate: WEATHER_REVALIDATE_SECONDS },
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) return null;
+    const json = (await res.json()) as { properties?: { meta?: { updated_at?: string }; timeseries?: Entry[] } };
+    const series = json.properties?.timeseries;
+    if (!series || series.length === 0) return null;
+
+    const first = series[0];
+    const d0 = first.data.instant.details;
+    if (d0.air_temperature === undefined) return null;
+    const now: WeatherNow = {
+      temp: Math.round(d0.air_temperature),
+      wind: Math.round((d0.wind_speed ?? 0) * 3.6),
+      humidity: Math.round(d0.relative_humidity ?? 0),
+      label: symbolLabel(first.data.next_1_hours?.summary?.symbol_code ?? first.data.next_6_hours?.summary?.symbol_code),
+    };
+
+    const byDay = new Map<string, { temps: number[]; noon?: Entry; noonDelta: number; any?: Entry }>();
+    for (const e of series) {
+      const t = e.data.instant.details.air_temperature;
+      if (t === undefined) continue;
+      const d = new Date(e.time);
+      const key = dateFmt.format(d);
+      const hour = parseInt(hourFmt.format(d), 10);
+      const slot = byDay.get(key) ?? { temps: [], noonDelta: 99 };
+      slot.temps.push(t);
+      slot.any = slot.any ?? e;
+      const delta = Math.abs(hour - 13);
+      if (delta < slot.noonDelta && (e.data.next_6_hours || e.data.next_12_hours || e.data.next_1_hours)) {
+        slot.noon = e;
+        slot.noonDelta = delta;
+      }
+      byDay.set(key, slot);
+    }
+    const days: WeatherDay[] = [];
+    for (const [date, s] of byDay) {
+      if (days.length >= 5) break;
+      // Yalnızca tamamlanmış gün özeti: ilk gün kısmi olabilir ama bugünü de gösteriyoruz.
+      const e = s.noon ?? s.any;
+      const code = e?.data.next_12_hours?.summary?.symbol_code ?? e?.data.next_6_hours?.summary?.symbol_code ?? e?.data.next_1_hours?.summary?.symbol_code;
+      days.push({
+        date,
+        weekday: weekdayFmt.format(new Date(`${date}T12:00:00+03:00`)),
+        min: Math.round(Math.min(...s.temps)),
+        max: Math.round(Math.max(...s.temps)),
+        label: symbolLabel(code),
+      });
+    }
+    if (days.length === 0) return null;
+    return { now, days, updatedAt: json.properties?.meta?.updated_at ?? first.time };
+  } catch {
+    return null;
+  }
+}

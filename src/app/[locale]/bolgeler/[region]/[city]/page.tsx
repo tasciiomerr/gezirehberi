@@ -8,6 +8,7 @@ import CityContentSections from "@/components/CityContentSections";
 import CityFoodStay from "@/components/CityFoodStay";
 import CityPopularQuestions from "@/components/CityPopularQuestions";
 import CityProvinceFacts from "@/components/CityProvinceFacts";
+import CityWeather from "@/components/CityWeather";
 import CommunityRoutes from "@/components/CommunityRoutes";
 import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
@@ -461,6 +462,7 @@ export default async function CityDetailPage(props: {
         />
 
         {locale === "tr" && <CityFoodStay city={city} />}
+        {locale === "tr" && <CityWeather city={city} />}
         {locale === "tr" && <CityProvinceFacts city={city} locale={locale} />}
         {locale === "tr" && <CityPopularQuestions city={city} locale={locale} />}
 

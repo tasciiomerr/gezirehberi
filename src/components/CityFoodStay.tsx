@@ -102,7 +102,7 @@ export default function CityFoodStay({ city }: { city: City }) {
       <section>
         <h2 className="mb-2 flex items-center gap-2 font-display text-3xl italic text-ink">
           <CloudSun className="text-kiremit" size={26} />
-          {city.name} Hava Durumu ve Ne Zaman Gidilir?
+          {city.name} İklimi ve Ne Zaman Gidilir?
         </h2>
         <div className="grid gap-4 md:grid-cols-2">
           {city.climate && (
