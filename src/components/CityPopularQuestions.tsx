@@ -7,6 +7,7 @@ import { getCityAirports } from "@/lib/data/airports";
 import { getDistanceLinksForCity, formatDuration } from "@/lib/data/distances";
 import { ablative, dative } from "@/lib/trSuffix";
 import { withLocative } from "@/lib/turkish";
+import { getProvinceFacts } from "@/components/CityProvinceFacts";
 
 // "X plaka kodu", "X alan kodu", "X hangi bölgede", "İstanbul'dan X kaç km",
 // "X neyle ünlü", "X'e en yakın havalimanı" gibi şehir hakkında en çok aranan,
@@ -76,6 +77,32 @@ export default function CityPopularQuestions({ city, locale }: { city: City; loc
         </>
       ),
     });
+  }
+
+  const pf = getProvinceFacts(city);
+  if (pf) {
+    const { f } = pf;
+    qa.push({
+      q: `${city.name} nüfusu kaç?`,
+      a: `${city.name} ilinin nüfusu ${f.pop.toLocaleString("tr-TR")} (TÜİK, Adrese Dayalı Nüfus Kayıt Sistemi, 2025 sonu).`,
+    });
+    qa.push({
+      q: `${city.name} kaç ilçesi var, ilçeleri nelerdir?`,
+      a: `${city.name} ${f.districts.length} ilçeden oluşur: ${f.districts.join(", ")}.`,
+    });
+    if (f.neighbors.length > 0) {
+      qa.push({
+        q: `${city.name} komşu illeri hangileri?`,
+        a: `${city.name}, ${f.neighbors.length} il ile komşudur: ${f.neighbors.join(", ")}.`,
+      });
+    }
+    const gifts = [...(f.gi.elsanati ?? []).slice(0, 3), ...(f.gi.tatli ?? []).slice(0, 3)].map((x) => x.n);
+    if (gifts.length > 0) {
+      qa.push({
+        q: `${withLocative(city.name)} hediyelik ne alınır?`,
+        a: `Tescilli yöresel ürünler arasından hediyelik olarak öne çıkanlar: ${gifts.join(", ")}. Tüm liste sayfadaki ürünler bölümünde.`,
+      });
+    }
   }
 
   if (airports.length > 0) {
