@@ -9,6 +9,7 @@ import { getAllGuides } from "@/lib/data/guides";
 import { getAllDistancePageData, getCityTableSlugs } from "@/lib/data/distances";
 import { getAirportPageSlugs } from "@/lib/data/airportTransfers";
 import { getAllPlacePairData } from "@/lib/data/placePairs";
+import { getDayTripSlugs } from "@/lib/data/dayTrips";
 
 // Only list locales that are actually indexable site-wide. en/de/ar/ru stay
 // out of this base list (report items 22/283 — untranslated content by
@@ -129,6 +130,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Şehirden illere mesafe tablosu sayfaları.
     getCityTableSlugs().forEach((slug) => {
       sitemapRoutes.push(route(`${siteUrl}/${locale}/mesafe/sehir/${slug}`, "monthly", 0.6, "src/lib/data/distanceCache.json"));
+    });
+    getDayTripSlugs().forEach((slug) => {
+      sitemapRoutes.push(route(`${siteUrl}/${locale}/gunubirlik/${slug}`, "monthly", 0.6, "src/lib/data/distanceCache.json"));
     });
     getAllPlacePairData().forEach((d) => {
       sitemapRoutes.push(route(`${siteUrl}/${locale}/mesafe/${d.slug}`, "monthly", 0.4, "src/lib/data/placeDistances.json"));

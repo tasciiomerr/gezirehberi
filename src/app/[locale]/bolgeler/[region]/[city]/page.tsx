@@ -31,6 +31,7 @@ import { getPlacesForCity } from "@/lib/places";
 import { getTranslatedCity, cityHasTranslation, getTranslatedKnownFor } from "@/lib/translation/pipeline";
 import { getGuidesForCity } from "@/lib/data/guides";
 import { getDistanceLinksForCity, IMPORTANCE_RANK, formatDuration, CITY_TABLE_MIN_ROWS } from "@/lib/data/distances";
+import { getDayTripSlugs } from "@/lib/data/dayTrips";
 import { ablative, dative } from "@/lib/trSuffix";
 import { PLACE_PAIR_HUBS } from "@/lib/data/placePairs";
 import { getCityAirports, airportSlug } from "@/lib/data/airports";
@@ -506,6 +507,13 @@ export default async function CityDetailPage(props: {
                 ? `Karayoluyla en fazla 3 saat uzaklıktaki şehirler — mesafe ve süreler gerçek güzergah verisinden.`
                 : `Cities within a 3-hour drive — distances and times from real route data.`}
             </p>
+            {locale === "tr" && getDayTripSlugs().includes(city.slug) && (
+              <p className="mb-6 -mt-2 text-sm">
+                <Link href={`/${locale}/gunubirlik/${city.slug}`} className="font-bold text-kiremit hover:underline">
+                  {city.name} günübirlik gezi rotalarının tamamı →
+                </Link>
+              </p>
+            )}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {dayTrips.map((d) => (
                 <div key={d.slug} className="rounded-xl border border-ink/8 bg-paper p-5 shadow-sm">

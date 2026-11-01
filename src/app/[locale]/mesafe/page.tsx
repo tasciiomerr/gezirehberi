@@ -6,6 +6,7 @@ import { allCities } from "@/lib/data/cities";
 import { regions } from "@/lib/data/regions";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { ablative } from "@/lib/trSuffix";
+import { getDayTripSlugs } from "@/lib/data/dayTrips";
 
 // Denetim bulgusu (2026-09): 150 mesafe sayfasının (madde 150) crawl edilebilir
 // bir merkezi yoktu (/mesafe 404) — sadece şehir sayfalarındaki bloklar ve
@@ -83,6 +84,11 @@ export default async function DistanceHubPage(props: { params: Promise<{ locale:
   const tableSlugs = new Set(getCityTableSlugs());
   const cityTableLinks = allCities
     .filter((c) => tableSlugs.has(c.slug))
+    .sort((a, b) => a.name.localeCompare(b.name, "tr"));
+
+  const dayTripSlugs = new Set(getDayTripSlugs());
+  const dayTripLinks = allCities
+    .filter((c) => dayTripSlugs.has(c.slug))
     .sort((a, b) => a.name.localeCompare(b.name, "tr"));
 
   const faqItems = isTr
@@ -258,6 +264,24 @@ export default async function DistanceHubPage(props: { params: Promise<{ locale:
                 className="rounded-full border border-ink/15 px-3 py-1.5 text-sm font-semibold text-ink/75 transition-colors hover:border-kiremit hover:text-kiremit"
               >
                 {ablative(c.name)} mesafeler
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {isTr && dayTripLinks.length > 0 && (
+        <section className="mt-6 border-t border-ink/10 pt-10">
+          <h2 className="mb-2 font-display text-2xl italic text-ink">Günübirlik Gidilecek Yerler</h2>
+          <p className="mb-5 text-sm text-ink/65">Bir şehirden arabayla 3 saate kadar ulaşılan gezi rotaları, km ve süreleriyle.</p>
+          <div className="flex flex-wrap gap-2">
+            {dayTripLinks.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/${locale}/gunubirlik/${c.slug}`}
+                className="rounded-full border border-ink/15 px-3 py-1.5 text-sm font-semibold text-ink/75 transition-colors hover:border-kiremit hover:text-kiremit"
+              >
+                {c.name} günübirlik
               </Link>
             ))}
           </div>
