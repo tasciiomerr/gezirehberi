@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { provincesInRegion } from "@/lib/data/provinces";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, MapPinned, UtensilsCrossed, Soup, Route as RouteIcon } from "lucide-react";
@@ -143,6 +144,16 @@ export default async function RegionPage(props: {
               .map((c) => c.name)
               .join(", ")}.`,
           },
+          ...(provincesInRegion(region.slug).length > 0
+            ? [
+                {
+                  q: `${region.name} Bölgesi'nde hangi iller var?`,
+                  a: `${region.name} Bölgesi ${provincesInRegion(region.slug).length} ilden oluşur: ${provincesInRegion(region.slug)
+                    .map((p) => `${p[0]} (${String(p[1]).padStart(2, "0")})`)
+                    .join(", ")}. Parantez içindeki sayılar plaka kodlarıdır.`,
+                },
+              ]
+            : []),
           ...(regionDistances.length > 0
             ? [
                 {

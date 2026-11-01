@@ -78,6 +78,11 @@ export default function Footer() {
                 <Link href={`/${locale}/havalimani`} className="transition-colors">
                   {locale === "tr" ? "Havalimanı Ulaşım" : "Airport Transfers"}
                 </Link>
+                {locale === "tr" && (
+                  <Link href={`/${locale}/plaka-kodlari`} className="transition-colors">
+                    Plaka ve Alan Kodları
+                  </Link>
+                )}
                 <Link href={`/${locale}/hakkimizda`} className="transition-colors">
                   {locale === "tr" ? "Hakkımızda" : "About Us"}
                 </Link>
