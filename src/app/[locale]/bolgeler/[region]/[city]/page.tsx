@@ -6,6 +6,7 @@ import WishlistButton from "@/components/WishlistButton";
 import ItinerarySection from "@/components/ItinerarySection";
 import CityContentSections from "@/components/CityContentSections";
 import CityFoodStay from "@/components/CityFoodStay";
+import CityPopularQuestions from "@/components/CityPopularQuestions";
 import CommunityRoutes from "@/components/CommunityRoutes";
 import ContentAccuracyFeedback from "@/components/ContentAccuracyFeedback";
 import ConfusedPlacesWarning from "@/components/ConfusedPlacesWarning";
@@ -459,6 +460,7 @@ export default async function CityDetailPage(props: {
         />
 
         {locale === "tr" && <CityFoodStay city={city} />}
+        {locale === "tr" && <CityPopularQuestions city={city} locale={locale} />}
 
         <CampingSection spots={city.campingSpots} locale={locale} />
         <FilmLocationsSection locations={city.filmLocations} cityName={city.name} locale={locale} />
