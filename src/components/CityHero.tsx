@@ -55,7 +55,7 @@ export default function CityHero({ city, locale = "tr" }: CityHeroProps) {
       <div className="absolute inset-0 z-0">
         <Image
           src={bgImage}
-          alt={translateDataText(city.name, locale as Locale)}
+          alt={locale === "tr" ? `${city.name} gezilecek yerler ve gezi rehberi` : translateDataText(city.name, locale as Locale)}
           fill
           loading="eager"
           fetchPriority="high"

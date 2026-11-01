@@ -144,7 +144,7 @@ export default async function Home(props: {
                   href={`/${locale}/bolgeler/${city.regionSlug}/${city.slug}`}
                   className="group overflow-hidden rounded-2xl border border-ink/10 bg-paper transition-all duration-300 hover:border-kiremit hover:shadow-xl hover:-translate-y-1"
                 >
-                  <PlaceholderImage seed={city.slug} regionSlug={city.regionSlug} label={translateDataText(city.region, locale)} aspect="wide" index={idx} />
+                  <PlaceholderImage seed={city.slug} regionSlug={city.regionSlug} label={translateDataText(city.region, locale)} alt={locale === "tr" ? `${city.name} gezi rehberi` : undefined} aspect="wide" index={idx} />
                   <div className="p-6">
                     <h3 className="font-display text-xl italic text-ink group-hover:text-kiremit transition-colors">
                       {translateDataText(city.name, locale)}

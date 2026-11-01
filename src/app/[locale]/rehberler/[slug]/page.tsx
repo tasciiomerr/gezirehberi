@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MapPin } from "lucide-react";
+import { MapPin, Route as RouteIcon } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText, getDictionary, SITE_URL } from "@/lib/i18n";
 import { getAllGuides, getGuideBySlug } from "@/lib/data/guides";
 import { allCities } from "@/lib/data/cities";
 import AdSlot from "@/components/AdSlot";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { getGuideDistanceLinks } from "@/lib/data/guideLinks";
 
 // Rehber gövdeleri düz metin; bölüm başlıkları kendi satırında BÜYÜK HARFLE
 // yazılmış ("SELAMLAŞMA", "112 — TEK ACİL ÇAĞRI NUMARASI"). Önceden hepsi tek
@@ -76,6 +77,8 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
     .map((slug) => allCities.find((c) => c.slug === slug))
     .filter((c): c is (typeof allCities)[number] => Boolean(c));
 
+  const distanceLinks = locale === "tr" ? getGuideDistanceLinks(guide) : [];
+
   // Bulgu: hiçbir rehber sayfasında (eski ya da yeni) JSON-LD structured
   // data yoktu — şehir sayfalarındaki (TouristDestination/BreadcrumbList)
   // desene uyacak şekilde gerçek bir Article şeması ekleniyor. Uydurma
@@ -141,6 +144,22 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
       </div>
 
       <AdSlot />
+
+      {distanceLinks.length > 0 && (
+        <div className="mt-12 border-t border-ink/10 pt-8">
+          <h2 className="mb-4 text-xs font-bold uppercase tracking-wider text-kiremit">Rotadaki Şehirler Arası Mesafeler</h2>
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {distanceLinks.map((l) => (
+              <li key={l.slug}>
+                <Link href={`/${locale}/mesafe/${l.slug}`} className="flex items-center gap-1.5 text-sm font-semibold text-ink/75 hover:text-kiremit">
+                  <RouteIcon size={14} className="shrink-0 text-kiremit" />
+                  {l.label} · {Math.round(l.distanceKm)} km
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {relatedCities.length > 0 && (
         <div className="mt-12 border-t border-ink/10 pt-8">

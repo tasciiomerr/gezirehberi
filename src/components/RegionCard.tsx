@@ -45,7 +45,7 @@ export default function RegionCard({
       <div className="absolute inset-0 z-0 overflow-hidden">
         <Image
           src={bgImage}
-          alt={region.name}
+          alt={locale === "tr" ? `${region.name} Bölgesi gezi rehberi` : region.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           loading={eager ? "eager" : "lazy"}

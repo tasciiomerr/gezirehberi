@@ -13,6 +13,7 @@ import {
   colloquialName,
   withColloquial,
 } from "@/lib/data/distances";
+import { getGuidesCoveringPair } from "@/lib/data/guideLinks";
 import FuelCostCalculator from "@/components/FuelCostCalculator";
 import { buildStopDirectionsUrl } from "@/lib/geo";
 import { getGuidesForCity } from "@/lib/data/guides";
@@ -480,6 +481,21 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
       >
         <RouteIcon size={14} /> {locale === "tr" ? "Tüm şehirler arası mesafe tablosu" : "All city-to-city distances"}
       </Link>
+
+      {locale === "tr" && getGuidesCoveringPair(cityA.slug, cityB.slug).length > 0 && (
+        <div className="mt-10 rounded-xl border border-ink/10 bg-paper p-5 shadow-sm">
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-kiremit">Bu Rota İçin Rehber</h2>
+          <ul className="space-y-1">
+            {getGuidesCoveringPair(cityA.slug, cityB.slug).map((g) => (
+              <li key={g.slug}>
+                <Link href={`/${locale}/rehberler/${g.slug}`} className="text-sm font-semibold text-ink/80 hover:text-kiremit">
+                  {g.title} →
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {otherDistances.some((g) => g.links.length > 0) && (
         <div className="mt-12 border-t border-ink/10 pt-8">

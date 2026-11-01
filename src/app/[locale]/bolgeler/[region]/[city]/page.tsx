@@ -94,7 +94,12 @@ export async function generateMetadata(props: {
   let title = clampTitle(translateDataText(city.title, locale));
   let description = clampDescription(translateDataText(city.summary, locale));
   if (locale === "tr") {
+    // Search Console (2026-11-02): CTR %0,1. Başlığa gerçek veriden iki sayı
+    // (durak + yöresel lezzet sayısı) eklenir; yalnızca veri varsa. Uydurma
+    // "bütçe planı"/"güncel" iddiası yok.
+    const foodCount = city.localFood.length;
     const titleCandidates = [
+      ...(foodCount > 0 ? [`${city.name} Gezilecek Yerler: ${attractionCount} Durak, ${foodCount} Lezzet`] : []),
       `${city.name} Gezilecek Yerler: ${attractionCount} Yer ve Gezi Rehberi`,
       `${city.name} Gezilecek Yerler ve Gezi Rehberi`,
       `${city.name} Gezilecek Yerler`,
@@ -102,10 +107,15 @@ export async function generateMetadata(props: {
     title = titleCandidates.find((t) => t.length <= MAX_TITLE) ?? titleCandidates[titleCandidates.length - 1];
     const tail = ` Ne yenir, nerede kalınır, kaç gün yeter: ${city.name} gezi rehberi.`;
     // Sığan en fazla yer adıyla (4'ten geriye) açıklama kuruluyor.
+    const cta = ` Ne yenir, nerede kalınır, kaç gün yeter ve günübirlik rotalar tek rehberde.`;
     description =
+      [3, 2, 1]
+        .map((n) => `${city.name} gezilecek yerler: ${topAttractionNames.slice(0, n).join(", ")}.${cta}`)
+        .find((d) => d.length <= 160) ??
       [4, 3, 2, 1]
         .map((n) => `${city.name} gezilecek yerler: ${topAttractionNames.slice(0, n).join(", ")} ve daha fazlası.${tail}`)
-        .find((d) => d.length <= 155) ?? `${city.name} gezilecek yerler.${tail}`;
+        .find((d) => d.length <= 155) ??
+      `${city.name} gezilecek yerler.${tail}`;
   }
   const pageUrl = `${SITE_URL}/${locale}/bolgeler/${city.regionSlug}/${city.slug}`;
   return {

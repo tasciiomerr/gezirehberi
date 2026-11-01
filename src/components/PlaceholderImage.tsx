@@ -119,6 +119,10 @@ function hashString(str: string): number {
 interface PlaceholderImageProps {
   seed: string;
   label?: string;
+  // Görselin erişilebilir/SEO açıklaması. Verilmezse label; ikisi de yoksa boş
+  // (kart metni zaten yeri adlandırıyor; genel stok fotoğrafı yere ait gibi
+  // etiketlenmez).
+  alt?: string;
   className?: string;
   iconSize?: number;
   aspect?: "square" | "video" | "wide";
@@ -129,6 +133,7 @@ interface PlaceholderImageProps {
 export default function PlaceholderImage({
   seed,
   label,
+  alt,
   className = "",
   iconSize = 24,
   aspect = "video",
@@ -233,7 +238,7 @@ export default function PlaceholderImage({
       {!imgError && imgUrl && (
         <Image
           src={imgUrl}
-          alt={label || "Travel image"}
+          alt={alt ?? label ?? ""}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           onError={() => setImgError(true)}
