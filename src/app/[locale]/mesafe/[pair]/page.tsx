@@ -10,6 +10,8 @@ import {
   getTopAttractions,
   buildDistanceSections,
   getDistanceLinksForCity,
+  colloquialName,
+  withColloquial,
 } from "@/lib/data/distances";
 import FuelCostCalculator from "@/components/FuelCostCalculator";
 import { buildStopDirectionsUrl } from "@/lib/geo";
@@ -223,6 +225,14 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
             q: `${cityB.name} ile ${cityA.name} arası kaç km?`,
             a: `${cityB.name} - ${cityA.name} yönünde de mesafe aynı: karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationText}.`,
           },
+          ...(colloquialName(cityA) || colloquialName(cityB)
+            ? [
+                {
+                  q: `${colloquialName(cityA) ?? cityA.name} ${colloquialName(cityB) ?? cityB.name} arası kaç km, kaç saat?`,
+                  a: `${withColloquial(cityA)} ile ${withColloquial(cityB)} arası karayoluyla yaklaşık ${distanceKm} km; arabayla normal trafikte yaklaşık ${durationText} sürer.`,
+                },
+              ]
+            : []),
           ...(stopCities.length > 0
             ? [
                 {

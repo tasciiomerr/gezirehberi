@@ -66,9 +66,13 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
   const { airport, transfers } = data;
   const base = airport.name.replace(/\s*\(.*?\)/g, "");
   const from = airportFrom(airport);
+  const nearest = transfers[0];
+  const farthest = transfers[transfers.length - 1];
+  const within60 = transfers.filter((t) => t.durationMin <= 60).length;
+  const within100 = transfers.filter((t) => t.distanceKm <= 100).length;
 
   const faqItems = isTr
-    ? transfers.slice(0, 6).map((t) => ({
+    ? transfers.slice(0, 10).map((t) => ({
         q: `${from} ${t.name}${t.kind === "city" ? " merkezine" : ""} kaç km?`,
         a: `${from} ${t.name}${t.kind === "city" ? " şehir merkezine" : ""} karayoluyla ${t.distanceKm.toLocaleString("tr-TR")} km; trafiksiz yaklaşık ${formatDuration(t.durationMin, locale)} sürer. Yoğun saatlerde ve yaz sezonunda süre uzayabilir.`,
       }))
@@ -112,6 +116,20 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
           ? `${from} (${airport.iata}) çevredeki ${transfers.length} şehir merkezi ve tatil beldesine karayolu mesafesi ve trafiksiz sürüş süresi, yakından uzağa sıralı. Transfer, taksi ya da araç kiralama planlarken kullanabilirsin.`
           : `Road distance and drive time from ${base} (${airport.iata}) to ${transfers.length} nearby destinations.`}
       </p>
+
+      {isTr && (
+        <section className="mb-8 max-w-3xl space-y-3 text-sm leading-relaxed text-ink/75">
+          <h2 className="font-display text-2xl italic text-ink">{base} nerede, şehre ne kadar uzak?</h2>
+          <p>
+            {`${base} (${airport.iata}), listedeki en yakın varış noktası olan ${nearest.name} ${nearest.kind === "city" ? "merkezine" : "bölgesine"} yaklaşık ${Math.round(nearest.distanceKm)} km, trafiksiz ${shortDuration(nearest.durationMin)} uzaklıkta. `}
+            {within60 > 0 && `${within60} varış noktasına 1 saatten kısa sürede, `}
+            {`${within100} varış noktasına ise 100 km içinde ulaşabilirsin. En uzak listelenen nokta ${farthest.name}: yaklaşık ${Math.round(farthest.distanceKm)} km, ${shortDuration(farthest.durationMin)}.`}
+          </p>
+          <p>
+            {`Süreler karayolu ve trafiksiz ortalamadır; havalimanı çıkışı, bagaj ve yaz sezonu yoğunluğu gerçek varış süresini uzatır. Bu yüzden son varış noktası için sürüş süresine yarım saat eklemek makul bir plandır. Şehir merkezlerinin gezilecek yerleri için tablodaki bağlantılardan şehir rehberlerine geçebilirsin.`}
+          </p>
+        </section>
+      )}
 
       <div className="overflow-x-auto rounded-xl border border-ink/10 bg-paper shadow-sm">
         <table className="w-full min-w-[340px] border-collapse text-sm">
