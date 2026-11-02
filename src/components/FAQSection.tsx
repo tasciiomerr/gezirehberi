@@ -19,6 +19,9 @@ interface FAQSectionProps {
   topAttractionNames?: string[];
   accommodationTypeLabels?: string[];
   locale?: string;
+  // Sayfada ayrıca görünür olan soru-cevaplar (ör. "En Çok Sorulanlar"); aynı
+  // FAQPage şemasına eklenir (sayfada tek FAQPage olsun diye).
+  extraFaqs?: { q: string; a: string }[];
 }
 
 export default function FAQSection({
@@ -31,6 +34,7 @@ export default function FAQSection({
   topAttractionNames = [],
   accommodationTypeLabels = [],
   locale = "tr",
+  extraFaqs = [],
 }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -92,7 +96,7 @@ export default function FAQSection({
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.map(f => ({
+    "mainEntity": [...faqs, ...extraFaqs.filter((e) => !faqs.some((f) => f.q === e.q))].map(f => ({
       "@type": "Question",
       "name": f.q,
       "acceptedAnswer": {

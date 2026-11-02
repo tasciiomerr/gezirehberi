@@ -7,6 +7,7 @@ import { allCities } from "@/lib/data/cities";
 import AdSlot from "@/components/AdSlot";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getGuideDistanceLinks } from "@/lib/data/guideLinks";
+import { getNextGuideRoutes } from "@/lib/data/nextRoutes";
 
 // Rehber gövdeleri düz metin; bölüm başlıkları kendi satırında BÜYÜK HARFLE
 // yazılmış ("SELAMLAŞMA", "112 — TEK ACİL ÇAĞRI NUMARASI"). Önceden hepsi tek
@@ -78,6 +79,7 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
     .filter((c): c is (typeof allCities)[number] => Boolean(c));
 
   const distanceLinks = locale === "tr" ? getGuideDistanceLinks(guide) : [];
+  const nextGuides = locale === "tr" ? getNextGuideRoutes(guide, 3) : [];
 
   // Bulgu: hiçbir rehber sayfasında (eski ya da yeni) JSON-LD structured
   // data yoktu — şehir sayfalarındaki (TouristDestination/BreadcrumbList)
@@ -155,6 +157,22 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
                   <RouteIcon size={14} className="shrink-0 text-kiremit" />
                   {l.label} · {Math.round(l.distanceKm)} km
                 </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {nextGuides.length > 0 && (
+        <div className="mt-12 rounded-2xl border border-kiremit/25 bg-kiremit/5 p-5 sm:p-6">
+          <h2 className="mb-3 text-xs font-bold uppercase tracking-wider text-kiremit">Sıradaki Rota Önerisi</h2>
+          <ul className="space-y-3">
+            {nextGuides.map((g) => (
+              <li key={g.slug}>
+                <Link href={`/${locale}/rehberler/${g.slug}`} className="block text-base font-bold text-ink hover:text-kiremit">
+                  {g.title} →
+                </Link>
+                <span className="text-sm text-ink/65">{g.summary}</span>
               </li>
             ))}
           </ul>

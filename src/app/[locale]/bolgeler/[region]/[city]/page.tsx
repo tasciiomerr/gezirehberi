@@ -6,7 +6,8 @@ import WishlistButton from "@/components/WishlistButton";
 import ItinerarySection from "@/components/ItinerarySection";
 import CityContentSections from "@/components/CityContentSections";
 import CityFoodStay from "@/components/CityFoodStay";
-import CityPopularQuestions from "@/components/CityPopularQuestions";
+import CityPopularQuestions, { buildPopularQA } from "@/components/CityPopularQuestions";
+import CityRelatedRoutes from "@/components/CityRelatedRoutes";
 import CityProvinceFacts from "@/components/CityProvinceFacts";
 import CityWeather from "@/components/CityWeather";
 import CommunityRoutes from "@/components/CommunityRoutes";
@@ -475,6 +476,7 @@ export default async function CityDetailPage(props: {
         {locale === "tr" && <CityWeather city={city} />}
         {locale === "tr" && <CityProvinceFacts city={city} locale={locale} />}
         {locale === "tr" && <CityPopularQuestions city={city} locale={locale} />}
+        {locale === "tr" && <CityRelatedRoutes city={city} locale={locale} />}
 
         <CampingSection spots={city.campingSpots} locale={locale} />
         <FilmLocationsSection locations={city.filmLocations} cityName={city.name} locale={locale} />
@@ -642,6 +644,7 @@ export default async function CityDetailPage(props: {
           topAttractionNames={city.attractions.slice(0, 4).map((a) => translateDataText(a.name, locale))}
           accommodationTypeLabels={Array.from(new Set(city.accommodations.map((a) => a.type))).map((t) => getAccommodationTypeLabel(t, locale))}
           locale={locale}
+          extraFaqs={locale === "tr" ? buildPopularQA(city, locale).map((x) => ({ q: x.q, a: x.a })) : []}
         />
       </div>
 

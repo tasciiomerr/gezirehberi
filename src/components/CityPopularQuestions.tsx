@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
 import type { City } from "@/lib/types";
 import { CITY_CODES } from "@/lib/data/cityCodes";
 import { getCityKnownFor } from "@/lib/data/knownFor";
@@ -8,6 +7,8 @@ import { getDistanceLinksForCity, formatDuration } from "@/lib/data/distances";
 import { ablative, dative } from "@/lib/trSuffix";
 import { withLocative } from "@/lib/turkish";
 import { getProvinceFacts } from "@/components/CityProvinceFacts";
+import { haversineDistanceKm } from "@/lib/geo";
+import { getDayTripSlugs } from "@/lib/data/dayTrips";
 
 // "X plaka kodu", "X alan kodu", "X hangi bölgede", "İstanbul'dan X kaç km",
 // "X neyle ünlü", "X'e en yakın havalimanı" gibi şehir hakkında en çok aranan,
@@ -24,14 +25,23 @@ function firstSentences(text: string, n: number) {
   return parts.slice(0, n).join(" ").trim();
 }
 
-export default function CityPopularQuestions({ city, locale }: { city: City; locale: string }) {
+export interface PopularQA {
+  q: string;
+  a: string;
+  href?: string; // cevabın altında gösterilecek iç bağlantı (yalnızca görünür metinde)
+  linkLabel?: string;
+}
+
+// Hem görünür bölümde hem FAQPage şemasında (FAQSection.extraFaqs) kullanılır;
+// cevaplar düz metindir, sayfada görünen metinle birebir aynıdır.
+export function buildPopularQA(city: City, locale: string): PopularQA[] {
   const codes = CITY_CODES[city.slug];
   const links = getDistanceLinksForCity(city.slug);
   const known = getCityKnownFor(city.slug);
   const airports = getCityAirports(city.slug);
   const isDistrict = Boolean(codes) && codes[0] !== city.name;
 
-  const qa: { q: string; a: ReactNode }[] = [];
+  const qa: PopularQA[] = [];
 
   if (codes) {
     const [province, plate, area] = codes;
@@ -68,14 +78,9 @@ export default function CityPopularQuestions({ city, locale }: { city: City; loc
     if (!l) continue;
     qa.push({
       q: `${ablative(h.name)} ${dative(city.name)} kaç km, kaç saat?`,
-      a: (
-        <>
-          {`${h.name} ile ${city.name} arası karayoluyla yaklaşık ${Math.round(l.distanceKm)} km, arabayla trafiksiz yaklaşık ${formatDuration(l.durationMin, "tr")}. `}
-          <Link href={`/${locale}/mesafe/${l.slug}`} className="font-semibold text-kiremit hover:underline">
-            Yol tarifi ve güzergah →
-          </Link>
-        </>
-      ),
+      a: `${h.name} ile ${city.name} arası karayoluyla yaklaşık ${Math.round(l.distanceKm)} km, arabayla trafiksiz yaklaşık ${formatDuration(l.durationMin, "tr")}.`,
+      href: `/${locale}/mesafe/${l.slug}`,
+      linkLabel: "Yol tarifi ve güzergah →",
     });
   }
 
@@ -122,6 +127,36 @@ export default function CityPopularQuestions({ city, locale }: { city: City; loc
     });
   }
 
+  // "X'te araba kiralamak gerekli mi?" — gerçek veriden: öne çıkan yerlerin
+  // şehir merkezine uzaklığı. Kesin hüküm değil, veriye dayalı yönlendirme.
+  const spots = city.attractions.slice(0, 8).filter((a) => a.location);
+  if (spots.length >= 3) {
+    const far = Math.max(...spots.map((a) => haversineDistanceKm(city.location, a.location)));
+    const farKm = Math.round(far);
+    qa.push({
+      q: `${withLocative(city.name)} araba kiralamak gerekli mi?`,
+      a:
+        far <= 8
+          ? `${city.name} için öne çıkan yerlerin çoğu merkeze yakın (merkezden en uzağı yaklaşık ${farKm} km); merkezde yürüyerek ve toplu taşımayla gezmek mümkündür. Çevre şehirlere ve günübirlik rotalara çıkmayı planlıyorsanız araç yine de zaman kazandırır.`
+          : `${city.name} için öne çıkan yerler geniş bir alana yayılıyor (merkezden en uzağı yaklaşık ${farKm} km). Birden fazla noktayı aynı gün görmek için araçla gezmek çoğu zaman daha pratiktir; sadece merkezde kalacaksanız toplu taşıma da yeterli olabilir.`,
+    });
+  }
+
+  const dayTrips = links.filter((l) => l.durationMin <= 180).slice(0, 4);
+  if (dayTrips.length >= 2) {
+    qa.push({
+      q: `${ablative(city.name)} günübirlik nereye gidilir?`,
+      a: `Arabayla 3 saate kadar ulaşılan en yakın rotalar: ${dayTrips.map((l) => `${l.otherCityName} (${Math.round(l.distanceKm)} km, ${formatDuration(l.durationMin, "tr")})`).join(", ")}.`,
+      href: getDayTripSlugs().includes(city.slug) ? `/${locale}/gunubirlik/${city.slug}` : undefined,
+      linkLabel: "Tüm günübirlik rotalar →",
+    });
+  }
+
+  return qa;
+}
+
+export default function CityPopularQuestions({ city, locale }: { city: City; locale: string }) {
+  const qa = buildPopularQA(city, locale);
   if (qa.length < 4) return null;
 
   return (
@@ -131,7 +166,17 @@ export default function CityPopularQuestions({ city, locale }: { city: City; loc
         {qa.map((item) => (
           <div key={item.q} className="rounded-xl border border-ink/10 bg-paper p-5 shadow-sm">
             <dt className="text-base font-bold text-ink">{item.q}</dt>
-            <dd className="mt-2 text-sm leading-relaxed text-ink/75">{item.a}</dd>
+            <dd className="mt-2 text-sm leading-relaxed text-ink/75">
+              {item.a}
+              {item.href && (
+                <>
+                  {" "}
+                  <Link href={item.href} className="font-semibold text-kiremit hover:underline">
+                    {item.linkLabel ?? "Devamı →"}
+                  </Link>
+                </>
+              )}
+            </dd>
           </div>
         ))}
       </dl>
