@@ -9,11 +9,14 @@ const ENDPOINT = "https://api.met.no/weatherapi/locationforecast/2.0/compact";
 const USER_AGENT = "YolDefteri/1.0 (+https://www.yoldefterim.com.tr; info@yoldefterim.com.tr)";
 export const WEATHER_REVALIDATE_SECONDS = 3600;
 
+export type WeatherIcon = "sun" | "partly" | "cloud" | "fog" | "rain" | "snow" | "sleet" | "thunder";
+
 export interface WeatherNow {
   temp: number;
   wind: number; // km/sa
   humidity: number; // %
   label: string;
+  icon: WeatherIcon;
 }
 export interface WeatherDay {
   date: string; // YYYY-MM-DD (Europe/Istanbul)
@@ -21,6 +24,7 @@ export interface WeatherDay {
   min: number;
   max: number;
   label: string;
+  icon: WeatherIcon;
 }
 export interface WeatherData {
   now: WeatherNow;
@@ -54,6 +58,19 @@ export function symbolLabel(code: string | undefined): string {
   const text = `${strength}${kind}`;
   const out = text.charAt(0).toUpperCase() + text.slice(1);
   return thunder ? `${out}, gök gürültülü` : out;
+}
+
+// symbol_code -> ikon anahtarı (UI lucide ikonuna eşler).
+export function symbolIcon(code: string | undefined): WeatherIcon {
+  const c = (code ?? "").replace(/_(day|night|polartwilight)$/, "");
+  if (c.includes("thunder")) return "thunder";
+  if (c.includes("sleet")) return "sleet";
+  if (c.includes("snow")) return "snow";
+  if (c.includes("rain")) return "rain";
+  if (c === "fog") return "fog";
+  if (c === "cloudy") return "cloud";
+  if (c === "partlycloudy" || c === "fair") return "partly";
+  return "sun";
 }
 
 const dateFmt = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Istanbul", year: "numeric", month: "2-digit", day: "2-digit" });
@@ -91,6 +108,7 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
       wind: Math.round((d0.wind_speed ?? 0) * 3.6),
       humidity: Math.round(d0.relative_humidity ?? 0),
       label: symbolLabel(first.data.next_1_hours?.summary?.symbol_code ?? first.data.next_6_hours?.summary?.symbol_code),
+      icon: symbolIcon(first.data.next_1_hours?.summary?.symbol_code ?? first.data.next_6_hours?.summary?.symbol_code),
     };
 
     const byDay = new Map<string, { temps: number[]; noon?: Entry; noonDelta: number; any?: Entry }>();
@@ -112,7 +130,7 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
     }
     const days: WeatherDay[] = [];
     for (const [date, s] of byDay) {
-      if (days.length >= 5) break;
+      if (days.length >= 7) break;
       // Yalnızca tamamlanmış gün özeti: ilk gün kısmi olabilir ama bugünü de gösteriyoruz.
       const e = s.noon ?? s.any;
       const code = e?.data.next_12_hours?.summary?.symbol_code ?? e?.data.next_6_hours?.summary?.symbol_code ?? e?.data.next_1_hours?.summary?.symbol_code;
@@ -122,6 +140,7 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
         min: Math.round(Math.min(...s.temps)),
         max: Math.round(Math.max(...s.temps)),
         label: symbolLabel(code),
+        icon: symbolIcon(code),
       });
     }
     if (days.length === 0) return null;
