@@ -570,12 +570,12 @@ export default async function CityDetailPage(props: {
           <section className="mt-16 border-t border-ink/10 pt-16 no-print">
             <h2 className="font-display text-3xl italic text-ink mb-2">
               {locale === "tr"
-                ? `${city.name} En Yakın Havalimanı: Merkeze Kaç Km?`
+                ? `${city.name} En Yakın Havalimanı ve Merkeze Ulaşım: Kaç Km, Kaç Dakika?`
                 : `Nearest Airports to ${translateDataText(city.name, locale)}`}
             </h2>
             <p className="mb-6 text-sm text-ink/65">
               {locale === "tr"
-                ? `Havalimanından ${city.name} merkezine karayolu mesafesi ve trafiksiz sürüş süresi.`
+                ? `Havalimanından ${city.name} merkezine karayolu mesafesi, trafiksiz sürüş süresi ve ulaşım seçenekleri.`
                 : `Road distance and drive time from the airport to the city centre (without traffic).`}
             </p>
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -596,9 +596,34 @@ export default async function CityDetailPage(props: {
                       ? `${city.name} merkezine ${distanceKm.toLocaleString("tr-TR")} km, yaklaşık ${formatDuration(durationMin, locale)}`
                       : `${distanceKm} km to the centre, about ${formatDuration(durationMin, locale)}`}
                   </p>
+                  {locale === "tr" && (
+                    <ul className="mt-3 space-y-1.5 border-t border-ink/8 pt-3 text-sm leading-relaxed text-ink/75">
+                      <li>
+                        <span className="font-semibold text-ink/85">Taksi veya özel transfer: </span>
+                        {`yaklaşık ${formatDuration(durationMin, locale)} (trafiksiz sürüş süresi); yoğun saatlerde ve yaz sezonunda uzayabilir.`}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-ink/85">Araç kiralama: </span>
+                        {distanceKm > 60
+                          ? `havalimanı merkeze uzak (${distanceKm.toLocaleString("tr-TR")} km); araçla gelmek ya da transferi önceden ayarlamak zaman kazandırır.`
+                          : `havalimanından alınan araçla merkeze ${distanceKm.toLocaleString("tr-TR")} km; kısa bir sürüş.`}
+                      </li>
+                      <li>
+                        <span className="font-semibold text-ink/85">Toplu taşıma: </span>
+                        {`havalimanı servisi veya belediye hatları ile ücretleri sık değişir; sefer saatleri için havalimanının güncel duyurularına bakın.`}
+                      </li>
+                    </ul>
+                  )}
                 </li>
               ))}
             </ul>
+            {locale === "tr" && (
+              <p className="mt-4 text-sm">
+                <Link href={`/${locale}/havalimani`} className="font-bold text-kiremit hover:underline">
+                  Tüm havalimanları: şehir merkezine ve tatil beldelerine mesafeler →
+                </Link>
+              </p>
+            )}
           </section>
         )}
 

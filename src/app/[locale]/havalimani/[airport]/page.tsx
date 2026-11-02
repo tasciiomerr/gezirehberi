@@ -71,11 +71,22 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
   const within60 = transfers.filter((t) => t.durationMin <= 60).length;
   const within100 = transfers.filter((t) => t.distanceKm <= 100).length;
 
+  const nearestCity = transfers.find((t) => t.kind === "city");
   const faqItems = isTr
-    ? transfers.slice(0, 10).map((t) => ({
+    ? [
+        ...(nearestCity
+          ? [
+              {
+                q: `${from} şehir merkezine nasıl gidilir?`,
+                a: `${from} ${nearestCity.name} şehir merkezine karayoluyla ${nearestCity.distanceKm.toLocaleString("tr-TR")} km; taksi, özel transfer veya kiralık araçla trafiksiz yaklaşık ${formatDuration(nearestCity.durationMin, locale)} sürer. Toplu taşıma hatları, seferler ve ücretler sık değiştiği için havalimanının güncel duyurularına bakın.`,
+              },
+            ]
+          : []),
+        ...transfers.slice(0, 10).map((t) => ({
         q: `${from} ${t.name}${t.kind === "city" ? " merkezine" : ""} kaç km?`,
         a: `${from} ${t.name}${t.kind === "city" ? " şehir merkezine" : ""} karayoluyla ${t.distanceKm.toLocaleString("tr-TR")} km; trafiksiz yaklaşık ${formatDuration(t.durationMin, locale)} sürer. Yoğun saatlerde ve yaz sezonunda süre uzayabilir.`,
-      }))
+      })),
+      ]
     : [];
   const schema = [
     {

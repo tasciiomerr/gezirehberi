@@ -2,7 +2,8 @@ import Link from "next/link";
 import type { City } from "@/lib/types";
 import { CITY_CODES } from "@/lib/data/cityCodes";
 import { getCityKnownFor } from "@/lib/data/knownFor";
-import { getCityAirports } from "@/lib/data/airports";
+import { getCityAirports, airportFrom, airportSlug } from "@/lib/data/airports";
+import { getAirportPageSlugs } from "@/lib/data/airportTransfers";
 import { getDistanceLinksForCity, formatDuration } from "@/lib/data/distances";
 import { ablative, dative } from "@/lib/trSuffix";
 import { withLocative } from "@/lib/turkish";
@@ -112,6 +113,18 @@ export function buildPopularQA(city: City, locale: string): PopularQA[] {
 
   if (airports.length > 0) {
     const a = airports[0];
+    const km = Math.round(a.distanceKm);
+    const aPageOk = getAirportPageSlugs().includes(airportSlug(a.airport));
+    qa.push({
+      q: `${airportFrom(a.airport)} ${city.name} şehir merkezine nasıl gidilir?`,
+      a: `${airportFrom(a.airport)} ${city.name} merkezine karayoluyla yaklaşık ${km} km; taksi, özel transfer veya kiralık araçla trafiksiz yaklaşık ${formatDuration(a.durationMin, "tr")} sürer. Toplu taşıma hatları, seferler ve ücretler sık değiştiği için havalimanının güncel duyurularına bakmanız önerilir.`,
+      href: aPageOk ? `/${locale}/havalimani/${airportSlug(a.airport)}` : `/${locale}/havalimani`,
+      linkLabel: "Havalimanı ulaşım sayfası →",
+    });
+    qa.push({
+      q: `${airportFrom(a.airport)} ${city.name} merkezine taksiyle kaç dakika?`,
+      a: `Trafiksiz yaklaşık ${formatDuration(a.durationMin, "tr")} (${km} km). Yoğun saatlerde, yaz sezonunda ve hava koşullarında süre uzayabilir.`,
+    });
     qa.push({
       q: `${city.name} en yakın havalimanı hangisi?`,
       a: `${city.name} için en yakın havalimanı ${a.airport.name} (${a.airport.iata}): karayoluyla yaklaşık ${Math.round(a.distanceKm)} km, ${formatDuration(a.durationMin, "tr")}.`,
