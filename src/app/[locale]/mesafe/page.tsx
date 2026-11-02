@@ -7,6 +7,7 @@ import { regions } from "@/lib/data/regions";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { ablative } from "@/lib/trSuffix";
 import { getDayTripSlugs } from "@/lib/data/dayTrips";
+import { jsonLd } from "@/lib/jsonLd";
 
 // Denetim bulgusu (2026-09): 150 mesafe sayfasının (madde 150) crawl edilebilir
 // bir merkezi yoktu (/mesafe 404) — sadece şehir sayfalarındaki bloklar ve
@@ -124,7 +125,7 @@ export default async function DistanceHubPage(props: { params: Promise<{ locale:
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
       {faqItems.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
       )}
       <Breadcrumbs
         withSchema

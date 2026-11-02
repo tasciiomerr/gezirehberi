@@ -6,6 +6,7 @@ import { allCities } from "@/lib/data/cities";
 import { getDistanceLinksForCity, getCityTableSlugs, CITY_TABLE_MIN_ROWS, formatDuration } from "@/lib/data/distances";
 import { ablative, dative } from "@/lib/trSuffix";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { jsonLd } from "@/lib/jsonLd";
 
 // "Ankara il mesafeleri", "İstanbul'dan illere uzaklık" gibi sorgular için
 // bir şehirden diğer tüm şehirlere tek tablo (2026-10-01). Satırlar mevcut
@@ -104,7 +105,7 @@ export default async function CityDistanceTablePage(props: { params: Promise<{ c
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      {faqItems.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      {faqItems.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />}
       <Breadcrumbs
         withSchema
         items={[

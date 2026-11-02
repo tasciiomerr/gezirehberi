@@ -98,11 +98,11 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
     if (!res.ok) return null;
     const json = (await res.json()) as { properties?: { meta?: { updated_at?: string }; timeseries?: Entry[] } };
     const series = json.properties?.timeseries;
-    if (!series || series.length === 0) return null;
+    if (!Array.isArray(series) || series.length === 0) return null;
 
     const first = series[0];
-    const d0 = first.data.instant.details;
-    if (d0.air_temperature === undefined) return null;
+    const d0 = first?.data?.instant?.details;
+    if (!d0 || typeof d0.air_temperature !== "number" || !Number.isFinite(d0.air_temperature)) return null;
     const now: WeatherNow = {
       temp: Math.round(d0.air_temperature),
       wind: Math.round((d0.wind_speed ?? 0) * 3.6),
@@ -111,16 +111,17 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
       icon: symbolIcon(first.data.next_1_hours?.summary?.symbol_code ?? first.data.next_6_hours?.summary?.symbol_code),
     };
 
-    const byDay = new Map<string, { temps: number[]; noon?: Entry; noonDelta: number; any?: Entry }>();
+    const byDay = new Map<string, { temps: number[]; noon?: Entry; noonDelta: number; firstEntry?: Entry }>();
     for (const e of series) {
-      const t = e.data.instant.details.air_temperature;
-      if (t === undefined) continue;
+      const t = e.data?.instant?.details?.air_temperature;
+      if (typeof t !== "number" || !Number.isFinite(t)) continue;
       const d = new Date(e.time);
+      if (Number.isNaN(d.getTime())) continue;
       const key = dateFmt.format(d);
       const hour = parseInt(hourFmt.format(d), 10);
       const slot = byDay.get(key) ?? { temps: [], noonDelta: 99 };
       slot.temps.push(t);
-      slot.any = slot.any ?? e;
+      slot.firstEntry = slot.firstEntry ?? e;
       const delta = Math.abs(hour - 13);
       if (delta < slot.noonDelta && (e.data.next_6_hours || e.data.next_12_hours || e.data.next_1_hours)) {
         slot.noon = e;
@@ -132,7 +133,7 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
     for (const [date, s] of byDay) {
       if (days.length >= 7) break;
       // Yalnızca tamamlanmış gün özeti: ilk gün kısmi olabilir ama bugünü de gösteriyoruz.
-      const e = s.noon ?? s.any;
+      const e = s.noon ?? s.firstEntry;
       const code = e?.data.next_12_hours?.summary?.symbol_code ?? e?.data.next_6_hours?.summary?.symbol_code ?? e?.data.next_1_hours?.summary?.symbol_code;
       days.push({
         date,
@@ -144,7 +145,9 @@ export async function getWeather(lat: number, lng: number): Promise<WeatherData 
       });
     }
     if (days.length === 0) return null;
-    return { now, days, updatedAt: json.properties?.meta?.updated_at ?? first.time };
+    const stamp = json.properties?.meta?.updated_at ?? first.time;
+    const updatedAt = Number.isNaN(new Date(stamp).getTime()) ? new Date().toISOString() : stamp;
+    return { now, days, updatedAt };
   } catch {
     return null;
   }

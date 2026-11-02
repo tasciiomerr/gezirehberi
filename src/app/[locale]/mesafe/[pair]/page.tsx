@@ -22,6 +22,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { BookOpen } from "lucide-react";
 import PlaceDistanceView, { buildPlaceDistanceMetadata } from "@/components/PlaceDistanceView";
 import { getAllPlacePairData, getPlacePairData } from "@/lib/data/placePairs";
+import { jsonLd } from "@/lib/jsonLd";
 
 export async function generateStaticParams() {
   return [...getAllDistancePageData(), ...getAllPlacePairData()].map((d) => ({ pair: d.slug }));
@@ -279,7 +280,7 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }}
       />
       <Breadcrumbs
         withSchema

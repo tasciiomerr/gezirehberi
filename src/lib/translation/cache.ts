@@ -18,10 +18,21 @@ function cacheFilePath(locale: TranslationTargetLocale): string {
   return path.join(CACHE_DIR, `${locale}.cache.json`);
 }
 
+// Çeviri sağlayıcıları bazen HTML varlıklarıyla ("&#x27;", "&quot;") döndürür;
+// metin düz metin olarak render edildiği için sayfada "It&#x27;s" görünüyordu
+// (2026-11-02 denetimi: en.cache.json'da 305 yer). Okurken güvenle çözülür.
+const ENTITIES: Record<string, string> = { "&#x27;": "'", "&#39;": "'", "&quot;": '"', "&amp;": "&", "&lt;": "<", "&gt;": ">" };
+function decodeEntities(text: string): string {
+  return text.replace(/&(?:#x27|#39|quot|amp|lt|gt);/g, (m) => ENTITIES[m] ?? m);
+}
+
 export async function loadCache(locale: TranslationTargetLocale): Promise<Record<string, string>> {
   try {
     const raw = await readFile(cacheFilePath(locale), "utf-8");
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw) as Record<string, string>;
+    const out: Record<string, string> = {};
+    for (const [k, v] of Object.entries(parsed)) out[k] = typeof v === "string" ? decodeEntities(v) : v;
+    return out;
   } catch {
     return {};
   }

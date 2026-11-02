@@ -6,6 +6,7 @@ import { getDayTrips, getDayTripSlugs, type DayTripStop } from "@/lib/data/dayTr
 import { formatDuration } from "@/lib/data/distances";
 import { ablative } from "@/lib/trSuffix";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { jsonLd } from "@/lib/jsonLd";
 
 // "İstanbul'a yakın günübirlik gidilecek yerler" gibi gezi sorguları için
 // (Search Console 2026-11-02: gezi niyetli sorgular neredeyse hiç görünmüyordu).
@@ -130,7 +131,7 @@ export default async function DayTripsPage(props: { params: Promise<{ city: stri
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
       <Breadcrumbs
         withSchema
         items={[

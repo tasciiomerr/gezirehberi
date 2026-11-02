@@ -7,6 +7,7 @@ import { getPlacePairsForPlace, type PlacePairData } from "@/lib/data/placePairs
 import FuelCostCalculator from "@/components/FuelCostCalculator";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { buildStopDirectionsUrl } from "@/lib/geo";
+import { jsonLd } from "@/lib/jsonLd";
 
 // Merkez şehir -> tatil yeri mesafe sayfası (bkz. lib/data/placePairs.ts).
 // Şehir çifti sayfasının sade hali: gerçek rota verisi (km, süre, ana yollar),
@@ -82,7 +83,7 @@ export default function PlaceDistanceView({ data, locale }: { data: PlacePairDat
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      {faqItems.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
+      {faqItems.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />}
       <Breadcrumbs
         withSchema
         items={[

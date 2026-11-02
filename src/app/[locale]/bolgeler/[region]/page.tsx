@@ -15,6 +15,7 @@ import { getRegionCulture } from "@/lib/data/regionCulture";
 import AdSlot from "@/components/AdSlot";
 import { getRegionTopAttractions, getRegionDistances } from "@/lib/data/regionHighlights";
 import { formatDuration } from "@/lib/data/distances";
+import { jsonLd } from "@/lib/jsonLd";
 
 export async function generateMetadata(props: { params: Promise<{ region: string; locale: string }> }) {
   const params = await props.params;
@@ -180,7 +181,7 @@ export default async function RegionPage(props: {
   return (
     <div data-region={region.slug}>
       {faqItems.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
       )}
       <div className="relative h-64 text-paper sm:h-80 overflow-hidden">
         {/* Background Image with dark overlay */}

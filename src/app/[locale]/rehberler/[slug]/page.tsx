@@ -8,6 +8,7 @@ import AdSlot from "@/components/AdSlot";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { getGuideDistanceLinks } from "@/lib/data/guideLinks";
 import { getNextGuideRoutes } from "@/lib/data/nextRoutes";
+import { jsonLd } from "@/lib/jsonLd";
 
 // Rehber gövdeleri düz metin; bölüm başlıkları kendi satırında BÜYÜK HARFLE
 // yazılmış ("SELAMLAŞMA", "112 — TEK ACİL ÇAĞRI NUMARASI"). Önceden hepsi tek
@@ -118,7 +119,7 @@ export default async function GuideDetailPage(props: { params: Promise<{ slug: s
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(articleSchema) }}
       />
       <Breadcrumbs
         withSchema

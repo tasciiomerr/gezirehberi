@@ -6,6 +6,7 @@ import { airportFrom, airportSlug, getAirportBySlug } from "@/lib/data/airports"
 import { getAirportPageSlugs, getAirportTransfers } from "@/lib/data/airportTransfers";
 import { formatDuration } from "@/lib/data/distances";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { jsonLd } from "@/lib/jsonLd";
 
 // "Antalya havalimanı Kemer kaç km" tipi transfer sorguları için (2026-10-02).
 // Mesafeler OSRM karayolu verisi (scripts/generate-airport-transfers.ts),
@@ -109,7 +110,7 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }} />
       <Breadcrumbs
         withSchema
         items={[

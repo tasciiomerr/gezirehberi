@@ -21,6 +21,7 @@ import { formatDuration } from "@/lib/data/distances";
 import { getPlacesForCity } from "@/lib/places";
 import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
+import { jsonLd } from "@/lib/jsonLd";
 
 export async function generateStaticParams() {
   const slugs = getAllDistrictSlugs();
@@ -181,11 +182,11 @@ export default async function DistrictDetailPage(props: {
     <div data-region={city.regionSlug}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(touristDestinationSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(touristDestinationSchema) }}
       />
 
       <div className="relative">

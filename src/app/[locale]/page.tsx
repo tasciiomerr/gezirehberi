@@ -8,6 +8,7 @@ import { getAllGuides } from "@/lib/data/guides";
 import RegionCard from "@/components/RegionCard";
 import PlaceholderImage from "@/components/PlaceholderImage";
 import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
+import { jsonLd } from "@/lib/jsonLd";
 
 export async function generateMetadata(props: {
   params: Promise<{ locale: string }>;
@@ -75,11 +76,11 @@ export default async function Home(props: {
     <div>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(organizationSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(websiteSchema) }}
       />
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-16 sm:px-6 sm:pt-24">
         <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-safran/20 px-3 py-1 text-xs font-bold uppercase tracking-wide text-kiremit">

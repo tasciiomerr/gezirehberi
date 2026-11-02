@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { withLocative } from "@/lib/turkish";
+import { jsonLd } from "@/lib/jsonLd";
 
 interface FAQSectionProps {
   name: string;
@@ -110,7 +111,7 @@ export default function FAQSection({
     <div className="mt-16 rounded-2xl border border-ink/8 bg-paper p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.02)]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }}
       />
       <h2 className="font-display text-2xl italic text-ink mb-6">
         {locale === "tr" ? "Sıkça Sorulan Sorular" : "Frequently Asked Questions"}

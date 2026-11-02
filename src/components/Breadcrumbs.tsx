@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { SITE_URL } from "@/lib/i18n";
+import { jsonLd } from "@/lib/jsonLd";
 
 export interface BreadcrumbItem {
   label: string;
@@ -33,7 +34,7 @@ export default function Breadcrumbs({ items, withSchema = false }: { items: Brea
   return (
     <nav aria-label="Breadcrumb" className="mb-4 overflow-x-auto">
       {withSchema && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(schema) }} />
       )}
       <ol className="flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold text-ink/65">
         {items.map((item, idx) => (

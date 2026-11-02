@@ -23,6 +23,7 @@ export default async function CityWeather({ city }: { city: City }) {
   const w = await getWeather(city.location.lat, city.location.lng);
   if (!w) return null;
   const updated = new Date(w.updatedAt);
+  const updatedText = Number.isNaN(updated.getTime()) ? "" : `${dateFmt.format(updated)} ${timeFmt.format(updated)}`;
 
   return (
     <section className="mt-16 border-t border-ink/10 pt-16" id="hava-durumu">
@@ -82,7 +83,7 @@ export default async function CityWeather({ city }: { city: City }) {
         </table>
       </div>
       <p className="mt-3 text-xs leading-relaxed text-ink/55">
-        {`Son güncelleme: ${dateFmt.format(updated)} ${timeFmt.format(updated)} (Türkiye saati). Veri: `}
+        {`${updatedText ? `Son güncelleme: ${updatedText} (Türkiye saati). ` : ""}Veri: `}
         <a href="https://www.met.no/en" target="_blank" rel="noopener noreferrer" className="underline hover:text-kiremit">MET Norway</a>
         {" (CC BY 4.0). Tahmindir; resmî uyarılar ve ayrıntılı bilgi için "}
         <a href="https://www.mgm.gov.tr" target="_blank" rel="noopener noreferrer nofollow" className="underline hover:text-kiremit">Meteoroloji Genel Müdürlüğü</a>

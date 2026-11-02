@@ -65,14 +65,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No route found" }, { status: 502 });
     }
 
-    const legs = route.legs.map((leg: any) => ({
+    const legs = route.legs.map((leg: { distance: number; duration: number }) => ({
       distanceKm: Math.round((leg.distance / 1000) * 10) / 10,
       durationMin: Math.max(1, Math.round(leg.duration / 60)),
     }));
 
     cache.set(key, { legs, cachedAt: Date.now() });
     return NextResponse.json({ legs, cached: false });
-  } catch (error: any) {
-    return NextResponse.json({ error: error?.message || "Mapbox request failed" }, { status: 502 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error && error.message ? error.message : "Mapbox request failed" }, { status: 502 });
   }
 }

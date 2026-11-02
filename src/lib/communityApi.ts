@@ -86,7 +86,17 @@ function mapComment(row: CommentRow): CommunityComment {
   };
 }
 
-async function parseJsonSafe(res: Response): Promise<any> {
+// catch (e: unknown) içinde güvenli hata mesajı (explicit any yerine).
+export function errorMessage(e: unknown, fallback: string): string {
+  return e instanceof Error && e.message ? e.message : fallback;
+}
+
+interface ApiBody {
+  error?: string;
+  [key: string]: unknown;
+}
+
+async function parseJsonSafe(res: Response): Promise<ApiBody> {
   try {
     return await res.json();
   } catch {
@@ -103,8 +113,8 @@ export async function fetchCommunityRoutes(
     const body = await parseJsonSafe(res);
     if (!res.ok) return { routes: [], error: body.error || `HTTP ${res.status}` };
     return { routes: (body.routes as RouteRow[]).map(mapRoute) };
-  } catch (e: any) {
-    return { routes: [], error: e?.message || "Network error" };
+  } catch (e: unknown) {
+    return { routes: [], error: errorMessage(e, "Network error") };
   }
 }
 
@@ -138,8 +148,8 @@ export async function reportContent(payload: {
     const body = await parseJsonSafe(res);
     if (!res.ok) return { success: false, error: body.error || `HTTP ${res.status}` };
     return { success: true };
-  } catch (e: any) {
-    return { success: false, error: e?.message || "Network error" };
+  } catch (e: unknown) {
+    return { success: false, error: errorMessage(e, "Network error") };
   }
 }
 
@@ -157,8 +167,8 @@ export async function submitContentFeedback(payload: {
     const body = await parseJsonSafe(res);
     if (!res.ok) return { success: false, error: body.error || `HTTP ${res.status}` };
     return { success: true };
-  } catch (e: any) {
-    return { success: false, error: e?.message || "Network error" };
+  } catch (e: unknown) {
+    return { success: false, error: errorMessage(e, "Network error") };
   }
 }
 
@@ -179,8 +189,8 @@ export async function createCommunityRoute(payload: {
     const body = await parseJsonSafe(res);
     if (!res.ok) return { error: body.error || `HTTP ${res.status}` };
     return { route: mapRoute(body.route as RouteRow) };
-  } catch (e: any) {
-    return { error: e?.message || "Network error" };
+  } catch (e: unknown) {
+    return { error: errorMessage(e, "Network error") };
   }
 }
 
@@ -190,8 +200,8 @@ export async function fetchCommunityComments(routeId: string): Promise<{ comment
     const body = await parseJsonSafe(res);
     if (!res.ok) return { comments: [], error: body.error || `HTTP ${res.status}` };
     return { comments: (body.comments as CommentRow[]).map(mapComment) };
-  } catch (e: any) {
-    return { comments: [], error: e?.message || "Network error" };
+  } catch (e: unknown) {
+    return { comments: [], error: errorMessage(e, "Network error") };
   }
 }
 
@@ -208,8 +218,8 @@ export async function createCommunityComment(
     const body = await parseJsonSafe(res);
     if (!res.ok) return { error: body.error || `HTTP ${res.status}` };
     return { comment: mapComment(body.comment as CommentRow) };
-  } catch (e: any) {
-    return { error: e?.message || "Network error" };
+  } catch (e: unknown) {
+    return { error: errorMessage(e, "Network error") };
   }
 }
 
@@ -220,9 +230,14 @@ export async function likeCommunityRoute(
     const res = await fetch(`/api/community/routes/${routeId}/like`, { method: "POST" });
     const body = await parseJsonSafe(res);
     if (!res.ok) return { success: false, error: body.error || `HTTP ${res.status}` };
-    return body;
-  } catch (e: any) {
-    return { success: false, error: e?.message || "Network error" };
+    return {
+      success: body.success === true,
+      likeCount: typeof body.likeCount === "number" ? body.likeCount : undefined,
+      alreadyLiked: typeof body.alreadyLiked === "boolean" ? body.alreadyLiked : undefined,
+      error: typeof body.error === "string" ? body.error : undefined,
+    };
+  } catch (e: unknown) {
+    return { success: false, error: errorMessage(e, "Network error") };
   }
 }
 
@@ -231,7 +246,7 @@ export async function getCommunityLikeStatus(routeId: string): Promise<{ likeCou
     const res = await fetch(`/api/community/routes/${routeId}/like`);
     const body = await parseJsonSafe(res);
     if (!res.ok) return { likeCount: 0, likedByMe: false };
-    return body;
+    return { likeCount: typeof body.likeCount === "number" ? body.likeCount : 0, likedByMe: body.likedByMe === true };
   } catch {
     return { likeCount: 0, likedByMe: false };
   }

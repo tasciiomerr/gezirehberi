@@ -43,6 +43,7 @@ import { getCityAirports, airportSlug } from "@/lib/data/airports";
 import { getAirportPageSlugs } from "@/lib/data/airportTransfers";
 import { Route as RouteIcon } from "lucide-react";
 import { BookOpen } from "lucide-react";
+import { jsonLd } from "@/lib/jsonLd";
 
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
@@ -271,17 +272,17 @@ export default async function CityDetailPage(props: {
     <div data-region={city.regionSlug}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(breadcrumbSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(touristDestinationSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd(touristDestinationSchema) }}
       />
       {attractionSchemas.map((a, i) => (
         <script
           key={`attraction-${i}`}
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(a) }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(a) }}
         />
       ))}
       <div className="relative">

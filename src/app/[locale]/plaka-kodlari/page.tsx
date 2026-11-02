@@ -5,6 +5,7 @@ import { PROVINCES } from "@/lib/data/provinces";
 import { allCities } from "@/lib/data/cities";
 import { regions } from "@/lib/data/regions";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { jsonLd } from "@/lib/jsonLd";
 
 // "plaka kodları", "alan kodları", "hangi ilin plakası 34" gibi çok aranan,
 // sabit ve doğrulanabilir bilgi (2026-11-02). Tek sayfa, 81 il; her satır sitedeki
@@ -63,7 +64,7 @@ export default async function PlateCodesPage(props: { params: Promise<{ locale: 
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(faqSchema) }} />
       <Breadcrumbs
         withSchema
         items={[{ label: "Ana Sayfa", href: `/${locale}` }, { label: "Plaka ve Alan Kodları" }]}
