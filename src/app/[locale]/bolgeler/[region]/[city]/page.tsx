@@ -45,6 +45,10 @@ import { Route as RouteIcon } from "lucide-react";
 import { BookOpen } from "lucide-react";
 import { jsonLd } from "@/lib/jsonLd";
 
+// Hava durumu build sırasında çekilmiyor (Vercel build'inde şehir sayfaları 60 sn
+// sınırını aşıp build'i düşürdü); sayfa saatlik yenilenerek bölümü dolduruyor.
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const slugs = getAllCitySlugs();
   const locales = ["tr", "en", "de", "ar", "ru"];

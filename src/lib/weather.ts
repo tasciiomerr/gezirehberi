@@ -88,6 +88,10 @@ interface Entry {
 }
 
 export async function getWeather(lat: number, lng: number): Promise<WeatherData | null> {
+  // Build sırasında dış API'ye istek atma: yüzlerce sayfa aynı anda istek atınca
+  // Vercel build'inde sayfa üretimi 60 sn'yi aşıyordu. Bölüm gizli kalır, sayfa
+  // revalidate süresi dolunca çalışma zamanında doldurulur.
+  if (process.env.NEXT_PHASE === "phase-production-build") return null;
   try {
     const url = `${ENDPOINT}?lat=${lat.toFixed(4)}&lon=${lng.toFixed(4)}`;
     const res = await fetch(url, {
