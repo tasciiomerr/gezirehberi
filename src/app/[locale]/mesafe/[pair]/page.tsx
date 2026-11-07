@@ -104,16 +104,17 @@ export async function generateMetadata(props: { params: Promise<{ pair: string; 
           // Sorgu ifadesi ("arası kaç km") açıklamada da birebir geçiyor —
           // Google eşleşen kelimeleri sonuçta kalın gösteriyor.
           `${cityA.name} ${cityB.name} arası kaç km? Karayoluyla ${roundedKm} km, arabayla yaklaşık ${durationText}.`,
+          // Halk adıyla aranan çiftler ("ankara urfa arası kaç km" ~1.400 gösterim,
+          // "antep mardin arası kaç saat" ~1.000; GSC 2026-11-06): kısa ad sonuçta
+          // kalın görünsün diye açıklamada da geçiyor. 155 sınırında sonraki
+          // parçalar atlandığı için öncelik sırasında yol üstü şehirlerden önce.
+          colloquialName(cityA) || colloquialName(cityB)
+            ? ` ${colloquialName(cityA) ?? cityA.name} ${colloquialName(cityB) ?? cityB.name} arası kaç saat?`
+            : "",
           stopNames ? ` Yol üstü: ${stopNames}.` : "",
           // Google'ın yol tarifi kutusunda olmayan somut bilgiler (yakıt litresi,
           // mola, yol üstü yerler) — tıklama gerekçesi olarak (2026-10-12).
           ` Tahmini ${Math.round((data.distanceKm * 7) / 100)} L yakıt, mola yerleri ve yol üstü gezilecek yerler.`,
-          // Halk adıyla aranan çiftler ("ankara urfa arası kaç km" ~1.400 gösterim,
-          // "antep mardin arası kaç saat" ~1.000; GSC 2026-11-06): kısa ad sonuçta
-          // kalın görünsün diye açıklamada da geçiyor.
-          colloquialName(cityA) || colloquialName(cityB)
-            ? ` ${colloquialName(cityA) ?? cityA.name} ${colloquialName(cityB) ?? cityB.name} arası kaç saat, kaç km.`
-            : "",
           ` ${cityB.name} ${cityA.name} yönü ve güzergah.`,
         ]
       : [
