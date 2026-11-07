@@ -76,7 +76,16 @@ const EXTRA_PAIRS: [string, string][] = [
   ["fethiye", "turgutreis"],
 ];
 
+// Sonuçlar modül düzeyinde önbelleğe alınıyor: önceden getPlacePairData her
+// çağrıda tüm çift listesini yeniden hesaplıyordu (getAllPlacePairData için
+// kare katı iş) ve her şehir sayfası bunu 85 şehir x birkaç kez çağırdığı için
+// Vercel build'inde sayfa üretimi 60 sn'yi aşıyordu (2026-11-07).
+let pairsCache: PlacePair[] | undefined;
 export function getPlacePairs(): PlacePair[] {
+  return (pairsCache ??= computePlacePairs());
+}
+
+function computePlacePairs(): PlacePair[] {
   const out: PlacePair[] = [];
   for (const [citySlug, placeSlug] of EXTRA_PAIRS) {
     const place = places.find((p) => p.slug === placeSlug);
@@ -106,8 +115,17 @@ export interface PlacePairData {
   majorRoads: string[];
 }
 
+let pairBySlugCache: Map<string, PlacePair> | undefined;
+function getPairBySlug(slug: string): PlacePair | undefined {
+  if (!pairBySlugCache) {
+    pairBySlugCache = new Map();
+    for (const p of getPlacePairs()) if (!pairBySlugCache.has(p.slug)) pairBySlugCache.set(p.slug, p);
+  }
+  return pairBySlugCache.get(slug);
+}
+
 export function getPlacePairData(slug: string): PlacePairData | undefined {
-  const pair = getPlacePairs().find((p) => p.slug === slug);
+  const pair = getPairBySlug(slug);
   const entry = distances[slug];
   const city = pair && cityBySlug.get(pair.citySlug);
   if (!pair || !entry || !city) return undefined;
@@ -122,10 +140,11 @@ export function getPlacePairData(slug: string): PlacePairData | undefined {
   };
 }
 
+let allPairDataCache: PlacePairData[] | undefined;
 export function getAllPlacePairData(): PlacePairData[] {
-  return getPlacePairs()
+  return (allPairDataCache ??= getPlacePairs()
     .map((p) => getPlacePairData(p.slug))
-    .filter((d): d is PlacePairData => Boolean(d));
+    .filter((d): d is PlacePairData => Boolean(d)));
 }
 
 // Aynı tatil yerine diğer merkezlerden mesafeler (sayfa içi link).

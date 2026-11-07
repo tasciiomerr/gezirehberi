@@ -56,6 +56,9 @@ export function getDayTrips(citySlug: string): { city: (typeof allCities)[number
   return { city, stops };
 }
 
+let dayTripSlugsCache: string[] | undefined;
 export function getDayTripSlugs(): string[] {
-  return allCities.map((c) => c.slug).filter((s) => (getDayTrips(s)?.stops.length ?? 0) >= DAY_TRIP_MIN_STOPS);
+  return (dayTripSlugsCache ??= allCities
+    .map((c) => c.slug)
+    .filter((s) => (getDayTrips(s)?.stops.length ?? 0) >= DAY_TRIP_MIN_STOPS));
 }
