@@ -1,4 +1,5 @@
-import { UtensilsCrossed, BedDouble, Soup, CloudSun } from "lucide-react";
+import Link from "next/link";
+import { UtensilsCrossed, BedDouble, Soup, CloudSun, Store } from "lucide-react";
 import type { City } from "@/lib/types";
 import { withLocative } from "@/lib/turkish";
 
@@ -21,7 +22,7 @@ export default function CityFoodStay({ city }: { city: City }) {
   return (
     <div className="mt-16 space-y-14 border-t border-ink/10 pt-16">
       {foods.length > 0 && (
-        <section>
+        <section id="ne-yenir" className="scroll-mt-24">
           <h2 className="mb-2 flex items-center gap-2 font-display text-3xl italic text-ink">
             <Soup className="text-kiremit" size={26} />
             {loc} Ne Yenir? Meşhur Yemekleri ve Yöresel Lezzetler
@@ -54,7 +55,7 @@ export default function CityFoodStay({ city }: { city: City }) {
       )}
 
       {eats.length > 0 && (
-        <section>
+        <section id="nerede-yenir" className="scroll-mt-24">
           <h2 className="mb-2 flex items-center gap-2 font-display text-3xl italic text-ink">
             <UtensilsCrossed className="text-kiremit" size={26} />
             {loc} Nerede Yenir?
@@ -80,7 +81,7 @@ export default function CityFoodStay({ city }: { city: City }) {
       )}
 
       {(stays.length > 0 || city.whereToStay) && (
-        <section>
+        <section id="nerede-kalinir" className="scroll-mt-24">
           <h2 className="mb-2 flex items-center gap-2 font-display text-3xl italic text-ink">
             <BedDouble className="text-kiremit" size={26} />
             {loc} Nerede Kalınır?
@@ -99,7 +100,26 @@ export default function CityFoodStay({ city }: { city: City }) {
         </section>
       )}
 
-      <section>
+      <div className="rounded-xl border border-kiremit/25 bg-gradient-to-r from-safran/10 to-kiremit/5 p-5 shadow-sm">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-kiremit">
+              <Store size={14} /> {loc} Otel, Kafe veya Restoran İşletmecisi misiniz?
+            </p>
+            <p className="mt-1 text-sm leading-relaxed text-ink/80">
+              {city.name} gezi rehberinde ve {city.name} varışlı yol güzergahlarında işletmenizi gezginlere tanıtmak, sponsorlu mekan önerilerinde yer almak için bizimle iletişime geçin.
+            </p>
+          </div>
+          <Link
+            href="/tr/iletisim"
+            className="shrink-0 rounded-full bg-kiremit px-5 py-2.5 text-center text-xs font-bold text-paper shadow-sm transition-colors hover:bg-kiremit/90"
+          >
+            İş Birliği & Tanıtım Başvurusu →
+          </Link>
+        </div>
+      </div>
+
+      <section id="iklim-ne-zaman" className="scroll-mt-24">
         <h2 className="mb-2 flex items-center gap-2 font-display text-3xl italic text-ink">
           <CloudSun className="text-kiremit" size={26} />
           {city.name} İklimi ve Ne Zaman Gidilir?

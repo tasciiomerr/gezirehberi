@@ -6,6 +6,7 @@ import { getDayTrips, getDayTripSlugs, type DayTripStop } from "@/lib/data/dayTr
 import { formatDuration } from "@/lib/data/distances";
 import { ablative } from "@/lib/trSuffix";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AdSlot from "@/components/AdSlot";
 import { jsonLd } from "@/lib/jsonLd";
 
 // "İstanbul'a yakın günübirlik gidilecek yerler" gibi gezi sorguları için
@@ -171,6 +172,8 @@ export default async function DayTripsPage(props: { params: Promise<{ city: stri
         {" · "}
         <Link href={`/${locale}/mesafe/sehir/${city.slug}`} className="font-bold text-kiremit hover:underline">{`${from} illere mesafe tablosu →`}</Link>
       </p>
+
+      <AdSlot />
 
       <section className="border-t border-ink/10 pt-10">
         <h2 className="mb-6 font-display text-2xl italic text-ink">Sık Sorulan Sorular</h2>

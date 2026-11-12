@@ -325,6 +325,65 @@ export default async function CityDetailPage(props: {
 
         <ConfusedPlacesWarning places={getConfusablePlaces(city.slug)} locale={locale} />
 
+        {locale === "tr" && (
+          <nav
+            aria-label={`${city.name} sayfa içi hızlı geçiş`}
+            className="mb-8 flex flex-wrap items-center gap-2 rounded-xl border border-ink/10 bg-paper p-3 shadow-sm"
+          >
+            <span className="px-2 text-xs font-bold uppercase tracking-wider text-kiremit">Hızlı Geçiş:</span>
+            <a
+              href="#gezilecek-yerler"
+              className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+            >
+              Gezilecek Yerler ({city.attractions.length})
+            </a>
+            {city.localFood.length > 0 && (
+              <a
+                href="#ne-yenir"
+                className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+              >
+                Ne Yenir? ({city.localFood.length})
+              </a>
+            )}
+            {(city.accommodations.length > 0 || city.whereToStay) && (
+              <a
+                href="#nerede-kalinir"
+                className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+              >
+                Nerede Kalınır?
+              </a>
+            )}
+            <a
+              href="#ulasim"
+              className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+            >
+              Nasıl Gidilir?
+            </a>
+            <a
+              href="#itinerary-section"
+              className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+            >
+              Gezi Planı
+            </a>
+            {dayTrips.length > 0 && (
+              <a
+                href="#gunubirlik"
+                className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+              >
+                Günübirlik Rotalar
+              </a>
+            )}
+            {cityAirports.length > 0 && (
+              <a
+                href="#havalimani"
+                className="rounded-full border border-ink/15 px-3 py-1 text-xs font-semibold text-ink/80 transition-colors hover:border-kiremit hover:text-kiremit"
+              >
+                Havalimanı Ulaşım
+              </a>
+            )}
+          </nav>
+        )}
+
         {/* Madde 146/148/149/152 — "Hızlı Bilgi Kartı" + "İlginç Bilgiler" +
             "Ünlü Kişiler" + rehbere köprü cümlesi. PİLOT: 12 şehir, bkz.
             src/lib/data/quickFacts.ts — sadece gerçek/doğrulanmış veri girilen
@@ -415,7 +474,7 @@ export default async function CityDetailPage(props: {
           </div>
         </div>
 
-        <div className="mb-16">
+        <div id="ulasim" className="mb-16 scroll-mt-24">
           <ArrivalOptionsTable howToArrive={city.howToArrive} locale={locale} title={dict.city.arrivalOptions} />
         </div>
 
@@ -460,7 +519,7 @@ export default async function CityDetailPage(props: {
 
         {/* Gezilecek yerler (h3) önceden başlıksız bir sekme altındaydı —
             sayfanın ana arama kalıbı olan bölüme gerçek bir H2. */}
-        <h2 className="mb-6 font-display text-3xl italic text-ink">
+        <h2 id="gezilecek-yerler" className="mb-6 scroll-mt-24 font-display text-3xl italic text-ink">
           {dict.city.attractionsHeading.replace("{city}", translateDataText(city.name, locale))}
         </h2>
 
@@ -522,7 +581,7 @@ export default async function CityDetailPage(props: {
             keşfedilebiliyordu — bu ters yönü ekliyor. Gerçek Mapbox
             verisinden (distanceCache), boşsa hiç render edilmez. */}
         {dayTrips.length > 0 && (
-          <section className="mt-16 border-t border-ink/10 pt-16 no-print">
+          <section id="gunubirlik" className="mt-16 scroll-mt-24 border-t border-ink/10 pt-16 no-print">
             <h2 className="font-display text-3xl italic text-ink mb-2">
               {locale === "tr"
                 ? `${city.name} Yakınında Günübirlik Gidilecek Yerler`
@@ -572,7 +631,7 @@ export default async function CityDetailPage(props: {
         )}
 
         {cityAirports.length > 0 && (
-          <section className="mt-16 border-t border-ink/10 pt-16 no-print">
+          <section id="havalimani" className="mt-16 scroll-mt-24 border-t border-ink/10 pt-16 no-print">
             <h2 className="font-display text-3xl italic text-ink mb-2">
               {locale === "tr"
                 ? `${city.name} En Yakın Havalimanı ve Merkeze Ulaşım: Kaç Km, Kaç Dakika?`

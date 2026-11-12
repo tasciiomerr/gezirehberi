@@ -100,40 +100,13 @@ export const popularDistricts: District[] = [
   },
   
   // Akdeniz
-  // Bulgu: bodrum/fethiye/marmaris citySlug'ı "mugla" idi ama "mugla" hiçbir
-  // zaman kendi başına curated bir City girdisi olarak eklenmedi (bkz.
-  // src/lib/data/cities/*.ts) — getCity() bu yüzden hep undefined dönüyor,
-  // notFound() tetikleniyor ve bu 3 sayfa production'da 404 veriyordu.
-  // Bodrum ve Fethiye'nin zaten kendi tam City sayfaları var (ege.ts,
-  // akdeniz.ts) — citySlug o gerçek girdiye işaret edecek şekilde
-  // düzeltildi (kendi kendine referans, çünkü aradaki gerçek bir "Muğla"
-  // hub şehri hiç curate edilmedi). Marmaris için curate edilmiş hiçbir
-  // City girdisi yok (kendi başına da, komşu bir şehir altında da) — uydurma
-  // bir eşleşme yapmak yerine bu girdi tamamen kaldırıldı.
-  {
-    slug: "bodrum",
-    citySlug: "bodrum",
-    regionSlug: "ege",
-    name: "Bodrum",
-    title: "Muğla Bodrum Gezi Rehberi",
-    summary: "Tarihi kalesi, beyaz badanalı evleri, Halikarnas Balıkçısı ve hareketli gece hayatıyla Türkiye'nin en popüler tatil yarımadası.",
-    longDescription: "Antik dünyanın yedi harikasından biri olan Halikarnas Mozolesi'ne ev sahipliği yapmış olan Bodrum, günümüzde lüks marinaları, eşsiz koyları ve kültürel festivalleriyle küresel bir turizm markasıdır.",
-    heroTagline: "Beyaz Evler, Mavi Sular ve Bitmeyen Bodrum Geceleri",
-    location: { lat: 37.0344, lng: 27.4305 }
-  },
-  {
-    slug: "fethiye",
-    citySlug: "fethiye",
-    regionSlug: "akdeniz",
-    name: "Fethiye",
-    title: "Muğla Fethiye Gezi Rehberi",
-    summary: "Ölüdeniz'in sakin suları, Babadağ'dan yamaç paraşütü, Kelebekler Vadisi ve Likya Yolu'nun başlangıç noktası.",
-    longDescription: "Fethiye, antik kaya mezarları, doğa harikası kanyonları, dünya çapında ödüllü plajları ve Likya uygarlığının izlerini taşıyan tarihi kalıntılarıyla benzersiz bir tatil ve doğa sporu merkezidir.",
-    heroTagline: "Ölüdeniz'in Durgunluğu ve Babadağ'ın Özgürlüğü",
-    location: { lat: 36.6219, lng: 29.1164 }
-  },
+  // Not: Bodrum, Fethiye ve Safranbolu'nun kendi tam City sayfaları var
+  // (/bolgeler/ege/bodrum, /bolgeler/akdeniz/fethiye, /bolgeler/karadeniz/safranbolu).
+  // Kendi kendine referans veren (/bodrum/bodrum vb.) mükerrer ilçe sayfaları
+  // kaldırıldı ve next.config.ts üzerinden ana şehir sayfalarına kalıcı olarak
+  // yönlendirildi.
   // Denetim bulgusu (2026-09, madde 285): Ölüdeniz — Türkiye'nin en tanınmış
-  // lagünlerinden biri, sadece üstteki Fethiye City kaydının içinde bir
+  // lagünlerinden biri, sadece Fethiye City kaydının içinde bir
   // attraction/restoran/otel grubu olarak geçiyordu, kendi sayfası yoktu.
   // Koordinatlar ve gerçekler Fethiye'nin zaten var olan, doğrulanmış
   // "fethiye-oludeniz" attraction kaydından birebir alındı — uydurma yeni
@@ -172,25 +145,7 @@ export const popularDistricts: District[] = [
     location: { lat: 36.5438, lng: 31.9998 }
   },
   
-  // İç Anadolu & Karabük & Trabzon
-  // Bulgu: safranbolu'nun citySlug'ı "karabuk" idi ama "karabuk" curated bir
-  // City girdisi olarak hiç eklenmedi — Safranbolu'nun kendi tam City sayfası
-  // (karadeniz.ts) var, citySlug o girdiye işaret edecek şekilde düzeltildi.
-  // urgup/goreme'nin citySlug'ı "nevsehir" idi, o da curate edilmedi —
-  // Kapadokya bölgesi tek bir City girdisi olarak "kapadokya" slug'ıyla
-  // curate edilmiş (ic-anadolu.ts), ikisi de ona işaret edecek şekilde
-  // düzeltildi.
-  {
-    slug: "safranbolu",
-    citySlug: "safranbolu",
-    regionSlug: "karadeniz",
-    name: "Safranbolu",
-    title: "Karabük Safranbolu Gezi Rehberi",
-    summary: "UNESCO Dünya Mirası Listesi'nde yer alan tarihi Osmanlı konakları, lokumu ve arasta çarşısıyla ünlü kültür kenti.",
-    longDescription: "Geleneksel Türk toplum yaşantısını günümüze taşıyan Safranbolu, 18. ve 19. yüzyıl Osmanlı sivil mimarisini yansıtan ahşap konakları ve kanyonlarıyla açık hava müzesi niteliğindedir.",
-    heroTagline: "Zamanın Durduğu Tarihi Osmanlı Konakları",
-    location: { lat: 41.2508, lng: 32.6939 }
-  },
+  // İç Anadolu & Marmara & Karadeniz
   {
     slug: "urgup",
     citySlug: "kapadokya",

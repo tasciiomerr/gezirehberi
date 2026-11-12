@@ -5,21 +5,24 @@ import { getNextCityRoutes, getRouteGuidesForCity } from "@/lib/data/nextRoutes"
 import { getDayTripSlugs } from "@/lib/data/dayTrips";
 import { getCityAirports, airportSlug } from "@/lib/data/airports";
 import { getAirportPageSlugs } from "@/lib/data/airportTransfers";
-import { formatDuration } from "@/lib/data/distances";
+import { formatDuration, getDistanceLinksForCity, CITY_TABLE_MIN_ROWS } from "@/lib/data/distances";
 import { ablative } from "@/lib/trSuffix";
 
 // "İlgili Rota ve Mesafeler" + "Sıradaki Rota Önerisi" (2026-11-02): şehir
 // sayfasından, kullanıcıyı sitede tutacak en alakalı sonraki adımlar —
 // en yakın aynı bölge durakları (gerçek km/süre), rota rehberleri, günübirlik
-// gezi sayfası ve havalimanı transferi. Yalnızca TR; olmayan veri gösterilmez.
+// gezi sayfası, illere mesafe tablosu ve havalimanı transferi. Yalnızca TR;
+// olmayan veri gösterilmez.
 export default function CityRelatedRoutes({ city, locale }: { city: City; locale: string }) {
   const next = getNextCityRoutes(city.slug, 3);
   const routeGuides = getRouteGuidesForCity(city.slug, 3);
   const hasDayTrips = getDayTripSlugs().includes(city.slug);
+  const distanceRows = getDistanceLinksForCity(city.slug);
+  const hasDistanceTable = distanceRows.length >= CITY_TABLE_MIN_ROWS;
   const airport = getCityAirports(city.slug)[0];
   const airportPages = new Set(getAirportPageSlugs());
   const airportHref = airport && airportPages.has(airportSlug(airport.airport)) ? `/${locale}/havalimani/${airportSlug(airport.airport)}` : undefined;
-  if (next.length === 0 && routeGuides.length === 0 && !hasDayTrips && !airportHref) return null;
+  if (next.length === 0 && routeGuides.length === 0 && !hasDayTrips && !hasDistanceTable && !airportHref) return null;
 
   const [primary, ...others] = next;
   return (
@@ -76,6 +79,15 @@ export default function CityRelatedRoutes({ city, locale }: { city: City; locale
             <span>
               <span className="block text-xs font-bold uppercase tracking-wider text-kiremit">Günübirlik</span>
               <span className="font-bold text-ink">{ablative(city.name)} günübirlik gidilecek yerler</span>
+            </span>
+          </Link>
+        )}
+        {hasDistanceTable && (
+          <Link href={`/${locale}/mesafe/sehir/${city.slug}`} className="flex items-start gap-2 rounded-xl border border-ink/10 bg-paper p-4 text-sm shadow-sm hover:border-kiremit/40">
+            <RouteIcon size={15} className="mt-0.5 shrink-0 text-kiremit" />
+            <span>
+              <span className="block text-xs font-bold uppercase tracking-wider text-kiremit">Mesafe Tablosu</span>
+              <span className="font-bold text-ink">{ablative(city.name)} {distanceRows.length} şehre km ve saat tablosu</span>
             </span>
           </Link>
         )}

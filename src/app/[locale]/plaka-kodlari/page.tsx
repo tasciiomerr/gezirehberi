@@ -5,6 +5,7 @@ import { PROVINCES } from "@/lib/data/provinces";
 import { allCities } from "@/lib/data/cities";
 import { regions } from "@/lib/data/regions";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AdSlot from "@/components/AdSlot";
 import { jsonLd } from "@/lib/jsonLd";
 
 // "plaka kodları", "alan kodları", "hangi ilin plakası 34" gibi çok aranan,
@@ -110,6 +111,10 @@ export default async function PlateCodesPage(props: { params: Promise<{ locale: 
       <p className="mt-3 text-xs text-ink/55">
         Muğla için rehber bağlantısı, ilin en çok ziyaret edilen ilçesi Bodrum sayfasına; Nevşehir için Kapadokya, Bartın için Amasra, Karabük için Safranbolu sayfasına gider.
       </p>
+
+      <div className="mt-8">
+        <AdSlot />
+      </div>
 
       <section className="mt-12 border-t border-ink/10 pt-10">
         <h2 className="mb-6 font-display text-2xl italic text-ink">Sık Sorulan Sorular</h2>

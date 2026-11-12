@@ -4,6 +4,7 @@ import { Locale, buildAlternates, buildRobots, buildPageSocialMeta } from "@/lib
 import { airportSlug } from "@/lib/data/airports";
 import { getAirportsWithTransfers, getAirportTransfers } from "@/lib/data/airportTransfers";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AdSlot from "@/components/AdSlot";
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
   const params = await props.params;
@@ -48,6 +49,9 @@ export default async function AirportsHubPage(props: { params: Promise<{ locale:
           ? `Türkiye'deki ${list.length} havalimanı için çevredeki şehir merkezlerine ve tatil beldelerine karayolu mesafesi ve trafiksiz transfer süresi. Bir havalimanı seçerek tüm varış noktalarını görebilirsin.`
           : `Road distances and transfer times from ${list.length} airports in Turkey.`}
       </p>
+      <div className="mb-8">
+        <AdSlot />
+      </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {list.map(({ a, nearest }) => (
           <Link

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { clampDescription } from "@/lib/metaText";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin, BedDouble, UtensilsCrossed, MapPinned, Soup } from "lucide-react";
+import { ArrowLeft, MapPin, BedDouble, UtensilsCrossed, MapPinned, Soup, Route as RouteIcon } from "lucide-react";
 import CityHero from "@/components/CityHero";
 import WishlistButton from "@/components/WishlistButton";
 import CityContentSections from "@/components/CityContentSections";
@@ -18,8 +18,10 @@ import AdSlot from "@/components/AdSlot";
 import { getCity } from "@/lib/data/cities";
 import { getDistrict, getAllDistrictSlugs, getDistrictDistance } from "@/lib/data/districts";
 import { formatDuration } from "@/lib/data/distances";
+import { getPlacePairsForPlace } from "@/lib/data/placePairs";
 import { getPlacesForCity } from "@/lib/places";
-import { getDictionary, Locale, translateDataText, buildAlternates, SITE_URL } from "@/lib/i18n";
+import { getCostLevelText } from "@/lib/costLevel";
+import { getDictionary, Locale, translateDataText, buildAlternates, buildRobots, SITE_URL } from "@/lib/i18n";
 import { getCityImage } from "@/lib/cityImages";
 import { jsonLd } from "@/lib/jsonLd";
 
@@ -51,17 +53,38 @@ export async function generateMetadata(props: {
   if (!district) return { title: "İlçe bulunamadı" };
 
   const bgImage = getCityImage(district.slug, district.regionSlug);
+  const distInfo = getDistrictDistance(params.city, params.district);
+  const city = getCity(params.region, params.city);
 
-  const description = clampDescription(district.summary);
+  const MAX_TITLE = 60 - " | Yol Defteri".length;
+  let title = district.title;
+  let description = clampDescription(district.summary);
+
+  if (locale === "tr") {
+    const titleCandidates = [
+      `${district.name} Gezilecek Yerler ve Gezi Rehberi`,
+      `${district.name} Gezilecek Yerler (${city?.name ?? ""})`,
+      `${district.name} Gezi Rehberi`,
+    ];
+    title = titleCandidates.find((t) => t.length <= MAX_TITLE) ?? titleCandidates[titleCandidates.length - 1];
+    const distSuffix =
+      distInfo && city
+        ? ` ${city.name} merkezine ${distInfo.distanceKm} km (${formatDuration(distInfo.durationMin, locale)}), ulaşım ve gezilecek yerler.`
+        : ` ${district.name} gezilecek yerler, ulaşım, ne yenir ve konaklama rehberi.`;
+    const fullDesc = `${district.summary}${distSuffix}`;
+    description = fullDesc.length <= 160 ? fullDesc : clampDescription(district.summary);
+  }
+
   const pageUrl = `${SITE_URL}/${locale}/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`;
 
   return {
-    title: district.title,
+    title,
     description,
+    robots: buildRobots(locale),
     alternates: buildAlternates(locale, `/bolgeler/${district.regionSlug}/${district.citySlug}/${district.slug}`),
     openGraph: {
       url: pageUrl,
-      title: district.title,
+      title,
       description,
       images: [
         {
@@ -74,7 +97,7 @@ export async function generateMetadata(props: {
     },
     twitter: {
       card: "summary_large_image",
-      title: district.title,
+      title,
       description,
     },
   };
@@ -118,6 +141,8 @@ export default async function DistrictDetailPage(props: {
     { icon: "accommodations" as const, count: districtAccommodations?.totalCount ?? 0, label: dict.city.accommodationsCount },
     { icon: "localFood" as const, count: districtLocalFood?.totalCount ?? 0, label: dict.city.foodCount },
   ].filter((s) => s.count > 0);
+
+  const placePairs = getPlacePairsForPlace(district.slug);
 
   // Schema definitions
   const breadcrumbSchema = {
@@ -164,7 +189,6 @@ export default async function DistrictDetailPage(props: {
     }
   };
 
-  // Mock district-specific stats and info
   const districtObj = {
     slug: district.slug,
     name: district.name,
@@ -173,10 +197,32 @@ export default async function DistrictDetailPage(props: {
     regionSlug: city.regionSlug
   };
 
-  const whenToGoText = locale === "tr" ? "İlkbahar sonu ve Yaz ayları idealdir." : "Late Spring and Summer months are ideal.";
-  const transitText = locale === "tr" ? `${city.name} merkezinden düzenli dolmuş, otobüs veya özel araç ile kolayca ulaşılır.` : `Easily reachable from ${city.name} center via shuttle bus, taxi, or private car.`;
-  const budgetText = locale === "tr" ? "Mevsime ve yoğunluğa göre değişken bütçelidir." : "Variable budgets depending on peak tourist season.";
-  const durationText = locale === "tr" ? "2 - 3 gün" : "2 - 3 days";
+  const whenToGoText = city.whenToGo
+    ? translateDataText(city.whenToGo, locale)
+    : locale === "tr"
+    ? "İlkbahar ve sonbahar ayları gezmek için en dengeli dönemdir."
+    : "Spring and autumn months are ideal to visit.";
+  const transitText =
+    locale === "tr"
+      ? districtDistance
+        ? `${city.name} merkezinden ${isIsland ? "karayolu ve feribot bağlantısıyla" : "karayoluyla"} yaklaşık ${districtDistance.distanceKm} km (${formatDuration(districtDistance.durationMin, locale)}); ilçe minibüsleri ve özel araçla ulaşım sağlanır.`
+        : `${city.name} merkezinden toplu taşıma veya özel araç ile kolayca ulaşılır.`
+      : `Reachable from ${city.name} center via public transit or private car.`;
+  const budgetText = getCostLevelText(city.costLevel, locale);
+  const durationText = city.bestDuration
+    ? translateDataText(city.bestDuration, locale)
+    : locale === "tr"
+    ? "1 - 2 gün"
+    : "1 - 2 days";
+
+  const whatToEatText =
+    city.localFood.length > 0
+      ? locale === "tr"
+        ? `${district.name} ve bağlı olduğu ${city.name} mutfağında ${city.localFood.slice(0, 4).map((f) => f.name).join(", ")} gibi yöresel lezzetleri deneyimleyebilirsiniz.`
+        : `Around ${district.name} and ${city.name}, you can try local specialties such as ${city.localFood.slice(0, 3).map((f) => translateDataText(f.name, locale)).join(", ")}.`
+      : locale === "tr"
+      ? `${district.name} çevresinde ${city.name} yöresine özgü tescilli lezzetleri ve yerel mutfak duraklarını deneyebilirsiniz.`
+      : `You can try regional dishes specific to ${city.name} around ${district.name}.`;
 
   return (
     <div data-region={city.regionSlug}>
@@ -232,7 +278,12 @@ export default async function DistrictDetailPage(props: {
                 text={district.longDescription}
               />
             </div>
-            <p className="text-base text-ink/70 leading-relaxed mb-6">{district.longDescription}</p>
+            <p className="text-base text-ink/70 leading-relaxed mb-4">{district.longDescription}</p>
+            {locale === "tr" && city.summary && (
+              <p className="text-sm text-ink/65 leading-relaxed mb-6">
+                {`${district.name}, ${city.name} (${city.region}) sınırları içinde yer alır. Bölge genelinde ${city.highlights.slice(0, 4).join(", ")} gibi duraklar öne çıkar; ${district.name} gezisini ${city.name} rotasıyla birleştirerek planlayabilirsiniz.`}
+              </p>
+            )}
 
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
@@ -265,7 +316,7 @@ export default async function DistrictDetailPage(props: {
                 </h3>
                 <p className="mt-1 text-sm text-ink/80 leading-relaxed">
                   {locale === "tr"
-                    ? `${city.name} merkezden ${district.name} ${isIsland ? "karayolu ve feribotla" : "karayoluyla"} yaklaşık ${districtDistance.distanceKm} km; yolculuk ${isIsland ? "feribot geçişi dahil " : "arabayla "}yaklaşık ${formatDuration(districtDistance.durationMin, locale)} sürüyor.`
+                    ? `${city.name} merkezden ${district.name} ${isIsland ? "karayolu ve feribotla" : "karayoluyla"} yaklaşık ${districtDistance.distanceKm} km (${districtDistance.distanceKm} kilometre); yolculuk ${isIsland ? "feribot geçişi dahil " : "arabayla "}yaklaşık ${formatDuration(districtDistance.durationMin, locale)} sürüyor.`
                     : `About ${districtDistance.distanceKm} km by road from the city centre, roughly ${formatDuration(districtDistance.durationMin, locale)} by car.`}
                 </p>
               </div>
@@ -322,6 +373,28 @@ export default async function DistrictDetailPage(props: {
           initialHasMore={initialPlaces?.hasMore}
         />
 
+        {placePairs.length > 0 && (
+          <section className="mt-16 border-t border-ink/10 pt-12 no-print">
+            <h2 className="mb-4 font-display text-2xl italic text-ink">
+              {locale === "tr" ? `Şehirlerden ${district.name} Mesafeleri` : `Distances to ${district.name}`}
+            </h2>
+            <div className="flex flex-wrap gap-2.5">
+              {placePairs.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/${locale}/mesafe/${p.slug}`}
+                  className="flex items-center gap-1.5 rounded-full border border-ink/15 px-3.5 py-1.5 text-sm font-semibold text-ink/75 hover:border-kiremit hover:text-kiremit transition-colors"
+                >
+                  <RouteIcon size={13} className="text-kiremit shrink-0" />
+                  {locale === "tr"
+                    ? `${p.city.name} ${district.name} arası kaç km`
+                    : `${p.city.name} – ${district.name}`} · {Math.round(p.distanceKm)} km
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* İlçenin kendi curated attraction listesi yok — CommunityRoutes'un
             "mekan seç" adımı için ebeveyn şehrin attractions listesi
             kullanılıyor, ama rota kendi ilçe slug'ı altında saklanıyor
@@ -345,10 +418,8 @@ export default async function DistrictDetailPage(props: {
           whenToGo={whenToGoText}
           howToGetThere={transitText}
           budget={budgetText}
-          whatToEat={locale === "tr"
-            ? `${district.name} sahilinde taze yerel balıklar, deniz mahsulleri mezeleri, Ege zeytinyağlıları ve meşhur tatlıların tadına bakmalısınız.`
-            : `You should try fresh local fish, seafood appetizers, Aegean olive oil dishes, and famous local desserts around ${district.name}.`
-          }
+          whatToEat={whatToEatText}
+          bestDuration={durationText}
           locale={locale}
         />
       </div>

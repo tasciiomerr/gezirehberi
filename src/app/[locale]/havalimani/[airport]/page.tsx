@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Plane } from "lucide-react";
+import { Plane, Route as RouteIcon, Clock } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText } from "@/lib/i18n";
 import { airportFrom, airportSlug, getAirportBySlug } from "@/lib/data/airports";
 import { getAirportPageSlugs, getAirportTransfers } from "@/lib/data/airportTransfers";
 import { formatDuration } from "@/lib/data/distances";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AdSlot from "@/components/AdSlot";
 import { jsonLd } from "@/lib/jsonLd";
 
 // "Antalya havalimanı Kemer kaç km" tipi transfer sorguları için (2026-10-02).
@@ -36,22 +37,32 @@ export async function generateMetadata(props: { params: Promise<{ airport: strin
   if (!data) return { title: locale === "tr" ? "Sayfa bulunamadı" : "Page not found" };
   const { airport, transfers } = data;
   const base = airport.name.replace(/\s*\(.*?\)/g, "");
+  const nearest = transfers[0];
   const names = transfers.map((t) => t.name);
-  let title = `${base} Ulaşım: Hangi Yere Kaç Km?`;
-  if (title.length > 60) title = `${base}: Hangi Yere Kaç Km?`;
-  if (title.length > 60) title = `${base} Ulaşım ve Mesafeler`;
-  for (let n = 3; n >= 1; n--) {
-    const t = `${base} Ulaşım: ${names.slice(0, n).join(", ")} Kaç Km?`;
-    if (t.length <= 60) { title = t; break; }
-  }
-  const description =
+  const candidates = [
+    `${base} Ulaşım: ${names.slice(0, 2).join(", ")} Kaç Km, Kaç Dk?`,
+    `${base} Ulaşım: Merkeze Kaç Km, Kaç Dakika?`,
+    `${base} (${airport.iata}) Ulaşım ve Mesafeler`,
+    `${base} Ulaşım: Hangi Yere Kaç Km?`,
+  ];
+  const title =
     locale === "tr"
-      ? `${airportFrom(airport)} ${names.slice(0, 4).join(", ")} ve çevreye karayolu mesafesi ve transfer süresi: ${transfers.length} varış noktası, gerçek yol verisi.`
-      : `Road distance and transfer time from ${base} (${airport.iata}) to ${transfers.length} nearby destinations.`;
+      ? candidates.find((t) => t.length <= 60) ?? candidates[candidates.length - 1]
+      : `${base} (${airport.iata}) transfers`;
+  const descriptionParts =
+    locale === "tr"
+      ? [
+          `${airportFrom(airport)} (${airport.iata}) ${nearest.name} merkezine ${Math.round(nearest.distanceKm)} km (${shortDuration(nearest.durationMin)}).`,
+          ` ${ names.slice(0, 4).join(", ")} transfer süresi, taksi, servis ve araçla ulaşım tablosu.`,
+        ]
+      : [
+          `Road distance and transfer time from ${base} (${airport.iata}) to ${transfers.length} nearby destinations.`,
+        ];
+  const description = descriptionParts.reduce((acc, part) => (acc.length + part.length <= 160 ? acc + part : acc), "");
   const path = `/havalimani/${airportSlug(airport)}`;
   return {
-    title: locale === "tr" ? { absolute: title } : `${base} (${airport.iata}) transfers`,
-    description: description.length > 158 ? description.slice(0, description.lastIndexOf(",", 150)) + "." : description,
+    title: locale === "tr" ? { absolute: title } : title,
+    description,
     robots: buildRobots(locale),
     alternates: buildAlternates(locale, path),
     ...buildPageSocialMeta(locale, path, title, description),
@@ -78,15 +89,15 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
         ...(nearestCity
           ? [
               {
-                q: `${from} şehir merkezine nasıl gidilir?`,
-                a: `${from} ${nearestCity.name} şehir merkezine karayoluyla ${nearestCity.distanceKm.toLocaleString("tr-TR")} km; taksi, özel transfer veya kiralık araçla trafiksiz yaklaşık ${formatDuration(nearestCity.durationMin, locale)} sürer. Toplu taşıma hatları, seferler ve ücretler sık değiştiği için havalimanının güncel duyurularına bakın.`,
+                q: `${from} şehir merkezine nasıl gidilir, kaç km?`,
+                a: `${from} ${nearestCity.name} şehir merkezine karayoluyla ${nearestCity.distanceKm.toLocaleString("tr-TR")} km (${Math.round(nearestCity.distanceKm)} kilometre); taksi, özel transfer veya kiralık araçla trafiksiz yaklaşık ${formatDuration(nearestCity.durationMin, locale)} sürer. Havalimanı yolcu servisleri (HAVAŞ veya belediye otobüsleri) için güncel saatleri kontrol etmeniz önerilir.`,
               },
             ]
           : []),
         ...transfers.slice(0, 10).map((t) => ({
-        q: `${from} ${t.name}${t.kind === "city" ? " merkezine" : ""} kaç km?`,
-        a: `${from} ${t.name}${t.kind === "city" ? " şehir merkezine" : ""} karayoluyla ${t.distanceKm.toLocaleString("tr-TR")} km; trafiksiz yaklaşık ${formatDuration(t.durationMin, locale)} sürer. Yoğun saatlerde ve yaz sezonunda süre uzayabilir.`,
-      })),
+          q: `${from} ${t.name}${t.kind === "city" ? " merkezine" : ""} kaç km, kaç dakika?`,
+          a: `${from} ${t.name}${t.kind === "city" ? " şehir merkezine" : ""} karayoluyla ${t.distanceKm.toLocaleString("tr-TR")} km; trafiksiz yaklaşık ${formatDuration(t.durationMin, locale)} sürer. Yoğun saatlerde ve yaz sezonunda süre uzayabilir.`,
+        })),
       ]
     : [];
   const schema = [
@@ -121,24 +132,51 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
       />
       <h1 className="mb-4 flex items-start gap-3 font-display text-3xl italic text-ink sm:text-4xl">
         <Plane className="mt-1.5 shrink-0 text-kiremit" size={28} />
-        {isTr ? `${base} Ulaşım: Şehir Merkezi ve Çevreye Mesafeler` : `${base} (${airport.iata}) Transfers`}
+        {isTr ? `${base} (${airport.iata}) Ulaşım: Şehir Merkezi ve Çevreye Kaç Km?` : `${base} (${airport.iata}) Transfers`}
       </h1>
       <p className="mb-8 max-w-3xl text-base leading-relaxed text-ink/75">
         {isTr
-          ? `${from} (${airport.iata}) çevredeki ${transfers.length} şehir merkezi ve tatil beldesine karayolu mesafesi ve trafiksiz sürüş süresi, yakından uzağa sıralı. Transfer, taksi ya da araç kiralama planlarken kullanabilirsin.`
+          ? `${from} (${airport.iata}) çevredeki ${transfers.length} şehir merkezi ve tatil beldesine karayolu mesafesi (km) ve trafiksiz sürüş süresi, yakından uzağa sıralı. Transfer, servis, taksi ya da araç kiralama planlarken kullanabilirsin.`
           : `Road distance and drive time from ${base} (${airport.iata}) to ${transfers.length} nearby destinations.`}
       </p>
 
+      <div className="mb-8 grid grid-cols-3 gap-2 sm:gap-3">
+        <div className="rounded-lg border border-ink/10 bg-paper p-3 shadow-sm sm:p-4">
+          <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-kiremit sm:text-xs">
+            <RouteIcon size={12} /> {isTr ? "En Yakın Merkez" : "Nearest"}
+          </div>
+          <div className="mt-1 text-sm font-bold text-ink sm:text-base">
+            {nearest.name} · {Math.round(nearest.distanceKm)} km
+          </div>
+        </div>
+        <div className="rounded-lg border border-ink/10 bg-paper p-3 shadow-sm sm:p-4">
+          <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-kiremit sm:text-xs">
+            <Clock size={12} /> {isTr ? "Transfer Süresi" : "Drive Time"}
+          </div>
+          <div className="mt-1 text-sm font-bold text-ink sm:text-base">
+            ~{shortDuration(nearest.durationMin)}
+          </div>
+        </div>
+        <div className="rounded-lg border border-ink/10 bg-paper p-3 shadow-sm sm:p-4">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-kiremit sm:text-xs">
+            {isTr ? "Varış Noktası" : "Destinations"}
+          </div>
+          <div className="mt-1 text-sm font-bold text-ink sm:text-base">
+            {transfers.length} {isTr ? "nokta" : "stops"}
+          </div>
+        </div>
+      </div>
+
       {isTr && (
         <section className="mb-8 max-w-3xl space-y-3 text-sm leading-relaxed text-ink/75">
-          <h2 className="font-display text-2xl italic text-ink">{base} nerede, şehre ne kadar uzak?</h2>
+          <h2 className="font-display text-2xl italic text-ink">{base} nerede, şehir merkezine kaç km ve kaç dakika?</h2>
           <p>
-            {`${base} (${airport.iata}), listedeki en yakın varış noktası olan ${nearest.name} ${nearest.kind === "city" ? "merkezine" : "bölgesine"} yaklaşık ${Math.round(nearest.distanceKm)} km, trafiksiz ${shortDuration(nearest.durationMin)} uzaklıkta. `}
+            {`${base} (${airport.iata}), listedeki en yakın varış noktası olan ${nearest.name} ${nearest.kind === "city" ? "merkezine" : "bölgesine"} karayoluyla yaklaşık ${Math.round(nearest.distanceKm)} km (${Math.round(nearest.distanceKm)} kilometre), trafiksiz ${shortDuration(nearest.durationMin)} uzaklıkta. `}
             {within60 > 0 && `${within60} varış noktasına 1 saatten kısa sürede, `}
             {`${within100} varış noktasına ise 100 km içinde ulaşabilirsin. En uzak listelenen nokta ${farthest.name}: yaklaşık ${Math.round(farthest.distanceKm)} km, ${shortDuration(farthest.durationMin)}.`}
           </p>
           <p>
-            {`Süreler karayolu ve trafiksiz ortalamadır; havalimanı çıkışı, bagaj ve yaz sezonu yoğunluğu gerçek varış süresini uzatır. Bu yüzden son varış noktası için sürüş süresine yarım saat eklemek makul bir plandır. Şehir merkezlerinin gezilecek yerleri için tablodaki bağlantılardan şehir rehberlerine geçebilirsin.`}
+            {`Süreler karayolu ve trafiksiz ortalamadır; havalimanı çıkışı, bagaj teslimi ve yaz sezonu yoğunluğu gerçek varış süresini uzatır. Bu yüzden son varış noktası için sürüş süresine yarım saat eklemek makul bir plandır. Şehir merkezlerinin gezilecek yerleri ve konaklama bölgeleri için tablodaki bağlantılardan şehir rehberlerine geçebilirsin.`}
           </p>
         </section>
       )}
@@ -154,7 +192,7 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
           </thead>
           <tbody>
             {transfers.map((t) => (
-              <tr key={`${t.kind}-${t.slug}`} className="border-b border-ink/5 last:border-0">
+              <tr key={`${t.kind}-${t.slug}`} className="border-b border-ink/5 last:border-0 hover:bg-ink/[0.03]">
                 <td className="px-4 py-2.5">
                   {t.href ? (
                     <Link href={`/${locale}${t.href}`} className="font-semibold text-ink/85 hover:text-kiremit">
@@ -177,6 +215,8 @@ export default async function AirportPage(props: { params: Promise<{ airport: st
           ? "Süreler trafiksiz ortalamadır. Transfer ve otobüs (HAVAŞ vb.) seferleri ile ücretleri için havalimanının ve firmaların güncel duyurularını kontrol edin."
           : "Times assume no traffic. Check current shuttle schedules and fares with the airport and operators."}
       </p>
+
+      <AdSlot />
 
       {faqItems.length > 0 && (
         <section className="mt-12 border-t border-ink/10 pt-10">

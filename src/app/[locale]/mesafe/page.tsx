@@ -5,6 +5,7 @@ import { getAllDistancePageData, getPopularDistances, formatDuration, getCityTab
 import { allCities } from "@/lib/data/cities";
 import { regions } from "@/lib/data/regions";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AdSlot from "@/components/AdSlot";
 import { ablative } from "@/lib/trSuffix";
 import { getDayTripSlugs } from "@/lib/data/dayTrips";
 import { jsonLd } from "@/lib/jsonLd";
@@ -196,7 +197,9 @@ export default async function DistanceHubPage(props: { params: Promise<{ locale:
         </section>
       )}
 
-      <nav aria-label={isTr ? "Bölgeye git" : "Jump to region"} className="mb-10 flex flex-wrap gap-2">
+      <AdSlot />
+
+      <nav aria-label={isTr ? "Bölgeye git" : "Jump to region"} className="mb-10 mt-6 flex flex-wrap gap-2">
         {regionGroups.map(({ region }) => (
           <a
             key={region.slug}

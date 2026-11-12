@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Clock, Fuel, Coffee, Route as RouteIcon } from "lucide-react";
+import { ArrowLeft, MapPin, Clock, Fuel, Coffee, Route as RouteIcon, Plane, Compass, Store } from "lucide-react";
 import { Locale, buildAlternates, buildRobots, buildPageSocialMeta, translateDataText } from "@/lib/i18n";
 import {
   getAllDistancePageData,
@@ -12,16 +12,21 @@ import {
   getDistanceLinksForCity,
   colloquialName,
   withColloquial,
+  CITY_TABLE_MIN_ROWS,
 } from "@/lib/data/distances";
 import { getGuidesCoveringPair } from "@/lib/data/guideLinks";
 import FuelCostCalculator from "@/components/FuelCostCalculator";
 import { buildStopDirectionsUrl } from "@/lib/geo";
 import { getGuidesForCity } from "@/lib/data/guides";
+import { getDayTripSlugs } from "@/lib/data/dayTrips";
+import { getCityAirports, airportSlug } from "@/lib/data/airports";
+import { getAirportPageSlugs } from "@/lib/data/airportTransfers";
 import AdSlot from "@/components/AdSlot";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { BookOpen } from "lucide-react";
 import PlaceDistanceView, { buildPlaceDistanceMetadata } from "@/components/PlaceDistanceView";
 import { getAllPlacePairData, getPlacePairData } from "@/lib/data/placePairs";
+import { ablative } from "@/lib/trSuffix";
 import { jsonLd } from "@/lib/jsonLd";
 
 export async function generateStaticParams() {
@@ -90,39 +95,35 @@ export async function generateMetadata(props: { params: Promise<{ pair: string; 
           `${cityA.name} to ${cityB.name}: ${roundedKm} km`,
         ];
   const title = titleCandidates.find((t) => t.length <= MAX_TITLE) ?? titleCandidates[titleCandidates.length - 1];
-  // Açıklama: ~155 karakterde kesilmemesi için kısa; km + süre + ters yön
-  // (ters sorgular binlerce gösterim alıyor) + Google'ın cevap kutusunun
-  // vermediği şeyler (güzergah, gezi önerileri) tıklama sebebi olarak.
-  // Mapbox yol adları gürültülü/tekrarlı olduğu için açıklamaya konmuyor.
-  // Yol üstü şehir varsa (gerçek güzergahtan hesaplanan) o da ekleniyor —
-  // parçalar sırayla, 155'i aşmayanlar eklenerek birleştiriyor.
+  // Açıklama: ~158 karakterde kesilmemesi için özlü; km + süre + halk adı
+  // + Google'ın cevap kutusunun vermediği tıklama sebepleri (en kısa yol
+  // tarifi, yakıt litresi, yol üstü duraklar ve ters yön).
+  // Önceden 155 karakter sınırında 1133 sayfanın %80'inde yakıt/mola/yol
+  // tarifi cümlesi düşüyordu; artık her sayfada tıklama gerekçesi yer alıyor.
   const durationText = formatDuration(data.durationMin, locale);
-  const stopNames = data.stopCities.slice(0, 3).map((s) => s.city.name).join(", ");
+  const stopNames = data.stopCities.slice(0, 2).map((s) => s.city.name).join(", ");
+  const liters = Math.round((data.distanceKm * 7) / 100);
+  const hasColloquial = Boolean(colloquialName(cityA) || colloquialName(cityB));
+  const colloquialPair = hasColloquial
+    ? `${colloquialName(cityA) ?? cityA.name}-${colloquialName(cityB) ?? cityB.name}`
+    : "";
   const descriptionParts =
     locale === "tr"
       ? [
-          // Sorgu ifadesi ("arası kaç km") açıklamada da birebir geçiyor —
-          // Google eşleşen kelimeleri sonuçta kalın gösteriyor.
-          `${cityA.name} ${cityB.name} arası kaç km? Karayoluyla ${roundedKm} km, arabayla yaklaşık ${durationText}.`,
-          // Halk adıyla aranan çiftler ("ankara urfa arası kaç km" ~1.400 gösterim,
-          // "antep mardin arası kaç saat" ~1.000; GSC 2026-11-06): kısa ad sonuçta
-          // kalın görünsün diye açıklamada da geçiyor. 155 sınırında sonraki
-          // parçalar atlandığı için öncelik sırasında yol üstü şehirlerden önce.
-          colloquialName(cityA) || colloquialName(cityB)
-            ? ` ${colloquialName(cityA) ?? cityA.name} ${colloquialName(cityB) ?? cityB.name} arası kaç saat?`
-            : "",
-          stopNames ? ` Yol üstü: ${stopNames}.` : "",
-          // Google'ın yol tarifi kutusunda olmayan somut bilgiler (yakıt litresi,
-          // mola, yol üstü yerler) — tıklama gerekçesi olarak (2026-10-12).
-          ` Tahmini ${Math.round((data.distanceKm * 7) / 100)} L yakıt, mola yerleri ve yol üstü gezilecek yerler.`,
-          ` ${cityB.name} ${cityA.name} yönü ve güzergah.`,
+          `${cityA.name} ${cityB.name} arası kaç km? Karayoluyla ${roundedKm} km, arabayla ~${durationText}.`,
+          stopNames
+            ? ` Yol tarifi, ~${liters} L yakıt ve ${stopNames} güzergahı.`
+            : ` En kısa yol tarifi, ~${liters} L yakıt ve mola durakları.`,
+          hasColloquial
+            ? ` ${colloquialPair} kaç saat, dönüş yönü.`
+            : ` ${cityB.name} ${cityA.name} kaç saat, kilometre hesabı.`,
         ]
       : [
           `${cityA.name} to ${cityB.name} is ${roundedKm} km by road, about ${durationText} by car.`,
           stopNames ? ` On the way: ${stopNames}.` : "",
           ` Route, stops and places to see.`,
         ];
-  const description = descriptionParts.reduce((acc, part) => (acc.length + part.length <= 155 ? acc + part : acc), "");
+  const description = descriptionParts.reduce((acc, part) => (acc.length + part.length <= 160 ? acc + part : acc), "");
 
   return {
     title: locale === "tr" ? { absolute: title } : title,
@@ -173,13 +174,17 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
       )}
     </section>
   );
-  const otherDistances = [cityA, cityB].map((city) => ({
-    city,
-    links: getDistanceLinksForCity(city.slug)
-      .filter((l) => l.slug !== data.slug)
-      .sort((x, y) => x.distanceKm - y.distanceKm)
-      .slice(0, 8),
-  }));
+  const otherDistances = [cityA, cityB].map((city) => {
+    const allLinks = getDistanceLinksForCity(city.slug);
+    return {
+      city,
+      totalCount: allLinks.length,
+      links: allLinks
+        .filter((l) => l.slug !== data.slug)
+        .sort((x, y) => x.distanceKm - y.distanceKm)
+        .slice(0, 8),
+    };
+  });
   // Madde 84 tutarlılığı — mesafe sayfaları önceden ilgili rehber
   // makalelerine hiç link vermiyordu (şehir sayfalarında zaten vardı).
   // İki şehrin relatedCitySlugs eşleşen makaleleri birleştirilip
@@ -188,6 +193,17 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
     (g, i, arr) => arr.findIndex((g2) => g2.slug === g.slug) === i
   );
   const directionsUrl = buildStopDirectionsUrl(cityB.location, cityA.location, "driving");
+  const dayTripSlugSet = new Set(getDayTripSlugs());
+  const dayTripCities = [cityA, cityB].filter((c) => dayTripSlugSet.has(c.slug));
+  const airportSlugSet = new Set(getAirportPageSlugs());
+  const routeAirports = [
+    ...getCityAirports(cityA.slug).slice(0, 1).map((x) => ({ ...x, cityName: cityA.name })),
+    ...getCityAirports(cityB.slug).slice(0, 1).map((x) => ({ ...x, cityName: cityB.name })),
+  ].filter(
+    (x, i, arr) =>
+      airportSlugSet.has(airportSlug(x.airport)) &&
+      arr.findIndex((y) => y.airport.iata === x.airport.iata) === i
+  );
   const hours = Math.floor(durationMin / 60);
   const minutes = durationMin % 60;
   const durationLabel =
@@ -223,16 +239,16 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
     locale === "tr"
       ? [
           {
-            q: `${cityA.name} ile ${cityB.name} arası kaç km?`,
-            a: `${cityA.name} ile ${cityB.name} arası karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationText}.`,
+            q: `${cityA.name} ile ${cityB.name} arası kaç km (kaç kilometre)?`,
+            a: `${cityA.name} ile ${cityB.name} arası karayoluyla yaklaşık ${distanceKm} km (${Math.round(distanceKm)} kilometre), ortalama sürüş süresi ${durationText}.`,
           },
           {
             q: `${cityA.name} ${cityB.name} arası arabayla kaç saat sürer?`,
             a: `Normal trafik koşullarında ${cityA.name} ile ${cityB.name} arası arabayla yaklaşık ${durationText} sürüyor. Mola ve trafik durumuna göre süre uzayabilir.`,
           },
           {
-            q: `${cityB.name} ile ${cityA.name} arası kaç km?`,
-            a: `${cityB.name} - ${cityA.name} yönünde de mesafe aynı: karayoluyla yaklaşık ${distanceKm} km, ortalama sürüş süresi ${durationText}.`,
+            q: `${cityB.name} ile ${cityA.name} arası kaç km, kaç saat?`,
+            a: `${cityB.name} - ${cityA.name} yönünde de mesafe aynı: karayoluyla yaklaşık ${distanceKm} km (${Math.round(distanceKm)} kilometre), ortalama sürüş süresi ${durationText}.`,
           },
           ...(colloquialName(cityA) || colloquialName(cityB)
             ? [
@@ -306,7 +322,7 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
 
       <h1 className="font-display text-3xl italic text-ink sm:text-4xl mb-6">
         {locale === "tr"
-          ? `${cityA.name} - ${cityB.name} Arası Kaç Km?`
+          ? `${cityA.name} - ${cityB.name} Arası Kaç Km, Kaç Saat?`
           : `${cityA.name} to ${cityB.name} Distance`}
       </h1>
 
@@ -483,6 +499,57 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
 
       <AdSlot />
 
+      {locale === "tr" && (
+        <div className="mt-8 rounded-xl border border-ink/10 bg-gradient-to-br from-safran/10 to-kiremit/5 p-5 shadow-sm">
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-wider text-kiremit">
+            {cityA.name} - {cityB.name} Mola, Yemek & Konaklama Planı
+          </h2>
+          <p className="text-sm text-ink/80 leading-relaxed mb-3">
+            Yola çıkmadan önce her iki şehirde (ve ara durakta) ne yenir, nerede kalınır inceleyebilir; günübirlik gezi ve havalimanı ulaşım rehberlerine göz atabilirsiniz:
+          </p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {[cityA, ...(breakStop ? [breakStop.city] : []), cityB].map((c) => (
+              <Link
+                key={`food-${c.slug}`}
+                href={`/${locale}/bolgeler/${c.regionSlug}/${c.slug}#ne-yenir`}
+                className="rounded-full border border-ink/15 bg-paper px-3 py-1.5 text-xs font-semibold text-ink/80 hover:border-kiremit hover:text-kiremit transition-colors"
+              >
+                {c.name} Ne Yenir & Nerede Kalınır?
+              </Link>
+            ))}
+            {dayTripCities.map((c) => (
+              <Link
+                key={`daytrip-${c.slug}`}
+                href={`/${locale}/gunubirlik/${c.slug}`}
+                className="inline-flex items-center gap-1 rounded-full border border-kiremit/30 bg-paper px-3 py-1.5 text-xs font-bold text-kiremit hover:bg-kiremit hover:text-paper transition-colors"
+              >
+                <Compass size={12} /> {c.name} Günübirlik Rotalar
+              </Link>
+            ))}
+            {routeAirports.map(({ airport, cityName, distanceKm: airKm }) => (
+              <Link
+                key={`air-${airport.iata}`}
+                href={`/${locale}/havalimani/${airportSlug(airport)}`}
+                className="inline-flex items-center gap-1 rounded-full border border-ink/15 bg-paper px-3 py-1.5 text-xs font-semibold text-ink/80 hover:border-kiremit hover:text-kiremit transition-colors"
+              >
+                <Plane size={12} className="text-kiremit" /> {airport.name} ({cityName}: {Math.round(airKm)} km)
+              </Link>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-ink/10 pt-3 text-xs text-ink/70">
+            <span className="flex items-center gap-1.5">
+              <Store size={14} className="shrink-0 text-kiremit" />
+              <span>
+                <strong>{cityA.name} – {cityB.name}</strong> güzergahında otel, kafe, restoran veya dinlenme tesisi işletiyor musunuz?
+              </span>
+            </span>
+            <Link href="/tr/iletisim" className="font-bold text-kiremit hover:underline">
+              Mekan Tanıtımı & Sponsorluk →
+            </Link>
+          </div>
+        </div>
+      )}
+
       <Link
         href={`/${locale}/mesafe`}
         className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-kiremit hover:underline"
@@ -537,6 +604,16 @@ export default async function DistancePage(props: { params: Promise<{ pair: stri
                       </li>
                     ))}
                   </ul>
+                  {g.totalCount >= CITY_TABLE_MIN_ROWS && (
+                    <Link
+                      href={`/${locale}/mesafe/sehir/${g.city.slug}`}
+                      className="mt-2.5 inline-block text-xs font-bold text-kiremit hover:underline"
+                    >
+                      {locale === "tr"
+                        ? `${ablative(g.city.name)} ${g.totalCount} şehre mesafe tablosu →`
+                        : `All ${g.totalCount} distances from ${translateDataText(g.city.name, locale)} →`}
+                    </Link>
+                  )}
                 </div>
               ))}
           </div>

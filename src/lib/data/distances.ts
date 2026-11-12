@@ -293,14 +293,17 @@ export interface DistanceSection {
 }
 
 // Halk arasında kullanılan kısa adlar: Search Console (2026-11-02) "antep mardin
-// arası kaç saat" (~860 gösterim), "urfa" (~3.000), "maraş", "afyon" gibi
-// yazımlarla aranıyor ama sayfalarda bu ad hiç geçmiyordu.
+// arası kaç saat" (~860 gösterim), "urfa" (~3.000), "maraş", "afyon", "izmit",
+// "adapazarı", "antakya" gibi yazımlarla aranıyor ama sayfalarda bu ad hiç geçmiyordu.
 const COLLOQUIAL_NAMES: Record<string, string> = {
   gaziantep: "Antep",
   sanliurfa: "Urfa",
   kahramanmaras: "Maraş",
   afyonkarahisar: "Afyon",
   hatay: "Antakya",
+  kocaeli: "İzmit",
+  sakarya: "Adapazarı",
+  mersin: "İçel",
 };
 export function colloquialName(city: { slug: string }): string | undefined {
   return COLLOQUIAL_NAMES[city.slug];
@@ -330,9 +333,9 @@ export function buildDistanceSections(data: DistancePageData): DistanceSection[]
   const sections: DistanceSection[] = [
     {
       id: "km",
-      heading: `${cityA.name} ${cityB.name} Arası Kaç Km?`,
+      heading: `${cityA.name} ${cityB.name} Arası Kaç Km (Kaç Kilometre)?`,
       paragraphs: [
-        `${withColloquial(cityA)} ile ${withColloquial(cityB)} arası karayoluyla yaklaşık ${distanceKm} km. İki şehir arasındaki kuş uçuşu mesafe ise yaklaşık ${airKm} km; aradaki fark yolun izlediği güzergahtan kaynaklanıyor.`,
+        `${withColloquial(cityA)} ile ${withColloquial(cityB)} arası karayoluyla yaklaşık ${distanceKm} km (${Math.round(distanceKm)} kilometre). İki şehir arasındaki kuş uçuşu mesafe ise yaklaşık ${airKm} km; aradaki fark yolun izlediği karayolu güzergahından kaynaklanıyor.`,
         sameRegion
           ? `${cityA.name} ve ${cityB.name}, ikisi de ${cityA.region} bölgesinde yer alıyor — aynı gezi rotası içinde birbirine yakın iki durak olarak planlanabilir.`
           : `${cityA.name} ${cityA.region} bölgesinde, ${cityB.name} ise ${cityB.region} bölgesinde yer alıyor; bu yol iki farklı bölgeyi birbirine bağlıyor.`,
@@ -342,7 +345,7 @@ export function buildDistanceSections(data: DistancePageData): DistanceSection[]
       id: "sure",
       heading: `${cityA.name} ${cityB.name} Arası Kaç Saat Sürer?`,
       paragraphs: [
-        `${withColloquial(cityA)} ${withColloquial(cityB)} arası arabayla normal trafik koşullarında yaklaşık ${durationText} sürüyor; bu, yolun tamamında ortalama ${avgSpeed} km/sa hıza karşılık geliyor. Mola, trafik ve hava koşulları süreyi uzatabilir.`,
+        `${withColloquial(cityA)} ${withColloquial(cityB)} arası özel araçla normal trafik koşullarında yaklaşık ${durationText} sürüyor; bu, yolun tamamında ortalama ${avgSpeed} km/sa hıza karşılık geliyor. Mola, trafik ve hava koşulları süreyi uzatabilir.`,
       ],
     },
     {
@@ -350,15 +353,15 @@ export function buildDistanceSections(data: DistancePageData): DistanceSection[]
       // Search Console (2026-10-19): düz "kaç km" sorgusu %0,04 tıklama alırken
       // "yol tarifi" / "en kısa yol" / "arabayla" sorguları %0,3-7 alıyor;
       // başlık ve metin bu ifadeleri taşıyor.
-      heading: `${cityA.name} ${cityB.name} Yol Tarifi ve Güzergahı`,
+      heading: `${cityA.name} ${cityB.name} Yol Tarifi ve En Kısa Güzergahı`,
       paragraphs: [
         [
-          `${ablative(cityA.name)} ${dative(cityB.name)} arabayla en kısa yol yaklaşık ${distanceKm} km.`,
+          `${ablative(cityA.name)} ${dative(cityB.name)} arabayla en kısa yol yaklaşık ${distanceKm} km (${Math.round(distanceKm)} kilometre).`,
           majorRoads.length > 0 ? `Güzergahın büyük bölümü ${majorRoads.slice(0, 3).join(", ")} üzerinden geçiyor.` : "",
           stopCities.length > 0
             ? `Yol, ${stopCities.map((s) => s.city.name).join(", ")} üzerinden ya da yakınından geçiyor.`
             : "",
-          `Dönüş yönünde (${cityB.name} - ${cityA.name}) de aynı güzergah kullanılıyor ve mesafe aynı.`,
+          `Dönüş yönünde (${cityB.name} - ${cityA.name} arası) de aynı güzergah kullanılıyor ve mesafe aynı.`,
         ]
           .filter(Boolean)
           .join(" "),

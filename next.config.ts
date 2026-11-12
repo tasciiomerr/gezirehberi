@@ -25,10 +25,13 @@ const nextConfig: NextConfig = {
   async redirects() {
     const moved: [string, string][] = [
       ["karadeniz/karabuk/safranbolu", "karadeniz/safranbolu"],
+      ["karadeniz/safranbolu/safranbolu", "karadeniz/safranbolu"],
       ["ic-anadolu/nevsehir/urgup", "ic-anadolu/kapadokya/urgup"],
       ["ic-anadolu/nevsehir/goreme", "ic-anadolu/kapadokya/goreme"],
       ["ege/mugla/bodrum", "ege/bodrum"],
+      ["ege/bodrum/bodrum", "ege/bodrum"],
       ["ege/mugla/marmaris", "ege/marmaris"],
+      ["akdeniz/fethiye/fethiye", "akdeniz/fethiye"],
       ["ege/balikesir/ayvalik", "marmara/balikesir/ayvalik"],
     ];
     return moved.map(([from, to]) => ({
@@ -47,7 +50,7 @@ const nextConfig: NextConfig = {
             value: "max-age=63072000; includeSubDomains; preload",
           },
           { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
         ],
       },

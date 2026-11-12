@@ -6,6 +6,7 @@ import { allCities } from "@/lib/data/cities";
 import { getDistanceLinksForCity, getCityTableSlugs, CITY_TABLE_MIN_ROWS, formatDuration } from "@/lib/data/distances";
 import { ablative, dative } from "@/lib/trSuffix";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import AdSlot from "@/components/AdSlot";
 import { jsonLd } from "@/lib/jsonLd";
 
 // "Ankara il mesafeleri", "İstanbul'dan illere uzaklık" gibi sorgular için
@@ -49,7 +50,7 @@ export async function generateMetadata(props: { params: Promise<{ city: string; 
       : `Distances from ${translateDataText(city.name, locale)} to Other Cities`;
   const description =
     locale === "tr"
-      ? `${from} ${rows.length} şehre karayolu mesafesi ve sürüş süresi tek tabloda. En yakın: ${nearest.otherCityName} ${Math.round(nearest.distanceKm)} km. Gerçek rota verisi.`
+      ? `${from} ${rows.length} şehre karayolu mesafesi (km) ve sürüş süresi tek tabloda. En yakın: ${nearest.otherCityName} ${Math.round(nearest.distanceKm)} km. Yol tarifi ve yakıt hesabı.`
       : `Road distance and driving time from ${translateDataText(city.name, locale)} to ${rows.length} cities in Turkey.`;
   const path = `/mesafe/sehir/${city.slug}`;
   return {
@@ -78,11 +79,11 @@ export default async function CityDistanceTablePage(props: { params: Promise<{ c
     ? [
         {
           q: `${dative(city.name)} en yakın şehir hangisi?`,
-          a: `Bu tablodaki şehirler arasında ${dative(city.name)} en yakın şehir ${nearest.otherCityName}: karayoluyla ${Math.round(nearest.distanceKm)} km, yaklaşık ${formatDuration(nearest.durationMin, locale)}.`,
+          a: `Bu tablodaki şehirler arasında ${dative(city.name)} en yakın şehir ${nearest.otherCityName}: karayoluyla ${Math.round(nearest.distanceKm)} km (${Math.round(nearest.distanceKm)} kilometre), yaklaşık ${formatDuration(nearest.durationMin, locale)}.`,
         },
         {
           q: `${from} en uzak şehir hangisi?`,
-          a: `Tablodaki en uzak şehir ${farthest.otherCityName}: ${Math.round(farthest.distanceKm)} km, yaklaşık ${formatDuration(farthest.durationMin, locale)} sürüş.`,
+          a: `Tablodaki en uzak şehir ${farthest.otherCityName}: ${Math.round(farthest.distanceKm)} km (${Math.round(farthest.distanceKm)} kilometre), yaklaşık ${formatDuration(farthest.durationMin, locale)} sürüş.`,
         },
         {
           q: `${from} 3 saatte hangi şehirlere gidilir?`,
@@ -115,11 +116,11 @@ export default async function CityDistanceTablePage(props: { params: Promise<{ c
         ]}
       />
       <h1 className="mb-4 font-display text-3xl italic text-ink sm:text-4xl">
-        {isTr ? `${from} İllere Mesafe Tablosu` : `Distances from ${name}`}
+        {isTr ? `${from} İllere Mesafe Tablosu: Kaç Km, Kaç Saat?` : `Distances from ${name}`}
       </h1>
       <p className="mb-8 max-w-3xl text-base leading-relaxed text-ink/75">
         {isTr
-          ? `${from} ${rows.length} şehre karayolu mesafesi ve ortalama sürüş süresi, yakından uzağa sıralı. Satıra tıklayarak güzergahı, yol üstü durakları ve yakıt hesabını görebilirsin.`
+          ? `${from} ${rows.length} şehre karayolu mesafesi (kilometre) ve ortalama sürüş süresi, yakından uzağa sıralı. Satıra tıklayarak güzergahı, yol üstü durakları ve yakıt hesabını görebilirsin.`
           : `Road distance and average driving time from ${name} to ${rows.length} cities, nearest first.`}
       </p>
 
@@ -173,6 +174,8 @@ export default async function CityDistanceTablePage(props: { params: Promise<{ c
           {isTr ? `${city.name} gezi rehberi: gezilecek yerler, ne yenir, nerede kalınır →` : `${name} travel guide →`}
         </Link>
       </p>
+
+      <AdSlot />
 
       {faqItems.length > 0 && (
         <section className="mt-12 border-t border-ink/10 pt-10">
